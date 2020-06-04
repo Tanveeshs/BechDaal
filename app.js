@@ -38,5 +38,5 @@ app.use(function(err, req, res, next) {
 });
 
 app.listen(3000,function (err) {
-  console.log('Server started')
-})
+  console.log('Server started');
+});
