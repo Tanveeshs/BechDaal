@@ -6,13 +6,23 @@
     "start": "node app.js"
   },
   "dependencies": {
+    "bcrypt": "^4.0.1",
+    "bcrypt-node": "^0.1.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "ejs": "^2.6.2",
     "express": "~4.16.1",
     "express-session": "^1.17.1",
     "http-errors": "~1.6.3",
+    "mongoose": "^5.9.17",
     "morgan": "~1.9.1",
+    "passport": "^0.4.1",
+    "passport-facebook": "^3.0.0",
+    "passport-google-oauth": "^2.0.0",
+    "passport-local": "^1.0.0",
     "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "connect-flash": "^0.1.1"
   }
 }

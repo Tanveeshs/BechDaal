@@ -5,6 +5,18 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const mongoose = require('mongoose');
+const passport = require('passport');
+const flash = require('connect-flash');
+const morgan = require('morgan');
+const session = require('express-session');
+const configDB = require('./config/database');
+mongoose.connect(configDB.url, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+require('./config/passport')(passport);
 
 var app = express();
 
@@ -17,6 +29,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(morgan('dev'));
+app.use(session({
+  secret: 'XYZZ'
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+require('./routes/RegisterAndLogin')(app, passport);
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
