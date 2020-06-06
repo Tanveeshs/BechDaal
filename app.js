@@ -11,6 +11,7 @@ const flash = require('connect-flash');
 const morgan = require('morgan');
 const session = require('express-session');
 const configDB = require('./config/database');
+const forgotPass = require('./routes/forgotPass');
 mongoose.connect(configDB.url, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -33,6 +34,12 @@ app.use(morgan('dev'));
 app.use(session({
   secret: 'XYZZ'
 }));
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
@@ -41,6 +48,9 @@ require('./routes/RegisterAndLogin')(app, passport);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/user', forgotPass);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
