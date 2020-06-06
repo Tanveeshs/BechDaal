@@ -5,7 +5,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Bech Daal</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link rel='stylesheet' href='/css/style.css' />
@@ -13,38 +14,34 @@
 </head>
 
 <style>
-  .fas{
-    padding:12px 30px;
+  .fas {
+    padding: 12px 30px;
     font-size: 20px;
-    color:white;
+    color: white;
   }
-
- 
 </style>
 
 
 <script>
-  $(document).ready(function(){
-    $("#toggledown").click(function(){
+  $(document).ready(function () {
+    $("#toggledown").click(function () {
       $("#search").toggle();
     });
   });
-  </script>
+</script>
 
 
 <body>
-  <nav class="navbar navbar-expand-sm navbar-dark bg-li" style="background-color:rgb(114, 187, 169);">
+  <nav class="navbar navbar-expand-sm navbar-dark bg-li" style="background-color:rgb(123, 182, 164);">
     <a class="navbar-brand" href="#" style="margin-right:30%; margin-left: 40px;">BechDaal</a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent" style="width:50%;">
       <ul class="navbar-nav" id="log-reg">
-        <li class="nav-item active mr-2">
-          <a class="nav-link" href="#">Classifieds <span class="sr-only">(current)</span></a>
-        </li>
         <%if (this.user) {%>
-          <li><i id="toggledown" class="fas fa-search"></i></li>
+        <li><i id="toggledown" class="fas fa-search"></i></li>
         <div class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="hellouser">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false" id="hellouser">
             Hello <%=user.name%>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -61,37 +58,41 @@
                   <button>PUT TOGGLE SEARCH BUTTON HERE!!</button>
               </li> -->
         <%} else {%>
-          <li><i id="toggledown" class="fas fa-search toggledown"></i></li>
+        <li><i id="toggledown" class="fas fa-search toggledown"></i></li>
         <li class="nav-item active">
           <a class="nav-link" href="#">Login/<span>SignUp</span></a>
         </li>
         <li><i class="fas fa-language"></i></li>
         <% } %>
+        <li class="nav-item active" style="display: flex;" id="sellOption">
+          <i class="nav-link fas fa-hand-holding-usd" style="margin-right: 1px;"></i>
+          <a href="" class="nav-link">Sell</a>
+        </li>
       </ul>
 
     </div>
   </nav>
   <section id="search">
-  <nav class="searchbar">
-    <ul class="searchbar-items">
-      <li style=>
-        <p>Want something?</p>
-      </li>
-      <li>
-        <input class="input1" type="text" placeholder="Type Here" />
-      </li>
-      <li style="margin:0;">
-        <p>In?</p>
-      </li>
-      <li>
-        <input class="input2" type="text" placeholder="Your location" />
-      </li>
-      <li>
-        <button class="locationsubmit">Go!</button>
-      </li>
-    </ul>
-  </nav>
-</section>
+    <nav class="searchbar">
+      <ul class="searchbar-items">
+        <li style=>
+          <p>Want something?</p>
+        </li>
+        <li>
+          <input class="input1" type="text" placeholder="Type Here" />
+        </li>
+        <li style="margin:0;">
+          <p>In?</p>
+        </li>
+        <li>
+          <input class="input2" type="text" placeholder="Your location" />
+        </li>
+        <li>
+          <button class="locationsubmit">Go!</button>
+        </li>
+      </ul>
+    </nav>
+  </section>
   <div style="padding-top:50px">
 
   </div>

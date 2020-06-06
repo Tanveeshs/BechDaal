@@ -7,14 +7,12 @@ footer {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
-}
+
 
 * {
   margin: 0px;
   >>>>>>>787171dc729ca4652e33ee2439afd81c048f5f69 padding: 0px;
-  margin-bottom: 0px
+  margin-bottom: 0px;
 }
 
 a {
@@ -45,6 +43,7 @@ body{
     justify-content: space-between;
     margin-top:20px
 }
+
 .input1{
     width: 250px;
     border:none;
@@ -68,11 +67,27 @@ body{
     padding-right:9px;
     padding-left:9px;
     box-shadow: 2px 2px 2px gray;
+    transition: ease-in-out 0.2s;
+}
+.locationsubmit:hover{
+  font-size: 1.1rem;
+  font-weight: bold;
 }
 #hellouser{
     color:black;
 }
 #log-reg{
     margin-right: 10%;
-    margin-left: 25%;
+    margin-left: 50%;
+}
+#sellOption{
+  text-decoration: none;
+  color:white;
+  align-self: center;
+  transition: ease-in-out 0.1s;
+}
+#sellOption:hover{
+  background-color: rgb(116, 204, 145);
+  border: 1px solid rgb(116, 204, 145);
+  border-radius: 10px;
 }
