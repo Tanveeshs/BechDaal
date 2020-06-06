@@ -7,13 +7,34 @@
   <title>Bech Daal</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link rel='stylesheet' href='/css/style.css' />
   <title>Navbars</title>
 </head>
 
+<style>
+  .fas{
+    padding:12px 30px;
+    font-size: 20px;
+    color:white;
+  }
+
+ 
+</style>
+
+
+<script>
+  $(document).ready(function(){
+    $("#toggledown").click(function(){
+      $("#search").toggle();
+    });
+  });
+  </script>
+
+
 <body>
   <nav class="navbar navbar-expand-sm navbar-dark bg-li" style="background-color:rgb(114, 187, 169);">
-    <a class="navbar-brand" href="#" style="margin-right:30%;">BechDaal</a>
+    <a class="navbar-brand" href="#" style="margin-right:30%; margin-left: 40px;">BechDaal</a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent" style="width:50%;">
       <ul class="navbar-nav" id="log-reg">
@@ -21,7 +42,7 @@
           <a class="nav-link" href="#">Classifieds <span class="sr-only">(current)</span></a>
         </li>
         <%if (this.user) {%>
-          <i class="fas fa-search"></i>
+          <li><i id="toggledown" class="fas fa-search"></i></li>
         <div class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="hellouser">
             Hello <%=user.name%>
@@ -35,21 +56,22 @@
             <a class="dropdown-item text-muted" href="#"><strong>Log Out</strong></a>
           </div>
         </div>
-        <i class="fas fa-language"></i>
+        <li><i class="fas fa-language"></i></li>
         <!-- <li>
                   <button>PUT TOGGLE SEARCH BUTTON HERE!!</button>
               </li> -->
         <%} else {%>
-          <i class="fas fa-search"></i>
+          <li><i id="toggledown" class="fas fa-search toggledown"></i></li>
         <li class="nav-item active">
           <a class="nav-link" href="#">Login/<span>SignUp</span></a>
         </li>
-        <i class="fas fa-language"></i>
+        <li><i class="fas fa-language"></i></li>
         <% } %>
       </ul>
 
     </div>
   </nav>
+  <section id="search">
   <nav class="searchbar">
     <ul class="searchbar-items">
       <li style=>
@@ -69,6 +91,7 @@
       </li>
     </ul>
   </nav>
+</section>
   <div style="padding-top:50px">
 
   </div>
