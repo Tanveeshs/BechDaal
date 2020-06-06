@@ -5,8 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Bech Daal</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
   <link rel='stylesheet' href='/css/style.css' />
   <title>Navbars</title>
@@ -14,55 +13,62 @@
 
 <body>
   <nav class="navbar navbar-expand-sm navbar-dark bg-li" style="background-color:rgb(114, 187, 169);">
-      <a class="navbar-brand" href="#" style="margin-right:30%;">BechDaal</a>
+    <a class="navbar-brand" href="#" style="margin-right:30%;">BechDaal</a>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent" style="width:50%;">
-          <ul class="navbar-nav" id="log-reg">
-              <li class="nav-item active mr-2">
-                  <a class="nav-link" href="#">Classifieds <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active">
-                  <a class="nav-link" href="#">Login/<span>SignUp</span></a>
-              </li>
-              <!-- <li>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="width:50%;">
+      <ul class="navbar-nav" id="log-reg">
+        <li class="nav-item active mr-2">
+          <a class="nav-link" href="#">Classifieds <span class="sr-only">(current)</span></a>
+        </li>
+        <%if (this.user) {%>
+          <i class="fas fa-search"></i>
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="hellouser">
+            Hello <%=user.name%>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#" style="font-weight: bold;">Manage my Ads</a>
+            <a class="dropdown-item" href="#">Messages</a>
+            <a class="dropdown-item" href="#">Favorites</a>
+            <a class="dropdown-item" href="#">My Details</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item text-muted" href="#"><strong>Log Out</strong></a>
+          </div>
+        </div>
+        <i class="fas fa-language"></i>
+        <!-- <li>
                   <button>PUT TOGGLE SEARCH BUTTON HERE!!</button>
               </li> -->
-          </ul>
-          <div class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false" id="hellouser">
-                  Hello Rishabh
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#" style="font-weight: bold;">Manage my Ads</a>
-                  <a class="dropdown-item" href="#">Messages</a>
-                  <a class="dropdown-item" href="#">Favorites</a>
-                  <a class="dropdown-item" href="#">My Details</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item text-muted" href="#"><strong>Log Out</strong></a>
-              </div>
-          </div>
-      </div>
+        <%} else {%>
+          <i class="fas fa-search"></i>
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Login/<span>SignUp</span></a>
+        </li>
+        <i class="fas fa-language"></i>
+        <% } %>
+      </ul>
+
+    </div>
   </nav>
   <nav class="searchbar">
-      <ul class="searchbar-items">
-          <li style=>
-              <p>Want something?</p>
-          </li>
-          <li>
-              <input class="input1" type="text" placeholder="Type Here" />
-          </li>
-          <li style="margin:0;">
-              <p>In?</p>
-          </li>
-          <li>
-              <input class="input2" type="text" placeholder="Your location" />
-          </li>
-          <li>
-              <button class="locationsubmit">Go!</button>
-          </li>
-      </ul>
+    <ul class="searchbar-items">
+      <li style=>
+        <p>Want something?</p>
+      </li>
+      <li>
+        <input class="input1" type="text" placeholder="Type Here" />
+      </li>
+      <li style="margin:0;">
+        <p>In?</p>
+      </li>
+      <li>
+        <input class="input2" type="text" placeholder="Your location" />
+      </li>
+      <li>
+        <button class="locationsubmit">Go!</button>
+      </li>
+    </ul>
   </nav>
-<div style="padding-top:50px">
+  <div style="padding-top:50px">
 
-</div>
+  </div>
