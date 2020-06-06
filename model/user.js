@@ -1,7 +1,7 @@
 //jshint esversion:6
 
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt-node')
+const bcrypt = require('bcrypt-node');
 const userSchema = new mongoose.Schema({
   local: {
     username: String,
