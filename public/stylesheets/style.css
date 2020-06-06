@@ -1,22 +1,19 @@
 body {
-<<<<<<< HEAD
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  <<<<<<< HEAD font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 footer {
-=======
-    padding: 50px;
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  =======padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-    color: #00B7FF;
+  color: #00B7FF;
 }
 
 * {
   margin: 0px;
->>>>>>> 787171dc729ca4652e33ee2439afd81c048f5f69
-  padding: 0px;
+  >>>>>>>787171dc729ca4652e33ee2439afd81c048f5f69 padding: 0px;
   margin-bottom: 0px
 }
 
