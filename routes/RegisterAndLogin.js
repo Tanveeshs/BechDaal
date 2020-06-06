@@ -2,7 +2,7 @@
 
 module.exports = function(app, passport) {
     app.get('/', function(req, res) {
-        res.render('index.ejs');
+        res.render('index.ejs',{user: undefined });
     });
 
     app.get('/login', function(req, res) {
