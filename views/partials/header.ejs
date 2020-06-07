@@ -37,11 +37,12 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent" style="width:50%;">
       <ul class="navbar-nav" id="log-reg">
-        <%if  (user) {%>
         <li><i id="toggledown" class="fas fa-search"></i></li>
+        <%if  (this.user) {%>
         <div class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+          <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false" id="hellouser">
+            <!-- add navbar-toggle in class if u want that triangle -->
             Hello <%=user.name%>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -53,23 +54,26 @@
             <a class="dropdown-item text-muted" href="#"><strong>Log Out</strong></a>
           </div>
         </div>
-        <li><i class="fas fa-language"></i></li>
-        <!-- <li>
-                  <button>PUT TOGGLE SEARCH BUTTON HERE!!</button>
-              </li> -->
         <%} else {%>
-        <li><i id="toggledown" class="fas fa-search toggledown"></i></li>
         <li class="nav-item active">
           <a class="nav-link" href="#">Login/<span>SignUp</span></a>
         </li>
-        <li><i class="fas fa-language"></i></li>
         <% } %>
+        <div class="nav-item dropdown">
+          <a class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false" id="hellouser">
+            <i class="fas fa-language"></i>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Hindi</a>
+            <a class="dropdown-item" href="#">English</a>
+          </div>
+        </div>
         <li class="nav-item active" style="display: flex;" id="sellOption">
           <i class="nav-link fas fa-hand-holding-usd" style="margin-right: 1px;"></i>
           <a href="" class="nav-link">Sell</a>
         </li>
       </ul>
-
     </div>
   </nav>
   <section id="search">
