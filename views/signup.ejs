@@ -4,53 +4,82 @@
 
 <head>
   <title>Node Authentication</title>
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <!-- load bootstrap css -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <!-- load fontawesome -->
+  <link rel="stylesheet" type="text/css" href="/css/signupStyles.css">
   <style>
     body {
-      padding-top: 80px;
+      padding-top: 50px;
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
-
-    <div class="col-sm-6 col-sm-offset-3">
-
-      <h1><span class="fa fa-sign-in"></span> Signup</h1>
-
-      <!-- show any messages that come back with authentication -->
-      <% if (message.length > 0) { %>
-      <div class="alert alert-danger"><%= message %></div>
-      <% } %>
-
-      <!-- LOGIN FORM -->
-      <form action="/signup" method="post">
-        <div class="form-group">
-          <label>Email</label>
-          <input type="text" class="form-control" name="email">
-        </div>
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password" class="form-control" name="password">
-        </div>
-
-        <div class="form-group">
-          <label>Username</label>
-          <input type="text" class="form-control" name="username">
-        </div>
-
-        <button type="submit" class="btn btn-warning btn-lg">Signup</button>
-      </form>
-
-      <hr>
-
-      <p>Already have an account? <a href="/login">Login</a></p>
-      <p>Or go <a href="/">home</a>.</p>
-
+  <div id="container">
+    <div class="container" id="subcontainer-1">
+      <h2>//image of the guy on the signup screen</h2>
     </div>
-
+    <div class="container" id="subcontainer-2">
+      <div>
+        <p>//company name and brand</p>
+      </div>
+      <div class="card">
+        <div class="iconContainer">
+          <p><i class="fas fa-user"></i></p>
+        </div>
+        <div class="inputContainer" style="width:70%">
+          <label class="text-muted">Enter Username</label>
+          <br />
+          <input class="input" type="text" name="username" placeholder="Type Here" />
+        </div>
+        <div class="checkboxCont">
+          <input class="checkbox" type="checkbox" style="margin-left: 30px;">
+        </div>
+      </div>
+      <div class="card">
+        <div class="iconContainer">
+          <p><i class="fas fa-user"></i></p>
+        </div>
+        <div class="inputContainer" style="width:70%">
+          <label class="text-muted">Enter Email/Mobile No.</label>
+          <br />
+          <input class="input" type="email" name="email/phone" placeholder="Type Here" />
+        </div>
+        <div class="checkboxCont">
+          <input class="checkbox" type="checkbox" style="margin-left: 30px;">
+        </div>
+      </div>
+      <div class="card">
+        <div class="iconContainer">
+          <p><i class="fas fa-user"></i></p>
+        </div>
+        <div class="inputContainer" style="width:70%">
+          <label class="text-muted">Set a Password</label>
+          <br />
+          <input class="input" type="password" name="password" placeholder="Type Here" />
+        </div>
+        <div class="checkboxCont">
+          <input class="checkbox" type="checkbox" style="margin-left: 30px;">
+        </div>
+      </div>
+      <div class="card2">
+        <a id="haveAccount">Already have an account</a>
+      </div>
+      <div class="card3">
+        <button id="signupBtn">Sign Up</button>
+      </div>
+      <div class="card4">
+        <p id="altSignuptext">Or you can Sign Up using</p>
+        <div class="imgContainer" style="flex-direction: row;">
+          <img src="" alt="img1" />
+          <img src="" alt="img2" />
+          <img src="" alt="img3" />
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 
