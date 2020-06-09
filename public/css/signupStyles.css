@@ -1,86 +1,102 @@
-body{
-    margin:0;
+  body {
+    margin: 0;
     padding: 0;
-}
-#container{
+  }
+
+  #container {
     display: flex;
     flex-direction: row;
-}
-#subcontainer-1{
-    width:50%;
-}
-#subcontainer-2{
-    width:50%;
-}
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  }
+
+  #subcontainer-1 {
+    width: 50%;
+  }
+
+  #subcontainer-2 {
+    width: 50%;
+  }
+
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
     width: 300px;
     border-radius: 8px;
-    border:0.2px solid lightgray;
-    padding:10px;
+    border: 0.2px solid lightgray;
+    padding: 10px;
     display: flex;
     flex-direction: row;
     margin-top: 2px;
-}
-label{
+  }
+
+  label {
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 1.2px;
-}
-.card2{
+  }
+
+  .card2 {
     margin-left: 127px;
     margin-top: 5px;
-}
-.card3{
-  margin-top: 40px;
-}
-.card4{
-  width:300px;
-  padding-left: 130px;
-  margin-top: 20px;
-}
-#altSignuptext{
-  font-size: 13px;
-  color:gray;
-}
-#signupBtn{
-  background-color: #4d94ff;
-  font-weight: bold;
-  font-size: larger;
-  border: 0.5px solid dimgray;
-  border-radius: 20px;
-  padding:10px;
-  color:#fffafa;
-  letter-spacing: 1px;
-  cursor:pointer;
-}
-#signupBtn:hover{
-  box-shadow: 0 6px 9px 0 rgba(96, 154, 221, 0.801);
-  transition: ease-in-out 0.5s;
-}
-#haveAccount{
-  color:#3385ff;
-  font-size: smaller;
-  font-weight: bold;
-  cursor: pointer;
-  text-decoration: none;
-}
-input{
-    border:none;
+  }
+
+  .card3 {
+    margin-top: 40px;
+  }
+
+  .card4 {
+    width: 300px;
+    padding-left: 130px;
+    margin-top: 20px;
+  }
+
+  #altSignuptext {
+    font-size: 13px;
+    color: gray;
+  }
+
+  #signupBtn {
+    background-color: #4d94ff;
+    font-weight: bold;
+    font-size: larger;
+    border: 0.5px solid dimgray;
+    border-radius: 25px;
+    padding: 5px 10px;
+    color: #fffafa;
+    letter-spacing: 1px;
+    cursor: pointer;
+  }
+
+  #signupBtn:hover {
+    box-shadow: 0 6px 9px 0 rgba(96, 154, 221, 0.801);
+    transition: ease-in-out 0.5s;
+  }
+
+  #haveAccount {
+    color: #3385ff;
+    font-size: smaller;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  input {
+    border: none;
     font-size: 14px;
-    padding:3px;
-}
-label, input {
+    padding: 3px;
+  }
+
+  label, input {
     transition: all 0.2s;
     touch-action: manipulation;
   }
-input:focus {
+
+  input:focus {
     outline: 0;
     border-bottom: 1px solid #666;
     transition: ease-in-out 0.5s;
   }
-input:placeholder-shown + label {
+
+  input:placeholder-shown+label {
     cursor: text;
     white-space: nowrap;
     overflow: hidden;
@@ -88,27 +104,32 @@ input:placeholder-shown + label {
     transform-origin: left bottom;
     transform: translate(0, rem) scale(1.5);
   }
-input:not(:placeholder-shown) + label,
-input:focus + label {
-  transform: translate(0, 0) scale(1);
-  cursor: pointer;
-}
-input:focus::-webkit-input-placeholder {
+
+  input:not(:placeholder-shown)+label,
+  input:focus+label {
+    transform: translate(0, 0) scale(1);
+    cursor: pointer;
+  }
+
+  input:focus::-webkit-input-placeholder {
     opacity: 1;
   }
+
   ::-webkit-input-placeholder {
     opacity: 0;
     transition: inherit;
   }
-.checkboxCont{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-.iconContainer{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right:6px;
-}
+
+  .checkboxCont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .iconContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 6px;
+  }
