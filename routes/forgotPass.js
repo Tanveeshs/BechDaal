@@ -37,13 +37,14 @@ router.post('/passwordreset', function(req, res) {
         const emailAddress = req.body.email;
         // console.log(result._id)
         var date = Date.now();
-        date += (1 * 60 * 1000);
+        date += (5 * 60 * 1000);
         const payload = {
           id: result._id,
           email: emailAddress,
           endDate: date
         };
         var token = jwt.encode(payload, secret);
+        console.log(token);
         // let content = 'http://'+ip+':'+port+'/user/resetpassword/'+payload.id+'/'+token
         //For locally uncomment this
         let content = 'http://localhost:3000/user/resetpassword/' + payload.id + '/' + token;
