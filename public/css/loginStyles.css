@@ -81,3 +81,27 @@ input:focus::-webkit-input-placeholder {
   opacity: 0;
   transition: inherit;
 }
+
+.card3 {
+  margin-top: 1rem;
+  margin-left: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+
+#signupBtn {
+  background-color: #4d94ff;
+  font-weight: bold;
+  font-size: larger;
+  border: 0.5px solid dimgray;
+  border-radius: 25px;
+  padding: 5px 10px;
+  color: #fffafa;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+#signupBtn:hover {
+  box-shadow: 0 6px 9px 0 rgba(96, 154, 221, 0.801);
+  transition: ease-in-out 0.5s;
+}
