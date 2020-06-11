@@ -15,7 +15,7 @@ const session = require('express-session');
 const configDB = require('./config/database');
 const forgotPass = require('./routes/forgotPass');
 const verifymail = require('./routes/verifymail');
-const smsverify = require('./routes/sms');
+// const smsverify = require('./routes/sms');
 mongoose.connect(configDB.url, {
   useNewUrlParser: true,
   useUnifiedTopology: true
