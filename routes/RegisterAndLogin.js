@@ -27,17 +27,37 @@ module.exports = function(app, passport) {
         });
     });
 
-    app.post('/signup', passport.authenticate('local-signup', {
-        successRedirect: '/profile', // redirect to the secure profile section
-        failureRedirect: '/signup', // redirect back to the signup page if there is an error
-        failureFlash: true // allow flash messages
-    }));
+    // app.post('/signup', passport.authenticate('local-signup', {
+    //     successRedirect: '/verify', // redirect to the secure profile section
+    //     failureRedirect: '/signup', // redirect back to the signup page if there is an error
+    //     failureFlash: true // allow flash messages
+    // }));
+
+    app.post('/signup',
+      passport.authenticate('local-signup'),
+      function(req, res) {
+        // If this function gets called, authentication was successful.
+        // `req.user` contains the authenticated user.
+        res.render('verify.ejs', {
+            user: req.user // get the user out of session and pass to template
+        });
+      });
+
+    //   app.post('/signup',
+    // passport.authenticate('local-signup'),
+    // function(req, res) {
+    //   // If this function gets called, authentication was successful.
+    //   // `req.user` contains the authenticated user.
+    //   res.redirect('/verify');
+    // });
 
     app.get('/profile', isLoggedIn, function(req, res) {
         res.render('profile.ejs', {
             user: req.user // get the user out of session and pass to template
         });
     });
+
+
 
     app.get('/logout', function(req, res) {
         req.logout();
