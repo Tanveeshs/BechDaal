@@ -65,7 +65,7 @@
                   <input class="input-email" type="email" name="email" placeholder="Type Here" />
                 </div>
                 <div class="checkboxCont">
-                  <i class="fas fa-check-circle" style="size: 10px; margin-left: 30px; visibility: hidden"></i>
+                  <i class="fas fa-check-circle" style="margin-left: 30px; visibility: hidden"></i>
                 </div>
               </div>
               <div class="card-left" style="width: 372px;">
@@ -76,10 +76,11 @@
                 <div class="inputContainer" style="width:70%">
                   <label class="text-muted">Set a Password</label>
                   <br />
-                  <input class="input" type="password" name="password" placeholder="Type Here" />
+                  <input class="input" type="password" name="password" id="password" placeholder="Type Here" />
                 </div>
                 <div class="checkboxCont">
-                  <input class="checkbox" type="checkbox" style="margin-left: 30px;">
+                  <!-- <input class="checkbox" type="checkbox" style="margin-left: 30px;"> -->
+                  <i class="fas fa-eye" id="togglePass" style="margin-left: 30px;"></i>
                 </div>
               </div>
             </div>
@@ -136,10 +137,13 @@
 </body>
 <script type="text/javascript">
     function isEmail(email) {
-        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        return regex.test(email);
+        var regex1 = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex1.test(email);
     }
-
+    function isPhoneNo(number){
+        var regex2 = /^\d{10}$/;
+        return regex2.test(number);
+    }
     $('.input-email').each(function() {
         var elem = $(this);
         elem.data('oldVal', elem.val());
@@ -148,7 +152,7 @@
         // If value has changed...
             if (elem.data('oldVal') != elem.val()) {
                 // Do action
-                if (isEmail(elem.val())) {
+                if (isEmail(elem.val()) || isPhoneNo(elem.val()) ){
                     $('.fa-check-circle').css('visibility','visible');
                 }
                 else {
@@ -157,6 +161,13 @@
 
             }
         });
+    });
+    $('#togglePass').click(function (e) {
+        // toggle the type attribute
+        const type = $('#password').attr('type') === 'password' ? 'text' : 'password';
+        $('#password').attr('type', type);
+        // toggle the eye slash icon
+        this.classList.toggle('fa-eye-slash');
     });
 </script>
 </html>
