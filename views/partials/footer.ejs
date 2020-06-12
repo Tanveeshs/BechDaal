@@ -69,5 +69,40 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <%# fontawesome CDN %>
 <script src="https://kit.fontawesome.com/c4a818ae29.js" crossorigin="anonymous"></script>
+<script type="text/javascript">
+  function isEmail(email) {
+    var regex1 = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex1.test(email);
+  }
+  function isPhoneNo(number) {
+    var regex2 = /^\d{10}$/;
+    return regex2.test(number);
+  }
+  $('.input-email').each(function () {
+    var elem = $(this);
+    elem.data('oldVal', elem.val());
+    // Look for changes in the value
+    elem.bind("propertychange change click keyup input paste", function (event) {
+      // If value has changed...
+      if (elem.data('oldVal') != elem.val()) {
+        // Do action
+        if (isEmail(elem.val()) || isPhoneNo(elem.val())) {
+          $('.fa-check-circle').css('visibility', 'visible');
+        }
+        else {
+          $('.fa-check-circle').css('visibility', 'hidden');
+        }
+
+      }
+    });
+  });
+  $('#togglePass').click(function (e) {
+    // toggle the type attribute
+    const type = $('#password').attr('type') === 'password' ? 'text' : 'password';
+    $('#password').attr('type', type);
+    // toggle the eye slash icon
+    this.classList.toggle('fa-eye-slash');
+  });
+</script>
 
 </html>
