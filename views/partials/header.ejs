@@ -14,7 +14,7 @@
 </head>
 
 <style>
-  .fas {
+  .icons {
     padding: 12px 30px;
     font-size: 20px;
     color: white;
@@ -37,13 +37,17 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent" style="width:50%;">
       <ul class="navbar-nav" id="log-reg">
-        <li><i id="toggledown" class="fas fa-search"></i></li>
+        <li><i id="toggledown" class="fas icons fa-search"></i></li>
         <!-- <%if  (this.user) {%> -->
         <div class="nav-item dropdown">
           <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
             id="hellouser">
             <!-- add navbar-toggle in class if u want that triangle -->
+<<<<<<< HEAD
+            <!-- Hello <%=user.name%> -->
+=======
             Hello <%=user.local.username%>
+>>>>>>> e7b11ea6e701c91cc5779a1db0afcb16a89fe309
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="#" style="font-weight: bold;">Manage my Ads</a>
@@ -62,7 +66,7 @@
         <div class="nav-item dropdown">
           <a class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
             id="hellouser">
-            <i class="fas fa-language"></i>
+            <i class="fas icons fa-language"></i>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="#">Hindi</a>
@@ -70,8 +74,8 @@
           </div>
         </div>
         <li class="nav-item active" style="display: flex;" id="sellOption">
-          <a href="#"> <i class="nav-link fas fa-hand-holding-usd" style="margin-right: 1px;"></i></a>
-          <a href="#" class="nav-link" style="font-weight: bold;">Sell</a>
+          <i class="nav-link fas icons fa-hand-holding-usd" style="margin-right: 1px;"></i>
+          <a href="" class="nav-link">Sell</a>
         </li>
       </ul>
     </div>
