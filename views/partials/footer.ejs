@@ -79,7 +79,11 @@
     var regex2 = /^\d{10}$/;
     return regex2.test(number);
   }
-  $('.input-email').each(function () {
+  function isUsername(name){
+      var regex3 = /^[_A-z0-9]+((-|\s)*[_A-z0-9])*$/;
+      return regex3.test(name);
+  }
+  $('.i-email').each(function () {
     var elem = $(this);
     elem.data('oldVal', elem.val());
     // Look for changes in the value
@@ -89,11 +93,33 @@
         // Do action
         if (isEmail(elem.val()) || isPhoneNo(elem.val())) {
           $('.mail-check').css('visibility', 'visible');
+
         }
         else {
           $('.mail-check').css('visibility', 'hidden');
         }
+      }
+    });
+  });
+  $('.i-name').each(function () {
+    var elem = $(this);
+    elem.data('oldVal', elem.val());
+    name = elem.value;
+    // Look for changes in the value
+    elem.bind("propertychange change click keyup input paste", function (event) {
+      // If value has changed...
+      if (elem.data('oldVal') != elem.val()) {
+        // Do action
 
+        if(elem.val() == null || elem.val() == ""){
+            $('.name-check').css('visibility', 'hidden');
+        }
+        else if(isUsername(elem.val())){
+            $('.name-check').css('visibility', 'visible');
+        }
+        else{
+            $('.name-check').css('visibility', 'hidden');
+        }
       }
     });
   });
@@ -105,5 +131,6 @@
     this.classList.toggle('fa-eye-slash');
   });
 </script>
+
 
 </html>
