@@ -1,7 +1,95 @@
-<%-include("partials/header")-%>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 
-<!-- views/signup.ejs -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Bech Daal</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel='stylesheet' href='/css/style.css' />
+  <title>Navbars</title>
+</head>
 
+<style>
+  .icons {
+    padding:0px 30px;
+    font-size: 20px;
+    color: white;
+  }
+
+
+
+</style>
+
+
+<script>
+  $(document).ready(function () {
+    $("#toggledown").click(function () {
+      $("#search").slideToggle(300);
+    });
+  });
+</script>
+
+
+<body>
+
+
+  <nav class="navbar navbar-expand-sm navbar-dark bg-li" style="background-color:rgb(123, 182, 164);">
+    <a class="navbar-brand" href="#" style="margin-right:30%; margin-left: 40px;">BechDaal</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="width:50%;">
+      <ul class="navbar-nav" id="log-reg">
+        <!-- <%if  (this.user) {%> -->
+        <div class="nav-item dropdown">
+          <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            id="hellouser">
+            <!-- add navbar-toggle in class if u want that triangle -->
+
+            <!-- Hello <%=user.name%> -->
+
+            Hello <%=user.local.username%>
+
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#" style="font-weight: bold;">Manage my Ads</a>
+            <a class="dropdown-item" href="#">Messages</a>
+            <a class="dropdown-item" href="#">Favorites</a>
+            <a class="dropdown-item" href="#">My Details</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item text-muted" href="#"><strong>Log Out</strong></a>
+          </div>
+        </div>
+        <!-- <%} else {%> -->
+        <li class="nav-item active">
+          <a class="nav-link adjust" href="#">Login/<span>SignUp</span></a>
+        </li>
+        <!-- <% } %> -->
+        <div class="nav-item dropdown">
+          <a class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            id="hellouser">
+            <i class="fas icons fa-language"></i>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Hindi</a>
+            <a class="dropdown-item" href="#">English</a>
+          </div>
+        </div>
+        <li class="nav-item active" style="display: flex;" id="sellOption">
+          <i class="nav-link fas icons fa-hand-holding-usd" style="margin-right: 1px;"></i>
+          <a href="" class="nav-link">Sell</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
 
 <head>
@@ -14,6 +102,10 @@
   <link rel="stylesheet" type="text/css" href="/css/signupStyles.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Piedra">
   <style>
+
+#search #toggledown{
+  visibility: hidden;
+}
     .icon {
       height: 50px;
       width: 50px;
@@ -46,11 +138,58 @@
       padding: 15px;
       margin: 15px;
     }
+    .col{
+      margin:100px;
+      padding:50px;
+    }
+
+    #signupBtn{
+      margin-left:100px;
+    }
+
+
+    @media (max-width: 1028px) {
+
+
+      .iconbig {
+      height: 100%;
+      width: 100%;
+      padding: 50px 0px;
+    }
+
+    .iconavg {
+      height: 80px;
+      width: 50px;
+      padding: 10px;
+      margin-right: 15px;
+      margin-bottom: 20px;
+    }
+
+    .title {
+      font-size: 23px;
+      color: rgb(233, 57, 57);
+      font-family: Piedra;
+      
+    }
+
+    .col{
+      margin:20px;
+      width:100%;
+    }
+
+
+
+
+}
+
+
+
   </style>
 </head>
 
 <body>
   <div id="container">
+    <div class="row">
     <div class="container" id="subcontainer-1">
       <%# <nav>
         <nav-item>Home</nav-item>
@@ -60,7 +199,7 @@
       </nav> %>
       <img class="iconbig" src="/images/3.png" alt="img1" />
     </div>
-    <div class="container" id="subcontainer-2">
+    <div class="container col" id="subcontainer-2">
       <div>
         <img class="iconavg" src="/images/Bech Daal Logo.png" alt="img1" /> <span class="title">BECH DAAL</span>
       </div>
@@ -115,6 +254,7 @@
 
       </form>
     </div>
+  </div>
   </div>
 </body>
 
