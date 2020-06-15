@@ -70,6 +70,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(3000,function (err) {
+app.listen(4000,function (err) {
   console.log('Server started');
 });
