@@ -75,55 +75,54 @@
     var regex1 = /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     return regex1.test(email);
   }
+
   function isPhoneNo(number) {
     var regex2 = /^\d{10}$/;
     return regex2.test(number);
   }
-  function isUsername(name){
-      var regex3 = /^[_A-z0-9]+((-|\s)*[_A-z0-9])*$/;
-      return regex3.test(name);
+
+  function isUsername(name) {
+    var regex3 = /^[_A-z0-9]+((-|\s)*[_A-z0-9])*$/;
+    return regex3.test(name);
   }
-  $('.i-email').each(function () {
+  $('.i-email').each(function() {
     var elem = $(this);
     elem.data('oldVal', elem.val());
     // Look for changes in the value
-    elem.bind("propertychange change click keyup input paste", function (event) {
+    elem.bind("propertychange change click keyup input paste", function(event) {
       // If value has changed...
       if (elem.data('oldVal') != elem.val()) {
         // Do action
         if (isEmail(elem.val()) || isPhoneNo(elem.val())) {
           $('.mail-check').css('visibility', 'visible');
 
-        }
-        else {
+        } else {
           $('.mail-check').css('visibility', 'hidden');
         }
       }
     });
   });
-  $('.i-name').each(function () {
+  $('.i-name').each(function() {
     var elem = $(this);
     elem.data('oldVal', elem.val());
     name = elem.value;
     // Look for changes in the value
-    elem.bind("propertychange change click keyup input paste", function (event) {
+    elem.bind("propertychange change click keyup input paste", function(event) {
       // If value has changed...
       if (elem.data('oldVal') != elem.val()) {
         // Do action
 
-        if(elem.val() == null || elem.val() == ""){
-            $('.name-check').css('visibility', 'hidden');
-        }
-        else if(isUsername(elem.val())){
-            $('.name-check').css('visibility', 'visible');
-        }
-        else{
-            $('.name-check').css('visibility', 'hidden');
+        if (elem.val() == null || elem.val() == "") {
+          $('.name-check').css('visibility', 'hidden');
+        } else if (isUsername(elem.val())) {
+          $('.name-check').css('visibility', 'visible');
+        } else {
+          $('.name-check').css('visibility', 'hidden');
         }
       }
     });
   });
-  $('#togglePass').click(function (e) {
+  $('#togglePass').click(function(e) {
     // toggle the type attribute
     const type = $('#password').attr('type') === 'password' ? 'text' : 'password';
     $('#password').attr('type', type);
