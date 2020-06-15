@@ -8,10 +8,11 @@ const userSchema = new mongoose.Schema({
     email: String,
     password: String,
     isVerified: {
-    type: Boolean,
-    default: false
-}
+      type: Boolean,
+      default: false
+    }
   },
+
   // facebook: {
   //   id: String,
   //   token: String,
