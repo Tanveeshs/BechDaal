@@ -5,8 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Bech Daal</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link rel='stylesheet' href='/css/style.css' />
@@ -23,8 +22,8 @@
 
 
 <script>
-  $(document).ready(function () {
-    $("#toggledown").click(function () {
+  $(document).ready(function() {
+    $("#toggledown").click(function() {
       $("#search").slideToggle(300);
     });
   });
@@ -35,7 +34,7 @@
 
 
   <nav class="navbar navbar-expand-sm navbar-dark bg-li" style="background-color:rgb(123, 182, 164);">
-    <a class="navbar-brand" href="#" style="margin-right:30%; margin-left: 40px;">BechDaal</a>
+    <a class="navbar-brand" href="/" style="margin-right:30%; margin-left: 40px;">BechDaal</a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -48,8 +47,7 @@
         <li><i id="toggledown" class="fas icons fa-search"></i></li>
         <!-- <%if  (this.user) {%> -->
         <div class="nav-item dropdown">
-          <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-            id="hellouser">
+          <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="hellouser">
             <!-- add navbar-toggle in class if u want that triangle -->
 
             <!-- Hello <%=user.name%> -->
@@ -63,17 +61,16 @@
             <a class="dropdown-item" href="#">Favorites</a>
             <a class="dropdown-item" href="#">My Details</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item text-muted" href="#"><strong>Log Out</strong></a>
+            <a class="dropdown-item text-muted" href="/logout"><strong>Log Out</strong></a>
           </div>
         </div>
         <!-- <%} else {%> -->
         <li class="nav-item active">
-          <a class="nav-link" href="#">Login/<span>SignUp</span></a>
+          <a class="nav-link" href="/login">Login/<span>SignUp</span></a>
         </li>
         <!-- <% } %> -->
         <div class="nav-item dropdown">
-          <a class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-            id="hellouser">
+          <a class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="hellouser">
             <i class="fas icons fa-language"></i>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -83,7 +80,7 @@
         </div>
         <li class="nav-item active" style="display: flex;" id="sellOption">
           <i class="nav-link fas icons fa-hand-holding-usd" style="margin-right: 1px;"></i>
-          <a href="" class="nav-link">Sell</a>
+          <a href="#" class="nav-link">Sell</a>
         </li>
       </ul>
     </div>
