@@ -24,9 +24,18 @@
           <br>​​Saturday: 8am - 10pm
           <br>Sunday: 8am - 11pm
           <br>
-          <br><strong style="font-size: 1.2em">Feedback</strong>
-          <br>
-          <br>Please send us your ideas, bug reports, suggestions! Any feedback would be appreciated.
+          <br><strong style="font-size: 1.2em">Privacy Policy</strong>
+          <br><br>
+          <%# <input type="text" id="fname" name="fname" placeholder="Suggestions" style="height: 30px; width: 160px; text-align: center">
+          <button type="button" class="btn btn-outline-light btn-sm" style="height: 30px; margin-left: 20px">Submit</button> %>
+        <%# <div class="input-group">
+          <input type="text" class="form-control" placeholder="Suggestions" style="height: 30px; width: 160px; text-align: center">
+          <div class="input-group-append">
+            <button type="button" class="btn btn-outline-light btn-sm" style="height: 30px;">Submit</button>
+          </div>
+        </div> %>
+        <a href="#" style="color:white">Privacy Policy</a>
+        <br>
         </p>
       </div>
       <div class="col-12 col-md-6" style="text-align: center">
@@ -53,8 +62,7 @@
 
 </html>
 <!-- jQuery CDN -->
-<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -62,5 +70,67 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <%# fontawesome CDN %>
 <script src="https://kit.fontawesome.com/c4a818ae29.js" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+  function isEmail(email) {
+    var regex1 = /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    return regex1.test(email);
+  }
+
+  function isPhoneNo(number) {
+    var regex2 = /^\d{10}$/;
+    return regex2.test(number);
+  }
+
+  function isUsername(name) {
+    var regex3 = /^[_A-z0-9]+((-|\s)*[_A-z0-9])*$/;
+    return regex3.test(name);
+  }
+  $('.i-email').each(function() {
+    var elem = $(this);
+    elem.data('oldVal', elem.val());
+    // Look for changes in the value
+    elem.bind("propertychange change click keyup input paste", function(event) {
+      // If value has changed...
+      if (elem.data('oldVal') != elem.val()) {
+        // Do action
+        if (isEmail(elem.val()) || isPhoneNo(elem.val())) {
+          $('.mail-check').css('visibility', 'visible');
+
+        } else {
+          $('.mail-check').css('visibility', 'hidden');
+        }
+      }
+    });
+  });
+  $('.i-name').each(function() {
+    var elem = $(this);
+    elem.data('oldVal', elem.val());
+    name = elem.value;
+    // Look for changes in the value
+    elem.bind("propertychange change click keyup input paste", function(event) {
+      // If value has changed...
+      if (elem.data('oldVal') != elem.val()) {
+        // Do action
+
+        if (elem.val() == null || elem.val() == "") {
+          $('.name-check').css('visibility', 'hidden');
+        } else if (isUsername(elem.val())) {
+          $('.name-check').css('visibility', 'visible');
+        } else {
+          $('.name-check').css('visibility', 'hidden');
+        }
+      }
+    });
+  });
+  $('#togglePass').click(function(e) {
+    // toggle the type attribute
+    const type = $('#password').attr('type') === 'password' ? 'text' : 'password';
+    $('#password').attr('type', type);
+    // toggle the eye slash icon
+    this.classList.toggle('fa-eye-slash');
+  });
+</script>
+
 
 </html>

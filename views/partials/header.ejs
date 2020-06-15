@@ -13,39 +13,47 @@
 </head>
 
 <style>
-  .fas{
-    padding:12px 30px;
+  .icons {
+    padding: 12px 30px;
     font-size: 20px;
-    color:white;
+    color: white;
   }
-
- 
 </style>
 
 
 <script>
-  $(document).ready(function(){
-    $("#toggledown").click(function(){
-      $("#search").toggle();
+  $(document).ready(function() {
+    $("#toggledown").click(function() {
+      $("#search").slideToggle(300);
     });
   });
-  </script>
+</script>
 
 
 <body>
-  <nav class="navbar navbar-expand-sm navbar-dark bg-li" style="background-color:rgb(114, 187, 169);">
-    <a class="navbar-brand" href="#" style="margin-right:30%; margin-left: 40px;">BechDaal</a>
+
+
+  <nav class="navbar navbar-expand-sm navbar-dark bg-li" style="background-color:rgb(123, 182, 164);">
+    <a class="navbar-brand" href="/" style="margin-right:30%; margin-left: 40px;">BechDaal</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent" style="width:50%;">
       <ul class="navbar-nav" id="log-reg">
-        <li class="nav-item active mr-2">
-          <a class="nav-link" href="#">Classifieds <span class="sr-only">(current)</span></a>
-        </li>
-        <%if (this.user) {%>
-          <li><i id="toggledown" class="fas fa-search"></i></li>
+        <li><i id="toggledown" class="fas icons fa-search"></i></li>
+        <!-- <%if  (this.user) {%> -->
         <div class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="hellouser">
-            Hello <%=user.name%>
+          <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="hellouser">
+            <!-- add navbar-toggle in class if u want that triangle -->
+
+            <!-- Hello <%=user.name%> -->
+
+            Hello <%=user.local.username%>
+
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="#" style="font-weight: bold;">Manage my Ads</a>
@@ -53,45 +61,51 @@
             <a class="dropdown-item" href="#">Favorites</a>
             <a class="dropdown-item" href="#">My Details</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item text-muted" href="#"><strong>Log Out</strong></a>
+            <a class="dropdown-item text-muted" href="/logout"><strong>Log Out</strong></a>
           </div>
         </div>
-        <li><i class="fas fa-language"></i></li>
-        <!-- <li>
-                  <button>PUT TOGGLE SEARCH BUTTON HERE!!</button>
-              </li> -->
-        <%} else {%>
-          <li><i id="toggledown" class="fas fa-search toggledown"></i></li>
+        <!-- <%} else {%> -->
         <li class="nav-item active">
-          <a class="nav-link" href="#">Login/<span>SignUp</span></a>
+          <a class="nav-link" href="/login">Login/<span>SignUp</span></a>
         </li>
-        <li><i class="fas fa-language"></i></li>
-        <% } %>
+        <!-- <% } %> -->
+        <div class="nav-item dropdown">
+          <a class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="hellouser">
+            <i class="fas icons fa-language"></i>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Hindi</a>
+            <a class="dropdown-item" href="#">English</a>
+          </div>
+        </div>
+        <li class="nav-item active" style="display: flex;" id="sellOption">
+          <i class="nav-link fas icons fa-hand-holding-usd" style="margin-right: 1px;"></i>
+          <a href="#" class="nav-link">Sell</a>
+        </li>
       </ul>
-
     </div>
   </nav>
   <section id="search">
-  <nav class="searchbar">
-    <ul class="searchbar-items">
-      <li style=>
-        <p>Want something?</p>
-      </li>
-      <li>
-        <input class="input1" type="text" placeholder="Type Here" />
-      </li>
-      <li style="margin:0;">
-        <p>In?</p>
-      </li>
-      <li>
-        <input class="input2" type="text" placeholder="Your location" />
-      </li>
-      <li>
-        <button class="locationsubmit">Go!</button>
-      </li>
-    </ul>
-  </nav>
-</section>
+    <nav class="searchbar">
+      <ul class="searchbar-items">
+        <li style=>
+          <p>Want something?</p>
+        </li>
+        <li>
+          <input class="input1" type="text" placeholder="Type Here" />
+        </li>
+        <li style="margin:0;">
+          <p>In?</p>
+        </li>
+        <li>
+          <input class="input2" type="text" placeholder="Your location" />
+        </li>
+        <li>
+          <button class="locationsubmit">Go!</button>
+        </li>
+      </ul>
+    </nav>
+  </section>
   <div style="padding-top:50px">
 
   </div>
