@@ -14,6 +14,8 @@ const morgan = require('morgan');
 const session = require('express-session');
 const configDB = require('./config/database');
 const forgotPass = require('./routes/forgotPass');
+const verifymail = require('./routes/verifymail');
+// const smsverify = require('./routes/sms');
 mongoose.connect(configDB.url, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -51,7 +53,8 @@ require('./routes/RegisterAndLogin')(app, passport);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/user', forgotPass);
-
+app.use('/verify' , verifymail);
+// app.use('/sms',smsverify);
 
 
 // catch 404 and forward to error handler
