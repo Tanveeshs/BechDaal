@@ -201,6 +201,9 @@
           <div>
             <img class="iconavg" src="/images/Bech Daal Logo.png" alt="img1" /> <span class="title">BECH DAAL</span>
           </div>
+          <% if (message.length > 0) { %>
+          <div class="alert alert-danger"><%= message %></div>
+          <% } %>
           <form action="/signup" method="post">
             <div class="card">
               <div class="iconContainer">
