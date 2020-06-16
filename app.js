@@ -15,6 +15,7 @@ const session = require('express-session');
 const configDB = require('./config/database');
 const forgotPass = require('./routes/forgotPass');
 const verifymail = require('./routes/verifymail');
+const category = require('./routes/category');
 // const smsverify = require('./routes/sms');
 mongoose.connect(configDB.url, {
   useNewUrlParser: true,
@@ -55,7 +56,7 @@ app.use('/users', usersRouter);
 app.use('/user', forgotPass);
 app.use('/verify' , verifymail);
 // app.use('/sms',smsverify);
-
+app.use('/category', category);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -73,6 +74,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(4000,function (err) {
+app.listen(3000,function (err) {
   console.log('Server started');
 });
