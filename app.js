@@ -15,6 +15,7 @@ const session = require('express-session');
 const configDB = require('./config/database');
 const forgotPass = require('./routes/forgotPass');
 const verifymail = require('./routes/verifymail');
+const adRoute = require('./routes/adRoute');
 // const smsverify = require('./routes/sms');
 mongoose.connect(configDB.url, {
   useNewUrlParser: true,
@@ -54,6 +55,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/user', forgotPass);
 app.use('/verify' , verifymail);
+app.use('/sell' , adRoute);
 // app.use('/sms',smsverify);
 
 
