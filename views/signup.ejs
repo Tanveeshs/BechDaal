@@ -212,12 +212,21 @@
               <div class="inputContainer" style="width:70%">
                 <label class="text-muted">Enter Username</label>
                 <br />
-                <input class="input i-name" type="text" name="username" placeholder="Type Here" required pattern='^[_A-z0-9]+((-|\s)*[_A-z0-9])*$'>
+                <input class="input i-name" type="text" name="username" placeholder="Type Here" minlength="5" required pattern='^[a-zA-Z0-9]+([_-]?[a-zA-Z0-9])*$'>
               </div>
               <div class="checkboxCont">
                 <i class="fas fa-check-circle name-check" style="margin-left: 30px; visibility: hidden"></i>
               </div>
             </div>
+            <div class="text-muted" style="text-align: left; font-size:12px">
+                Username should contain:
+                <ul>
+                    <li>Minimum 5 characters</li>
+                    <li>No special characters other than - and _ , which should be again followed by text</li>
+                </ul>
+
+            </div>
+
             <div class="card">
               <div class="iconContainer">
                 <p><i class="fa fa-envelope" aria-hidden="true"></i>
@@ -232,6 +241,7 @@
                 <i class="fas fa-check-circle mail-check" style="margin-left: 30px; visibility: hidden"></i>
               </div>
             </div>
+
             <div class="card">
               <div class="iconContainer">
                 <p><i class="fa fa-key" aria-hidden="true"></i>
@@ -240,11 +250,22 @@
               <div class="inputContainer" style="width:70%">
                 <label class="text-muted">Set a Password</label>
                 <br />
-                <input class="input" type="password" name="password" id="password" placeholder="Type Here" required pattern='^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$'>
+                <input class="input" type="password" name="password" id="password" placeholder="Type Here" minlength="6" required pattern='^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,32}$'>
               </div>
               <div class="checkboxCont">
                 <i class="fas fa-eye" id="togglePass" style="margin-left: 30px;"></i>
               </div>
+            </div>
+            <div class="text-muted" style="text-align: left; font-size:12px">
+                Password should contain:
+                <ul>
+                    <li>Minimum 6 characters</li>
+                    <li>One Uppercase letter</li>
+                    <li>One Lowercase letter</li>
+                    <li>One digit</li>
+                    <li>One Special symbol</li>
+                </ul>
+
             </div>
             <div class="card2">
               <a id="haveAccount" href="/login">Already have an account</a>
