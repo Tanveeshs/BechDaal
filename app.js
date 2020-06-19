@@ -55,6 +55,9 @@ app.use('/verify' , verifymail);
 app.use('/sell' , adRoute);
 app.use('/category', category);
 app.use('/test',test)
+app.get('/post',function (req,res) {
+  res.render('postAd.ejs')
+})
 app.listen(3001,function (err) {
   console.log('Server started');
 });

@@ -9,7 +9,9 @@ const Category = require('../model/category').CategoryModel;
 const User = require('../model/user');
 
 router.get('/', function(req, res) {
-  res.send('You are in category route');
+  Category.find({},function (err,result) {
+    res.send(result)
+  })
 });
 
 router.get('/:categoryname', function(req,res){
