@@ -53,7 +53,6 @@ app.use('/users', usersRouter);
 app.use('/user', forgotPass);
 app.use('/verify' , verifymail);
 app.use('/sell' , adRoute);
-// app.use('/sms',smsverify);
 app.use('/category', category);
 app.use('/test',test)
 app.listen(3001,function (err) {

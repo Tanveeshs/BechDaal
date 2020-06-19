@@ -46,5 +46,5 @@ const User = mongoose.model('User', userSchema);
 
 module.exports = {
   user: User,
-  user_schema_body: userschema
+  user_schema_body: userSchema
 }
