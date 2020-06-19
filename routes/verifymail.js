@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jwt-simple');
-const user = require('../model/user');
+const {user} = require('../model/user');
 const mail = require('../utils/mailer');
 const User = require('../model/user')();
 // var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
