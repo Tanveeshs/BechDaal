@@ -10,6 +10,7 @@ router.get('/chat',function (req,res) {
         }).catch((err)=>console.log(err))
 })
 
+
 // router.get('/user',function (req,res) {
 //     console.log(req)
 //     res.send('Hey')

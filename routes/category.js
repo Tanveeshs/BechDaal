@@ -6,7 +6,7 @@ const router = express.Router();
 const user = require('../model/user');
 const Category = require('../model/category').CategoryModel;
 // const mail = require('../utils/mailer');
-const User = require('../model/user')();
+const User = require('../model/user');
 
 router.get('/', function(req, res) {
   res.send('You are in category route');
