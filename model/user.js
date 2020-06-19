@@ -25,6 +25,7 @@ const userSchema = new mongoose.Schema({
     email: String,
     name: String
   },
+  name:String,
   LoginTime: {
     type: Date,
     default: Date.now()

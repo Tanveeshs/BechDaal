@@ -17,7 +17,7 @@ const User = require('../model/user')();
 
 router.post('/verifyMail', function(req, res) {
   var secret = 'fe1a1915a379f3be5394b64d14794932';
-console.log(req.body.email)
+  console.log(req.body.email);
   if (req.body.email !== '') {
     user.findOne({
       'local.email': req.body.email
@@ -60,22 +60,21 @@ router.get('/verifyMail/:id/:token', function(req, res) {
   console.log(req.params.token);
   var payload = jwt.decode(req.params.token, secret);
   // user.findOneAndUpdate({_id:payload.id}, { isVerified: true });
-  user.findById(payload.id, function (err, result) {
+  user.findById(payload.id, function(err, result) {
     if (err) {
       console.log(err);
     }
     if (result == null) {
       res.send('INCORRECT');
-    }
-    else{
+    } else {
       result.local.isVerified = true;
       result.save();
     }
 
-});
-    res.render('profile.ejs', {
-      user: req.user
-    });
+  });
+  res.render('profile.ejs', {
+    user: req.user
+  });
 
 
 });

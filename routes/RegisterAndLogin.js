@@ -43,6 +43,7 @@ module.exports = function(app, passport) {
         res.render('profile.ejs', {
             user: req.user // get the user out of session and pass to template
         });
+        console.log(req)
     });
 
 
