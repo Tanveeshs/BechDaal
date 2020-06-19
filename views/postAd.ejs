@@ -4,7 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css" type="text/css">
     <title>Document</title>
+    <style>
+
+    </style>
 </head>
 
 <body>
@@ -34,6 +38,38 @@
         <label for="description">Description</label>
         <textarea></textarea>
         <hr />
+        <label for="images">Upload images of your device (maximum of 9) </label>
+        <div class="grid-container">
+            <div class="grid-item">
+                <input type="file" name="myFile" onchange="changeText()" id="fileInput" />
+                <button class="fileButton">Choose File</button>
+                <span class="fileLabel"></span>
+            </div>
+            <div class="grid-item">
+                IMAGE
+            </div>
+            <div class="grid-item">
+                IMAGE
+            </div>
+            <div class="grid-item">
+                IMAGE
+            </div>
+            <div class="grid-item">
+                IMAGE
+            </div>
+            <div class="grid-item">
+                IMAGE
+            </div>
+            <div class="grid-item">
+                IMAGE
+            </div>
+            <div class="grid-item">
+                IMAGE
+            </div>
+            <div class="grid-item">
+                IMAGE
+            </div>
+        </div>
         <!-- uploading images here  -->
         <label for="contact">Contact No</label>
         <input />
@@ -41,6 +77,23 @@
         <label for="address">Address</label>
         <textarea></textarea>
     </form>
+    <script>
+        Array.prototype.forEach.call(document.querySelectorAll('.fileButton'), function (button) {
+            const hiddenInput = button.parentElement.querySelector('#fileInput')
+            let label = button.parentElement.querySelector('.fileLabel')
+            const defaultText = "No file selected";
+            label.textContent = defaultText;
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+                hiddenInput.click();
+            })
+            hiddenInput.addEventListener('change', function () {
+                const newText = "1 file selected"
+                label.textContent = '1 file selected'
+            })
+
+        })
+    </script>
 </body>
 
 </html>
