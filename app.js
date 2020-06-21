@@ -62,6 +62,10 @@ app.use('/test', test);
 app.get('/post', function(req, res) {
   res.render('postAd.ejs');
 });
+app.get('/asdsad',function (req,res) {
+  res.send('fsfad')
+
+})
 app.listen(3001, function(err) {
   console.log('Server started');
 });
