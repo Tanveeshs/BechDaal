@@ -32,10 +32,16 @@ adRouter.use(bodyParser.json());
 
 
 // for now, the images data is storing the array of whole file objects, not just the url of the pic
-// also, the user that is in the body maybe already JSON, but when i was doing this on a dummy project, i passed it as a string, so i am parsing it in JSON here
+
+
+/* docs */
+// while using the post route, you have to use formdata as you are also passing a file (image) and you can't do that in a normal body object
+// also, formdata only supports string fields or file format fields, so you can not put nested objects in the body
+// so, you have to first turn the user's data (which is a JS object) into a string using JSON.stringify() method and pass that as a field in the ad schema
+// here in the backend, the code will turn that string back into object using JSON.parse() method
 adRouter.route('/')
   .post((upload.array('images', 12)), (req, res) => {
-    // const user_data = JSON.parse(req.user);
+    const user_data = JSON.parse(req.user);
 
     const new_ad = new AdSchema({
       title: req.body.title,
@@ -44,7 +50,7 @@ adRouter.route('/')
       model: req.body.model,
       brand: req.body.brand,
       price: req.body.price,
-      // user: user_data,
+      user: user_data,
       address: req.body.address,
       contact_number: req.body.contact_number,
       images: req.files,
@@ -63,7 +69,8 @@ adRouter.route('/')
 
   });
 
-
+/* docs */
+// here you will just add the id of the ad in the url itself, and will get that single ad
 adRouter.route('/:adId')
   .get((req, res) => {
     AdSchema.findById(req.params.adId)
