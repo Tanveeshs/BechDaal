@@ -1,3 +1,5 @@
+//jshint esversion:6
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const adRouter = express.Router();
@@ -11,7 +13,7 @@ const storage = multer.diskStorage({
   file: (req, file, cb) => {
     cb(null, file.originalname);
   }
-})
+});
 
 const fileFilter = (req, file, cb) => {
   if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
@@ -19,12 +21,12 @@ const fileFilter = (req, file, cb) => {
   } else {
     cb(new Error('file type not supported'), false);
   }
-}
+};
 
 const upload = multer({
   storage,
   fileFilter
-})
+});
 
 adRouter.use(bodyParser.json());
 
@@ -49,7 +51,7 @@ adRouter.route('/')
       description: req.body.description,
       date_posted: req.body.date_posted,
       date_sold: req.body.date_sold
-    })
+    });
 
 
     new_ad.save()
@@ -57,9 +59,9 @@ adRouter.route('/')
         res.statusCode = 200;
         res.json(ad);
       })
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(err));
 
-  })
+  });
 
 
 adRouter.route('/:adId')
@@ -71,5 +73,5 @@ adRouter.route('/:adId')
         res.json(ad);
       }, (err) => console.log(err))
       .catch((err) => console.log(err));
-  })
+  });
 module.exports = adRouter;
