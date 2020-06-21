@@ -3,8 +3,6 @@
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');
@@ -52,8 +50,6 @@ app.get('/show_ad', (req, res) => {
   });
 });
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/user', forgotPass);
 app.use('/verify', verifymail);
 app.use('/sell', adRoute);
