@@ -86,7 +86,7 @@ module.exports = function (app, passport) {
 
                             app.get('/auth/google', passport.authenticate('google', {
                                 scope: ['profile', 'email']
-  app.get('/logout', function (req, res) {
+                                app.get('/logout', function (req, res) {
                                     req.logout();
                                     res.redirect('/');
                                 });
@@ -122,3 +122,4 @@ module.exports = function (app, passport) {
                                 res.redirect('/');
 
                             }
+
