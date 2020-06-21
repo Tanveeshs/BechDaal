@@ -33,7 +33,7 @@ adRouter.use(bodyParser.json());
 // also, the user that is in the body maybe already JSON, but when i was doing this on a dummy project, i passed it as a string, so i am parsing it in JSON here
 adRouter.route('/')
   .post((upload.array('images', 12)), (req, res) => {
-    const user_data =JSON.parse(req.body.user);
+    const user_data = JSON.parse(req.body.user);
 
     const new_ad = new AdSchema({
       title: req.body.title,
@@ -53,13 +53,23 @@ adRouter.route('/')
 
 
     new_ad.save()
-    .then((ad) => {
-      res.statusCode = 200;
-      res.json(ad);
-    })
-    .catch((err) => console.log(err))
+      .then((ad) => {
+        res.statusCode = 200;
+        res.json(ad);
+      })
+      .catch((err) => console.log(err))
 
   })
 
 
-  module.exports = adRouter;
+adRouter.route('/:adId')
+  .get((req, res) => {
+    AdSchema.findById(req.params.adId)
+      .then((ad) => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(ad);
+      }, (err) => console.log(err))
+      .catch((err) => console.log(err));
+  })
+module.exports = adRouter;
