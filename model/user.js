@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
     email: String,
     name: String
   },
-  name:String,
+  name: String,
   LoginTime: {
     type: Date,
     default: Date.now()
@@ -47,4 +47,4 @@ const User = mongoose.model('User', userSchema);
 module.exports = {
   User: User,
   user_schema_body: userSchema
-}
+};

@@ -3,9 +3,13 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jwt-simple');
-const {user} = require('../model/user');
+const {
+  user
+} = require('../model/user');
 const mail = require('../utils/mailer');
-const {User} = require('../model/user');
+const {
+  User
+} = require('../model/user');
 // var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
 //     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
@@ -18,7 +22,8 @@ const {User} = require('../model/user');
 router.post('/verifyMail', function(req, res) {
   var secret = 'fe1a1915a379f3be5394b64d14794932';
   console.log(req.body.email);
-  if (req.body.email !== '') {User.findOne({
+  if (req.body.email !== '') {
+    User.findOne({
       'local.email': req.body.email
     }, function(err, result) {
 

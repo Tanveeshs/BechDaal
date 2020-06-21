@@ -6,4 +6,4 @@ admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://chatapp-ced19.firebaseio.com"
 });
-module.exports = admin
+module.exports = admin;
