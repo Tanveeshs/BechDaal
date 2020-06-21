@@ -1,11 +1,11 @@
 //jshint esversion:6
 
-module.exports = function(app, passport) {
-    app.get('/', function(req, res) {
-        res.render('index.ejs',{user: undefined });
+module.exports = function (app, passport) {
+    app.get('/', function (req, res) {
+        res.render('index.ejs', { user: undefined });
     });
 
-    app.get('/login', function(req, res) {
+    app.get('/login', function (req, res) {
 
         // render the page and pass in any flash data if it exists
         res.render('login.ejs', {
@@ -19,12 +19,13 @@ module.exports = function(app, passport) {
         failureFlash: true // allow flash messages
     }));
 
-    app.get('/signup', function(req, res) {
+    app.get('/signup', function (req, res) {
 
         // render the page and pass in any flash data if it exists
         res.render('signup.ejs', {
             message: req.flash('signupMessage')
         });
+        console.log(req.body);
     });
 
     app.post('/signup', passport.authenticate('local-signup', {
@@ -33,13 +34,13 @@ module.exports = function(app, passport) {
         failureFlash: true // allow flash messages
     }));
 
-    app.get('/verify',function (req,res) {
+    app.get('/verify', function (req, res) {
         res.render('verify.ejs', {
             user: req.user // get the user out of session and pass to template
         });
     });
 
-    app.get('/profile', isLoggedIn, function(req, res) {
+    app.get('/profile', isLoggedIn, function (req, res) {
         res.render('profile.ejs', {
             user: req.user // get the user out of session and pass to template
         });
@@ -48,7 +49,7 @@ module.exports = function(app, passport) {
 
 
 
-    app.get('/logout', function(req, res) {
+    app.get('/logout', function (req, res) {
         req.logout();
         res.redirect('/');
     });

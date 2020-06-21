@@ -5,7 +5,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Bech Daal</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link rel='stylesheet' href='/css/style.css' />
@@ -26,8 +27,8 @@
 
 
 <script>
-  $(document).ready(function() {
-    $("#toggledown").click(function() {
+  $(document).ready(function () {
+    $("#toggledown").click(function () {
       $("#search").slideToggle(300);
     });
   });
@@ -40,7 +41,8 @@
   <nav class="navbar navbar-expand-sm navbar-dark bg-li" style="background-color:rgb(123, 182, 164);">
     <a class="navbar-brand" href="#" style="margin-right:30%; margin-left: 40px;">BechDaal</a>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -50,7 +52,8 @@
       <ul class="navbar-nav" id="log-reg">
         <!-- <%if  (this.user) {%> -->
         <div class="nav-item dropdown">
-          <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="hellouser">
+          <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            id="hellouser">
             <!-- add navbar-toggle in class if u want that triangle -->
 
             <!-- Hello <%=user.name%> -->
@@ -73,7 +76,8 @@
         </li>
         <!-- <% } %> -->
         <div class="nav-item dropdown">
-          <a class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="hellouser">
+          <a class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            id="hellouser">
             <i class="fas icons fa-language"></i>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -92,7 +96,8 @@
 
   <head>
     <title>Node Authentication</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <!-- load bootstrap css -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <!-- load fontawesome -->
@@ -204,7 +209,7 @@
           <% if (message.length > 0) { %>
           <div class="alert alert-danger"><%= message %></div>
           <% } %>
-          <form action="/signup" method="post">
+          <form action="/signup" method="post" class="signupForm">
             <div class="card">
               <div class="iconContainer">
                 <p><i class="fa fa-user" aria-hidden="true"></i></p>
@@ -212,18 +217,19 @@
               <div class="inputContainer" style="width:70%">
                 <label class="text-muted">Enter Username</label>
                 <br />
-                <input class="input i-name" type="text" name="username" placeholder="Type Here" minlength="5" required pattern='^[a-zA-Z0-9]+([_-]?[a-zA-Z0-9])*$'>
+                <input class="input i-name" type="text" id="username_ipt" name="username" placeholder="Type Here"
+                  minlength="5" required pattern='^[a-zA-Z0-9]+([_-]?[a-zA-Z0-9])*$'>
               </div>
               <div class="checkboxCont">
                 <i class="fas fa-check-circle name-check" style="margin-left: 30px; visibility: hidden"></i>
               </div>
             </div>
             <div class="text-muted" style="text-align: left; font-size:12px">
-                Username should contain:
-                <ul>
-                    <li>Minimum 5 characters</li>
-                    <li>No special characters other than - and _ , which should be again followed by text</li>
-                </ul>
+              Username should contain:
+              <ul>
+                <li>Minimum 5 characters</li>
+                <li>No special characters other than - and _ , which should be again followed by text</li>
+              </ul>
 
             </div>
 
@@ -235,7 +241,8 @@
               <div class="inputContainer" style="width:70%">
                 <label class="text-muted">Enter Email/Mobile No.</label>
                 <br />
-                <input class="input i-email" name="email" placeholder="Type Here" required pattern="^(([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)|\d{10})$">
+                <input class="input i-email" id="email_ipt" name="email" placeholder="Type Here" required
+                  pattern="^(([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)|\d{10})$">
               </div>
               <div class="checkboxCont">
                 <i class="fas fa-check-circle mail-check" style="margin-left: 30px; visibility: hidden"></i>
@@ -250,33 +257,60 @@
               <div class="inputContainer" style="width:70%">
                 <label class="text-muted">Set a Password</label>
                 <br />
-                <input class="input" type="password" name="password" id="password" placeholder="Type Here" minlength="6" required pattern='^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,32}$'>
+                <input class="input" type="password" name="password" id="password_ipt" placeholder="Type Here"
+                  minlength="6" required pattern='^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,32}$'>
               </div>
               <div class="checkboxCont">
                 <i class="fas fa-eye" id="togglePass" style="margin-left: 30px;"></i>
               </div>
             </div>
             <div class="text-muted" style="text-align: left; font-size:12px">
-                Password should contain:
-                <ul>
-                    <li>Minimum 6 characters</li>
-                    <li>One Uppercase letter</li>
-                    <li>One Lowercase letter</li>
-                    <li>One digit</li>
-                    <li>One Special symbol</li>
-                </ul>
+              Password should contain:
+              <ul>
+                <li>Minimum 6 characters</li>
+                <li>One Uppercase letter</li>
+                <li>One Lowercase letter</li>
+                <li>One digit</li>
+                <li>One Special symbol</li>
+              </ul>
 
             </div>
             <div class="card2">
               <a id="haveAccount" href="/login">Already have an account</a>
             </div>
             <div class="card3">
-              <button id="signupBtn" type="submit">Sign Up</button>
+              <button id="signupBtn" class="signupBtn" type="submit">Sign Up</button>
             </div>
           </form>
         </div>
       </div>
     </div>
+    <script>
+      const signupForm = document.querySelector('.signupForm')
+      const username = document.getElementById('username_ipt');
+      const email = document.getElementById('email_ipt');
+      const password = document.getElementById('password_ipt');
+      signupForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const url = 'http://localhost:3001/signup';
+        var payload = {
+          email: email,
+          password: password,
+          username: username
+        };
+
+
+
+        fetch(url, {
+          method: "post",
+          body: data
+        })
+          .then(response => response.text())
+          .then(response => console.log(response))
+          .catch(err => console.log(err))
+      })
+    </script>
   </body>
 
 
