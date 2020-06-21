@@ -1,5 +1,5 @@
 //jshint esversion:6
-
+//requiring express,router,jet and mail
 const express = require('express');
 const router = express.Router();
 const jwt = require('jwt-simple');
@@ -19,9 +19,11 @@ const {
 //     });
 // });
 
+//handling post request from signup page (registerandlogin.js)
 router.post('/verifyMail', function(req, res) {
   var secret = 'fe1a1915a379f3be5394b64d14794932';
   console.log(req.body.email);
+  //checking for existing mail in database
   if (req.body.email !== '') {
     User.findOne({
       'local.email': req.body.email
@@ -58,7 +60,7 @@ router.post('/verifyMail', function(req, res) {
   }
 
 });
-
+//handling the link clicked on receiving the confirmation mail
 router.get('/verifyMail/:id/:token', function(req, res) {
   var secret = 'fe1a1915a379f3be5394b64d14794932';
   console.log(req.params.token);
@@ -82,22 +84,5 @@ router.get('/verifyMail/:id/:token', function(req, res) {
 
 
 });
-
-// router.post('/resetpassword', function(req, res) {
-//   user.findById(req.body.id, function(err, result) {
-//     if (err) {
-//       console.log(err);
-//     }
-//     if (result == null) {
-//       res.send('INCORRECT');
-//     } else {
-//       const pass = User.generateHash(req.body.password);
-//       result.local.password = pass;
-//       result.save();
-//     }
-//   });
-//
-//   res.send('Your password has been successfully changed.');
-// });
 
 module.exports = router;
