@@ -12,9 +12,9 @@
 </head>
 
 <body>
-    <form>
+    <form method="post" action="/sell/">
         <label>Title</label>
-        <input placeholder="title" />
+        <input placeholder="title" name="title"/>
         <br />
         <label>Category</label>
         <select>
@@ -76,6 +76,7 @@
         <br />
         <label for="address">Address</label>
         <textarea></textarea>
+        <button type="submit" >Submit</button>
     </form>
     <script>
         Array.prototype.forEach.call(document.querySelectorAll('.fileButton'), function (button) {
