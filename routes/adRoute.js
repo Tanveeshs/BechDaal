@@ -41,12 +41,14 @@ adRouter.use(bodyParser.json());
 // here in the backend, the code will turn that string back into object using JSON.parse() method
 adRouter.route('/')
   .post((upload.array('images', 12)), (req, res) => {
-    const user_data = JSON.parse(req.user);
+    const user_data = req.user;
 
     const new_ad = new AdSchema({
       title: req.body.title,
-      category: req.body.category,
-      sub_category: req.body.sub_category,
+      category: 'Tp',
+      // req.body.category, temporarily as no option in category and subcategory
+      sub_category: 'Tp',
+      // req.body.sub_category,
       model: req.body.model,
       brand: req.body.brand,
       price: req.body.price,
