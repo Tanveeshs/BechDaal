@@ -44,11 +44,11 @@ app.use(passport.session());
 app.use(flash());
 require('./routes/RegisterAndLogin')(app, passport);
 
-app.get('/show_ad', (req, res) => {
-  res.render('show_ad', {
-    user: req.user
-  });
-});
+// app.get('/show_ad', (req, res) => {
+//   res.render('show_ad', {
+//     user: req.user
+//   });
+// });
 
 app.use('/user', forgotPass);
 app.use('/verify', verifymail);

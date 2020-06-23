@@ -73,14 +73,31 @@ adRouter.route('/')
 
 /* docs */
 // here you will just add the id of the ad in the url itself, and will get that single ad
-adRouter.route('/:adId')
-  .get((req, res) => {
-    AdSchema.findById(req.params.adId)
-      .then((ad) => {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(ad);
-      }, (err) => console.log(err))
-      .catch((err) => console.log(err));
+// adRouter.route('/:adId')
+//   .get((req, res) => {
+//     AdSchema.findById(req.params.adId)
+//       .then((ad) => {
+//         console.log(ad);
+//         res.statusCode = 200;
+//         res.setHeader('Content-Type', 'application/json');
+//         res.render('show_ad', {
+//               ad: ad
+//             });
+//       }, (err) => console.log(err))
+//       .catch((err) => console.log(err));
+//   });
+
+adRouter.get('/:adId', function(req, res) {
+  AdSchema.find({
+    _id: req.params.adId
+  }, function(err, result) {
+    if (err) {
+      console.log(err);
+    }
+    console.log(result);
+    res.render('show_ad', {
+      ad: result[0]
+    });
   });
+});
 module.exports = adRouter;
