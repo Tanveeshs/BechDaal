@@ -34,9 +34,9 @@
   <p>Model: <%=ad.model%></p>
   <p>Brand: <%=ad.brand%></p>
   <p>Price: <%=ad.price%></p>
-  <p>User: <%=ad.price%></p>
+  <p>User: <%=ad.user.local.username%></p>
   <p>Description: <%=ad.description%></p>
-  <p>Date Posted:</p>
-  <p>Date Sold:</p>
+  <p>Date Posted: <%=ad.date_posted%></p>
+  <p>Date Sold: <%=ad.date_sold%></p>
 </center>
 <%-include('partials/footer')-%>
