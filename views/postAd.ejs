@@ -1,5 +1,5 @@
 <%-include('partials/header')-%>
-    <form method="post" action="/sell/">
+    <form method="post" action="/sell/" enctype="multipart/form-data">
         <label>Title</label>
         <input placeholder="title" name="title"/>
         <br />
@@ -28,7 +28,12 @@
         <label for="images">Upload images of your device (maximum of 9) </label>
         <div class="grid-container">
             <div class="grid-item">
-                <input type="file" name="myFile" onchange="changeText()" id="fileInput" />
+                <input type="file" name="images" onchange="changeText()" id="fileInput" />
+                <button class="fileButton">Choose File</button>
+                <span class="fileLabel"></span>
+            </div>
+            <div class="grid-item">
+                <input type="file" name="images" onchange="changeText()" id="fileInput" />
                 <button class="fileButton">Choose File</button>
                 <span class="fileLabel"></span>
             </div>
