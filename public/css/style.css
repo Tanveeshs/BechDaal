@@ -28,7 +28,7 @@ body {
   box-sizing: border-box;
 }
 
-.searchbar {
+/* .searchbar {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,23 +42,29 @@ body {
   list-style: none;
   justify-content: space-between;
   margin-top: 20px
-}
+} */
 
 .input1 {
-  width: 250px;
+  width: 200px;
   border: none;
   background-color: mediumaquamarine;
   border-bottom: 2px solid gray;
-  color: dimgray
+  color: dimgray;
 }
+.input1:focus,
+  textarea { outline: none ! important; }
+
 
 .input2 {
-  width: 150px;
+  width: 120px;
   border: none;
   background-color: mediumaquamarine;
   border-bottom: 2px solid gray;
-  color: dimgray
+  color: dimgray;
+
 }
+.input2:focus,
+  textarea { outline: none ! important; }
 
 .locationsubmit {
   background-color: rgb(161, 217, 221);
