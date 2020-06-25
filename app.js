@@ -34,6 +34,7 @@ app.use(express.urlencoded({
 }));
 app.use(cookieParser());
 app.use(cors());
+app.use(express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: 'XYZZ'
@@ -44,11 +45,11 @@ app.use(passport.session());
 app.use(flash());
 require('./routes/RegisterAndLogin')(app, passport);
 
-app.get('/show_ad', (req, res) => {
-  res.render('show_ad', {
-    user: req.user
-  });
-});
+// app.get('/show_ad', (req, res) => {
+//   res.render('show_ad', {
+//     user: req.user
+//   });
+// });
 
 app.use('/user', forgotPass);
 app.use('/verify', verifymail);
