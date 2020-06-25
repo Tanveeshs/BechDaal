@@ -69,12 +69,12 @@ adRouter.route('/')
             console.log(ad);
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');
-            res.json(ad)
+            res.json(ad);
           })
-          .catch((err) => console.log(err))
+          .catch((err) => console.log(err));
 
       }
-    })
+    });
 
 
   });
@@ -86,7 +86,7 @@ adRouter.get('/:adId', (req, res) => {
   AdSchema.findById(req.params.adId)
   .then((ad) => {
     // console.log(ad);
-    res.render('show_ad', ad)
-  })
-})
+    res.render('show_ad', ad);
+  });
+});
 module.exports = adRouter;
