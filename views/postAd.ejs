@@ -1,91 +1,200 @@
 <%-include('partials/header')-%>
-    <form method="post" action="/sell/" enctype="multipart/form-data">
-        <label>Title</label>
-        <input placeholder="title" name="title"/>
-        <br />
-        <label>Category</label>
-        <select>
-            category
-        </select>
-        <br />
-        <label>Sub-category</label>
-        <select>
-            category
-        </select>
-        <br />
-        <label for="brand">Brand</label>
-        <input name="brand" />
-        <br />
-        <label for="model">Model</label>
-        <input name="model" />
-        <br />
-        <label for="price">Price</label>
-        <input name="price" />
-        <br />
-        <label for="description">Description</label>
-        <textarea name="description"></textarea>
-        <hr />
-        <label for="images">Upload images of your device (maximum of 9) </label>
-        <div class="grid-container">
-            <div class="grid-item">
-                <input type="file" name="images" onchange="changeText()" id="fileInput" />
-                <button class="fileButton">Choose File</button>
-                <span class="fileLabel"></span>
-            </div>
-            <div class="grid-item">
-                <input type="file" name="images" onchange="changeText()" id="fileInput" />
-                <button class="fileButton">Choose File</button>
-                <span class="fileLabel"></span>
-            </div>
-            <div class="grid-item">
-                IMAGE
-            </div>
-            <div class="grid-item">
-                IMAGE
-            </div>
-            <div class="grid-item">
-                IMAGE
-            </div>
-            <div class="grid-item">
-                IMAGE
-            </div>
-            <div class="grid-item">
-                IMAGE
-            </div>
-            <div class="grid-item">
-                IMAGE
-            </div>
-            <div class="grid-item">
-                IMAGE
-            </div>
-            <div class="grid-item">
-                IMAGE
-            </div>
-        </div>
-        <!-- uploading images here  -->
-        <label for="contact">Contact No</label>
-        <input name="contact" />
-        <br />
-        <label for="address">Address</label>
-        <textarea name="address"></textarea>
-        <button type="submit" >Submit</button>
-    </form>
-    <script>
-        Array.prototype.forEach.call(document.querySelectorAll('.fileButton'), function (button) {
-            const hiddenInput = button.parentElement.querySelector('#fileInput')
-            let label = button.parentElement.querySelector('.fileLabel')
-            const defaultText = "No file selected";
-            label.textContent = defaultText;
-            button.addEventListener('click', function (e) {
-                e.preventDefault();
-                hiddenInput.click();
-            })
-            hiddenInput.addEventListener('change', function () {
-                const newText = "1 file selected"
-                label.textContent = '1 file selected'
-            })
 
-        })
-    </script>
+<style media="screen">
+  #custom-button {
+    padding: 10px;
+    color: white;
+    background-color: #009578;
+    border: 1px solid #000;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  #custom-button:hover {
+    background-color: #00b28f;
+  }
+
+  #custom-text {
+    margin-left: 10px;
+    font-family: sans-serif;
+    color: #aaa;
+  }
+
+  .vis1{
+    display: none
+  }
+
+  .vis2{
+    display: none
+  }
+
+  .vis3{
+    display: none
+  }
+
+  .vis4{
+    display: none
+  }
+
+  .vis5{
+    display: none
+  }
+
+  .vis6{
+    display: none
+  }
+
+  .vis7{
+    display: none
+  }
+
+  .vis8{
+    display: none
+  }
+</style>
+
+<form method="post" action="/sell/" enctype="multipart/form-data">
+  <label>Title</label>
+  <input placeholder="title" name="title" />
+  <br />
+  <label>Category</label>
+  <select>
+    category
+  </select>
+  <br />
+  <label>Sub-category</label>
+  <select>
+    category
+  </select>
+  <br />
+  <label for="brand">Brand</label>
+  <input name="brand" />
+  <br />
+  <label for="model">Model</label>
+  <input name="model" />
+  <br />
+  <label for="price">Price</label>
+  <input name="price" />
+  <br />
+  <label for="description">Description</label>
+  <textarea name="description"></textarea>
+  <hr />
+  <label for="images">Upload images of your device (maximum of 9) </label>
+  <div class="grid-container">
+    <div class="grid-item">
+      <input type="file" name="images" onchange="changeText()" id="fileInput" hidden='hidden' />
+      <button class="fileButton vis0">Choose File</button>
+      <span class="fileLabel"></span>
+    </div>
+    <div class="grid-item">
+      <input type="file" name="images" onchange="changeText()" id="fileInput" hidden='hidden' />
+      <button class="fileButton vis1">Choose File</button>
+      <span class="fileLabel vis1"></span>
+    </div>
+    <div class="grid-item">
+      <input type="file" name="images" onchange="changeText()" id="fileInput" hidden='hidden' />
+      <button class="fileButton vis2">Choose File</button>
+      <span class="fileLabel vis2"></span>
+    </div>
+    <div class="grid-item">
+      <input type="file" name="images" onchange="changeText()" id="fileInput" hidden='hidden' />
+      <button class="fileButton vis3">Choose File</button>
+      <span class="fileLabel vis3"></span>
+    </div>
+    <div class="grid-item">
+      <input type="file" name="images" onchange="changeText()" id="fileInput" hidden='hidden' />
+      <button class="fileButton vis4">Choose File</button>
+      <span class="fileLabel vis4"></span>
+    </div>
+    <div class="grid-item">
+      <input type="file" name="images" onchange="changeText()" id="fileInput" hidden='hidden' />
+      <button class="fileButton vis5">Choose File</button>
+      <span class="fileLabel vis5"></span>
+    </div>
+    <div class="grid-item">
+      <input type="file" name="images" onchange="changeText()" id="fileInput" hidden='hidden' />
+      <button class="fileButton vis6">Choose File</button>
+      <span class="fileLabel vis6"></span>
+    </div>
+    <div class="grid-item">
+      <input type="file" name="images" onchange="changeText()" id="fileInput" hidden='hidden' />
+      <button class="fileButton vis7">Choose File</button>
+      <span class="fileLabel vis7"></span>
+    </div>
+    <div class="grid-item">
+      <input type="file" name="images" onchange="changeText()" id="fileInput" hidden='hidden' />
+      <button class="fileButton vis8">Choose File</button>
+      <span class="fileLabel vis8"></span>
+    </div>
+    <br>
+  </div>
+
+  <!-- uploading images here  -->
+  <label for="contact">Contact No</label>
+  <input name="contact" />
+  <br />
+  <label for="address">Address</label>
+  <textarea name="address"></textarea>
+  <button type="submit">Submit</button>
+</form>
+<script>
+  Array.prototype.forEach.call(document.querySelectorAll('.fileButton'), function(button) {
+    const hiddenInput = button.parentElement.querySelector('#fileInput')
+    let label = button.parentElement.querySelector('.fileLabel')
+    const defaultText = "No file selected";
+    label.textContent = defaultText;
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      hiddenInput.click();
+    })
+    hiddenInput.addEventListener('change', function() {
+      const newText = "1 file selected"
+      label.textContent = '1 file selected'
+    })
+
+  })
+  // const realFileBtn = document.getElementById("fileInput");
+  // const customBtn = document.getElementById("custom-button");
+  // const customTxt = document.getElementById("custom-text");
+  //
+  // customBtn.addEventListener("click", function() {
+  //   realFileBtn.click();
+  // });
+  //
+  // realFileBtn.addEventListener("change", function() {
+  //   if (realFileBtn.value) {
+  //     customTxt.innerHTML = realFileBtn.value.match(
+  //       /[\/\\]([\w\d\s\.\-\(\)]+)$/
+  //     )[1];
+  //   } else {
+  //     customTxt.innerHTML = "No file chosen, yet.";
+  //   }
+  // });
+
+  $('.vis0').on('click', function(){
+    $('.vis1').removeClass('vis1');
+});
+$('.vis1').on('click', function(){
+  $('.vis2').removeClass('vis2');
+});
+$('.vis2').on('click', function(){
+  $('.vis3').removeClass('vis3');
+});
+$('.vis3').on('click', function(){
+  $('.vis4').removeClass('vis4');
+});
+$('.vis4').on('click', function(){
+  $('.vis5').removeClass('vis5');
+});
+$('.vis5').on('click', function(){
+  $('.vis6').removeClass('vis6');
+});
+$('.vis6').on('click', function(){
+  $('.vis7').removeClass('vis7');
+});
+$('.vis7').on('click', function(){
+  $('.vis8').removeClass('vis8');
+});
+</script>
 
 <%-include('partials/footer')-%>
