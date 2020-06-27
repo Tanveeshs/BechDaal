@@ -12,15 +12,14 @@
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyAfY8VvtqG5lj5dzaku95FmakAbO9hNBH4"></script>
   <script>
     var searchInput = 'search_input';
-
-    $(document).ready(function () {
-    var autocomplete;
-    autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+    $(document).ready(function() {
+      var autocomplete;
+      autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
         types: ['geocode'],
         componentRestrictions: {
-        country: "India"
-      }
-    });
+          country: "India"
+        }
+      });
     });
   </script>
   <link rel='stylesheet' href='/css/style.css' />
@@ -33,47 +32,150 @@
     font-size: 20px;
     color: black;
   }
-  .searchbar{
+
+  .searchbar {
     background-color: #4AACD1;
   }
-  .locationsubmit{
+
+  .locationsubmit {
     background-color: #9FC66A;
     font-family: 'PT Sans', sans-serif;
     font-size: 14.78px;
   }
-  .locationsubmit:hover{
+
+  .locationsubmit:hover {
     background-color: #9FC66A;
     font-family: 'PT Sans', sans-serif;
     font-size: 14.78px;
-    cursor:pointer;
+    cursor: pointer;
   }
-  .look{
+
+  .look {
     font-family: 'Lato', sans-serif;
     font-size: 20.23px;
     color: black;
+  }
+
+  .link {
+    cursor: pointer;
+  }
+
+  .looks {
+    padding-top: 8px;
+    color: black;
+  }
+
+  @media (max-width: 820px) {
+    .footer-details {
+      text-align: center;
+    }
+
+    .map1 {
+      display: none;
+    }
+  }
+
+  .searchbar {
+    background-color: #4AACD1;
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .searchbar-items {
+    display: flex;
+    list-style: none;
+    padding: 0px 50px;
+  }
+
+  .nav-item {
+    padding: 0px 20px;
+  }
+
+  .navbar {
+    padding: 10px 80px;
+    background-color: #77CAEA;
+  }
+
+  .navbar-brand {
+    color: black;
+  }
+
+  .searchicon {
+    padding-top: 10px;
+    font-size: 20px;
+  }
+
+  .languageicon {
+    color: black;
+    font-size: 25px;
+  }
+
+  .sellicon {
+    padding: 10px;
+    font-size: 20px;
+  }
+
+  .locationsubmit {
+    background-color: #9FC66A;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 14.78px;
+  }
+
+  .locationsubmit:hover {
+    background-color: #9FC66A;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 14.78px;
+    cursor: pointer;
+  }
+
+  .a {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  .input1 {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 15px;
+    margin-top: 5px;
+    background-color: #4AACD1;
+  }
+
+  .b {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  .input2 {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 15px;
+    margin-top: 5px;
+    background-color: #4AACD1;
+  }
+
+  .listpadding {
+    width: 300px;
+    padding: 0px 30px;
+  }
+
+  @media (max-width: 820px) {
+    #ulLinks {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #toggledown {
+      padding-top: 20px;
+    }
+
+    #search {
+      visibility: hidden;
+      font-size: 0px;
+    }
 
   }
-  .link  {
-        cursor: pointer;
-    }
-    .looks{
-      padding-top: 8px;
-      color: black;
-
-    }
-
-    #toggledown{
-      padding-top: 20px;
-
-    }
-  @media (max-width: 780px) {
-      .footer-details{
-          text-align: center;
-      }
-      .map1{
-          display: none;
-      }
-}
 </style>
 
 
@@ -89,18 +191,17 @@
 <body>
 
 
-  <nav class="navbar navbar-expand-sm navbar-dark bg-li" style="background-color:#77CAEA;">
-    <a class="navbar-brand" href="/" style="margin-right:30%; margin-left: 40px; font-family: 'PT Sans', sans-serif; font-size: 44px; color:black; font-weight: bold;">BECH DAAL</a>
-
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-li ">
+    <a class="navbar-brand" href="/" style="color:black">BechDaal</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
-
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="width:50%;">
-      <ul class="navbar-nav" id="log-reg">
-        <li><i id="toggledown" class="fas icons fa-search"></i></li>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto" id="ulLinks">
+        <li id="toggledown">
+          <!-- <input type="text" placeholder="Search" style="width:300px;" id="menuSearch" /> -->
+          <i class="fa fa-search searchicon" aria-hidden="true"></i>
+        </li>
         <%if  (typeof user !='undefined') {%>
         <div class="nav-item dropdown">
           <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="hellouser">
@@ -117,43 +218,47 @@
           </div>
         </div>
         <%} else {%>
-        <li class="nav-item active looks">
-          <a class="nav-link look looks" style="color:black; font-weight: bold;" href="/login">Login/<span>SignUp</span></a>
+        <li class="nav-item">
+          <a class="nav-link look" style="color:black;" href="/login">Login/<span>SignUp</span></a>
         </li>
         <% } %>
         <div class="nav-item dropdown">
           <a class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="hellouser">
-            <i class="fas icons fa-language"></i>
+            <i class="fas languageicon fa-language"></i>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="#">Hindi</a>
             <a class="dropdown-item" href="#">English</a>
           </div>
         </div>
-        <li class="nav-item active" style="display: flex;" id="sellOption">
-          <i class="nav-link link fas icons fa-hand-holding-usd" style="margin-right: 1px;color:black; font-weight: bold;"></i>
-          <a href="#" class="nav-link look" style="color:black; font-weight: bold;">Sell</a>
+        <li class="nav-item active" style="display: flex; cursor:pointer;" id="sellOption">
+          <a><i class="fas sellicon fa-hand-holding-usd"></i></a>
+          <a href="/post" class="nav-link look" style="color:black; font-weight: bold;">Sell</a>
         </li>
+
       </ul>
     </div>
   </nav>
   <section id="search">
     <nav class="searchbar">
       <ul class="searchbar-items">
-        <li>
-          <p style="font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 24px;          ">Want something?</p>
+        <li class="listpadding">
+          <p class="a">Want something?</p>
+        </li>
+        <li class="listpadding">
+          <input class="input1" type="text" placeholder="Type Here" />
+        </li>
+        <li class="listpadding">
+          <p class="b">In?</p>
         </li>
         <li>
-          <input class="input1" style="font-family: 'PT Sans', sans-serif; font-size: 16px;  margin-top: 5px; background-color: #4AACD1;        " type="text" placeholder="Type Here" />
+          <input class="input2" type="text" placeholder="Your location" />
         </li>
-        <li style="margin:0;">
-          <p style="font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 24px;          ">In?</p>
+        <li class="listpadding">
+          <form>
+        <li>
+          <input class="input2" id="search_input" style="font-family: 'PT Sans', sans-serif; font-size: 16px; margin-top: 5px; background-color: #4AACD1;       " type="text" placeholder="Your location" />
         </li>
-        <form>
-          <li>
-
-            <input class="input2" id="search_input" style="font-family: 'PT Sans', sans-serif; font-size: 16px; margin-top: 5px; background-color: #4AACD1;       " type="text" placeholder="Your location" />
-          </li>
         </form>
         <li>
           <button class="locationsubmit">Go!</button>
@@ -161,6 +266,7 @@
       </ul>
     </nav>
   </section>
+
   <div style="padding-top:50px">
 
   </div>
