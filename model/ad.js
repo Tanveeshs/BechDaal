@@ -34,6 +34,9 @@ const adSchema = new Schema({
   contact_number: {
     type: Number
   },
+  cover_photo: {
+    type: Object
+  },
   images: {
     type: Object
   },

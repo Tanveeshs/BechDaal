@@ -11,6 +11,7 @@ const configDB = require('./config/database');
 const forgotPass = require('./routes/forgotPass');
 const verifymail = require('./routes/verifymail');
 const adRoute = require('./routes/adRoute');
+const searchRoute = require('./routes/searchRoute');
 const cors = require('cors');
 const category = require('./routes/category');
 // const smsverify = require('./routes/sms');
@@ -23,6 +24,7 @@ require('./config/passport')(passport);
 
 var app = express();
 const test = require('./routes/test');
+const searchRouter = require('./routes/searchRoute');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -56,6 +58,7 @@ app.use('/verify', verifymail);
 app.use('/sell', adRoute);
 app.use('/category', category);
 app.use('/test', test);
+app.use('/search', searchRouter);
 app.get('/post', function(req, res) {
   res.render('postAd.ejs');
 });
