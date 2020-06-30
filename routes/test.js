@@ -19,14 +19,15 @@ router.get('/chat', function(req, res) {
       res.redirect('http://localhost:3000/user/' + r);
     }).catch((err) => console.log(err));
 });
-router.get('/addfriend/:id', function(req, res) {
+
+router.get('/addfriend/:adName/:id', function(req, res) {
   myFirestore.collection('users')
     .where('id', '==', String(req.user._id))
     .get().
   then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
       myFirestore.collection('users').doc(doc.id).update({
-        contacts: firebase.firestore.FieldValue.arrayUnion(req.params.id)
+        contacts: firebase.firestore.FieldValue.arrayUnion({userID:req.params.id,adName:req.params.adName})
       });
     });
   });
@@ -36,20 +37,12 @@ router.get('/addfriend/:id', function(req, res) {
   then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
       myFirestore.collection('users').doc(doc.id).update({
-        contacts: firebase.firestore.FieldValue.arrayUnion(String(req.user._id))
+        contacts: firebase.firestore.FieldValue.arrayUnion({userID:String(req.user._id),adName:req.params.adName})
       });
     });
   });
   res.redirect('/test/chat');
 
-});
-router.get('/getName/:id', function(req, res) {
-  const id = req.params.id;
-  User.find({
-    _id: id
-  }, function(err, result) {
-    res.send(result[0].local.username);
-  });
 });
 
 // router.get('/user',function (req,res) {

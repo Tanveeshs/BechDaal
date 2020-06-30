@@ -3,21 +3,16 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jwt-simple');
-const {
-  user
-} = require('../model/user');
+
 const mail = require('../utils/mailer');
 const {
   User
 } = require('../model/user');
-// var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
-//     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
+const {
+  myFirebase,
+  myFirestore
+} = require('../config/firebaseNormal');
 
-// app.get('/', isLoggedIn, function(req, res) {
-//     res.render('verify.ejs', {
-//         user: req.user // get the user out of session and pass to template
-//     });
-// });
 
 //handling post request from signup page (registerandlogin.js)
 router.post('/verifyMail', function(req, res) {
@@ -69,20 +64,38 @@ router.get('/verifyMail/:id/:token', function(req, res) {
   User.findById(payload.id, function(err, result) {
     if (err) {
       console.log(err);
+      res.send(err)
     }
     if (result == null) {
       res.send('INCORRECT');
-    } else {
+    }
+    else {
       result.local.isVerified = true;
       result.save();
+      res.redirect('/verify/addToChat');
     }
 
   });
-  res.render('profile.ejs', {
-    user: req.user
-  });
+
 
 
 });
+
+router.get('/addToChat',function (req,res) {
+  myFirestore
+      .collection('users')
+      .doc(String(req.user._id))
+      .set({
+        id:String(req.user._id),
+        nickname:req.user.local.username,
+        contacts:[]
+      })
+      .then(data=>
+      console.log(data))
+  res.render('profile.ejs', {
+    user: req.user
+  })
+
+})
 
 module.exports = router;
