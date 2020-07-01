@@ -211,9 +211,26 @@
           <!-- <input type="text" placeholder="Search" style="width:300px;" id="menuSearch" /> -->
           <i class="fa fa-search searchicon" aria-hidden="true"></i>
         </li>
+        <%if  (typeof user !='undefined') {%>
+        <div class="nav-item dropdown">
+          <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="hellouser">
+            <!-- add navbar-toggle in class if u want that triangle -->
+            Hello <%=user.local.username%>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#" style="font-weight: bold;">Manage my Ads</a>
+            <a class="dropdown-item" href="#">Messages</a>
+            <a class="dropdown-item" href="#">Favorites</a>
+            <a class="dropdown-item" href="#">My Details</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item text-muted" href="/logout"><strong>Log Out</strong></a>
+          </div>
+        </div>
+        <%} else {%>
         <li class="nav-item">
           <a class="nav-link look" style="color:black;" href="/login">Login/<span>SignUp</span></a>
         </li>
+        <% } %>
         <div class="nav-item dropdown">
           <a class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
             id="hellouser">
