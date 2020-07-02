@@ -30,162 +30,6 @@
   <title>Navbars</title>
 </head>
 
-<style>
-  .icons {
-    padding: 10px 30px;
-    font-size: 20px;
-    color: black;
-  }
-
-  .searchbar {
-    background-color: #4AACD1;
-  }
-
-  .locationsubmit {
-    background-color: #9FC66A;
-    font-family: 'PT Sans', sans-serif;
-    font-size: 14.78px;
-  }
-
-  .locationsubmit:hover {
-    background-color: #9FC66A;
-    font-family: 'PT Sans', sans-serif;
-    font-size: 14.78px;
-    cursor: pointer;
-  }
-
-  .look {
-    font-family: 'Lato', sans-serif;
-    font-size: 20.23px;
-    color: black;
-
-  }
-
-  .link {
-    cursor: pointer;
-  }
-
-  .looks {
-    padding-top: 8px;
-    color: black;
-
-  }
-
-
-
-  @media (max-width: 820px) {
-    .footer-details {
-      text-align: center;
-    }
-
-    .map1 {
-      display: none;
-    }
-  }
-
-  .searchbar {
-    background-color: #4AACD1;
-    text-align: center;
-    padding-top: 20px;
-
-  }
-
-  .searchbar-items {
-    display: flex;
-    list-style: none;
-    padding: 0px 50px;
-  }
-
-  .nav-item {
-    padding: 0px 20px;
-  }
-
-  .navbar {
-    padding: 10px 80px;
-    background-color: #77CAEA;
-  }
-
-  .navbar-brand {
-    color: black;
-  }
-
-  .searchicon {
-    padding-top: 10px;
-    font-size: 20px;
-  }
-
-  .languageicon {
-    color: black;
-    font-size: 25px;
-  }
-
-  .sellicon {
-    padding: 10px;
-    font-size: 20px;
-
-  }
-
-  .locationsubmit {
-    background-color: #9FC66A;
-    font-family: 'PT Sans', sans-serif;
-    font-size: 14.78px;
-  }
-
-  .locationsubmit:hover {
-    background-color: #9FC66A;
-    font-family: 'PT Sans', sans-serif;
-    font-size: 14.78px;
-    cursor: pointer;
-  }
-
-  .a {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
-    font-size: 18px;
-  }
-
-  .input1 {
-    font-family: 'PT Sans', sans-serif;
-    font-size: 15px;
-    margin-top: 5px;
-    background-color: #4AACD1;
-
-  }
-
-  .b {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
-    font-size: 14px;
-  }
-
-  .input2 {
-    font-family: 'PT Sans', sans-serif;
-    font-size: 15px;
-    margin-top: 5px;
-    background-color: #4AACD1;
-
-  }
-
-  .listpadding {
-    width: 300px;
-    padding: 0px 30px;
-  }
-
-  @media (max-width: 820px) {
-    #ulLinks {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    #search {
-      visibility: hidden;
-      font-size: 0px;
-    }
-
-  }
-</style>
-
 
 <script>
   $(document).ready(function () {
@@ -200,17 +44,24 @@
 
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-li ">
-    <a class="navbar-brand" href="/" style="color:black">BechDaal</a>
+    <a class="navbar-brand" href="/" style="color:black">
+      <span><img src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png"
+                 alt="logo" style="width:70px;height:50px;"></span>
+      BechDaal</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto" id="ulLinks">
-        <li id="toggledown">
-          <!-- <input type="text" placeholder="Search" style="width:300px;" id="menuSearch" /> -->
-          <i class="fa fa-search searchicon" aria-hidden="true"></i>
-        </li>
+        <div style="width:230px;display:flex;flex-direction: row;justify-content: space-between;">
+          <li id="hiddenItem">
+            <input type="text" placeholder="Search" id="menuSearch" />
+          </li>
+          <li id="toggledown">
+            <i class="fa fa-search searchicon" aria-hidden="true"></i>
+          </li>
+        </div>
         <%if  (typeof user !='undefined') {%>
         <div class="nav-item dropdown">
           <a style="font-size:1.05rem;" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="hellouser">
