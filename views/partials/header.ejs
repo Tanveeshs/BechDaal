@@ -213,9 +213,9 @@
         </li>
         <%if  (typeof user !='undefined') {%>
         <div class="nav-item dropdown">
-          <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="hellouser">
+          <a style="font-size:1.05rem;" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="hellouser">
             <!-- add navbar-toggle in class if u want that triangle -->
-            Hello <%=user.local.username%>
+            <span style="font-weight:bold;">Hello</span> <%=user.local.username%>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="#" style="font-weight: bold;">Manage my Ads</a>
@@ -252,17 +252,17 @@
   <section id="search">
     <nav class="searchbar">
       <ul class="searchbar-items">
-        <li class="listpadding">
+        <li style="padding:0px;margin-right:30px;">
           <p class="a">Want something?</p>
         </li>
-        <li class="listpadding">
+        <li style="padding:0px;margin-right:30px;">
           <input class="input1" type="text" placeholder="Type Here" />
         </li>
-        <li class="listpadding">
+        <li style="width:60px;margin-right: 30px;">
           <p class="b">In?</p>
         </li>
         <form>
-          <li>
+          <li style="padding:0px;margin-right:30px;">
 
             <input class="input2" id="search_input" style="font-family: 'PT Sans', sans-serif; font-size: 16px; margin-top: 5px; background-color: #4AACD1;       " type="text" placeholder="Your location" />
           </li>
