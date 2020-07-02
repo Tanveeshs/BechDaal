@@ -1,5 +1,7 @@
 <%-include('partials/header')-%>
 
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
+
 <style media="screen">
   #custom-button {
     padding: 10px;
@@ -19,8 +21,30 @@
     font-family: sans-serif;
     color: #aaa;
   }
+  /* .colnm {
+      border: 1px solid black;
+  } */
 
-  .vis1 {
+  table, td {
+      border: 5px solid grey;
+      padding: 5px;
+  }
+  table {
+      border-spacing: 5px;
+  }
+  td {
+      text-align: center;
+      padding: 20px;
+  }
+  .fileButton{
+      cursor: pointer;
+      font-size: 20px;
+  }
+  .Img{
+      width: 100px;
+      height: 100px;
+  }
+  /* .vis1 {
     display: none
   }
 
@@ -50,7 +74,7 @@
 
   .vis8 {
     display: none
-  }
+  } */
 </style>
 
 <form method="post" action="/sell/" enctype="multipart/form-data">
@@ -80,63 +104,95 @@
   <textarea name="description"></textarea>
   <hr />
   <label for="images">Upload images of your device (maximum of 9) </label>
-  <div class="grid-container">
-    <div class="grid-item">
+  <table>
+    <tr>
+
+
+    <td>
+
       <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' />
-      <button class="fileButton vis0">Choose File</button>
-      <img id="blah0" class="vis0" src="" alt="your image" />
+      <%# <button class="fileButton vis0">Choose File</button><br> %>
+      <i class="far fa-plus-square fileButton vis0"></i><br>
+      <img id="blah0" class="Img vis0" src="images/Imagehere.jpg"  alt="" /><br>
       <span class="fileLabel"></span>
-    </div>
-    <div class="grid-item">
+
+    </td>
+    <td>
+    <div class="colnm">
       <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' />
-      <button class="fileButton vis1">Choose File</button>
-      <img id="blah1" class="vis1" src="#" alt="your image" />
+      <i class="far fa-plus-square fileButton vis0"></i><br>
+      <img id="blah1" class=" Img vis1" src="images/Imagehere.jpg" alt="" /><br>
       <span class="fileLabel vis1"></span>
     </div>
-    <div class="grid-item">
+    </td>
+    <td>
+    <div class="colnm">
       <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' />
-      <button class="fileButton vis2">Choose File</button>
-      <img id="blah2" class="vis2" src="#" alt="your image" />
+      <i class="far fa-plus-square fileButton vis0"></i><br>
+      <img id="blah2" class="Img vis2" src="images/Imagehere.jpg" alt="" /><br>
       <span class="fileLabel vis2"></span>
     </div>
-    <div class="grid-item">
+    </td>
+
+    </tr>
+    <tr>
+
+
+    <td>
+    <div class="colnm">
       <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' />
-      <button class="fileButton vis3">Choose File</button>
-      <img id="blah3" class="vis3" src="#" alt="your image" />
+     <i class="far fa-plus-square fileButton vis0"></i><br>
+      <img id="blah3" class="Img vis3" src="images/Imagehere.jpg" alt="" /><br>
       <span class="fileLabel vis3"></span>
     </div>
-    <div class="grid-item">
+    </td>
+    <td>
+    <div class="colnm">
       <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' />
-      <button class="fileButton vis4">Choose File</button>
-      <img id="blah4" class="vis4" src="#" alt="your image" />
+      <i class="far fa-plus-square fileButton vis0"></i><br>
+      <img id="blah4" class="Img vis4" src="images/Imagehere.jpg" alt="" /><br>
       <span class="fileLabel vis4"></span>
     </div>
-    <div class="grid-item">
+    </td>
+    <td>
+    <div class="colnm">
       <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' />
-      <button class="fileButton vis5">Choose File</button>
-      <img id="blah5" class="vis5" src="#" alt="your image" />
+      <i class="far fa-plus-square fileButton vis0"></i><br>
+      <img id="blah5" class="Img vis5" src="images/Imagehere.jpg" alt="" /><br>
       <span class="fileLabel vis5"></span>
     </div>
-    <div class="grid-item">
+    </td>
+    </tr>
+    <tr>
+
+    <td>
+    <div class="colnm">
       <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' />
-      <button class="fileButton vis6">Choose File</button>
-      <img id="blah6" class="vis6" src="#" alt="your image" />
+     <i class="far fa-plus-square fileButton vis0"></i><br>
+      <img id="blah6" class="Img vis6" src="images/Imagehere.jpg" alt="" /><br>
       <span class="fileLabel vis6"></span>
     </div>
-    <div class="grid-item">
+    </td>
+    <td>
+    <div class="colnm">
       <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' />
-      <button class="fileButton vis7">Choose File</button>
-      <img id="blah7" class="vis7" src="#" alt="your image" />
+      <i class="far fa-plus-square fileButton vis0"></i><br>
+      <img id="blah7" class="Img vis7" src="images/Imagehere.jpg" alt="" /><br>
       <span class="fileLabel vis7"></span>
     </div>
-    <div class="grid-item">
+    </td>
+    <td>
+    <div class="colnm">
       <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' />
-      <button class="fileButton vis8">Choose File</button>
-      <img id="blah8" class="vis8" src="" alt="your image" />
+      <i class="far fa-plus-square fileButton vis0"></i><br>
+      <img id="blah8" class="Img vis8" src="images/Imagehere.jpg" alt="" /><br>
       <span class="fileLabel vis8"></span>
     </div>
+    </td>
+    </tr>
+    </table>
     <br>
-  </div>
+
 
   <!-- uploading images here  -->
   <label for="contact">Contact No</label>
@@ -197,30 +253,30 @@
     }
   }
 
-  $('.vis0').on('click', function() {
-    $('.vis1').removeClass('vis1');
-  });
-  $('.vis1').on('click', function() {
-    $('.vis2').removeClass('vis2');
-  });
-  $('.vis2').on('click', function() {
-    $('.vis3').removeClass('vis3');
-  });
-  $('.vis3').on('click', function() {
-    $('.vis4').removeClass('vis4');
-  });
-  $('.vis4').on('click', function() {
-    $('.vis5').removeClass('vis5');
-  });
-  $('.vis5').on('click', function() {
-    $('.vis6').removeClass('vis6');
-  });
-  $('.vis6').on('click', function() {
-    $('.vis7').removeClass('vis7');
-  });
-  $('.vis7').on('click', function() {
-    $('.vis8').removeClass('vis8');
-  });
+  // $('.vis0').on('click', function() {
+  //   $('.vis1').removeClass('vis1');
+  // });
+  // $('.vis1').on('click', function() {
+  //   $('.vis2').removeClass('vis2');
+  // });
+  // $('.vis2').on('click', function() {
+  //   $('.vis3').removeClass('vis3');
+  // });
+  // $('.vis3').on('click', function() {
+  //   $('.vis4').removeClass('vis4');
+  // });
+  // $('.vis4').on('click', function() {
+  //   $('.vis5').removeClass('vis5');
+  // });
+  // $('.vis5').on('click', function() {
+  //   $('.vis6').removeClass('vis6');
+  // });
+  // $('.vis6').on('click', function() {
+  //   $('.vis7').removeClass('vis7');
+  // });
+  // $('.vis7').on('click', function() {
+  //   $('.vis8').removeClass('vis8');
+  // });
 </script>
 
 <%-include('partials/footer')-%>
