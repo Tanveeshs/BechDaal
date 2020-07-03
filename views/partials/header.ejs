@@ -37,6 +37,48 @@
       $("#search").slideToggle(300);
     });
   });
+
+  var showResults = debounce(function(arg){
+  var value  = arg.trim();
+  if (value == "" || value.length <= 0){
+    $("#search-results").fadeOut();
+    return;
+  }
+  else{
+    $("#search-results").fadeIn();
+  };
+  var jqxhr = $.post('/search/search/'+value, function(data){
+    $("#search-results").html("");
+  })
+  .done(function(data){
+    if(data.length===0){
+      $("#search-results").append('<p class="lead text-center mt-2">No results</p>');
+    } else {
+      data.forEach(x =>{
+        $("#search-results").append('<a href="#"><p class="m-2 lead">'+ x.title +'</p></a>')
+      });
+    }
+  })
+  .fail(function(err){
+    console.log(err);
+  })
+}, 200);
+
+function debounce(func, wait, immediate){
+  var timeout;
+  return function(){
+    var context = this,
+      args = arguments;
+    var later = function() {
+      timeout = null;
+      if(!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if(callNow) func.apply(context, args);
+  };
+};
 </script>
 
 
@@ -107,7 +149,7 @@
           <p class="a">Want something?</p>
         </li>
         <li style="padding:0px;margin-right:30px;">
-          <input class="input1" type="text" placeholder="Type Here" />
+          <input class="input1" onkeyup="showResults(this.value)" type="text" placeholder="Type Here" />
         </li>
         <li style="width:60px;margin-right: 30px;">
           <p class="b">In?</p>
@@ -122,6 +164,10 @@
           <button class="locationsubmit">Go!</button>
         </li>
       </ul>
+      <div style="position:relative; width:100% ; top:-1px">
+  <div class="border" id = "search-results">
+  </div>
+</div>
     </nav>
   </section>
 

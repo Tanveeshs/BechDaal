@@ -24,7 +24,7 @@ require('./config/passport')(passport);
 
 var app = express();
 const test = require('./routes/test');
-const searchRouter = require('./routes/searchRoute');
+// const xg = require('./routes/searchRoute');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -58,7 +58,7 @@ app.use('/verify', verifymail);
 app.use('/sell', adRoute);
 app.use('/category', category);
 app.use('/test', test);
-app.use('/search', searchRouter);
+app.use('/search', searchRoute);
 app.get('/post', function(req, res) {
   res.render('postAd.ejs');
 });
