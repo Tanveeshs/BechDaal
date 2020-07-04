@@ -42,18 +42,30 @@ adRouter.use(bodyParser.json());
 // so, you have to first turn the user's data (which is a JS object) into a string using JSON.stringify() method and pass that as a field in the ad schema
 // here in the backend, the code will turn that string back into object using JSON.parse() method
 adRouter.route('/')
+  .ger((req, res) => {
+    Ads.find({
+      user: req.user
+    })
+      .then((ads) => {
+        console.log(ads);
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(ads);
+      }).catch((err) => console.log(err))
+  })
+  
   .post((req, res) => {
     upload(req, res, (err) => {
       if (err) {
         console.log('Error: ', err);
         res.statusCode = 400;
         res.setHeader('Content-Type', 'application/json');
-        res.json({msg: 'error'})
+        res.json({ msg: 'error' })
       } else {
         const cover_photo = req.files[0];
         let remaining_images = {};
         for (let i = 1; i < req.files.length; i++) {
-          remaining_images[i-1] = req.files[i];
+          remaining_images[i - 1] = req.files[i];
         }
         const new_ad = new AdSchema({
           title: req.body.title,
@@ -75,7 +87,7 @@ adRouter.route('/')
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
         res.json(new_ad)
-        
+
         new_ad.save()
           .then((ad) => {
             console.log(ad);
@@ -94,13 +106,27 @@ adRouter.route('/')
 /* docs */
 // here you will just add the id of the ad in the url itself, and will get that single ad
 
-adRouter.get('/:adId', (req, res) => {
-  AdSchema.findById(req.params.adId)
-  .then((ad) => {
-    console.log(ad);
-    res.render('show_ad', ad);
-  });
-});
+adRouter.route('/:adId')
+  .get((req, res) => {
+    AdSchema.findById(req.params.adId)
+      .then((ad) => {
+        console.log(ad);
+        res.render('show_ad', ad);
+      });
+  })
+
+  .put((req, res) => {
+    Ads.findByIdAndUpdate(req.params.adId, {
+      $set: req.body
+    }, {new: true})
+    .then((ad) => {
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'application/json');
+      res.json(ad);
+    }).catch((err) => console.log(err))
+  })
+
+
 
 
 
