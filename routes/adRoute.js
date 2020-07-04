@@ -42,7 +42,7 @@ adRouter.use(bodyParser.json());
 // so, you have to first turn the user's data (which is a JS object) into a string using JSON.stringify() method and pass that as a field in the ad schema
 // here in the backend, the code will turn that string back into object using JSON.parse() method
 adRouter.route('/')
-  .ger((req, res) => {
+  .get((req, res) => {
     Ads.find({
       user: req.user
     })
