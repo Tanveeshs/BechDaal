@@ -1,5 +1,7 @@
 //jshint esversion:6
-var {User} = require('../model/user');
+var {
+  User
+} = require('../model/user');
 
 module.exports = function(app, passport) {
   app.get('/', function(req, res) {
@@ -42,13 +44,14 @@ module.exports = function(app, passport) {
     User.findOne({
       'local.email': req.user.local.email
     }, function(err, user) {
-      if (user.local.isVerified){
+      if (user.local.isVerified) {
         res.redirect('/');
       }
-    });
-
-    res.render('verify.ejs', {
-      user: req.user // get the user out of session and pass to template
+      else{
+        res.render('verify.ejs', {
+          user: req.user // get the user out of session and pass to template
+        });
+      }
     });
   });
 
@@ -71,9 +74,9 @@ module.exports = function(app, passport) {
   // }));
   // app.get('/auth/facebook/callback',
   //     passport.authenticate('facebook', {
-  //         successRedirect: '/profile',
-  //         failureRedirect: '/'
-  //     }));\
+  //         successRedirect: '/',
+  //         failureRedirect: '/login'
+  //     }));
 
   app.get('/auth/google', passport.authenticate('google', {
     scope: ['profile', 'email']
@@ -82,12 +85,9 @@ module.exports = function(app, passport) {
   // the callback after google has authenticated the user
   app.get('/auth/google/callback',
     passport.authenticate('google', {
-      successRedirect: '/profile',
-      failureRedirect: '/'
+      successRedirect: '/',
+      failureRedirect: '/login'
     }));
-
-
-
 };
 
 function isLoggedIn(req, res, next) {
