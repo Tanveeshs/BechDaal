@@ -1,4 +1,5 @@
 //jshint esversion:6
+var {User} = require('../model/user');
 
 module.exports = function(app, passport) {
   app.get('/', function(req, res) {
@@ -16,7 +17,7 @@ module.exports = function(app, passport) {
   });
 
   app.post('/login', passport.authenticate('local-login', {
-    successRedirect: '/', // redirect to the secure profile section
+    successRedirect: '/verify', // redirect to the secure profile section
     failureRedirect: '/login', // redirect back to the signup page if there is an error
     failureFlash: true // allow flash messages
   }));
@@ -37,6 +38,15 @@ module.exports = function(app, passport) {
   }));
 
   app.get('/verify', function(req, res) {
+    console.log(req.user);
+    User.findOne({
+      'local.email': req.user.local.email
+    }, function(err, user) {
+      if (user.local.isVerified){
+        res.redirect('/');
+      }
+    });
+
     res.render('verify.ejs', {
       user: req.user // get the user out of session and pass to template
     });
