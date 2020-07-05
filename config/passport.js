@@ -67,9 +67,6 @@ module.exports = function(passport) {
         if (!user)
           return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
 
-        if (!user.local.isVerified) {
-          return done(null, false, req.flash('loginMessage', 'Please verify your email before Logging in'));
-        }
         if (!user.validPassword(password))
           return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
         return done(null, user);
@@ -131,7 +128,7 @@ module.exports = function(passport) {
       clientID: configAuth.googleAuth.clientID,
       clientSecret: configAuth.googleAuth.clientSecret,
       callbackURL: configAuth.googleAuth.callbackURL,
-      passReqToCallback: true
+      // passReqToCallback: true
     },
     function(token, refreshToken, profile, done) {
 
@@ -159,8 +156,8 @@ module.exports = function(passport) {
             newUser.google.token = token;
             newUser.google.name = profile.displayName;
             newUser.google.email = profile.emails[0].value; // pull the first email
-            newUser.loginType = 'google';
-            newUser.IsActive = true;
+            // newUser.loginType = 'google';
+            // newUser.IsActive = true;
             // save the user
             newUser.save(function(err) {
               if (err)

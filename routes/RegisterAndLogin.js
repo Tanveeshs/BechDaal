@@ -1,5 +1,7 @@
 //jshint esversion:6
-var {User} = require('../model/user');
+var {
+  User
+} = require('../model/user');
 
 module.exports = function(app, passport) {
   app.get('/', function(req, res) {
@@ -42,13 +44,14 @@ module.exports = function(app, passport) {
     User.findOne({
       'local.email': req.user.local.email
     }, function(err, user) {
-      if (user.local.isVerified){
+      if (user.local.isVerified) {
         res.redirect('/');
       }
-    });
-
-    res.render('verify.ejs', {
-      user: req.user // get the user out of session and pass to template
+      else{
+        res.render('verify.ejs', {
+          user: req.user // get the user out of session and pass to template
+        });
+      }
     });
   });
 
