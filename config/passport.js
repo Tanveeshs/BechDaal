@@ -3,7 +3,9 @@
 var localStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-var {User} = require('../model/user');
+var {
+  User
+} = require('../model/user');
 var configAuth = require('./auth');
 
 
@@ -21,8 +23,6 @@ module.exports = function(passport) {
   passport.use('local-signup', new localStrategy({
       usernameField: 'email',
       passwordField: 'password',
-
-
       passReqToCallback: true
     },
     function(req, email, password, done) {
@@ -67,7 +67,7 @@ module.exports = function(passport) {
         if (!user)
           return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
 
-        if (!user.local.isVerified){
+        if (!user.local.isVerified) {
           return done(null, false, req.flash('loginMessage', 'Please verify your email before Logging in'));
         }
         if (!user.validPassword(password))
@@ -109,13 +109,15 @@ module.exports = function(passport) {
   //           newUser.facebook.id = profile.id; // set the users facebook id
   //           newUser.facebook.token = token; // we will save the token that facebook provides to the user
   //           newUser.facebook.name = profile.displayName; // look at the passport user profile to see how names are returned
+  //           newUser.loginType = 'facebook';
+  //           newUser.IsActive = true;
   //           // save our user to the database
   //           newUser.save(function(err) {
   //             if (err)
   //               throw err;
   //
   //             // if successful, return the new user
-  //             return done(null, newUser);
+  //             return done(null, newUser, req.flash('message', 'Signup'));
   //           });
   //         }
   //
@@ -129,7 +131,7 @@ module.exports = function(passport) {
       clientID: configAuth.googleAuth.clientID,
       clientSecret: configAuth.googleAuth.clientSecret,
       callbackURL: configAuth.googleAuth.callbackURL,
-
+      passReqToCallback: true
     },
     function(token, refreshToken, profile, done) {
 
@@ -157,18 +159,16 @@ module.exports = function(passport) {
             newUser.google.token = token;
             newUser.google.name = profile.displayName;
             newUser.google.email = profile.emails[0].value; // pull the first email
-
+            newUser.loginType = 'google';
+            newUser.IsActive = true;
             // save the user
             newUser.save(function(err) {
               if (err)
                 throw err;
-              return done(null, newUser);
+              return done(null, newUser,req.flash('message','Signup'));
             });
           }
         });
       });
-
     }));
-
-
 };
