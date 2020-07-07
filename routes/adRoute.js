@@ -44,8 +44,8 @@ adRouter.use(bodyParser.json());
 adRouter.route('/')
   .get((req, res) => {
     Ads.find({
-      user: req.user
-    })
+        user: req.user
+      })
       .then((ads) => {
         console.log(ads);
         res.statusCode = 200;
@@ -53,14 +53,16 @@ adRouter.route('/')
         res.json(ads);
       }).catch((err) => console.log(err))
   })
-  
+
   .post((req, res) => {
     upload(req, res, (err) => {
       if (err) {
         console.log('Error: ', err);
         res.statusCode = 400;
         res.setHeader('Content-Type', 'application/json');
-        res.json({ msg: 'error' })
+        res.json({
+          msg: 'error'
+        })
       } else {
         const cover_photo = req.files[0];
         let remaining_images = {};
@@ -69,8 +71,8 @@ adRouter.route('/')
         }
         const new_ad = new AdSchema({
           title: req.body.title,
-          // category: 'Tp',
-          // sub_category: 'Tp',
+          category: req.body.category,
+          sub_category: req.body.subcategory,
           model: req.body.model,
           brand: req.body.brand,
           cover_photo: cover_photo,
@@ -111,19 +113,23 @@ adRouter.route('/:adId')
     AdSchema.findById(req.params.adId)
       .then((ad) => {
         console.log(ad);
-        res.render('show_ad', ad);
+        res.render('show_ad', {
+          ad: ad
+        });
       });
   })
 
   .put((req, res) => {
     Ads.findByIdAndUpdate(req.params.adId, {
-      $set: req.body
-    }, {new: true})
-    .then((ad) => {
-      res.statusCode = 200;
-      res.setHeader('Content-Type', 'application/json');
-      res.json(ad);
-    }).catch((err) => console.log(err))
+        $set: req.body
+      }, {
+        new: true
+      })
+      .then((ad) => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(ad);
+      }).catch((err) => console.log(err))
   })
 
 
