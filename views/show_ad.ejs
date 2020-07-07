@@ -1,18 +1,19 @@
 <%-include('partials/header')-%>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
 
 <style>
   .flexcontainer{
     display: flex;
     width:100%;
   }
- 
+
   .info{
     width:35%;
     padding:30px;
     font-size: 20px;
     line-height: 40px;
-    height: 500px; 
-    float: left; 
+    height: 500px;
+    float: left;
 
   }
   .hrtitle{
@@ -21,9 +22,9 @@
   }
   .imgchange{
     margin-left: 40%;
-    height: 500px; 
-    
-    
+    height: 500px;
+
+
   }
   .container-fluid{
     margin-top: 300px;
@@ -144,13 +145,23 @@ img {
   .info{
     width:100px;
   }
-  
+
+
 }
+  #priceContainer{
+    width:160px;
+    padding:6px 40px;
+    margin-left: 20px;
+    background-color: #00b33c;
+    border-top:3px solid #00802b;
+    border-bottom: 3px solid #00802b;
+    border-bottom-style: dashed;
+    border-top-style: dashed;
+    font-weight: bold;
+    font-size: 22px;
+  }
 </style>
- 
 
-
-</style>
 <body>
 <br>
 <br>
@@ -159,6 +170,13 @@ img {
     <div class="info">
       <h3><center>Title</center></h3>
       <hr class="hrtitle">
+      <h4>
+        <center>
+          <span style="font-size: 28px;font-weight: bold;"><i>₹</i></span> <span id="priceContainer">6969</span>
+        </center>
+      </h4>
+      <br>
+      <br>
       <p>Category</p>
       <p>Sub-Category</p>
       <p>Model</p>
@@ -183,7 +201,7 @@ img {
     <div class="numbertext">3 / 6</div>
     <img src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%">
   </div>
-    
+
   <div class="mySlides text-center">
     <div class="numbertext">4 / 6</div>
     <img src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%">
@@ -193,12 +211,12 @@ img {
     <div class="numbertext">5 / 6</div>
     <img src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%">
   </div>
-    
+
   <div class="mySlides text-center">
     <div class="numbertext">6 / 6</div>
     <img src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%">
   </div>
-    
+
   <a class="prev" onclick="plusSlides(-1)">❮</a>
   <a class="next" onclick="plusSlides(1)">❯</a>
 
@@ -219,28 +237,28 @@ img {
     </div>
     <div class="column">
       <img class="demo cursor" src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%" onclick="currentSlide(5)" alt="Nature and sunrise">
-    </div>    
+    </div>
     <div class="column">
       <img class="demo cursor" src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%" onclick="currentSlide(6)" alt="Snowy Mountains">
     </div>
   </div>
 </div>
-      
+
     </div>
 </div>
 <center>
 <div class="iconsbottom text-center">
   <button class="btn btn-info a">
-    Chat with Seller
+    Chat with Seller <span style="font-size: 20px;" class="fa fa-wechat"></span>
   </button>
   <button class="btn btn-success a">
-    Make an Offer
+    Make an Offer <span style="font-size: 20px;" class="fa fa-handshake-o"></span>
   </button>
 </div>
 </center>
 
 
-  
+
 </body>
 <script>
 
