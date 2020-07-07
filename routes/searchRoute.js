@@ -24,18 +24,24 @@ searchRouter.use(bodyParser.json());
 // })
 
 searchRouter.post('/search/:q' , function (req,res, next){
-  console.log('in searchRoute!');
+  // console.log('in searchRoute!');
   var q = req.params.q;
   console.log(q);
      const regexp1 = new RegExp(`^${q}`, 'i')  // for finding it as beginning of the first word
      const regexp2 = new RegExp(`\\s${q}`, 'i')  // for finding as beginning of a middle word
   Ads.find({
-    title: {
-      $in: [regexp1, regexp2]
-    }
+    $or:[{
+      title: {
+        $in: [regexp1, regexp2]
+      }},
+      {category: {
+        $in: [regexp1, regexp2]
+      }
+    }]
+
   }, function (err , data ){
     res.json(data);
-  }).limit(10);
+  }).limit(5);
 });
 
 module.exports = searchRouter;

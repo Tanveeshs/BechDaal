@@ -54,10 +54,10 @@
   })
   .done(function(data){
     if(data.length===0){
-      $("#search-results").append('<p class="lead text-center mt-2">No results</p>');
+
     } else {
       data.forEach(x =>{
-        $("#search-results").append('<a href="#"><p class="m-2 lead">'+ x.title +'</p></a>')
+        $("#search-results").append('<a href="#"><p class="m-2 lead">'+ x.category + '<p style="color:grey">' + x.title +'</p></p></a>')
       });
     }
   })
