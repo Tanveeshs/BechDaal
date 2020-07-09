@@ -3,261 +3,321 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
 
 <style media="screen">
-    #custom-button {
-        padding: 10px;
-        color: white;
-        background-color: #009578;
-        border: 1px solid #000;
-        border-radius: 5px;
-        cursor: pointer;
-    }
+  #custom-button {
+    padding: 10px;
+    color: white;
+    background-color: #009578;
+    border: 1px solid #000;
+    border-radius: 5px;
+    cursor: pointer;
+  }
 
-    #custom-button:hover {
-        background-color: #00b28f;
-    }
+  #custom-button:hover {
+    background-color: #00b28f;
+  }
 
-    #custom-text {
-        margin-left: 10px;
-        font-family: sans-serif;
-        color: #aaa;
-    }
+  #custom-text {
+    margin-left: 10px;
+    font-family: sans-serif;
+    color: #aaa;
+  }
 
-    /* .colnm {
+  /* .colnm {
       border: 1px solid black;
   } */
 
-    table,
-    td {
-        border: 5px solid grey;
-        padding: 5px;
-    }
+  table,
+  td {
+    border: 5px solid grey;
+    padding: 5px;
+  }
 
-    table {
-        border-spacing: 5px;
-    }
+  table {
+    border-spacing: 5px;
+  }
 
-    td {
-        text-align: center;
-        padding: 10px 20px 20px;
-    }
+  td {
+    text-align: center;
+    padding: 10px 20px 20px;
+  }
 
-    .fileButton {
-        cursor: pointer;
-        font-size: 20px;
-    }
+  .fileButton {
+    cursor: pointer;
+    font-size: 20px;
+  }
 
-    .Img {
-        width: 100px;
-        height: 100px;
-        border-radius: 25px;
-    }
+  .Img {
+    width: 100px;
+    height: 100px;
+    border-radius: 25px;
+  }
 
-    .vis1,
-    .vis2,
-    .vis3,
-    .vis4,
-    .vis5,
-    .vis6,
-    .vis7,
-    .vis8 {
-        display: none;
-    }
+  .vis1,
+  .vis2,
+  .vis3,
+  .vis4,
+  .vis5,
+  .vis6,
+  .vis7,
+  .vis8,
+  #cross0,
+  #cross1,
+  #cross2,
+  #cross3,
+  #cross4,
+  #cross5,
+  #cross6,
+  #cross7,
+  #cross8 {
+    display: none;
+  }
 
-    .fileButton {
-        margin-bottom: 10px;
-    }
+  .fileButton {
+    margin-bottom: 10px;
+  }
 
-    .fileLabel {
-        display: none;
-    }
+  .fileLabel {
+    display: none;
+  }
 
-    .fas0 {
-        -moz-osx-font-smoothing: grayscale;
-        -webkit-font-smoothing: antialiased;
-        font-weight: 900;
-        font-family: "Font Awesome 5 Free";
-        font-style: normal;
-        font-variant: normal;
-        text-rendering: auto;
-        line-height: 1;
-    }
+  .fas0 {
+    font-weight: 900;
+    font-family: "Font Awesome 5 Free";
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+  }
 </style>
 
 <form method="post" action="/sell/" enctype="multipart/form-data">
 
-    <center><input style="text-align:center" placeholder="Your descriptive Title..." name="title" /></center>
-    <br>
-    <br>
-    <div class="row" style="padding: 50px 10px 20px 10px;">
-        <div class="col-md-8">
-            <div style="display:inline-flex">
-                <label style="padding-left:30px;padding-right:10%;">Category</label>
-                <select style="text-align:center" name="category" id="category">
-                    <option value="volvo">Volvo</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
-                </select>
-                <label style="padding:0px 10% 0px 10% ">Subcategory</label>
-                <select style="text-align:center" name="subcategory" id="subcategory">
-                    <option value="volvo">Volvo</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
-                </select>
+  <center><input style="text-align:center" placeholder="Your descriptive Title..." name="title" /></center>
+  <br>
+  <br>
+  <div class="row" style="padding: 50px 10px 20px 10px;">
+    <div class="col-md-8">
+      <div style="display:inline-flex">
+        <label style="padding-left:30px;padding-right:10%;">Category</label>
+        <select style="text-align:center" name="category" id="category">
+          <option value="volvo">Volvo</option>
+          <option value="saab">Saab</option>
+          <option value="mercedes">Mercedes</option>
+          <option value="audi">Audi</option>
+        </select>
+        <label style="padding:0px 10% 0px 10% ">Subcategory</label>
+        <select style="text-align:center" name="subcategory" id="subcategory">
+          <option value="volvo">Volvo</option>
+          <option value="saab">Saab</option>
+          <option value="mercedes">Mercedes</option>
+          <option value="audi">Audi</option>
+        </select>
+      </div>
+      <br>
+      <br />
+      <div style="display:inline-flex">
+        <label style="padding-left:30px;padding-right:10%;" for="brand">Brand</label>
+        <input name="brand" />
+
+        <label for="model" style="padding:0px 10% 0px 10% ">Model</label>
+        <input name="model" />
+      </div>
+      <br />
+      <br>
+      <label style="padding-left:30px;padding-right:3.6%;" for="price">Price</label>
+      <input name="price" />
+      <br />
+      <br>
+      <label style="padding-left:30px;padding-right:0.8%;" for="description">Description</label>
+      <textarea name="description"></textarea>
+      <br>
+      <br>
+      <br>
+    </div>
+    <div class="col-md-4">
+      <img id="cover-pic" src="" alt="" style="width: 200px; height:200px">
+    </div>
+  </div>
+
+  <hr />
+  <br>
+  <label style="padding-left:3%;padding-right:20%;" for="images">Upload images of your device (maximum of 9) </label>
+  <br>
+  <div style="padding-left:3%">
+    <table>
+      <tr>
+        <td class="vis0">
+          <div style="position:relative">
+            <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah0" />
+            <div style="position:absolute">
+              <i id="cross0" class="fas0 fa-times "></i>
             </div>
-            <br>
-            <br />
-            <div style="display:inline-flex">
-                <label style="padding-left:30px;padding-right:10%;" for="brand">Brand</label>
-                <input name="brand" />
-
-                <label for="model" style="padding:0px 10% 0px 10% ">Model</label>
-                <input name="model" />
+            <i id="plus0" class="far fa-plus-square fileButton"></i><br>
+            <img id="blah0" class="Img" src="images/Imagehere.jpg" alt="" /><br>
+            <span class="fileLabel"></span>
+          </div>
+        </td>
+        <td class="vis1">
+          <div style="position:relative">
+            <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah1" />
+            <div style="position:absolute">
+              <i id="cross1" class="fas0 fa-times "></i>
             </div>
-            <br />
-            <br>
-            <label style="padding-left:30px;padding-right:3.6%;" for="price">Price</label>
-            <input name="price" />
-            <br />
-            <br>
-            <label style="padding-left:30px;padding-right:0.8%;" for="description">Description</label>
-            <textarea name="description"></textarea>
-            <br>
-            <br>
-            <br>
-        </div>
-        <div class="col-md-4">
-            <img id="cover-pic" src="" alt="" style="width: 200px; height:200px">
-        </div>
-    </div>
+            <i id="plus1" class="far fa-plus-square fileButton"></i><br>
+            <img id="blah1" class="Img" src="images/Imagehere.jpg" alt="" /><br>
+            <span class="fileLabel"></span>
+          </div>
+        </td>
+        <td class="vis2">
+          <div style="position:relative">
+            <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah2" />
+            <div style="position:absolute">
+              <i id="cross2" class="fas0 fa-times"></i>
+            </div>
+            <i id="plus2" class="far fa-plus-square fileButton"></i><br>
+            <img id="blah2" class="Img" src="images/Imagehere.jpg" alt="" /><br>
+            <span class="fileLabel"></span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="vis3">
+          <div style="position:relative">
+            <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah3" />
+            <div style="position:absolute">
+              <i id="cross3" class="fas0 fa-times" onclick='crossfun(this)'></i>
+            </div>
+            <i id="plus3" class="far fa-plus-square fileButton"></i><br>
+            <img id="blah3" class="Img" src="images/Imagehere.jpg" alt="" /><br>
+            <span class="fileLabel"></span>
+          </div>
+        </td>
+        <td class="vis4">
+          <div style="position:relative">
+            <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah4" />
+            <div style="position:absolute">
+              <i id="cross4" class="fas0 fa-times" onclick='crossfun(this)'></i>
+            </div>
+            <i id="plus4" class="far fa-plus-square fileButton"></i><br>
+            <img id="blah4" class="Img" src="images/Imagehere.jpg" alt="" /><br>
+            <span class="fileLabel"></span>
+          </div>
+        </td>
+        <td class="vis5">
+          <div style="position:relative">
+            <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah5" />
+            <div style="position:absolute">
+              <i id="cross5" class="fas0 fa-times" onclick='crossfun(this)'></i>
+            </div>
+            <i id="plus5" class="far fa-plus-square fileButton"></i><br>
+            <img id="blah5" class="Img" src="images/Imagehere.jpg" alt="" /><br>
+            <span class="fileLabel"></span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="vis6">
+          <div style="position:relative">
+            <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah6" />
+            <div style="position:absolute">
+              <i id="cross6" class="fas0 fa-times" onclick='crossfun(this)'></i>
+            </div>
+            <i id="plus6" class="far fa-plus-square fileButton"></i><br>
+            <img id="blah6" class="Img" src="images/Imagehere.jpg" alt="" /><br>
+            <span class="fileLabel"></span>
+          </div>
+        </td>
+        <td class="vis7">
+          <div style="position:relative">
+            <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah7" />
+            <div style="position:absolute">
+              <i id="cross7" class="fas0 fa-times" onclick='crossfun(this)'></i>
+            </div>
+            <i id="plus7" class="far fa-plus-square fileButton"></i><br>
+            <img id="blah7" class="Img" src="images/Imagehere.jpg" alt="" /><br>
+            <span class="fileLabel"></span>
+          </div>
+        </td>
+        <td class="vis8">
+          <div style="position:relative">
+            <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah8" />
+            <div style="position:absolute">
+              <i id="cross8" class="fas0 fa-times" onclick='crossfun(this)'></i>
+            </div>
+            <i id="plus8" class="far fa-plus-square fileButton"></i><br>
+            <img id="blah8" class="Img" src="images/Imagehere.jpg" alt="" /><br>
+            <span class="fileLabel"></span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <br>
 
-    <hr />
-    <br>
-    <label style="padding-left:3%;padding-right:20%;" for="images">Upload images of your device (maximum of 9) </label>
-    <br>
-    <div style="padding-left:3%">
-        <table>
-            <tr>
-                <td class="vis0">
-                    <div style="position:relative">
-                        <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah0" />
-                        <div style="position:absolute">
-                            <i class="fas0 fa-times cross-icon vis1"></i>
-                        </div>
-                        <i class="far fa-plus-square fileButton"></i><br>
-                        <img id="blah0" class="Img" src="images/Imagehere.jpg" alt="" /><br>
-                        <span class="fileLabel"></span>
-                    </div>
-                </td>
-                <td class="vis1">
-                    <div style="position:relative">
-                        <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah1" />
-                        <div style="position:absolute">
-                            <i class="fas0 fa-times cross-icon vis2"></i>
-                        </div>
-                        <i class="far fa-plus-square fileButton"></i><br>
-                        <img id="blah1" class="Img" src="images/Imagehere.jpg" alt="" /><br>
-                        <span class="fileLabel"></span>
-                    </div>
-                </td>
-                <td class="vis2">
-                    <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah2" />
-                    <i class="far fa-plus-square fileButton"></i><br>
-                    <img id="blah2" class="Img" src="images/Imagehere.jpg" alt="" /><br>
-                    <span class="fileLabel"></span>
-                </td>
-            </tr>
-            <tr>
-                <td class="vis3">
-                    <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah3" />
-                    <i class="far fa-plus-square fileButton"></i><br>
-                    <img id="blah3" class="Img" src="images/Imagehere.jpg" alt="" /><br>
-                    <span class="fileLabel"></span>
-                </td>
-                <td class="vis4">
-                    <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah4" />
-                    <i class="far fa-plus-square fileButton"></i><br>
-                    <img id="blah4" class="Img" src="images/Imagehere.jpg" alt="" /><br>
-                    <span class="fileLabel"></span>
-                </td>
-                <td class="vis5">
-                    <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah5" />
-                    <i class="far fa-plus-square fileButton"></i><br>
-                    <img id="blah5" class="Img" src="images/Imagehere.jpg" alt="" /><br>
-                    <span class="fileLabel"></span>
-                </td>
-            </tr>
-            <tr>
-                <td class="vis6">
-                    <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah6" />
-                    <i class="far fa-plus-square fileButton"></i><br>
-                    <img id="blah6" class="Img" src="images/Imagehere.jpg" alt="" /><br>
-                    <span class="fileLabel"></span>
-                </td>
-                <td class="vis7">
-                    <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah7" />
-                    <i class="far fa-plus-square fileButton"></i><br>
-                    <img id="blah7" class="Img" src="images/Imagehere.jpg" alt="" /><br>
-                    <span class="fileLabel"></span>
-                </td>
-                <td class="vis8">
-                    <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah8" />
-                    <i class="far fa-plus-square fileButton"></i><br>
-                    <img id="blah8" class="Img" src="images/Imagehere.jpg" alt="" /><br>
-                    <span class="fileLabel"></span>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <br>
-
-    <!-- uploading images here  -->
-    <label style="padding-left:2.6%;padding-right:0.8%;" for="contact">Contact No</label>
-    <input name="contact" />
-    <br />
-    <br>
-    <label style="padding-left:2.6%;padding-right:2.2%;" for="address">Address</label>
-    <textarea name="address"></textarea>
-    <button type="submit">Submit</button>
-    </div>
+  <!-- uploading images here  -->
+  <label style="padding-left:2.6%;padding-right:0.8%;" for="contact">Contact No</label>
+  <input name="contact" />
+  <br />
+  <br>
+  <label style="padding-left:2.6%;padding-right:2.2%;" for="address">Address</label>
+  <textarea name="address"></textarea>
+  <button type="submit">Submit</button>
+  </div>
 </form>
 <script>
-    Array.prototype.forEach.call(document.querySelectorAll('.fileButton'), function(button) {
-        const hiddenInput = button.parentElement.querySelector('#fileInput')
-        let label = button.parentElement.querySelector('.fileLabel')
-        const defaultText = "No file selected";
-        label.textContent = defaultText;
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            hiddenInput.click();
-        })
-        hiddenInput.addEventListener('change', function() {
-            const newText = "1 file selected"
-            label.textContent = '1 file selected'
-        })
+  Array.prototype.forEach.call(document.querySelectorAll('.fileButton'), function(button) {
+    const hiddenInput = button.parentElement.querySelector('#fileInput')
+    let label = button.parentElement.querySelector('.fileLabel')
+    const defaultText = "No file selected";
+    label.textContent = defaultText;
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      hiddenInput.click();
     })
+    hiddenInput.addEventListener('change', function() {
+      const newText = "1 file selected"
+      label.textContent = '1 file selected'
+    })
+  })
 
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            var nextPic;
-            nextPic = parseInt(input.className[4]) + 1;
-            console.log(nextPic);
-            reader.onload = function(e) {
-                $('#cover-pic')
-                    .attr('src', e.target.result)
-                    .width(200)
-                    .height(200);
-                $('#' + input.className)
-                    .attr('src', e.target.result);
-            };
-            reader.readAsDataURL(input.files[0]);
-            $('.vis' + nextPic).removeClass('vis' + nextPic);
-            // $('.' + input.className).parentElement.has("i").removeClass('fa-plus-square');
-            // console.log('.' + input.className);
-        }
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      var nextPic;
+      var currentPic;
+      currentPic = parseInt(input.className[4]);
+      nextPic = parseInt(input.className[4]) + 1;
+      reader.onload = function(e) {
+        $('#cover-pic')
+          .attr('src', e.target.result)
+          .width(200)
+          .height(200);
+        $('#' + input.className)
+          .attr('src', e.target.result);
+      };
+      reader.readAsDataURL(input.files[0]);
+      $('.vis' + nextPic).removeClass('vis' + nextPic);
+      $('#plus' + currentPic).css('display', 'none');
+      $('#cross' + currentPic).css('display', 'inline-block');
+      // $('.' + input.className).parentElement.has("i").removeClass('fa-plus-square');
+      // console.log('.' + input.className);
     }
+  }
+
+  // function crossfun(input) {
+  //   if (input.files && input.files[0]) {
+  //     var reader = new FileReader();
+  //     var nextPic;
+  //     var currentPic;
+  //     currentPic = parseInt(input.className[4]);
+  //     nextPic = parseInt(input.className[4]) + 1;
+  //     reader.onload = function(e) {
+  //       $('#' + input.className)
+  //         .attr('src', "images/Imagehere.jpg");
+  //     };
+  //     reader.readAsDataURL(input.files[0]);
+  //   }
+  // }
 </script>
 
 <%-include('partials/footer')-%>
