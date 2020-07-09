@@ -40,18 +40,32 @@
 
     .email {
         width: 70%;
+        font-size: 1.5rem;
     }
 
     .address_input {
         border: none;
         border-bottom: 1px solid gray;
-        width: 200px;
-        padding: 2px;
+        width: 250px;
+        padding: 10px;
     }
 
     .addAddress {
-        font-size: 18px;
+        font-size: 1.5rem ;
         color: gray;
+    }
+
+    .newAddress{
+        font-size: 1rem ;
+        color: gray;
+        
+    }
+    .saveAs{
+        font-size: 20px;
+        padding-right: 30px;
+    }
+    #saveAsAddress{
+        margin-top: 9px;
     }
 </style>
 
@@ -60,25 +74,30 @@
 
     <div class="container">
         <form class="userDetails">
-            <div class="userIcon">
-                <i style="font-size:55px;font-weight: bold;" class="fa fa-user-circle-o" aria-hidden="true"></i>
-            </div>
-            <p style="color:#994d00;"> Your username</p>
+            <div class="userIcon" style = "margin-left:45%; margin-top: 10%;">
+                <i style="font-size:95px;font-weight: bold; " class="fa fa-user-circle-o" aria-hidden="true"></i>
+            
+            <br>
+            <p style="color:#994d00; font-size: 2rem;margin-left:-10%;"> Your username</p>
             <input type="text" style=" border: none;
-            border-bottom: 1px solid gray;
-            width: 120px;padding:3px;font-size: 1.1rem;">
+            border-bottom: 1px solid gray;margin-left:-15%;
+            width: 250px;padding:3px;font-size: 1.1rem; text-align: center;">
+            
+            </div>
+            <br>
+            <br>
             <p class="email">
                 <span style="color:#994d00;"> Email-id:</span>
                 <span>text@xyz.com</span>
                 <span> <button class="verify_btn">Verify</button> </span>
             </p>
             <p class="contact">
-                <span style="color:#994d00;"> Contact No:</span>
-                <span style="margin-left: 2%;">9876543210</span>
+                <span style="color:#994d00; font-size: 1.5rem; "> Contact No:</span>
+                <span style="margin-left: 2%;font-size: 1.5rem;">9876543210</span>
             </p>
             <p class="address" style="display:flex;flex-direction: row;">
-                <p style="color:#994d00;"> Address:</p>
-                <div style="display: flex;flex-direction: column;">
+                <p style="color:#994d00;font-size: 1.5rem; float: left; margin-right: 30px;"> Address:</p>
+                <div style="display: flex;flex-direction: column; margin-top: 60px;">
                     <input type="text" class="address_input">
                     <input type="text" class="address_input">
                     <input type="text" class="address_input">
@@ -86,29 +105,37 @@
                     <input type="text" class="address_input">
                 </div>
             </p>
-            <div class="addAddress">
+            <br>
+            <div id = "addAdd" class="addAddress">
                 <p>Add address <i class="fa fa-plus"></i></p>
             </div>
             <!-- when you click on Add Address text, it should toggle the form below, uska toggling daal dena, -->
             <!-- initial toggle false hi rakhna, sirf add address ka text dikhna chaiye. baaki chote cheeze dekh lena -->
-            <div class="newAddress" style="display: flex;flex-direction: column;">
+            <div id = "newAdd" class="newAddress" style="display: flex;flex-direction: column;">
                 <input type="text" class="address_input" placeholder="Pincode">
                 <input type="text" class="address_input" placeholder="City">
                 <input type="text" class="address_input" placeholder="Street/Road">
                 <input type="text" class="address_input" placeholder="House/Flat No.">
                 <input type="text" class="address_input" placeholder="Landmark">
-                <div style="display: flex;flex-direction: row;margin-top: 2%;">
-                    <p style="font-size: 16px;margin-right: 5%;">Save as</p>
+                <div style="display: flex;flex-direction: row;margin-top: 5%;">
+                    <p style="font-size: 25px;margin-right: 10%; margin-top: 0px;">Save as</p>
                     <input type="radio" id="saveAsAddress" value="30">
-                    <label for="home">Home</label><br>
+                    <label for="home" class="saveAs">Home</label><br>
                     <input type="radio" id="saveAsAddress" value="60">
-                    <label for="office">Office</label><br>
+                    <label for="office" class="saveAs">Office</label><br>
                     <input type="radio" id="saveAsAddress" value="100">
-                    <label for="other">Other</label><br><br>
+                    <label for="other" class="saveAs">Other</label><br><br>
                 </div>
             </div>
         </form>
     </div>
 </body>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+      $("#addAdd").click(function () {
+        $("#newAdd").slideToggle(300);
+      });
+    });
+</script>
 </html>
