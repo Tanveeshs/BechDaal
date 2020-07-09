@@ -53,12 +53,20 @@
     $("#search-results").html("");
   })
   .done(function(data){
-    if(data.length===0){
-
-    } else {
-      data.forEach(x =>{
-        $("#search-results").append('<a href="#"><p class="m-2 lead">'+ x.category + '<p style="color:grey">' + x.title +'</p></p></a>')
+    if(data.Route===1){
+      data.data.forEach(x =>{
+        $("#search-results").append('<a href="#"><p class="m-2 lead">'+ x.sub_category +'</p></a>')
       });
+    }
+    if(data.Route===2){
+      console.log('2')
+      data.data.forEach(x =>{
+        $("#search-results").append('<a href="#"><p class="m-2 lead">'+ x.brand +'<p>'+ x.sub_category +'</p></p></a>')
+      });
+    }
+     else {
+
+
     }
   })
   .fail(function(err){
