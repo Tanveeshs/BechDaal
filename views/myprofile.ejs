@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyProfile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600&display=swap" rel="stylesheet">
+</head>
+<style>
+    body {
+        font-family: 'Titillium Web', sans-serif;
+        font-size: 1.1rem;
+    }
+
+    .container {
+        width: 100%;
+        align-content: center;
+    }
+
+    .verify_btn {
+        padding: 4px 15px;
+        margin-left: 2%;
+        background-color: #e65c00;
+        border: 1px solid #e65c00;
+        border-radius: 12px;
+        font-size: 1.03rem;
+        color: white
+    }
+
+    .userDetails {
+        width: 60%;
+        margin: auto;
+        /* display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column; */
+    }
+
+    .email {
+        width: 70%;
+    }
+
+    .address_input {
+        border: none;
+        border-bottom: 1px solid gray;
+        width: 200px;
+        padding: 2px;
+    }
+
+    .addAddress {
+        font-size: 18px;
+        color: gray;
+    }
+</style>
+
+
+<body>
+
+    <div class="container">
+        <form class="userDetails">
+            <div class="userIcon">
+                <i style="font-size:55px;font-weight: bold;" class="fa fa-user-circle-o" aria-hidden="true"></i>
+            </div>
+            <p style="color:#994d00;"> Your username</p>
+            <input type="text" style=" border: none;
+            border-bottom: 1px solid gray;
+            width: 120px;padding:3px;font-size: 1.1rem;">
+            <p class="email">
+                <span style="color:#994d00;"> Email-id:</span>
+                <span>text@xyz.com</span>
+                <span> <button class="verify_btn">Verify</button> </span>
+            </p>
+            <p class="contact">
+                <span style="color:#994d00;"> Contact No:</span>
+                <span style="margin-left: 2%;">9876543210</span>
+            </p>
+            <p class="address" style="display:flex;flex-direction: row;">
+                <p style="color:#994d00;"> Address:</p>
+                <div style="display: flex;flex-direction: column;">
+                    <input type="text" class="address_input">
+                    <input type="text" class="address_input">
+                    <input type="text" class="address_input">
+                    <input type="text" class="address_input">
+                    <input type="text" class="address_input">
+                </div>
+            </p>
+            <div class="addAddress">
+                <p>Add address <i class="fa fa-plus"></i></p>
+            </div>
+            <!-- when you click on Add Address text, it should toggle the form below, uska toggling daal dena, -->
+            <!-- initial toggle false hi rakhna, sirf add address ka text dikhna chaiye. baaki chote cheeze dekh lena -->
+            <div class="newAddress" style="display: flex;flex-direction: column;">
+                <input type="text" class="address_input" placeholder="Pincode">
+                <input type="text" class="address_input" placeholder="City">
+                <input type="text" class="address_input" placeholder="Street/Road">
+                <input type="text" class="address_input" placeholder="House/Flat No.">
+                <input type="text" class="address_input" placeholder="Landmark">
+                <div style="display: flex;flex-direction: row;margin-top: 2%;">
+                    <p style="font-size: 16px;margin-right: 5%;">Save as</p>
+                    <input type="radio" id="saveAsAddress" value="30">
+                    <label for="home">Home</label><br>
+                    <input type="radio" id="saveAsAddress" value="60">
+                    <label for="office">Office</label><br>
+                    <input type="radio" id="saveAsAddress" value="100">
+                    <label for="other">Other</label><br><br>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
