@@ -22,10 +22,6 @@
         color: #aaa;
     }
 
-    /* .colnm {
-      border: 1px solid black;
-  } */
-
     table,
     td {
         border: 5px solid grey;
@@ -44,6 +40,7 @@
     .fileButton {
         cursor: pointer;
         font-size: 20px;
+        margin-bottom: 10px;
     }
 
     .Img {
@@ -72,10 +69,6 @@
         display: none;
     }
 
-    .fileButton {
-        margin-bottom: 10px;
-    }
-
     .fileLabel {
         display: none;
     }
@@ -87,6 +80,7 @@
         font-variant: normal;
         text-rendering: auto;
         line-height: 1;
+        cursor: pointer;
     }
 </style>
 
@@ -262,7 +256,7 @@
     <label style="padding-left:2.6%;padding-right:2.2%;" for="address">Address</label>
     <textarea name="address"></textarea>
     <button type="submit">Submit</button>
-    </div>
+
 </form>
 <script>
     Array.prototype.forEach.call(document.querySelectorAll('.fileButton'), function(button) {
@@ -279,7 +273,9 @@
             label.textContent = '1 file selected'
         })
     })
+
     var noPic = true;
+
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -310,10 +306,19 @@
     $('.Img').click(function() {
         var coverPic = $(this).attr('src');
         console.log(coverPic);
-        $('#cover-pic')
-            .attr('src', coverPic)
-            .width(200)
-            .height(200);
+        if (coverPic != 'images/Imagehere.jpg'){
+            $('#cover-pic')
+                .attr('src', coverPic)
+                .width(200)
+                .height(200);
+        }
+    })
+
+    $('.fa-times').click(function() {
+        var currentCross = $(this).attr('id')[5];
+        $('#cross' + currentCross).css('display', 'none');
+        $('#plus' + currentCross).css('display', 'inline-block');
+        $('#blah' + currentCross).attr('src', 'images/Imagehere.jpg');
     })
 
     // function crossfun(input) {
