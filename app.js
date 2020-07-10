@@ -62,7 +62,7 @@ app.use('/search', searchRoute);
 app.get('/post', function(req, res) {
   res.render('postAd.ejs');
 });
-app.get('/asdsad',function (req,res) {
+app.get('/asdsad', function(req, res) {
   res.send('fsfad');
 
 });
