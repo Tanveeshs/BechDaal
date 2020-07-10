@@ -5,101 +5,93 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Bech Daal</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Cantora+One&family=Gothic+A1&display=swap" rel="stylesheet">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Montserrat:wght@700&family=PT+Sans:wght@400;700&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Montserrat:wght@700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyAfY8VvtqG5lj5dzaku95FmakAbO9hNBH4"></script>
   <script>
     var searchInput = 'search_input';
 
-    $(document).ready(function () {
-    var autocomplete;
-    autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+    $(document).ready(function() {
+      var autocomplete;
+      autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
         types: ['geocode'],
         componentRestrictions: {
-        country: "India"
-      }
-    });
+          country: "India"
+        }
+      });
     });
   </script>
   <link rel='stylesheet' href='/css/style.css' />
   <title>Navbars</title>
-  <link href="/css/headerStyles.css" rel="stylesheet"/>
+  <link href="/css/headerStyles.css" rel="stylesheet" />
 </head>
 
 
 <script>
-  $(document).ready(function () {
-    $("#toggledown").click(function () {
+  $(document).ready(function() {
+    $("#toggledown").click(function() {
       $("#search").slideToggle(300);
     });
   });
 
-  var showResults = debounce(function(arg){
-  var value  = arg.trim();
-  if (value == "" || value.length <= 0){
-    $("#search-results").fadeOut();
-    return;
-  }
-  else{
-    $("#search-results").fadeIn();
-  };
-  var jqxhr = $.post('/search/search/'+value, function(data){
-    $("#search-results").html("");
-  })
-  .done(function(data){
-    if(data.Route===1){
-      data.data.forEach(x =>{
-        $("#search-results").append('<a href="#"><p class="m-2 lead">'+ x.sub_category +'</p></a>')
-      });
-    }
-    if(data.Route===2){
-      console.log('2')
-      data.data.forEach(x =>{
-        $("#search-results").append('<a href="#"><p class="m-2 lead">'+ x.brand +'<p>'+ x.sub_category +'</p></p></a>')
-      });
-    }
-     else {
-
-
-    }
-  })
-  .fail(function(err){
-    console.log(err);
-  })
-}, 200);
-
-function debounce(func, wait, immediate){
-  var timeout;
-  return function(){
-    var context = this,
-      args = arguments;
-    var later = function() {
-      timeout = null;
-      if(!immediate) func.apply(context, args);
+  var showResults = debounce(function(arg) {
+    var value = arg.trim();
+    if (value == "" || value.length <= 0) {
+      $("#search-results").fadeOut();
+      return;
+    } else {
+      $("#search-results").fadeIn();
     };
-    var callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if(callNow) func.apply(context, args);
+    var jqxhr = $.post('/search/search/' + value, function(data) {
+        $("#search-results").html("");
+      })
+      .done(function(data) {
+        if (data.Route === 1) {
+          data.data.forEach(x => {
+            $("#search-results").append('<a href="#"><p class="m-2 lead">' + x.sub_category + '</p></a>')
+          });
+        }
+        else if (data.Route === 2) {
+          data.data.forEach(x => {
+            $("#search-results").append('<a href="#"><p class="m-2 lead">' + x.brand + '<p>' + x.sub_category + '</p></p></a>')
+          });
+        } else {
+        $("#search-results").append('null')
+
+        }
+      })
+      .fail(function(err) {
+        console.log(err);
+      })
+  }, 200);
+
+  function debounce(func, wait, immediate) {
+    var timeout;
+    return function() {
+      var context = this,
+        args = arguments;
+      var later = function() {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
   };
-};
 </script>
 
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-li ">
     <a class="navbar-brand" href="/" style="color:black">
-      <span><img src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png"
-                 alt="logo" style="width:70px;height:50px;"></span>
+      <span><img src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" alt="logo" style="width:70px;height:50px;"></span>
       BechDaal</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -133,8 +125,7 @@ function debounce(func, wait, immediate){
         </li>
         <% } %>
         <div class="nav-item dropdown">
-          <a class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-            id="hellouser">
+          <a class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="hellouser">
             <i class="fas languageicon fa-language"></i>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -173,9 +164,9 @@ function debounce(func, wait, immediate){
         </li>
       </ul>
       <div style="position:relative; width:100% ; top:-1px">
-  <div class="border" id = "search-results">
-  </div>
-</div>
+        <div class="border" id="search-results">
+        </div>
+      </div>
     </nav>
   </section>
 
