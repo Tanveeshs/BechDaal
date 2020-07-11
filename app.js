@@ -14,6 +14,7 @@ const adRoute = require('./routes/adRoute');
 const searchRoute = require('./routes/searchRoute');
 const cors = require('cors');
 const category = require('./routes/category');
+const myprofile = require('./routes/myprofile');
 // const smsverify = require('./routes/sms');
 mongoose.connect(configDB.url, {
   useNewUrlParser: true,
@@ -64,6 +65,11 @@ app.get('/post',isLoggedIn, function(req, res) {
     user:req.user
   });
 });
+app.use('/myprofile', myprofile);
+// app.get('/editprofile', function(req, res) {
+//   res.render('myprofile.ejs');
+// });
+
 app.get('/asdsad', function(req, res) {
   res.send('fsfad');
 
