@@ -41,17 +41,23 @@ adRouter.use(bodyParser.json());
 // also, formdata only supports string fields or file format fields, so you can not put nested objects in the body
 // so, you have to first turn the user's data (which is a JS object) into a string using JSON.stringify() method and pass that as a field in the ad schema
 // here in the backend, the code will turn that string back into object using JSON.parse() method
+
+// adRouter.get('/post',isLoggedIn, function(req, res) {
+//   res.render('postAd.ejs',{
+//     user:req.user
+//   });
+// });
+
 adRouter.route('/')
   .get((req, res) => {
     Ads.find({
         user: req.user
       })
       .then((ads) => {
-        console.log(ads);
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
         res.json(ads);
-      }).catch((err) => console.log(err))
+      }).catch((err) => console.log(err));
   })
 
   .post((req, res) => {
@@ -62,7 +68,7 @@ adRouter.route('/')
         res.setHeader('Content-Type', 'application/json');
         res.json({
           msg: 'error'
-        })
+        });
       } else {
         const cover_photo = req.files[0];
         let remaining_images = {};
@@ -88,7 +94,7 @@ adRouter.route('/')
 
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(new_ad)
+        res.json(new_ad);
 
         new_ad.save()
           .then((ad) => {
@@ -129,11 +135,14 @@ adRouter.route('/:adId')
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
         res.json(ad);
-      }).catch((err) => console.log(err))
-  })
+      }).catch((err) => console.log(err));
+  });
 
-
-
-
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    req.isLogged = true;
+    return next();
+  }
+}
 
 module.exports = adRouter;

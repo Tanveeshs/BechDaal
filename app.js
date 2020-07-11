@@ -47,11 +47,11 @@ app.use(passport.session());
 app.use(flash());
 require('./routes/RegisterAndLogin')(app, passport);
 
-app.get('/show_ad', (req, res) => {
-  res.render('show_ad.ejs', {
-    user: req.user
-  });
-});
+// app.get('/show_ad', (req, res) => {
+//   res.render('show_ad.ejs', {
+//     user: req.user
+//   });
+// });
 
 app.use('/user', forgotPass);
 app.use('/verify', verifymail);
@@ -59,13 +59,22 @@ app.use('/sell', adRoute);
 app.use('/category', category);
 app.use('/test', test);
 app.use('/search', searchRoute);
-app.get('/post', function(req, res) {
-  res.render('postAd.ejs');
+app.get('/post',isLoggedIn, function(req, res) {
+  res.render('postAd.ejs',{
+    user:req.user
+  });
 });
 app.get('/asdsad', function(req, res) {
   res.send('fsfad');
 
 });
+
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    req.isLogged = true;
+    return next();
+  }
+}
 app.listen(3001, function(err) {
   console.log('Server started');
 });

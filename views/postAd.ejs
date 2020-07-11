@@ -120,16 +120,14 @@
       <div class="w3-row-padding">
         <div class="w3-half">
           <label>Category</label>
-          <select class="w3-input w3-border" style="text-align:center" name="category" id="category">
+          <select id="category" class="w3-input w3-border" style="text-align:center" name="category">
+            <option value="none">-------------</option>
           </select>
         </div>
         <div class="w3-half">
           <label>Subcategory</label>
           <select class="w3-input w3-border" style="text-align:center" name="subcategory" id="subcategory">
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
+            <option value="none">-------------</option>
           </select>
         </div>
       </div>
@@ -138,11 +136,11 @@
       <div class="w3-row-padding">
         <div class="w3-half">
           <label for="brand">Brand</label>
-          <input type="text" class="w3-input w3-border" style="text-align:center" type="text" name="brand" />
+          <input type="text" class="w3-input w3-border" type="text" name="brand" />
         </div>
         <div class="w3-half">
           <label for="model">Model</label>
-          <input type="text" class="w3-input w3-border" style="text-align:center" name="model" />
+          <input type="text" class="w3-input w3-border" name="model" />
         </div>
       </div>
       <br />
@@ -150,7 +148,7 @@
       <div class="w3-row-padding">
         <div class="w3-half">
           <label for="price">Price</label>
-          <input class="w3-input w3-border" style="text-align:center" type="text" name="price" />
+          <input class="w3-input w3-border" type="text" name="price" />
         </div>
       </div>
       <br />
@@ -158,7 +156,7 @@
       <div class="w3-row-padding">
         <div class="w3-half">
           <label for="description">Description</label>
-          <textarea class="w3-input w3-border" style="text-align:center" name="description"></textarea>
+          <textarea class="w3-input w3-border" name="description"></textarea>
         </div>
       </div>
       <br>
@@ -379,7 +377,29 @@
   })
 
   var URL = "http://localhost:3001/category";
-
+  // = $('#category').find(":selected").text();
+  var selectedcategory
+  $('#category').on('change', function() {
+    selectedcategory = $('#category').find(":selected").text();
+    $('#subcategory option').remove();
+    if ($('#category').find(":selected").val() === 'none') {
+      $('#subcategory').append("<option value='none'>-------------</option>")
+    } else {
+      $.ajax({
+        url: URL,
+        method: "GET"
+      }).done(catagories => {
+        catagories.forEach(category => {
+          if (category.name === selectedcategory) {
+            category.subcategory.forEach(subcategory => {
+              console.log(subcategory)
+              $('#subcategory').append("<option value='" + subcategory + "'>" + subcategory + "</option>")
+            })
+          }
+        });
+      });
+    }
+  })
   $.ajax({
     url: URL,
     method: "GET"
@@ -391,21 +411,17 @@
     console.log('FAIL!!')
   })
 
+  // $(document).ready(function() {
+  //   $('select #category').change(() => {
+  //     selectedcategory = $(this).childern("option:selected").val();
+  //     console.log(selectedcategory)
+  //   });
+  // })
 
-  // function crossfun(input) {
-  //   if (input.files && input.files[0]) {
-  //     var reader = new FileReader();
-  //     var nextPic;
-  //     var currentPic;
-  //     currentPic = parseInt(input.className[4]);
-  //     nextPic = parseInt(input.className[4]) + 1;
-  //     reader.onload = function(e) {
-  //       $('#' + input.className)
-  //         .attr('src', "images/Imagehere.jpg");
-  //     };
-  //     reader.readAsDataURL(input.files[0]);
-  //   }
-  // }
+  // $("#category").on('change', function(e) {
+  //   selectedcategory = $("#category option:selected").text();
+  //   console.log(selectedcategory);
+  // });
 </script>
 
 <%-include('partials/footer')-%>
