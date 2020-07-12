@@ -49,4 +49,17 @@ router.get('/:categoryname/:subcategoryname', function(req, res) {
   // var name1 = new Category({name:categoryName, subcategory: ['Men', 'Women' , 'Kids']});
   // name1.save();
 });
+
+function isLoggedIn(req, res, next) {
+  try {
+    if (req.isAuthenticated()) {
+      req.isLogged = true;
+      return next();
+    }
+    res.redirect('/login');
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 module.exports = router;

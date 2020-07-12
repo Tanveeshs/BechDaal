@@ -139,9 +139,14 @@ adRouter.route('/:adId')
   });
 
 function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) {
-    req.isLogged = true;
-    return next();
+  try {
+    if (req.isAuthenticated()) {
+      req.isLogged = true;
+      return next();
+    }
+    res.redirect('/login');
+  } catch (e) {
+    console.log(e);
   }
 }
 

@@ -46,8 +46,7 @@ module.exports = function(app, passport) {
     }, function(err, user) {
       if (user.local.isVerified) {
         res.redirect('/');
-      }
-      else{
+      } else {
         res.render('verify.ejs', {
           user: req.user // get the user out of session and pass to template
         });
@@ -61,8 +60,6 @@ module.exports = function(app, passport) {
     });
     console.log(req);
   });
-
-
 
   app.get('/logout', function(req, res) {
     req.logout();
@@ -91,12 +88,13 @@ module.exports = function(app, passport) {
 };
 
 function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) {
-    req.isLogged = true;
-    return next();
+  try {
+    if (req.isAuthenticated()) {
+      req.isLogged = true;
+      return next();
+    }
+    res.redirect('/login');
+  } catch (e) {
+    console.log(e);
   }
-
-
-  res.redirect('/');
-
 }
