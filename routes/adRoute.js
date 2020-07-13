@@ -135,6 +135,16 @@ adRouter.route('/:adId')
       }).catch((err) => console.log(err));
   });
 
+adRouter.get('/ads/myads', isLoggedIn, function(req, res) {
+  res.render('myAds.ejs');
+});
+
+adRouter.get('/ads/post', isLoggedIn, function(req, res) {
+  res.render('postAd.ejs', {
+    user: req.user
+  });
+});
+
 function isLoggedIn(req, res, next) {
   try {
     if (req.isAuthenticated()) {

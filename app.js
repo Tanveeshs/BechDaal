@@ -60,20 +60,7 @@ app.use('/sell', adRoute);
 app.use('/category', category);
 app.use('/test', test);
 app.use('/search', searchRoute);
-app.get('/post',isLoggedIn, function(req, res) {
-  res.render('postAd.ejs',{
-    user:req.user
-  });
-});
 app.use('/myprofile', myprofile);
-app.get('/myads', function(req, res) {
-  res.render('myAds.ejs');
-});
-
-app.get('/asdsad', function(req, res) {
-  res.send('fsfad');
-
-});
 
 function isLoggedIn(req, res, next) {
   try {
