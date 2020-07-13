@@ -1,4 +1,5 @@
-<%-include('partials/miniheader')-%> <%-include("partials/sidebar")-%>
+<%-include('partials/miniheader')-%>
+<%-include("partials/sidebar")-%>
 
 <head>
   <!-- <meta charset="utf-8">
@@ -44,36 +45,30 @@
 <body>
   <div class="container" style="margin-left: 15%;">
     <div class="row">
+
+      <%if (ads.length==0){%>
+      <center>
+        <h1>NO ADS TO DISPLAY</h1>
+      </center>
+      <%} else {%>
       <%ads.forEach(ad=>{%>
       <div class="col-md-4 col-sm-12 paddings">
         <div class="card bg-danger text-white car mx-auto">
           <div class="card-body">
-            <img
-              class="Img mx-auto"
-              style="text-align: center;"
-              src="/<%= ad.cover_photo.filename %>"
-              alt="/<%= ad.cover_photo.filename %>"
-            />
+            <img class="Img mx-auto" style="text-align: center;" src="/<%= ad.cover_photo.filename %>" alt="/<%= ad.cover_photo.filename %>" />
             <br />
             <label for="title" class="text">Title</label>
-            <label
-              for=""
-              class="text title"
-              style="background-color: white; color: black;"
-              ><%=ad.title%>
+            <label for="" class="text title" style="background-color: white; color: black;"><%=ad.title%>
             </label>
             <br />
             <label for="title">Date posted</label>
-            <label
-              for=""
-              class="title"
-              style="background-color: white; color: black;"
-              ><%=ad.date_posted%></label
-            >
+            <label for="" class="title" style="background-color: white; color: black;"><%=ad.date_posted%></label>
           </div>
         </div>
       </div>
       <%})%>
+      <%}%>
+
 
       <!-- <div class="col-md-4 col-sm-12 paddings">
         <div class="card bg-danger text-white car mx-auto">
@@ -86,13 +81,11 @@
             />
             <br />
             <label for="title" class="text">Title</label>
-            <label for="" class="text title" style="background-color: white;"
-              >Sample text here abcd</label
+                                    <label for="" class="text title" style="background-color: white;">Sample text here abcd</label
             >
             <br />
             <label for="title">Date posted</label>
-            <label for="" class="title" style="background-color: white;"
-              >No text here</label
+                                    <label for="" class="title" style="background-color: white;">No text here</label
             >
           </div>
         </div>
@@ -109,13 +102,11 @@
             />
             <br />
             <label for="title" class="text">Title</label>
-            <label for="" class="text title" style="background-color: white;"
-              >Sample text here abcd</label
+                                    <label for="" class="text title" style="background-color: white;">Sample text here abcd</label
             >
             <br />
             <label for="title">Date posted</label>
-            <label for="" class="title" style="background-color: white;"
-              >No text here</label
+                                    <label for="" class="title" style="background-color: white;">No text here</label
             >
           </div>
         </div>
@@ -132,13 +123,11 @@
             />
             <br />
             <label for="title" class="text">Title</label>
-            <label for="" class="text title" style="background-color: white;"
-              >Sample text here abcd</label
+                                    <label for="" class="text title" style="background-color: white;">Sample text here abcd</label
             >
             <br />
             <label for="title">Date posted</label>
-            <label for="" class="title" style="background-color: white;"
-              >No text here</label
+                                    <label for="" class="title" style="background-color: white;">No text here</label
             >
           </div>
         </div>
@@ -154,13 +143,11 @@
             />
             <br />
             <label for="title" class="text">Title</label>
-            <label for="" class="text title" style="background-color: white;"
-              >Sample text here abcd</label
+                                    <label for="" class="text title" style="background-color: white;">Sample text here abcd</label
             >
             <br />
             <label for="title">Date posted</label>
-            <label for="" class="title" style="background-color: white;"
-              >No text here</label
+                                    <label for="" class="title" style="background-color: white;">No text here</label
             >
           </div>
         </div>
@@ -176,13 +163,11 @@
             />
             <br />
             <label for="title" class="text">Title</label>
-            <label for="" class="text title" style="background-color: white;"
-              >Sample text here abcd</label
+                                    <label for="" class="text title" style="background-color: white;">Sample text here abcd</label
             >
             <br />
             <label for="title">Date posted</label>
-            <label for="" class="title" style="background-color: white;"
-              >No text here</label
+                                    <label for="" class="title" style="background-color: white;">No text here</label
             >
           </div>
         </div>

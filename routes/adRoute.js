@@ -50,11 +50,12 @@ adRouter.use(bodyParser.json());
 
 adRouter.get('/', isLoggedIn, (req, res) => {
   Ads.find({
-    user: req.user
+    'user._id': req.user._id
   }, (err, ads) => {
+    console.log(ads)
     res.render('myAds', {
       ads: ads,
-      user:req.user
+      user: req.user
     });
     // res.json(ads)
   });
