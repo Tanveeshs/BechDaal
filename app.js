@@ -66,9 +66,9 @@ app.get('/post',isLoggedIn, function(req, res) {
   });
 });
 app.use('/myprofile', myprofile);
-// app.get('/editprofile', function(req, res) {
-//   res.render('myprofile.ejs');
-// });
+app.get('/myads', function(req, res) {
+  res.render('myAds.ejs');
+});
 
 app.get('/asdsad', function(req, res) {
   res.send('fsfad');
