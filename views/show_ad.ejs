@@ -189,13 +189,13 @@
       <div class="container">
         <div class="mySlides text-center">
           <div class="numbertext">1 / 6</div>
-          <img src="<%=ad.cover_photo.path%>" style="width:60%" alt="<%=ad.cover_photo.path%>">
+          <img src="/<%= ad.cover_photo.filename %>" style="width:60%" alt="/<%= ad.cover_photo.filename %>">
         </div>
 
-        <%for(i=0;i<Object.keys(ad.images).length;i++){%>
+        <%for(i=0;i<ad.images.length;i++){%>
         <div class="mySlides text-center">
           <div class="numbertext"><%=i+1%> / 6</div>
-          <img src="<%=ad.images[i].path%>" style="width:60%;" alt="<%=ad.images[i].path%>">
+          <img src="/<%= ad.images[i].filename %>" style="width:60%;" alt="/<%= ad.images[i].filename %>">
         </div>
         <%}%>
 

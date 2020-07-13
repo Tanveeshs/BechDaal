@@ -71,9 +71,10 @@ adRouter.route('/')
         });
       } else {
         const cover_photo = req.files[0];
-        let remaining_images = {};
+        let remaining_images = [];
         for (let i = 1; i < req.files.length; i++) {
-          remaining_images[i - 1] = req.files[i];
+          // remaining_images[i - 1] = req.files[i];
+          remaining_images.push(req.files[i]);
         }
         const new_ad = new AdSchema({
           title: req.body.title,
@@ -91,10 +92,6 @@ adRouter.route('/')
           date_posted: new Date(),
           // date_sold: req.body.date_sold
         });
-
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(new_ad);
 
         new_ad.save()
           .then((ad) => {
@@ -122,7 +119,7 @@ adRouter.route('/:adId')
         res.render('show_ad', {
           ad: ad
         });
-      });
+      }).catch((err) => console.log(err));
   })
 
   .put((req, res) => {

@@ -37,9 +37,9 @@ const adSchema = new Schema({
   cover_photo: {
     type: Object
   },
-  images: {
+  images: [{
     type: Object
-  },
+  }],
   description: {
     type: String
   },
