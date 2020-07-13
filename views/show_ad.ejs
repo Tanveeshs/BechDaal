@@ -236,11 +236,11 @@
 
         <div class="row text-center">
           <div class="column">
-            <img class="demo cursor" src="<%=ad.cover_photo.path%>" style="width:60%" onclick="currentSlide(1)" alt="<%=ad.cover_photo.path%>">
+            <img class="demo cursor" src="/<%= ad.cover_photo.filename %>" style="width:60%" onclick="currentSlide(1)" alt="/<%= ad.cover_photo.filename %>">
           </div>
-          <%for(i=0;i<Object.keys(ad.images).length;i++){%>
+          <%for(i=0;i<ad.images.length;i++){%>
           <div class="column">
-            <img class="demo cursor" src="<%=ad.images[i].path%>" style="width:60%" onclick="'currentSlide(" +(i+1)+")'" alt="<%=ad.images[i].path%>">
+            <img class="demo cursor" src="/<%=ad.images[i].filename%>" style="width:60%" onclick="'currentSlide(" +(i+1)+")'" alt="/<%=ad.images[i].filename%>">
           </div>
           <%}%>
     <%# <div class="column">
