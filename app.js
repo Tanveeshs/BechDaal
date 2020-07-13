@@ -16,6 +16,7 @@ const cors = require('cors');
 const category = require('./routes/category');
 const myprofile = require('./routes/myprofile');
 // const smsverify = require('./routes/sms');
+
 mongoose.connect(configDB.url, {
   useNewUrlParser: true,
   useUnifiedTopology: true
