@@ -93,8 +93,14 @@
             </p>
             <p class="contact">
                 <span style="color:#994d00; font-size: 1.5rem; "> Contact No:</span>
-                <span style="margin-left: 2%;font-size: 1.5rem;"><%= user.local.phone %></span>
+                <span style="margin-left: 2%;font-size: 1.5rem;"><%= user.local.contact %></span>
             </p>
+            <% for (var i = 0; i < user.local.address.length; i++) {%>
+            <p class="address">
+                <span style="color:#994d00; font-size: 1.5rem; "> Address <%= i+1 %>:</span>
+                <span style="margin-left: 2%;font-size: 1.5rem;"><%= user.local.address[i] %></span>
+            </p>
+            <% } %>
             <!-- <p class="address" style="display:flex;flex-direction: row;">
                 <p style="color:#994d00;font-size: 1.5rem; float: left; margin-right: 30px;"> Address:</p>
                 <div style="display: flex;flex-direction: column; margin-top: 60px;">

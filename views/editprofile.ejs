@@ -83,7 +83,7 @@
             <br>
             <input type="text" name='username1' style=" border: none;
             border-bottom: 1px solid gray;margin-left:-15%;
-            width: 250px;padding:3px;font-size: 1.1rem; text-align: center;" placeholder="<%= user.local.username %>">
+            width: 250px;padding:3px;font-size: 1.1rem; text-align: center;" value="<%= user.local.username %>" placeholder="<%= user.local.username %>">
 
             </div>
             <br>
@@ -95,8 +95,22 @@
             </p>
             <p class="contact">
                 <span style="color:#994d00; font-size: 1.5rem; "> Contact No:</span>
-                <span style="margin-left: 2%;font-size: 1.5rem;"><%= user.local.phone %></span>
+                <br>
+                <input type="text" name='contact1' style=" border: none;
+                border-bottom: 1px solid gray;margin-left:-15%;
+                width: 250px;padding:3px;font-size: 1.1rem; text-align: center;" value="<%= user.local.contact %>" placeholder="<%= user.local.contact %>">
             </p>
+
+            <% for (var i = 0; i < user.local.address.length; i++) {%>
+            <p class="address">
+                <span style="color:#994d00; font-size: 1.5rem; "> Address <%= i+1 %>:</span>
+                <br>
+                <input type="text" name='address<%= i+1 %>' style=" border: none;
+                border-bottom: 1px solid gray;margin-left:-15%;
+                width: 500px;padding:3px;font-size: 1.1rem; text-align: center;" value="<%= user.local.address[i]%>" placeholder="<%= user.local.address %>">
+            </p>
+            <% } %>
+            <input type="text" name="ivalue" type="hidden" value="<%= i %>">
             <!-- <p class="address" style="display:flex;flex-direction: row;">
                 <p style="color:#994d00;font-size: 1.5rem; float: left; margin-right: 30px;"> Address:</p>
                 <div style="display: flex;flex-direction: column; margin-top: 60px;">

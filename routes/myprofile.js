@@ -27,14 +27,30 @@ router.get('/edit', function(req, res) {
 });
 
 router.post('/editprofile', function(req, res) {
-  console.log(req.body.username1);
-  User.update({
+a=[];
+// for(var i=0 ; i<=req.body.ivalue;i++){
+//
+// }
+a.push(req.body.address1);
+a.push(req.body.address2);
+console.log(a);
+  User.findOneAndUpdate({
     _id: req.user._id
   }, {
-    $set: {
-      username: req.body.username1
+    "$set": {
+      'local.username': req.body.username1,
+      'local.contact': req.body.contact1,
+      'local.address': a
     }
+  }, function(err, res) {
+    // Updated at most one doc, `res.modifiedCount` contains the number
+    // of docs that MongoDB updated
+    if (err) {
+      console.log(err);
+    }
+
   });
+  res.redirect('/myprofile');
 });
 
 function isLoggedIn(req, res, next) {
