@@ -1,4 +1,4 @@
-<%-include('partials/header')-%>
+<%-include('partials/miniheader')-%>
 <%-include("partials/sidebar")-%>
 
 <head>
@@ -42,19 +42,20 @@
   <div class="container" style="margin-left: 15%">
     <div class="row">
       <%ads.forEach(ad=>{%>
-        <div class="col-md-4 col-sm-12 paddings">
-          <div class="card bg-danger text-white car mx-auto">
-            <div class="card-body">
-              <img class="Img mx-auto" style="text-align: center;" src="/<%= ad.cover_photo.filename %>" alt="/<%= ad.cover_photo.filename %>">
-              <br>
-              <label for="title" class="text">Title</label>
-              <label for="" class="text title" style="background-color: white;color:black"><%=ad.title%></label>
-              <br>
-              <label for="title">Date posted</label>
-              <label for="" class="title" style="background-color: white;color:black"><%=ad.date_posted%></label>
-            </div>
+      <div class="col-md-4 col-sm-12 paddings">
+        <div class="card bg-danger text-white car mx-auto">
+          <div class="card-body">
+            <img class="Img mx-auto" style="text-align: center;" src="/<%= ad.cover_photo.filename %>"
+              alt="/<%= ad.cover_photo.filename %>">
+            <br>
+            <label for="title" class="text">Title</label>
+            <label for="" class="text title" style="background-color: white;color:black"><%=ad.title%></label>
+            <br>
+            <label for="title">Date posted</label>
+            <label for="" class="title" style="background-color: white;color:black"><%=ad.date_posted%></label>
           </div>
         </div>
+      </div>
       <%})%>
 
 

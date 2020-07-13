@@ -81,13 +81,13 @@ body {
   text-decoration: none;
   color: white;
   align-self: center;
-  transition: ease-in-out 0.1s;
+  transition: ease-in-out 0.2s;
 }
 
 #sellOption:hover {
-  background-color: rgb(116, 204, 145);
-  border: 1px solid #34eba4;
-  border-radius: 10px;
+  background-color: rgba(97, 207, 189, 0.925);
+  border: 1px solid grey;
+  border-radius: 20px;
 }
 .icons {
   padding: 10px 30px;
@@ -113,8 +113,8 @@ body {
 }
 
 .look {
-  font-family: 'Lato', sans-serif;
-  font-size: 20.23px;
+  font-family: 'Lucida Grande', sans-serif;
+  font-size: 18px;
   color: black;
 
 }
@@ -159,8 +159,9 @@ body {
 }
 
 .navbar {
-  padding: 10px 80px;
+  padding: 10px 60px;
   background-color: #77CAEA;
+  margin-bottom: 5%;
 }
 
 .navbar-brand {
@@ -179,7 +180,7 @@ body {
 
 .sellicon {
   padding: 7px;
-  font-size: 20px;
+  font-size: 18px;
 
 }
 

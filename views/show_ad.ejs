@@ -1,5 +1,6 @@
-<%-include('partials/header')-%>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
+<%-include('partials/miniheader')-%>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css"
+  integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
 
 <style>
   .flexcontainer {
@@ -173,7 +174,8 @@
       <hr class="hrtitle">
       <h4>
         <center>
-          <span style="font-size: 28px;font-weight: bold;"><i>₹</i></span> <span id="priceContainer"><%=ad.price%></span>
+          <span style="font-size: 28px;font-weight: bold;"><i>₹</i></span> <span
+            id="priceContainer"><%=ad.price%></span>
         </center>
       </h4>
       <br>
@@ -236,11 +238,13 @@
 
         <div class="row text-center">
           <div class="column">
-            <img class="demo cursor" src="/<%= ad.cover_photo.filename %>" style="width:60%" onclick="currentSlide(1)" alt="/<%= ad.cover_photo.filename %>">
+            <img class="demo cursor" src="/<%= ad.cover_photo.filename %>" style="width:60%" onclick="currentSlide(1)"
+              alt="/<%= ad.cover_photo.filename %>">
           </div>
           <%for(i=0;i<ad.images.length;i++){%>
           <div class="column">
-            <img class="demo cursor" src="/<%=ad.images[i].filename%>" style="width:60%" onclick="'currentSlide(" +(i+1)+")'" alt="/<%=ad.images[i].filename%>">
+            <img class="demo cursor" src="/<%=ad.images[i].filename%>" style="width:60%" onclick="'currentSlide("
+              +(i+1)+")'" alt="/<%=ad.images[i].filename%>">
           </div>
           <%}%>
     <%# <div class="column">

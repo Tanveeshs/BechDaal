@@ -1,6 +1,7 @@
-<%-include('partials/header')-%>
+<%-include('partials/miniheader')-%>
 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css"
+  integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <style media="screen">
@@ -111,7 +112,8 @@
 <form method="post" action="/sell/" enctype="multipart/form-data">
 
   <center>
-    <input style="width:20%;text-align:center" class="w3-input w3-border" style="text-align:center" placeholder="Your descriptive Title..." name="title" />
+    <input style="width:20%;text-align:center" class="w3-input w3-border" style="text-align:center"
+      placeholder="Your descriptive Title..." name="title" />
   </center>
   <br>
   <br>
@@ -309,16 +311,16 @@
 </form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-  Array.prototype.forEach.call(document.querySelectorAll('.fileButton'), function(button) {
+  Array.prototype.forEach.call(document.querySelectorAll('.fileButton'), function (button) {
     const hiddenInput = button.parentElement.querySelector('#fileInput')
     let label = button.parentElement.querySelector('.fileLabel')
     const defaultText = "No file selected";
     label.textContent = defaultText;
-    button.addEventListener('click', function(e) {
+    button.addEventListener('click', function (e) {
       e.preventDefault();
       hiddenInput.click();
     })
-    hiddenInput.addEventListener('change', function() {
+    hiddenInput.addEventListener('change', function () {
       const newText = "1 file selected"
       label.textContent = '1 file selected'
     })
@@ -333,7 +335,7 @@
       var currentPic;
       currentPic = parseInt(input.className[4]);
       nextPic = parseInt(input.className[4]) + 1;
-      reader.onload = function(e) {
+      reader.onload = function (e) {
         if (noPic) {
           $('#cover-pic')
             .attr('src', e.target.result)
@@ -352,7 +354,7 @@
     }
   }
 
-  $('.Img').click(function() {
+  $('.Img').click(function () {
     var coverPic = $(this).attr('src');
     console.log(coverPic);
     if (coverPic != 'images/Imagehere.jpg') {
@@ -364,7 +366,7 @@
     }
   })
 
-  $('.fa-times').click(function() {
+  $('.fa-times').click(function () {
     var currentCross = $(this).attr('id')[5];
     var imageValue = $('#blah' + currentCross).attr('src');
     var coverPicValue = $('#cover-pic').attr('src');
@@ -379,7 +381,7 @@
   var URL = "http://localhost:3001/category";
   // = $('#category').find(":selected").text();
   var selectedcategory
-  $('#category').on('change', function() {
+  $('#category').on('change', function () {
     selectedcategory = $('#category').find(":selected").text();
     $('#subcategory option').remove();
     if ($('#category').find(":selected").val() === 'none') {
@@ -403,11 +405,11 @@
   $.ajax({
     url: URL,
     method: "GET"
-  }).done(function(catagories) {
+  }).done(function (catagories) {
     catagories.forEach(category => {
       $('#category').append("<option value='" + category.name + "'>" + category.name + "</option>")
     });
-  }).fail(function() {
+  }).fail(function () {
     console.log('FAIL!!')
   })
 
