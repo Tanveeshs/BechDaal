@@ -48,65 +48,62 @@ adRouter.use(bodyParser.json());
 //   });
 // });
 
-adRouter.route('/')
-  .get((req, res) => {
-    Ads.find({
-        user: req.user
-      })
-      .then((ads) => {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(ads);
-      }).catch((err) => console.log(err));
-  })
-
-  .post((req, res) => {
-    upload(req, res, (err) => {
-      if (err) {
-        console.log('Error: ', err);
-        res.statusCode = 400;
-        res.setHeader('Content-Type', 'application/json');
-        res.json({
-          msg: 'error'
-        });
-      } else {
-        const cover_photo = req.files[0];
-        let remaining_images = [];
-        for (let i = 1; i < req.files.length; i++) {
-          // remaining_images[i - 1] = req.files[i];
-          remaining_images.push(req.files[i]);
-        }
-        const new_ad = new AdSchema({
-          title: req.body.title,
-          category: req.body.category,
-          sub_category: req.body.subcategory,
-          model: req.body.model,
-          brand: req.body.brand,
-          cover_photo: cover_photo,
-          price: req.body.price,
-          user: req.user,
-          address: req.body.address,
-          contact_number: req.body.contact_number,
-          images: remaining_images,
-          description: req.body.description,
-          date_posted: new Date(),
-          // date_sold: req.body.date_sold
-        });
-
-        new_ad.save()
-          .then((ad) => {
-            console.log(ad);
-            res.statusCode = 200;
-            res.setHeader('Content-Type', 'application/json');
-            res.json(ad);
-          })
-          .catch((err) => console.log(err));
-
-      }
+adRouter.get('/', isLoggedIn, (req, res) => {
+  Ads.find({
+    user: req.user
+  }, (err, ads) => {
+    res.render('myAds', {
+      ads: ads,
+      user:req.user
     });
-
-
+    // res.json(ads)
   });
+});
+
+adRouter.post('/', (req, res) => {
+  upload(req, res, (err) => {
+    if (err) {
+      console.log('Error: ', err);
+      res.statusCode = 400;
+      res.setHeader('Content-Type', 'application/json');
+      res.json({
+        msg: 'error'
+      });
+    } else {
+      const cover_photo = req.files[0];
+      let remaining_images = [];
+      for (let i = 1; i < req.files.length; i++) {
+        // remaining_images[i - 1] = req.files[i];
+        remaining_images.push(req.files[i]);
+      }
+      const new_ad = new AdSchema({
+        title: req.body.title,
+        category: req.body.category,
+        sub_category: req.body.subcategory,
+        model: req.body.model,
+        brand: req.body.brand,
+        cover_photo: cover_photo,
+        price: req.body.price,
+        user: req.user,
+        address: req.body.address,
+        contact_number: req.body.contact_number,
+        images: remaining_images,
+        description: req.body.description,
+        date_posted: new Date(),
+        // date_sold: req.body.date_sold
+      });
+
+      new_ad.save()
+        .then((ad) => {
+          console.log(ad);
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.json(ad);
+        })
+        .catch((err) => console.log(err));
+    }
+  });
+});
 
 /* docs */
 // here you will just add the id of the ad in the url itself, and will get that single ad
@@ -134,10 +131,6 @@ adRouter.route('/:adId')
         res.json(ad);
       }).catch((err) => console.log(err));
   });
-
-adRouter.get('/ads/myads', isLoggedIn, function(req, res) {
-  res.render('myAds.ejs');
-});
 
 adRouter.get('/ads/post', isLoggedIn, function(req, res) {
   res.render('postAd.ejs', {
