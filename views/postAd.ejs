@@ -355,7 +355,7 @@
   $('.Img').click(function() {
     var coverPic = $(this).attr('src');
     console.log(coverPic);
-    if (coverPic != 'images/Imagehere.jpg') {
+    if (coverPic != '/images/Imagehere.jpg') {
       $('#cover-pic')
         .attr('src', coverPic)
         .width(300)
@@ -373,7 +373,7 @@
     }
     $('#cross' + currentCross).css('display', 'none');
     $('#plus' + currentCross).css('display', 'inline-block');
-    $('#blah' + currentCross).attr('src', 'images/Imagehere.jpg');
+    $('#blah' + currentCross).attr('src', '/images/Imagehere.jpg');
   })
 
   var URL = "http://localhost:3001/category";
