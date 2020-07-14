@@ -1,0 +1,102 @@
+#custom-button {
+  padding: 10px;
+  color: white;
+  background-color: #009578;
+  border: 1px solid #000;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+input,
+select,
+textarea {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+#custom-button:hover {
+  background-color: #00b28f;
+}
+
+#custom-text {
+  margin-left: 10px;
+  font-family: sans-serif;
+  color: #aaa;
+}
+
+table,
+td {
+  border: 5px solid grey;
+  padding: 5px;
+}
+
+table {
+  border-spacing: 5px;
+}
+
+td {
+  text-align: center;
+  padding: 10px 20px 20px;
+}
+
+.fileButton {
+  cursor: pointer;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.Img {
+  width: 100px;
+  height: 100px;
+  border-radius: 25px;
+}
+
+.vis1,
+.vis2,
+.vis3,
+.vis4,
+.vis5,
+.vis6,
+.vis7,
+.vis8,
+#cross0,
+#cross1,
+#cross2,
+#cross3,
+#cross4,
+#cross5,
+#cross6,
+#cross7,
+#cross8 {
+  display: none;
+}
+
+.fileLabel {
+  display: none;
+}
+
+.fas0 {
+  font-weight: 900;
+  font-family: "Font Awesome 5 Free";
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  cursor: pointer;
+}

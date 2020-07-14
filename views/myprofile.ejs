@@ -7,82 +7,19 @@
     <title>MyProfile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/myprofile.css">
 </head>
-<style>
-    body {
-        font-family: 'Titillium Web', sans-serif;
-        font-size: 1.1rem;
-    }
-
-    .container {
-        width: 100%;
-        align-content: center;
-    }
-
-    .verify_btn {
-        padding: 4px 15px;
-        margin-left: 2%;
-        background-color: #e65c00;
-        border: 1px solid #e65c00;
-        border-radius: 12px;
-        font-size: 1.03rem;
-        color: white
-    }
-
-    .userDetails {
-        width: 60%;
-        margin: auto;
-        /* display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column; */
-    }
-
-    .email {
-        width: 70%;
-        font-size: 1.5rem;
-    }
-
-    .address_input {
-        border: none;
-        border-bottom: 1px solid gray;
-        width: 250px;
-        padding: 10px;
-    }
-
-    .addAddress {
-        font-size: 1.5rem ;
-        color: gray;
-    }
-
-    .newAddress{
-        font-size: 1rem ;
-        color: gray;
-
-    }
-    .saveAs{
-        font-size: 20px;
-        padding-right: 30px;
-    }
-    #saveAsAddress{
-        margin-top: 9px;
-    }
-</style>
-
 
 <body>
-
     <div class="container">
         <form class="userDetails" action="/myprofile/edit">
             <div class="userIcon" style = "margin-left:45%; margin-top: 10%;">
                 <i style="font-size:95px;font-weight: bold; " class="fa fa-user-circle-o" aria-hidden="true"></i>
-
             <br>
             <p style="color:#994d00; font-size: 2rem;"> <%= user.local.username %></p>
             <!-- <input type="text" style=" border: none;
             border-bottom: 1px solid gray;margin-left:-15%;
             width: 250px;padding:3px;font-size: 1.1rem; text-align: center;"> -->
-
             </div>
             <br>
             <br>
@@ -138,11 +75,5 @@
     </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function () {
-      $("#addAdd").click(function () {
-        $("#newAdd").slideToggle(300);
-      });
-    });
-</script>
+<script src="/js/profile.js" charset="utf-8"></script>
 </html>

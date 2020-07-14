@@ -1,0 +1,58 @@
+body {
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 1.1rem;
+}
+
+.container {
+    width: 100%;
+    align-content: center;
+}
+
+.verify_btn {
+    padding: 4px 15px;
+    margin-left: 2%;
+    background-color: #e65c00;
+    border: 1px solid #e65c00;
+    border-radius: 12px;
+    font-size: 1.03rem;
+    color: white
+}
+
+.userDetails {
+    width: 60%;
+    margin: auto;
+    /* display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; */
+}
+
+.email {
+    width: 70%;
+    font-size: 1.5rem;
+}
+
+.address_input {
+    border: none;
+    border-bottom: 1px solid gray;
+    width: 250px;
+    padding: 10px;
+}
+
+.addAddress {
+    font-size: 1.5rem ;
+    color: gray;
+}
+
+.newAddress{
+    font-size: 1rem ;
+    color: gray;
+
+}
+.saveAs{
+    font-size: 20px;
+    padding-right: 30px;
+}
+#saveAsAddress{
+    margin-top: 9px;
+}

@@ -1,167 +1,9 @@
 <%-include('partials/miniheader')-%>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css"
-  integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
 
-<style>
-  .flexcontainer {
-    display: flex;
-    width: 100%;
-  }
-
-  .info {
-    width: 35%;
-    padding: 30px;
-    font-size: 20px;
-    line-height: 40px;
-    height: 500px;
-    float: left;
-  }
-
-  .hrtitle {
-    height: 3px;
-    color: black;
-  }
-
-  .imgchange {
-    margin-left: 40%;
-    height: 500px;
-  }
-
-  .container-fluid {
-    margin-top: 300px;
-  }
-
-  .iconsbottom {
-    position: absolute;
-    padding-right: 30px;
-    padding-bottom: 0px;
-    padding-top: 50px;
-    text-align: center;
-  }
-
-  .a {
-    border-radius: 60%;
-    padding: 15px;
-    cursor: pointer;
-    margin: 10px;
-    text-align: center;
-  }
-
-  body {
-    font-family: Arial;
-    margin: 0;
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-
-  img {
-    vertical-align: middle;
-  }
-
-  /* Position the image container (needed to position the left and right arrows) */
-  .container {
-    position: relative;
-  }
-
-  /* Hide the images by default */
-  .mySlides {
-    display: none;
-  }
-
-  /* Add a pointer when hovering over the thumbnail images */
-  .cursor {
-    cursor: pointer;
-  }
-
-  /* Next & previous buttons */
-  .prev,
-  .next {
-    cursor: pointer;
-    position: absolute;
-    top: 40%;
-    width: auto;
-    padding: 16px;
-    margin-top: -50px;
-    color: white;
-    font-weight: bold;
-    font-size: 20px;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-    -webkit-user-select: none;
-  }
-
-  /* Position the "next button" to the right */
-  .next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-  }
-
-  /* On hover, add a black background color with a little bit see-through */
-  .prev:hover,
-  .next:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-  }
-
-  /* Number text (1/3 etc) */
-  .numbertext {
-    color: #f2f2f2;
-    font-size: 12px;
-    padding: 8px 12px;
-    position: absolute;
-    top: 0;
-  }
-
-  /* Container for image text */
-  .caption-container {
-    text-align: center;
-    background-color: #222;
-    padding: 2px 16px;
-    color: white;
-  }
-
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-
-  /* Six columns side by side */
-  .column {
-    float: left;
-    width: 16.66%;
-  }
-
-  /* Add a transparency effect for thumnbail images */
-  .demo {
-    opacity: 0.6;
-  }
-
-  .active,
-  .demo:hover {
-    opacity: 1;
-  }
-
-  @media (max-width: 910px) {
-    .info {
-      width: 100px;
-    }
-  }
-
-  #priceContainer {
-    width: 160px;
-    padding: 6px 40px;
-    margin-left: 20px;
-    background-color: #00b33c;
-    border-top: 3px solid #00802b;
-    border-bottom: 3px solid #00802b;
-    border-bottom-style: dashed;
-    border-top-style: dashed;
-    font-weight: bold;
-    font-size: 22px;
-  }
-</style>
+<head>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/showad.css">
+</head>
 
 <body>
   <br>
@@ -174,8 +16,7 @@
       <hr class="hrtitle">
       <h4>
         <center>
-          <span style="font-size: 28px;font-weight: bold;"><i>₹</i></span> <span
-            id="priceContainer"><%=ad.price%></span>
+          <span style="font-size: 28px;font-weight: bold;"><i>₹</i></span> <span id="priceContainer"><%=ad.price%></span>
         </center>
       </h4>
       <br>
@@ -238,13 +79,11 @@
 
         <div class="row text-center">
           <div class="column">
-            <img class="demo cursor" src="/<%= ad.cover_photo.filename %>" style="width:60%" onclick="currentSlide(1)"
-              alt="/<%= ad.cover_photo.filename %>">
+            <img class="demo cursor" src="/<%= ad.cover_photo.filename %>" style="width:60%" onclick="currentSlide(1)" alt="/<%= ad.cover_photo.filename %>">
           </div>
           <%for(i=0;i<ad.images.length;i++){%>
           <div class="column">
-            <img class="demo cursor" src="/<%=ad.images[i].filename%>" style="width:60%" onclick="'currentSlide("
-              +(i+1)+")'" alt="/<%=ad.images[i].filename%>">
+            <img class="demo cursor" src="/<%=ad.images[i].filename%>" style="width:60%" onclick="'currentSlide(" +(i+1)+")'" alt="/<%=ad.images[i].filename%>">
           </div>
           <%}%>
     <%# <div class="column">
@@ -284,40 +123,6 @@
 
 
 </body>
-<script>
-  var slideIndex = 1;
-  showSlides(slideIndex);
-
-  function plusSlides(n) {
-    showSlides(slideIndex += n);
-  }
-
-  function currentSlide(n) {
-    showSlides(slideIndex = n);
-  }
-
-  function showSlides(n) {
-    var i;
-    var slides = document.getElementsByClassName("mySlides");
-    var dots = document.getElementsByClassName("demo");
-    var captionText = document.getElementById("caption");
-    if (n > slides.length) {
-      slideIndex = 1
-    }
-    if (n < 1) {
-      slideIndex = slides.length
-    }
-    for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
-    }
-    for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-    }
-    slides[slideIndex - 1].style.display = "block";
-    dots[slideIndex - 1].className += " active";
-    captionText.innerHTML = dots[slideIndex - 1].alt;
-  }
-</script>
-
+<script src="/js/showad.js" charset="utf-8"></script>
 
 <%-include('partials/footer')-%>
