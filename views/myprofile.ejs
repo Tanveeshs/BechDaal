@@ -1,3 +1,5 @@
+<%-include('partials/miniheader')-%>
+<%-include("partials/sidebar")-%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,6 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyProfile</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css"
+        integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/myprofile.css">
@@ -13,11 +17,11 @@
 <body>
     <div class="container">
         <form class="userDetails" action="/myprofile/edit">
-            <div class="userIcon" style = "margin-left:45%; margin-top: 10%;">
+            <div class="userIcon" style="margin-left:45%; margin-top: 10%;">
                 <i style="font-size:95px;font-weight: bold; " class="fa fa-user-circle-o" aria-hidden="true"></i>
-            <br>
-            <p style="color:#994d00; font-size: 2rem;"> <%= user.local.username %></p>
-            <!-- <input type="text" style=" border: none;
+                <br>
+                <p style="color:#994d00; font-size: 2rem;"> <%= user.local.username %></p>
+                <!-- <input type="text" style=" border: none;
             border-bottom: 1px solid gray;margin-left:-15%;
             width: 250px;padding:3px;font-size: 1.1rem; text-align: center;"> -->
             </div>
@@ -76,4 +80,5 @@
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="/js/profile.js" charset="utf-8"></script>
+
 </html>

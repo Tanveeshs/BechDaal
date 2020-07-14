@@ -5,27 +5,35 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Bech Daal</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Cantora+One&family=Gothic+A1&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Montserrat:wght@700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Montserrat:wght@700&family=PT+Sans:wght@400;700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="/css/headerStyles.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Poppins:wght@300;500&display=swap"
+    rel="stylesheet">
   <link rel='stylesheet' href='/css/style.css' />
 </head>
 
-<body>
+<body style="font-family: 'Montserrat', sans-serif;">
   <nav class="navbar navbar-expand-lg navbar-dark bg-li " style="margin-bottom: 5%;">
     <a class="navbar-brand" href="/" style="color:black">
-      <span><img src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" alt="logo" style="width:70px;height:50px;"></span>
+      <span><img src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png"
+          alt="logo" style="width:70px;height:50px;"></span>
       BechDaal</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto" id="ulLinks">
         <%if  (typeof user !='undefined') {%>
         <div class="nav-item dropdown">
-          <a style="font-size:1.05rem;" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="hellouser">
+          <a style="font-size:1.05rem;" class="nav-link" href="#" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" id="hellouser">
             <!-- add navbar-toggle in class if u want that triangle -->
             <span style="font-weight:bold;">Hello</span> <%=user.local.username%>
           </a>
@@ -40,11 +48,13 @@
         </div>
         <%} else {%>
         <li class="nav-item">
-          <a class="nav-link look" style="color:black;font-size: 18px;text-transform: uppercase;" href="/login">Login/<span>SignUp</span></a>
+          <a class="nav-link look" style="color:black;font-size: 18px;text-transform: uppercase;"
+            href="/login">Login/<span>SignUp</span></a>
         </li>
         <% } %>
         <div class="nav-item dropdown">
-          <a class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="hellouser">
+          <a class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            id="hellouser">
             <i class="fas languageicon fa-language"></i>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -54,7 +64,8 @@
         </div>
         <li class="nav-item active" style="display: flex; cursor:pointer;" id="sellOption">
           <a><i class="fas sellicon fa-hand-holding-usd"></i></a>
-          <a href="/sell/ads/post" class="nav-link look" style="color:black; font-size: 18px;text-transform: uppercase;font-weight: bold;">Sell</a>
+          <a href="/sell/ads/post" class="nav-link look"
+            style="color:black; font-size: 18px;text-transform: uppercase;">Sell</a>
         </li>
       </ul>
     </div>
