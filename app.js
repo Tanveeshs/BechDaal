@@ -15,6 +15,7 @@ const searchRoute = require('./routes/searchRoute');
 const cors = require('cors');
 const category = require('./routes/category');
 const myprofile = require('./routes/myprofile');
+const wishlist = require('./routes/wishlist');
 // const smsverify = require('./routes/sms');
 
 mongoose.connect(configDB.url, {
@@ -62,6 +63,7 @@ app.use('/category', category);
 app.use('/test', test);
 app.use('/search', searchRoute);
 app.use('/myprofile', myprofile);
+app.use('/wish', wishlist);
 
 app.get('/wishlist', isLoggedIn, (req, res) => {
     res.render('mywishlist', {
