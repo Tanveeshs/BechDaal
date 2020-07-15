@@ -18,8 +18,8 @@ const myprofile = require('./routes/myprofile');
 // const smsverify = require('./routes/sms');
 
 mongoose.connect(configDB.url, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 });
 
 require('./config/passport')(passport);
@@ -34,14 +34,14 @@ app.set('view engine', 'ejs');
 
 app.use(express.json());
 app.use(express.urlencoded({
-  extended: false
+    extended: false
 }));
 app.use(cookieParser());
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  secret: 'XYZZ'
+    secret: 'XYZZ'
 }));
 
 app.use(passport.initialize());
@@ -63,17 +63,23 @@ app.use('/test', test);
 app.use('/search', searchRoute);
 app.use('/myprofile', myprofile);
 
+app.get('/wishlist', isLoggedIn, (req, res) => {
+    res.render('mywishlist', {
+        user: req.user
+    })
+})
+
 function isLoggedIn(req, res, next) {
-  try {
-    if (req.isAuthenticated()) {
-      req.isLogged = true;
-      return next();
+    try {
+        if (req.isAuthenticated()) {
+            req.isLogged = true;
+            return next();
+        }
+        res.redirect('/login');
+    } catch (e) {
+        console.log(e);
     }
-    res.redirect('/login');
-  } catch (e) {
-    console.log(e);
-  }
 }
 app.listen(3001, function(err) {
-  console.log('Server started');
+    console.log('Server started');
 });

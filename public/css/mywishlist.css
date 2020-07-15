@@ -1,0 +1,64 @@
+.car {
+    width: 80%;
+    border-radius: 25px 25px 0px 25px;
+    border: none;
+    background-color: #db582d;
+}
+
+.Img {
+    width: 100%;
+    height: 150px;
+}
+
+.text {
+    margin: 12px 0px;
+}
+
+.paddings {
+    padding: 20px 0px;
+}
+
+.label-text {
+    margin: 10px 0px 10px 30px;
+    background-color: #ff6666;
+    border-radius: 25px;
+    padding: 0px 10px;
+}
+
+.remove {
+    float: right;
+    background-color: #db582d;
+    margin-right: 10%;
+    border-radius: 0 0 25px 0;
+    padding: 5px 10px 5px 0;
+    color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.rem-left {
+    float: right;
+    border-bottom: 31px solid white;
+    border-right: 35px solid #db582d;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .car {
+        width: 60%;
+        border-radius: 25px 25px 0px 25px;
+        border: none;
+        background-color: #db582d;
+    }
+
+    .remove {
+        float: right;
+        background-color: #db582d;
+        margin-right: 20%;
+        border-radius: 0 0 25px 0;
+        padding: 5px 10px 5px 0;
+        color: white;
+        font-size: 0.9rem;
+        cursor: pointer;
+    }
+}
