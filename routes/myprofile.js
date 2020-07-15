@@ -31,7 +31,7 @@ router.post('/editprofile', function(req, res) {
   for (var i = 0; i <= req.body.ivalue; i++) {
     var name = 'address'
     var value=req.body.address;
-    eval("var "+name+" = '"+value+""+i+"';");
+    eval("var "+name+" = '"+value+"'+"i";");
     console.log(address);
     a.push(address);
 
