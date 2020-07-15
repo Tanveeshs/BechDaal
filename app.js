@@ -65,12 +65,6 @@ app.use('/search', searchRoute);
 app.use('/myprofile', myprofile);
 app.use('/wish', wishlist);
 
-app.get('/wishlist', isLoggedIn, (req, res) => {
-    res.render('mywishlist', {
-        user: req.user
-    })
-})
-
 function isLoggedIn(req, res, next) {
     try {
         if (req.isAuthenticated()) {

@@ -28,10 +28,12 @@ router.get('/edit', function(req, res) {
 
 router.post('/editprofile', function(req, res) {
   a = [];
-  for (var i = 0; i <= req.body.ivalue; i++) {
-    var name = 'address'
-    var value=req.body.address;
-    eval("var "+name+" = '"+value+"'+"i";");
+  for (var i = 1; i <= req.body.ivalue; i++) {
+    var name = 'address';
+
+    var value='req.body.'+'address' ;
+    eval("var "+name+" = '"+value+i.toString()+"';");
+
     console.log(address);
     a.push(address);
 

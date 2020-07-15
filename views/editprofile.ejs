@@ -45,7 +45,7 @@
         <br>
         <input type="text" name='address<%= i+1 %>' style=" border: none;
                 border-bottom: 1px solid gray;margin-left:-15%;
-                width: 500px;padding:3px;font-size: 1.1rem; text-align: center;" value="<%= user.local.address[i]%>" placeholder="<%= user.local.address %>">
+                width: 500px;padding:3px;font-size: 1.1rem; text-align: center;" onchange=address(this) value="<%= user.local.address[i]%>" placeholder="<%= user.local.address %>">
       </p>
       <% } %>
       <input type="text" name="ivalue" type="hidden" style="visibility:hidden;" value="<%= i %>">

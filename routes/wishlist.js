@@ -1,8 +1,12 @@
+//jshint esversion:6
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const Ads = require('../model/ad');
-const { User } = require('../model/user');
+const {
+  User
+} = require('../model/user');
 
 const wishlistRouter = express.Router();
 
@@ -12,16 +16,15 @@ wishlistRouter.route('/')
   .get((req, res, next) => {
     console.log(req.user);
     User.findById(req.user._id)
-    .populate('wishlist')
+      .populate('wishlist')
       .then((user) => {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json({array: user.wishlist});
+        res.render('mywishlist', {
+          user: req.user,
+          array: user.wishlist
+        });
       })
-      .catch((err) => console.log(err))
-  })
-
-
+      .catch((err) => console.log(err));
+  });
 
 wishlistRouter.route('/:adId')
   .get((req, res, next) => {
@@ -40,18 +43,23 @@ wishlistRouter.route('/:adId')
                 .then((user) => {
                   res.statusCode = 200;
                   res.setHeader('Content-Type', 'application/json');
-                  res.json({ msg: 'ok', user: req.user, ad });
-                })
-            })
+                  res.json({
+                    msg: 'ok',
+                    user: req.user,
+                    ad
+                  });
+                });
+            });
         } else {
-          console.log('the ad id is wrong!')
+          console.log('the ad id is wrong!');
           res.statusCode = 404;
           res.setHeader('Content-Type', 'application/json');
-          res.json({ msg: 'wrong ad id' });
+          res.json({
+            msg: 'wrong ad id'
+          });
         }
       })
-      .catch((err) => console.log(err))
-  })
-
+      .catch((err) => console.log(err));
+  });
 
 module.exports = wishlistRouter;

@@ -3,3 +3,7 @@ $(document).ready(function() {
     $("#newAdd").slideToggle(300);
   });
 });
+
+function address(input){
+  console.log('Hi')
+}
