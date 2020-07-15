@@ -12,7 +12,7 @@ var {
 } = require('../model/user');
 
 
-router.get('/', function(req, res) {
+router.get('/', isLoggedIn , function(req, res) {
   res.render('myprofile.ejs', {
     user: req.user
   });
@@ -64,5 +64,6 @@ function isLoggedIn(req, res, next) {
     console.log(e);
   }
 }
+
 
 module.exports = router;
