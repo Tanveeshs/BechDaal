@@ -1,18 +1,18 @@
 .sidenav {
   font-family: 'Montserrat', sans-serif;
-  height: 55%;
+  height: 70%;
   /* Full-height: remove this if you want "auto" height */
-  width: 13%;
+  width: 16%;
   /* Set the width of the sidebar */
   /* Fixed Sidebar (stay in place on scroll) */
   /* Stay on top */
-  position:absolute;
+  position: absolute;
+  z-index: initial ;
   top: 10%;
   /* Stay at the top */
-  left: 0;
+  left: 0; 
   background-color: #eaeaea;
   /* Black */
-  overflow-x: hidden;
   /* Disable horizontal scroll */
   padding-top: 10px;
   border-top-right-radius: 20px;
@@ -27,7 +27,7 @@ hr{
 .sidenav a {
   padding: 6px 8px 6px 20px;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 20px;
   color: #3d3d29;
   display: block;
 }
