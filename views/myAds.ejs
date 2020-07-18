@@ -19,28 +19,23 @@
         <h1>NO ADS TO DISPLAY</h1>
       </center>
       <%} else {%>
-      <%
-        console.log(ads)
-        %>
       <%ads.forEach(ad=>{%>
-      <div class="col-md-4 col-sm-12 paddings">
+      <div id='<%=ad._id%>' onclick='editad(this)' class="col-md-4 col-sm-12 paddings">
         <div class="card bg-danger text-white car mx-auto">
           <div class="card-body">
-            <img class="Img mx-auto" style="text-align: center;" src="/<%= ad.cover_photo.filename %>"
-              alt="/<%= ad.cover_photo.filename %>" />
+            <img class="Img mx-auto" style="text-align: center;" src="/<%= ad.cover_photo.filename %>" alt="/<%= ad.cover_photo.filename %>" />
             <br />
             <label for="title" class="text">Title</label>
-            <label for="" class="text title" style="background-color: white; color: black;"><%=ad.title%>
+            <label for="" class="label-text"><%=ad.title%>
             </label>
             <br />
             <label for="title">Date posted</label>
-            <label for="" class="title" style="background-color: white; color: black;"><%=ad.date_posted%></label>
+            <label for="" class="label-text"><%=ad.date_posted%></label>
           </div>
         </div>
       </div>
       <%})%>
       <%}%>
-
 
       <!-- <div class="col-md-4 col-sm-12 paddings">
         <div class="card bg-danger text-white car mx-auto">
@@ -128,13 +123,13 @@
         <div class="card bg-danger text-white car mx-auto">
           <div class="card-body">
             <img
-              class="Img mx-auto"
+    // onclick='editad(this)'          class="Img mx-auto"
               style="text-align: center;"
               src="/images/Imagehere.jpg"
               alt=""
             />
             <br />
-            <label for="title" class="text">Title</label>
+    // onclick='editad(this)'        <label for="title" class="text">Title</label>
                                     <label for="" class="text title" style="background-color: white;">Sample text here abcd</label
             >
             <br />
@@ -147,6 +142,26 @@
     </div>
   </div>
   <script type="text/javascript">
+  // $('#myad').on('click',()=>{
+  //   alert(this)
+  // })
+  // $('#ads').on('click',function(){
+  //   var advalue = $advalue.val();
+  //   console.log(advalue);
+  // });
+  function editad(input){
+    var ad = input.id
+    $.ajax({
+      type:'GET',
+      url:'/sell/editad/'+ad,
+      success:function(){
+        window.location.href = 'http://localhost:3001/sell/editad/'+ad
+      },
+      error:function(){
+        console.log('fail')
+      }
+    });
+  }
   </script>
 </body>
 

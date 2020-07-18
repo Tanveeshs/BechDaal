@@ -1,0 +1,210 @@
+<%-include('partials/miniheader')-%>
+
+<head>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="/css/postad.css">
+</head>
+
+<form method="post" action="/sell/" enctype="multipart/form-data">
+  <center>
+    <input style="width:20%;text-align:center" class="w3-input w3-border" style="text-align:center" placeholder="Your descriptive Title..." name="title" />
+  </center>
+  <br>
+  <br>
+  <div class="row" style="padding: 50px 10px 20px 10px;">
+    <div class="col-md-8">
+      <div class="w3-row-padding">
+        <div class="w3-half">
+          <label>Category</label>
+          <select id="category" class="w3-input w3-border" style="text-align:center" name="category">
+            <option value="none"><%=ad[0].category%></option>
+          </select>
+        </div>
+        <div class="w3-half">
+          <label>Subcategory</label>
+          <select class="w3-input w3-border" style="text-align:center" name="subcategory" id="subcategory">
+            <option value="none">-------------</option>
+          </select>
+        </div>
+      </div>
+      <br>
+      <br />
+      <div class="w3-row-padding">
+        <div class="w3-half">
+          <label for="brand">Brand</label>
+          <input value="<%=ad[0].brand%>" type="text" class="w3-input w3-border" type="text" name="brand" />
+        </div>
+        <div class="w3-half">
+          <label for="model">Model</label>
+          <input value="<%=ad[0].model%>" type="text" class="w3-input w3-border" name="model" />
+        </div>
+      </div>
+      <br />
+      <br>
+      <div class="w3-row-padding">
+        <div class="w3-half">
+          <label for="price">Price</label>
+          <input value="<%=ad[0].price%>" class="w3-input w3-border" type="text" name="price" />
+        </div>
+      </div>
+      <br />
+      <br>
+      <div class="w3-row-padding">
+        <div class="w3-half">
+          <label for="description">Description</label>
+          <textarea class="w3-input w3-border" name="description"></textarea>
+        </div>
+      </div>
+      <br>
+      <br>
+      <br>
+    </div>
+    <div class="col-md-4">
+      <center>
+        <img id="cover-pic" src="" alt="" style="width:300px;height:300px;">
+      </center>
+    </div>
+  </div>
+
+  <hr />
+  <br>
+  <label style="padding-left:3%;padding-right:20%;" for="images">Upload images of your device (maximum of 9) </label>
+  <br>
+  <div style="padding-left:3%">
+    <table>
+      <tr>
+        <td class="vis0">
+          <div style="position:relative">
+            <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah0" />
+            <div style="position:absolute">
+              <i id="cross0" class="fas0 fa-times "></i>
+            </div>
+            <i id="plus0" class="far fa-plus-square fileButton"></i><br>
+            <img id="blah0" class="Img" src="/images/Imagehere.jpg" alt="" /><br>
+            <span class="fileLabel"></span>
+          </div>
+        </td>
+        <td class="vis1">
+          <div style="position:relative">
+            <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah1" />
+            <div style="position:absolute">
+              <i id="cross1" class="fas0 fa-times "></i>
+            </div>
+            <i id="plus1" class="far fa-plus-square fileButton"></i><br>
+            <img id="blah1" class="Img" src="/images/Imagehere.jpg" alt="" /><br>
+            <span class="fileLabel"></span>
+          </div>
+        </td>
+        <td class="vis2">
+          <div style="position:relative">
+            <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah2" />
+            <div style="position:absolute">
+              <i id="cross2" class="fas0 fa-times"></i>
+            </div>
+            <i id="plus2" class="far fa-plus-square fileButton"></i><br>
+            <img id="blah2" class="Img" src="/images/Imagehere.jpg" alt="" /><br>
+            <span class="fileLabel"></span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="vis3">
+          <div style="position:relative">
+            <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah3" />
+            <div style="position:absolute">
+              <i id="cross3" class="fas0 fa-times" onclick='crossfun(this)'></i>
+            </div>
+            <i id="plus3" class="far fa-plus-square fileButton"></i><br>
+            <img id="blah3" class="Img" src="/images/Imagehere.jpg" alt="" /><br>
+            <span class="fileLabel"></span>
+          </div>
+        </td>
+        <td class="vis4">
+          <div style="position:relative">
+            <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah4" />
+            <div style="position:absolute">
+              <i id="cross4" class="fas0 fa-times" onclick='crossfun(this)'></i>
+            </div>
+            <i id="plus4" class="far fa-plus-square fileButton"></i><br>
+            <img id="blah4" class="Img" src="/images/Imagehere.jpg" alt="" /><br>
+            <span class="fileLabel"></span>
+          </div>
+        </td>
+        <td class="vis5">
+          <div style="position:relative">
+            <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah5" />
+            <div style="position:absolute">
+              <i id="cross5" class="fas0 fa-times" onclick='crossfun(this)'></i>
+            </div>
+            <i id="plus5" class="far fa-plus-square fileButton"></i><br>
+            <img id="blah5" class="Img" src="/images/Imagehere.jpg" alt="" /><br>
+            <span class="fileLabel"></span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="vis6">
+          <div style="position:relative">
+            <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah6" />
+            <div style="position:absolute">
+              <i id="cross6" class="fas0 fa-times" onclick='crossfun(this)'></i>
+            </div>
+            <i id="plus6" class="far fa-plus-square fileButton"></i><br>
+            <img id="blah6" class="Img" src="/images/Imagehere.jpg" alt="" /><br>
+            <span class="fileLabel"></span>
+          </div>
+        </td>
+        <td class="vis7">
+          <div style="position:relative">
+            <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah7" />
+            <div style="position:absolute">
+              <i id="cross7" class="fas0 fa-times" onclick='crossfun(this)'></i>
+            </div>
+            <i id="plus7" class="far fa-plus-square fileButton"></i><br>
+            <img id="blah7" class="Img" src="/images/Imagehere.jpg" alt="" /><br>
+            <span class="fileLabel"></span>
+          </div>
+        </td>
+        <td class="vis8">
+          <div style="position:relative">
+            <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah8" />
+            <div style="position:absolute">
+              <i id="cross8" class="fas0 fa-times" onclick='crossfun(this)'></i>
+            </div>
+            <i id="plus8" class="far fa-plus-square fileButton"></i><br>
+            <img id="blah8" class="Img" src="/images/Imagehere.jpg" alt="" /><br>
+            <span class="fileLabel"></span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <br>
+
+  <!-- uploading images here  -->
+  <div class="w3-row-padding">
+    <div class="w3-half">
+      <label for="contact">Contact No</label>
+      <input class="w3-input w3-border" type="text" name="contact" />
+    </div>
+  </div>
+  <br />
+  <br>
+  <div class="w3-row-padding">
+    <div class="w3-half">
+      <label for="address">Address</label>
+      <textarea class="w3-input w3-border" name="address"></textarea>
+    </div>
+  </div>
+  <div class="w3-row-padding" style="padding:2% 0px ">
+    <div class="w3-half">
+      <button type="submit">Submit</button>
+    </div>
+  </div>
+
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/js/postad.js" charset="utf-8"></script>
+
+<%-include('partials/footer')-%>

@@ -29,7 +29,7 @@
             <label for="" class="label-text"><%=wish.date_posted%></label>
           </div>
         </div>
-        <label for="" class="remove">Remove <i style="padding:0 5px;" class="fas fa-times"></i></label>
+        <label id='<%=wish._id%>' onclick='deletewish(this)' class="remove">Remove <i style="padding:0 5px;" class="fas fa-times"></i></label>
         <div class="rem-left"></div>
       </div>
       <%})%>
@@ -39,5 +39,21 @@
 </body>
 
 <script src="/js/mywishlist.js" charset="utf-8"></script>
+<script type="text/javascript">
+function deletewish(input){
+  var wish = input.id
+  console.log(wish)
+  $.ajax({
+    type:'GET',
+    url:'/wish/'+wish,
+    success:function(){
+      window.location.href = 'http://localhost:3001/wish/'+wish
+    },
+    error:function(){
+      console.log('fail')
+    }
+  });
+}
+</script>
 
 <%-include('partials/footer')%>

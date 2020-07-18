@@ -52,7 +52,6 @@ adRouter.get('/', isLoggedIn, (req, res) => {
   Ads.find({
     'user._id': req.user._id
   }, (err, ads) => {
-    console.log(ads)
     res.render('myAds', {
       ads: ads,
       user: req.user
@@ -96,13 +95,25 @@ adRouter.post('/', (req, res) => {
 
       new_ad.save()
         .then((ad) => {
-          console.log(ad);
           res.statusCode = 200;
           res.setHeader('Content-Type', 'application/json');
           res.json(ad);
         })
         .catch((err) => console.log(err));
     }
+  });
+});
+
+adRouter.get('/editad/:adid',isLoggedIn, (req, res) => {
+  Ads.find({
+    _id: req.params.adid
+  }, (err, ad) => {
+    console.log(ad)
+    res.render('editad', {
+      ad: ad,
+      user: req.user
+    });
+    // res.json(ads)
   });
 });
 

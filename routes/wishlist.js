@@ -12,54 +12,62 @@ const wishlistRouter = express.Router();
 
 wishlistRouter.use(bodyParser.json());
 
-wishlistRouter.route('/')
-  .get((req, res, next) => {
-    console.log(req.user);
-    User.findById(req.user._id)
-      .populate('wishlist')
-      .then((user) => {
-        res.render('mywishlist', {
-          user: req.user,
-          array: user.wishlist
-        });
-      })
-      .catch((err) => console.log(err));
-  });
+wishlistRouter.get('/', isLoggedIn, (req, res, next) => {
+  User.findById(req.user._id)
+    .populate('wishlist')
+    .then((user) => {
+      res.render('mywishlist', {
+        user: req.user,
+        array: user.wishlist
+      });
+    })
+    .catch((err) => console.log(err));
+});
 
-wishlistRouter.route('/:adId')
-  .get((req, res, next) => {
-    const _id = req.params.adId;
-    Ads.findById(_id)
-      .then((ad) => {
-        if (ad != null) {
-          User.findById(req.user._id)
-            .then((user) => {
-              if (user.wishlist.includes(_id)) {
-                user.wishlist.splice(user.wishlist.indexOf(_id), 1);
-              } else {
-                user.wishlist.push(_id);
-              }
-              user.save()
-                .then((user) => {
-                  res.statusCode = 200;
-                  res.setHeader('Content-Type', 'application/json');
-                  res.json({
-                    msg: 'ok',
-                    user: req.user,
-                    ad
-                  });
+wishlistRouter.get('/:adId', isLoggedIn, (req, res, next) => {
+  const _id = req.params.adId;
+  Ads.findById(_id)
+    .then((ad) => {
+      if (ad != null) {
+        User.findById(req.user._id)
+          .then((user) => {
+            if (user.wishlist.includes(_id)) {
+              user.wishlist.splice(user.wishlist.indexOf(_id), 1);
+            } else {
+              user.wishlist.push(_id);
+            }
+            user.save()
+              .then((user) => {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.render('mywishlist', {
+                  user: req.user,
+                  array: ad
                 });
-            });
-        } else {
-          console.log('the ad id is wrong!');
-          res.statusCode = 404;
-          res.setHeader('Content-Type', 'application/json');
-          res.json({
-            msg: 'wrong ad id'
+              });
           });
-        }
-      })
-      .catch((err) => console.log(err));
-  });
+      } else {
+        console.log('the ad id is wrong!');
+        res.statusCode = 404;
+        res.setHeader('Content-Type', 'application/json');
+        res.json({
+          msg: 'wrong ad id'
+        });
+      }
+    })
+    .catch((err) => console.log(err));
+});
+
+function isLoggedIn(req, res, next) {
+  try {
+    if (req.isAuthenticated()) {
+      req.isLogged = true;
+      return next();
+    }
+    res.redirect('/login');
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 module.exports = wishlistRouter;

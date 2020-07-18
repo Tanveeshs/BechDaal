@@ -30,7 +30,6 @@ module.exports = function(app, passport) {
     res.render('signup.ejs', {
       message: req.flash('signupMessage')
     });
-    console.log(req.body);
   });
 
   app.post('/signup', passport.authenticate('local-signup', {
@@ -40,7 +39,6 @@ module.exports = function(app, passport) {
   }));
 
   app.get('/verify', function(req, res) {
-    console.log(req.user);
     User.findOne({
       'local.email': req.user.local.email
     }, function(err, user) {
