@@ -1,13 +1,13 @@
 .sidenav {
   font-family: 'Montserrat', sans-serif;
-  height: 100%;
+  height: 70%;
   /* Full-height: remove this if you want "auto" height */
   width: 16%;
   /* Set the width of the sidebar */
   /* Fixed Sidebar (stay in place on scroll) */
   /* Stay on top */
   position: absolute;
-  z-index: -1 ;
+  z-index: initial ;
   top: 10%;
   /* Stay at the top */
   left: 0; 
