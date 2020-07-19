@@ -86,7 +86,7 @@ adRouter.post('/', (req, res) => {
         price: req.body.price,
         user: req.user,
         address: req.body.address,
-        contact_number: req.body.contact_number,
+        contact_number: req.body.contact,
         images: remaining_images,
         description: req.body.description,
         date_posted: new Date(),
@@ -108,12 +108,10 @@ adRouter.get('/editad/:adid',isLoggedIn, (req, res) => {
   Ads.find({
     _id: req.params.adid
   }, (err, ad) => {
-    console.log(ad)
     res.render('editad', {
       ad: ad,
       user: req.user
     });
-    // res.json(ads)
   });
 });
 

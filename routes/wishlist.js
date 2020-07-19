@@ -44,6 +44,7 @@ wishlistRouter.get('/:adId', isLoggedIn, (req, res, next) => {
                   user: req.user,
                   array: ad
                 });
+                // res.redirect('/wish')
               });
           });
       } else {

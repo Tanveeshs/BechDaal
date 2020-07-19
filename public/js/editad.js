@@ -67,34 +67,38 @@ $('.fa-times').click(function() {
 });
 
 var URL = "http://localhost:3001/category";
-var selectedcategory;
-$('#category').on('change', function() {
-  selectedcategory = $('#category').find(":selected").text();
-  $('#subcategory option').remove();
-  if ($('#category').find(":selected").val() === 'none') {
-    $('#subcategory').append("<option value='none'>-------------</option>");
-  } else {
-    $.ajax({
-      url: URL,
-      method: "GET"
-    }).done(catagories => {
-      catagories.forEach(category => {
-        if (category.name === selectedcategory) {
-          category.subcategory.forEach(subcategory => {
-            $('#subcategory').append('<option value="' + subcategory + '">' + subcategory + '</option>');
-          });
-        }
-      });
-    });
-  }
-});
+
 $.ajax({
   url: URL,
   method: "GET"
 }).done(function(catagories) {
   catagories.forEach(category => {
-    $('#category').append('<option value="' + category.name + '">' + category.name + '</option>');
+    $('#category').append('<option value="' + category.name + '" selected>' + category.name + '</option>');
   });
 }).fail(function() {
   console.log('FAIL!!');
+});
+
+$.ajax({
+  url: URL,
+  method: "GET"
+}).done(catagories => {
+  var selectedcategory;
+  selectedcategory = $('#category').find(":selected").text();
+  $('#subcategory option').remove();
+  if ($('#category').find(":selected").val() === 'none') {
+    $('#subcategory').append("<option value='none'>-------------</option>");
+  } else {
+    catagories.forEach(category => {
+      if (category.name === selectedcategory) {
+        category.subcategory.forEach(subcategory => {
+          if (subcategory == '<%=ad[0].sub_category%>') {
+            $('#subcategory').append('<option value="' + subcategory + '" selected>' + subcategory + '</option>');
+          } else {
+            $('#subcategory').append('<option value="' + subcategory + '">' + subcategory + '</option>');
+          }
+        });
+      }
+    });
+  }
 });
