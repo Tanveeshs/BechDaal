@@ -85,6 +85,8 @@ $('#category').on('change', function() {
           });
         }
       });
+    }).fail(function() {
+      alert('FAIL!!');
     });
   }
 });
@@ -96,5 +98,5 @@ $.ajax({
     $('#category').append('<option value="' + category.name + '">' + category.name + '</option>');
   });
 }).fail(function() {
-  console.log('FAIL!!');
+  alert('FAIL!!');
 });

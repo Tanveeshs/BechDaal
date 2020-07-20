@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="/css/postad.css">
 </head>
 
-<form method="post" action="/sell/" enctype="multipart/form-data">
+<form method="post" action="/sell/editad" enctype="multipart/form-data">
   <center>
     <input value="<%=ad[0].title%>" style="width:20%;text-align:center" class="w3-input w3-border" style="text-align:center" placeholder="Your descriptive Title..." name="title" />
   </center>
@@ -14,6 +14,7 @@
   <br>
   <div class="row" style="padding: 50px 10px 20px 10px;">
     <div class="col-md-8">
+      <input value="<%=ad[0]._id%>" class="w3-input w3-border" type="text" name="adid" style="display:none;" />
       <div class="w3-row-padding">
         <div class="w3-half">
           <label>Category</label>

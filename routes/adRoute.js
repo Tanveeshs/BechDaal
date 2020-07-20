@@ -113,7 +113,7 @@ adRouter.post('/', (req, res) => {
   });
 });
 
-adRouter.get('/editad/:adid',isLoggedIn, (req, res) => {
+adRouter.get('/editad/:adid', isLoggedIn, (req, res) => {
   Ads.find({
     _id: req.params.adid
   }, (err, ad) => {
@@ -122,6 +122,39 @@ adRouter.get('/editad/:adid',isLoggedIn, (req, res) => {
       user: req.user
     });
   });
+});
+
+adRouter.post('/editad', isLoggedIn, (req, res) => {
+  console.log(req.body.adid)
+  // const cover_photo = req.files[0];
+  // let remaining_images = [];
+  // for (let i = 1; i < req.files.length; i++) {
+  //   // remaining_images[i - 1] = req.files[i];
+  //   remaining_images.push(req.files[i]);
+  // }
+  Ads.findOneAndUpdate({
+    _id: req.body.adid
+  }, {
+    '$set': {
+      'title': req.body.title,
+      'category': req.body.category,
+      'sub_category': req.body.subcategory,
+      'model': req.body.model,
+      'brand': req.body.brand,
+      'price': req.body.price,
+      'user': req.user,
+      'address': req.body.address,
+      'contact_number': req.body.contact,
+      'description': req.body.description,
+    }
+  }, function(err, res) {
+    // Updated at most one doc, `res.modifiedCount` contains the number
+    // of docs that MongoDB updated
+    if (err) {
+      console.log(err);
+    }
+  });
+  res.redirect('/sell');
 });
 
 /* docs */

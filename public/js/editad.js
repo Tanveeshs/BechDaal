@@ -25,14 +25,14 @@ function readURL(input) {
     currentPic = parseInt(input.className[4]);
     nextPic = parseInt(input.className[4]) + 1;
     reader.onload = function(e) {
-      if (noPic) {
-        $('#cover-pic')
-          .attr('src', e.target.result)
-          .width(300)
-          .height(300)
-          .css('border', '5px solid grey');
-        noPic = false;
-      }
+      // if (noPic) {
+      //   $('#cover-pic')
+      //     .attr('src', e.target.result)
+      //     .width(300)
+      //     .height(300)
+      //     .css('border', '5px solid grey');
+      //   noPic = false;
+      // }
       $('#' + input.className)
         .attr('src', e.target.result);
     };
@@ -76,7 +76,7 @@ $.ajax({
     $('#category').append('<option value="' + category.name + '" selected>' + category.name + '</option>');
   });
 }).fail(function() {
-  console.log('FAIL!!');
+  alert('FAIL!!');
 });
 
 $.ajax({
@@ -101,4 +101,30 @@ $.ajax({
       }
     });
   }
+}).fail(function() {
+  alert('FAIL!!');
+});
+
+var URL = "http://localhost:3001/sell/ad/ad";
+
+$.ajax({
+  url: URL,
+  method: "GET"
+}).done(function(ad) {
+  // console.log(ad[0])
+  $('#plus0').css('display', 'none');
+  $('#cross0').css('display', 'inline-block');
+  $('#blah0')
+    .attr('src', '/' + ad[0].cover_photo.filename);
+  for (i = 1; i <= ad[0].images.length; i++) {
+    $('.vis' + i).removeClass('vis' + i);
+    $('#plus' + i).css('display', 'none');
+    $('#cross' + i).css('display', 'inline-block');
+    $('#blah'+i)
+      .attr('src', '/' + ad[0].images[i-1].filename);
+
+  }
+  $('.vis' + (ad[0].images.length+1)).removeClass('vis' + i);
+}).fail(function() {
+  alert('FAIL!!');
 });
