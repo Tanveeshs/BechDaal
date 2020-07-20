@@ -15,7 +15,7 @@
 </head>
 
 <body>
-  <div class="container" style="margin-left: 15%;">
+  <div class="container" style="margin-left: 15%; z-index: 5;">
     <div class="row">
 
       <%if (ads.length==0){%>
@@ -181,9 +181,9 @@
 
     let page = 0;
     let test1 = []
-    let test2 = [...ads];
+    let test2 = [...data];
     for (let i = 0; i < page + 2; i++) {
-      test1.push(ads[i])
+      test1.push(data[i])
     }
     ads = [...test1]
 
