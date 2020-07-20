@@ -60,6 +60,15 @@ adRouter.get('/', isLoggedIn, (req, res) => {
   });
 });
 
+adRouter.get('/ad/ad', isLoggedIn, (req, res) => {
+  Ads.find({
+    'user._id': req.user._id
+  }, (err, ads) => {
+    res.send(ads);
+    // res.json(ads)
+  });
+});
+
 adRouter.post('/', (req, res) => {
   upload(req, res, (err) => {
     if (err) {
