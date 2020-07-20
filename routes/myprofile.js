@@ -27,27 +27,16 @@ router.get('/edit', function(req, res) {
 });
 
 router.post('/editprofile', function(req, res) {
-  a = [];
-  for (var i = 1; i <= req.body.ivalue; i++) {
-    var name = 'address';
 
-    var value='req.body.'+'address' ;
-    eval("var "+name+" = '"+value+i.toString()+"';");
-
-    console.log(address);
-    a.push(address);
-
-  }
-  // a.push(req.body.address1);
-  // a.push(req.body.address2);
-  console.log(a);
+  a = req.body.ivalue;
+  a = a.split(',');
   User.findOneAndUpdate({
     _id: req.user._id
   }, {
     "$set": {
       'local.username': req.body.username1,
       'local.contact': req.body.contact1,
-      // 'local.address': a
+      'local.address': a
     }
   }, function(err, res) {
     // Updated at most one doc, `res.modifiedCount` contains the number

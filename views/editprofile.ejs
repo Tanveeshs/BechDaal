@@ -99,8 +99,15 @@
     console.log(typeof(addresses));
     addresses.splice(i, 1, $("input[name=address" + (i + 1) + "]").val());
     console.log(addresses);
+    console.log(typeof(addresses));
     $('#abcde')
-      .attr('value',addresses)
+      .attr('value',addresses);
+    // var datas : addresses;
+    //   $.post({
+    //     type:'POST',
+    //     url:'/myprofile/editprofile',
+    //    data: JSON.stringify(datas),
+    //   });
   }
 </script>
 
