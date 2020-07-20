@@ -39,13 +39,16 @@
                 width: 250px;padding:3px;font-size: 1.1rem; text-align: center;" value="<%= user.local.contact %>" placeholder="<%= user.local.contact %>">
       </p>
 
+      <% var addresses = []; %>
       <% for (var i = 0; i < user.local.address.length; i++) {%>
       <p class="address">
         <span style="color:#994d00; font-size: 1.5rem; "> Address <%= i+1 %>:</span>
         <br>
-        <input type="text" name='address<%= i+1 %>' style=" border: none;
+        <% addresses.push(user.local.address[i]) %>
+        <input id="add1" type="text" name='address<%= i+1 %>' style=" border: none;
                 border-bottom: 1px solid gray;margin-left:-15%;
                 width: 500px;padding:3px;font-size: 1.1rem; text-align: center;" onchange=address(this) value="<%= user.local.address[i]%>" placeholder="<%= user.local.address %>">
+        <button type="button" value="<%= user.local.address[i]%>" onclick="edadd(<%= i %>, this.value)">Set</button>
       </p>
       <% } %>
       <input type="text" name="ivalue" type="hidden" style="visibility:hidden;" value="<%= i %>">
@@ -87,5 +90,12 @@
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="/js/profile.js" charset="utf-8"></script>
+<script>
+  function edadd(i, value){
+    console.log(i,value);
+    console.log($("input[name=address"+(i+1)+"]").val());
+    console.log(<%= addresses %>);
+  }
+</script>
 
 <%-include("partials/footer")-%>
