@@ -23,35 +23,25 @@
         <h1>NO ADS TO DISPLAY</h1>
       </center>
       <%} else {%>
-      <%
-        let page = 0;
-        let test1 = []
-        let test2 = [...ads];
-        for (let i = 0; i < page + 2; i++) {
-          test1.push(ads[i])
-        }
-        ads = [...test1]
-        console.log(ads);
-        %>
-      <%ads.forEach(ad=>{%>
-      <div id='<%=ad._id%>' onclick='editad(this)' class="col-md-4 col-sm-12 paddings">
-        <div class="card bg-danger text-white car mx-auto">
-          <div class="card-body">
-            <img class="Img mx-auto" style="text-align: center;" src="/<%= ad.cover_photo.filename %>"
-              alt="/<%= ad.cover_photo.filename %>" />
-            <br />
-            <label for="title" class="text">Title</label>
-            <label for="" class="label-text"><%=ad.title%>
-            </label>
-            <br />
-            <label for="title">Date posted</label>
-            <label for="" class="label-text"><%=ad.date_posted%></label>
-          </div>
-        </div>
+      <div class="mainContent row">
       </div>
-      <%})%>
+<!--      <div id='<!%=ad._id%!>' onclick='editad(this)' class="col-md-4 col-sm-12 paddings">-->
+<!--        <div class="card bg-danger text-white car mx-auto">-->
+<!--          <div class="card-body">-->
+<!--            <img class="Img mx-auto" style="text-align: center;" src="/<!%= ad.cover_photo.filename %!>"-->
+<!--              alt="/<!%= ad.cover_photo.filename %!>" />-->
+<!--            <br />-->
+<!--            <label for="title" class="text">Title</label>-->
+<!--            <label for="" class="label-text"><!%=ad.title%!>-->
+<!--            </label>-->
+<!--            <br />-->
+<!--            <label for="title">Date posted</label>-->
+<!--            <label for="" class="label-text"><!%=ad.date_posted%!></label>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <!%})%!>-->
       <%}%>
-
       <!-- <div class="col-md-4 col-sm-12 paddings">
         <div class="card bg-danger text-white car mx-auto">
           <div class="card-body">
@@ -155,6 +145,7 @@
         </div>
       </div> -->
     </div>
+    <button id="next">Next page</button>
   </div>
   <script type="text/javascript">
     function editad(input) {
@@ -170,14 +161,30 @@
         }
       });
     }
-    var data;
+    let data;
+    let page =0;
     $.ajax({
       type: 'GET',
       url: '/sell/ad/ad',
       success: function (res) {
         data = [...res];
-        console.log(data);
-      },
+        console.log(data)
+        let s = data.slice(0,2);
+        for(let i=0;i<2;i++){
+          $(".mainContent").append(
+                  "<div id='"+s[i]._id+"' onclick='editad(this)' class='col-md-4 col-sm-12 paddings'>\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> <img class='Img mx-auto' style='text-align: center;' src='/"+s[i].cover_photo.filename+" %>' />\
+                    <br />\
+                    <label for='title' class='text'>Title</label>\
+                    <label for='' class='label-text'>"+s[i].title+"\
+                    </label>\
+                    <br />\
+                    <label for='title'>Date posted</label>\
+                    <label for='' class='label-text'>"+s[i].date_posted+"</label>\
+                  </div>\
+                </div>\
+              </div>")
+        }
+        },
       error: function (err) {
         console.log(err);
       }
@@ -186,62 +193,27 @@
     const first = document.querySelector("#first");
     const previous = document.querySelector("#previous");
     const next = document.querySelector("#next");
-    let page = 0;
-    let test1 = []
-    let test2 = [...data];
-    for (let i = 0; i < page + 2; i++) {
-      test1.push(data[i])
-    }
-    data = [...test1]
-    console.log(data)
-    data.forEach(ad => {
-
-      main.innerHTML = <div id={ad._id} onclick='editad(this)' class="col-md-4 col-sm-12 paddings">
-        <div class="card bg-danger text-white car mx-auto">
-          <div class="card-body">
-            <img class="Img mx-auto" style="text-align: center;" src={ad.cover_photo.filename}
-              alt={ad.cover_photo.filename} />
-            <br />
-            <label for="title" class="text">Title</label>
-            <label for="" class="label-text">{ad.title}
-            </label>
-            <br />
-            <label for="title">Date posted</label>
-            <label for="" class="label-text">{ad.date_posted}</label>
-          </div>
-        </div>
-      </div>;
-    })
 
 
     next.addEventListener('click', () => {
-      if (page === test2.length) {
-        page = 0
-      } else {
-        page += 2
+      page +=1;
+      let s = data.slice(2*page,2*page+2)
+      $(".mainContent").empty();
+      for (let i = 0; i < 2; i++) {
+        $(".mainContent").append(
+                "<div id='"+s[i]._id+"' onclick='editad(this)' class='col-md-4 col-sm-12 paddings'>\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> <img class='Img mx-auto' style='text-align: center;' src='/"+s[i].cover_photo.filename+" %>' />\
+                    <br />\
+                    <label for='title' class='text'>Title</label>\
+                    <label for='' class='label-text'>"+s[i].title+"\
+                    </label>\
+                    <br />\
+                    <label for='title'>Date posted</label>\
+                    <label for='' class='label-text'>"+s[i].date_posted+"</label>\
+                  </div>\
+                </div>\
+              </div>")
       }
-      main.innerHTML = "";
-      for (let i = page; i < page + 2; i++) {
-        test2.forEach(ad => {
-
-          main.innerHTML = <div id={ad._id} onclick='editad(this)' class="col-md-4 col-sm-12 paddings">
-            <div class="card bg-danger text-white car mx-auto">
-              <div class="card-body">
-                <img class="Img mx-auto" style="text-align: center;" src={ad.cover_photo.filename}
-                  alt={ad.cover_photo.filename} />
-                <br />
-                <label for="title" class="text">Title</label>
-                <label for="" class="label-text">{ad.title}
-                </label>
-                <br />
-                <label for="title">Date posted</label>
-                <label for="" class="label-text">{ad.date_posted}</label>
-              </div>
-            </div>
-          </div>
-        })
-      }
-    })
+      })
 
   </script>
 </body>
