@@ -17,7 +17,6 @@ const {
 //handling post request from signup page (registerandlogin.js)
 router.post('/verifyMail', function(req, res) {
   var secret = 'fe1a1915a379f3be5394b64d14794932';
-  console.log(req.body.email);
   //checking for existing mail in database
   if (req.body.email !== '') {
     User.findOne({
@@ -33,15 +32,14 @@ router.post('/verifyMail', function(req, res) {
       } else {
         const emailAddress = req.body.email;
         // console.log(result._id)
-        // var date = Date.now();
-        // date += (5 * 60 * 1000);
+        var date = Date.now();
+        date += (24* 60 * 60 * 1000);
         const payload = {
           id: result._id,
           email: emailAddress,
-          // endDate: date
+          endDate: date
         };
         var token = jwt.encode(payload, secret);
-        console.log(token);
         // let content = 'http://'+ip+':'+port+'/user/resetpassword/'+payload.id+'/'+token
         //For locally uncomment this
         let content = 'http://localhost:3001/verify/verifyMail/' + payload.id + '/' + token;
@@ -58,27 +56,28 @@ router.post('/verifyMail', function(req, res) {
 //handling the link clicked on receiving the confirmation mail
 router.get('/verifyMail/:id/:token', function(req, res) {
   var secret = 'fe1a1915a379f3be5394b64d14794932';
-  console.log(req.params.token);
   var payload = jwt.decode(req.params.token, secret);
   // user.findOneAndUpdate({_id:payload.id}, { isVerified: true });
-  User.findById(payload.id, function(err, result) {
-    if (err) {
-      console.log(err);
-      res.send(err)
-    }
-    if (result == null) {
-      res.send('INCORRECT');
-    }
-    else {
-      result.local.isVerified = true;
-      result.save();
-      res.redirect('/verify/addToChat');
-    }
+  if (payload.endDate < Date.now()) {
+    res.send('INVALID LINK');
+  } else {
+    User.findById(payload.id, function(err, result) {
+      if (err) {
+        console.log(err);
+        res.send(err)
+      }
+      if (result == null) {
+        res.send('INCORRECT');
+      }
+      else {
+        result.local.isVerified = true;
+        result.save();
+        res.redirect('/verify/addToChat');
+      }
 
-  });
+    });
 
-
-
+  }
 });
 
 router.get('/addToChat',function (req,res) {
