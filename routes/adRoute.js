@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 const adRouter = express.Router();
 const multer = require('multer');
 const AdSchema = require('../model/ad');
-const user = require('../model/user');
 const Ads = require('../model/ad');
 
 const storage = multer.diskStorage({

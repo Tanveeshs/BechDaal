@@ -50,16 +50,4 @@ router.get('/:categoryname/:subcategoryname', function(req, res) {
   // name1.save();
 });
 
-function isLoggedIn(req, res, next) {
-  try {
-    if (req.isAuthenticated()) {
-      req.isLogged = true;
-      return next();
-    }
-    res.redirect('/login');
-  } catch (e) {
-    console.log(e);
-  }
-}
-
 module.exports = router;

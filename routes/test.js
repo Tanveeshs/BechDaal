@@ -1,14 +1,11 @@
 //jshint esversion:6
 
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const admin = require('../config/firebase');
-const {
-  User
-} = require('../model/user');
+
 const firebase = require('firebase');
 const {
-  myFirebase,
   myFirestore
 } = require('../config/firebaseNormal');
 
@@ -20,14 +17,15 @@ router.get('/chat', function(req, res) {
     }).catch((err) => console.log(err));
 });
 
-router.get('/addfriend/:adName/:id', function(req, res) {
+router.get('/addFriend/:adName/:id', function(req, res) {
+  let timeStamp = Date.now();
   myFirestore.collection('users')
     .where('id', '==', String(req.user._id))
     .get().
   then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
       myFirestore.collection('users').doc(doc.id).update({
-        contacts: firebase.firestore.FieldValue.arrayUnion({userID:req.params.id,adName:req.params.adName})
+        contacts: firebase.firestore.FieldValue.arrayUnion({_id:timeStamp,userID:req.params.id,adName:req.params.adName})
       });
     });
   });
@@ -37,7 +35,7 @@ router.get('/addfriend/:adName/:id', function(req, res) {
   then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
       myFirestore.collection('users').doc(doc.id).update({
-        contacts: firebase.firestore.FieldValue.arrayUnion({userID:String(req.user._id),adName:req.params.adName})
+        contacts: firebase.firestore.FieldValue.arrayUnion({_id:timeStamp,userID:String(req.user._id),adName:req.params.adName})
       });
     });
   });
