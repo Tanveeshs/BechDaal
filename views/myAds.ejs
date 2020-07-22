@@ -16,13 +16,23 @@
 
 <body>
   <div class="container" style="margin-left: 15%; z-index: 5;">
-    <div class="row">
+    <div class="row" id="main">
 
       <%if (ads.length==0){%>
       <center>
         <h1>NO ADS TO DISPLAY</h1>
       </center>
       <%} else {%>
+      <%
+        let page = 0;
+        let test1 = []
+        let test2 = [...ads];
+        for (let i = 0; i < page + 2; i++) {
+          test1.push(ads[i])
+        }
+        ads = [...test1]
+        console.log(ads);
+        %>
       <%ads.forEach(ad=>{%>
       <div id='<%=ad._id%>' onclick='editad(this)' class="col-md-4 col-sm-12 paddings">
         <div class="card bg-danger text-white car mx-auto">
@@ -147,13 +157,6 @@
     </div>
   </div>
   <script type="text/javascript">
-    // $('#myad').on('click',()=>{
-    //   alert(this)
-    // })
-    // $('#ads').on('click',function(){
-    //   var advalue = $advalue.val();
-    //   console.log(advalue);
-    // });
     function editad(input) {
       var ad = input.id
       $.ajax({
@@ -173,19 +176,72 @@
       url: '/sell/ad/ad',
       success: function (res) {
         data = [...res];
+        console.log(data);
       },
       error: function (err) {
         console.log(err);
       }
     })
-
+    const main = document.querySelector("#main")
+    const first = document.querySelector("#first");
+    const previous = document.querySelector("#previous");
+    const next = document.querySelector("#next");
     let page = 0;
     let test1 = []
     let test2 = [...data];
     for (let i = 0; i < page + 2; i++) {
       test1.push(data[i])
     }
-    ads = [...test1]
+    data = [...test1]
+    console.log(data)
+    data.forEach(ad => {
+
+      main.innerHTML = <div id={ad._id} onclick='editad(this)' class="col-md-4 col-sm-12 paddings">
+        <div class="card bg-danger text-white car mx-auto">
+          <div class="card-body">
+            <img class="Img mx-auto" style="text-align: center;" src={ad.cover_photo.filename}
+              alt={ad.cover_photo.filename} />
+            <br />
+            <label for="title" class="text">Title</label>
+            <label for="" class="label-text">{ad.title}
+            </label>
+            <br />
+            <label for="title">Date posted</label>
+            <label for="" class="label-text">{ad.date_posted}</label>
+          </div>
+        </div>
+      </div>;
+    })
+
+
+    next.addEventListener('click', () => {
+      if (page === test2.length) {
+        page = 0
+      } else {
+        page += 2
+      }
+      main.innerHTML = "";
+      for (let i = page; i < page + 2; i++) {
+        test2.forEach(ad => {
+
+          main.innerHTML = <div id={ad._id} onclick='editad(this)' class="col-md-4 col-sm-12 paddings">
+            <div class="card bg-danger text-white car mx-auto">
+              <div class="card-body">
+                <img class="Img mx-auto" style="text-align: center;" src={ad.cover_photo.filename}
+                  alt={ad.cover_photo.filename} />
+                <br />
+                <label for="title" class="text">Title</label>
+                <label for="" class="label-text">{ad.title}
+                </label>
+                <br />
+                <label for="title">Date posted</label>
+                <label for="" class="label-text">{ad.date_posted}</label>
+              </div>
+            </div>
+          </div>
+        })
+      }
+    })
 
   </script>
 </body>
