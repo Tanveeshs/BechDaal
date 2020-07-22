@@ -15,6 +15,11 @@ const userSchema = new mongoose.Schema({
     }
   },
 
+  offers: [{
+    type: mongoose.Types.ObjectId,
+    ref: 'Offers'
+  }]
+
   // facebook: {
   //   id: String,
   //   token: String,
