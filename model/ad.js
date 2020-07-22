@@ -49,6 +49,10 @@ const adSchema = new Schema({
   date_sold: {
     type: Date
   },
+  offers: [{
+    type: mongoose.Types.ObjectId,
+    ref: 'Offers'
+  }]
 });
 
 
