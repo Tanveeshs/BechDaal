@@ -68,6 +68,15 @@ adRouter.get('/ad/ad', isLoggedIn, (req, res) => {
   });
 });
 
+adRouter.get('/ad/ad/:adid', isLoggedIn, (req, res) => {
+  Ads.find({
+    _id: req.params.adid
+  }, (err, ads) => {
+    res.send(ads);
+    // res.json(ads)
+  });
+});
+
 adRouter.post('/', (req, res) => {
   upload(req, res, (err) => {
     if (err) {
