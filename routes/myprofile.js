@@ -49,6 +49,24 @@ router.post('/editprofile', function(req, res) {
   res.redirect('/myprofile');
 });
 
+router.post('/addAddress', function(req, res){
+  console.log(Object.values(req.body)[0]);
+  User.findOneAndUpdate({
+    _id: req.user._id
+  }, {
+    "$set": {
+      'local.address': Object.values(req.body)[0]
+    }
+  }, function(err, res) {
+    // Updated at most one doc, `res.modifiedCount` contains the number
+    // of docs that MongoDB updated
+    if (err) {
+      console.log(err);
+    }
+  });
+  res.redirect('/myprofile');
+});
+
 function isLoggedIn(req, res, next) {
   try {
     if (req.isAuthenticated()) {
