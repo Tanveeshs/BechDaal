@@ -70,7 +70,7 @@
       <!-- initial toggle false hi rakhna, sirf add address ka text dikhna chaiye. baaki chote cheeze dekh lena -->
       <div id = "newAdd" class="newAddress" style="display: flex;flex-direction: column;">
                 <input type="text" name="newAdd" class="address_input" placeholder="New Address">
-                <button type="button" value="" onclick="addAddress('<%= addresses1 %>')">Set</button>
+                <button type="button" value="" onclick="edadd(100,100,'<%= addresses1 %>')">Set</button>
                 <!-- <input type="text" class="address_input" placeholder="Pincode">
                 <input type="text" class="address_input" placeholder="City">
                 <input type="text" class="address_input" placeholder="Street/Road">
@@ -106,25 +106,7 @@
     $('#abcde')
       .attr('value',addresses);
   }
-  function addAddress(addresses){
-    edadd(100,100,addresses);
-    // console.log($("input[name=newAdd]").val());
-    // addresses = addresses.split(',');
-    // addresses.push($("input[name=newAdd]").val());
-    // $.ajax({
-    //         type: "POST",
-    //         url: "/myprofile/addAddress",
-    //         data: {addresses:addresses} ,
-    //         success: function(data) {
-    //             //show content
-    //             console.log('Success!')
-    //         },
-    //         error: function(jqXHR, textStatus, err) {
-    //             //show error message
-    //             console.log('text status '+textStatus+', err '+err)
-    //         }
-    // });
-  }
+
 </script>
 
 <%-include("partials/footer")-%>
