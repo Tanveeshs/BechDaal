@@ -20,7 +20,12 @@
 
       <%if (ads.length==0){%>
       <center>
-        <h1>NO ADS TO DISPLAY</h1>
+        <div class="jumbotron jumbotron-fluid">
+          <div class="container">
+            <h1 class="display-4">You have no Ads!</h1>
+            <p class="lead">Visit the PostAd page to create a new one</p>
+          </div>
+        </div>
       </center>
       <%} else {%>
       <div class="mainContent row">
@@ -145,7 +150,21 @@
         </div>
       </div> -->
     </div>
-    <button id="next">Next page</button>
+     <ul class="pagination">
+        <li class="page-item">
+          <a class="page-link" href="#" id = "previous" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+        <li class="page-item"><a id="first"class="page-link" href="#">1</a></li>
+        <li id="next" class="page-item">
+          <a class="page-link" href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+      </ul>
   </div>
   <script type="text/javascript">
     function editad(input) {
@@ -196,7 +215,38 @@
 
 
     next.addEventListener('click', () => {
+      first.textContent = ""
       page +=1;
+      if((data.length/2) + 1 >=(page + 1)){
+      var ctr = page + 1;
+      first.textContent = ctr
+           let s = data.slice(2*page,2*page+2)
+      $(".mainContent").empty();
+      for (let i = 0; i < 2; i++) {
+        $(".mainContent").append(
+                "<div id='"+s[i]._id+"' onclick='editad(this)' class='col-md-4 col-sm-12 paddings'>\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> <img class='Img mx-auto' style='text-align: center;' src='/"+s[i].cover_photo.filename+" %>' />\
+                    <br />\
+                    <label for='title' class='text'>Title</label>\
+                    <label for='' class='label-text'>"+s[i].title+"\
+                    </label>\
+                    <br />\
+                    <label for='title'>Date posted</label>\
+                    <label for='' class='label-text'>"+s[i].date_posted+"</label>\
+                  </div>\
+                </div>\
+              </div>")
+      }
+      }else{
+        page -=1;
+        first.textContent = "Last"
+      }
+      })
+      previous.addEventListener('click', () => {
+      first.textContent = ""
+      page -=1;
+      if((data.length/2) + 1 >=(page + 1)){
+      var ctr = page + 1;
+      first.textContent = ctr
       let s = data.slice(2*page,2*page+2)
       $(".mainContent").empty();
       for (let i = 0; i < 2; i++) {
@@ -212,6 +262,10 @@
                   </div>\
                 </div>\
               </div>")
+      }
+      }else{
+       page+=1;
+       first.textContent = "First"
       }
       })
 
