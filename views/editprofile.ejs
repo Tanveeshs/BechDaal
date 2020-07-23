@@ -51,7 +51,7 @@
         <button type="button" value="<%= user.local.address[i]%>" onclick="edadd(<%= i %>, this.value, '<%= addresses1 %>')">Set</button>
       </p>
       <% } %>
-      <input type="text" id='abcde' name="ivalue" type="hidden" style="visibility:hidden;" value="<%= i %>">
+      <input type="text" id='abcde' name="ivalue" type="hidden" style="visibility:hidden;" value="<%= user.local.address%>">
       <!-- <p class="address" style="display:flex;flex-direction: row;">
                 <p style="color:#994d00;font-size: 1.5rem; float: left; margin-right: 30px;"> :</p>
                 <div style="display: flex;flex-direction: column; margin-top: 60px;">
@@ -65,7 +65,7 @@
             <br> -->
             <div id = "addAdd" class="addAddress">
                 <p>Add address <i class="fa fa-plus"></i></p>
-            </div> 
+            </div>
       <!-- when you click on Add Address text, it should toggle the form below, uska toggling daal dena, -->
       <!-- initial toggle false hi rakhna, sirf add address ka text dikhna chaiye. baaki chote cheeze dekh lena -->
       <div id = "newAdd" class="newAddress" style="display: flex;flex-direction: column;">
@@ -95,28 +95,35 @@
 <script>
   function edadd(i, value, addresses) {
     addresses = addresses.split(',');
-    addresses.splice(i, 1, $("input[name=address" + (i + 1) + "]").val());
-    addresses1 = addresses
+    if(i==100){
+      addresses.push($("input[name=newAdd]").val());
+    }
+    else{
+      addresses.splice(i, 1, $("input[name=address" + (i + 1) + "]").val());
+      addresses1 = addresses
+    }
+
     $('#abcde')
       .attr('value',addresses);
   }
   function addAddress(addresses){
-    console.log($("input[name=newAdd]").val());
-    addresses = addresses.split(',');
-    addresses.push($("input[name=newAdd]").val());
-    $.ajax({
-            type: "POST",
-            url: "/myprofile/addAddress",
-            data: {addresses:addresses} ,
-            success: function(data) {
-                //show content
-                console.log('Success!')
-            },
-            error: function(jqXHR, textStatus, err) {
-                //show error message
-                console.log('text status '+textStatus+', err '+err)
-            }
-    });
+    edadd(100,100,addresses);
+    // console.log($("input[name=newAdd]").val());
+    // addresses = addresses.split(',');
+    // addresses.push($("input[name=newAdd]").val());
+    // $.ajax({
+    //         type: "POST",
+    //         url: "/myprofile/addAddress",
+    //         data: {addresses:addresses} ,
+    //         success: function(data) {
+    //             //show content
+    //             console.log('Success!')
+    //         },
+    //         error: function(jqXHR, textStatus, err) {
+    //             //show error message
+    //             console.log('text status '+textStatus+', err '+err)
+    //         }
+    // });
   }
 </script>
 
