@@ -13,7 +13,6 @@ const {
   myFirestore
 } = require('../config/firebaseNormal');
 
-
 //handling post request from signup page (registerandlogin.js)
 router.post('/verifyMail', function(req, res) {
   var secret = 'fe1a1915a379f3be5394b64d14794932';
@@ -22,8 +21,6 @@ router.post('/verifyMail', function(req, res) {
     User.findOne({
       'local.email': req.body.email
     }, function(err, result) {
-
-
       if (err) {
         console.log(err);
       }
@@ -33,7 +30,7 @@ router.post('/verifyMail', function(req, res) {
         const emailAddress = req.body.email;
         // console.log(result._id)
         var date = Date.now();
-        date += (24* 60 * 60 * 1000);
+        date += (24 * 60 * 60 * 1000);
         const payload = {
           id: result._id,
           email: emailAddress,
@@ -51,7 +48,6 @@ router.post('/verifyMail', function(req, res) {
   } else {
     res.send('Enter an email');
   }
-
 });
 //handling the link clicked on receiving the confirmation mail
 router.get('/verifyMail/:id/:token', function(req, res) {
@@ -64,37 +60,33 @@ router.get('/verifyMail/:id/:token', function(req, res) {
     User.findById(payload.id, function(err, result) {
       if (err) {
         console.log(err);
-        res.send(err)
+        res.send(err);
       }
       if (result == null) {
         res.send('INCORRECT');
-      }
-      else {
+      } else {
         result.local.isVerified = true;
         result.save();
         res.redirect('/verify/addToChat');
       }
-
     });
-
   }
 });
 
-router.get('/addToChat',function (req,res) {
+router.get('/addToChat', function(req, res) {
   myFirestore
-      .collection('users')
-      .doc(String(req.user._id))
-      .set({
-        id:String(req.user._id),
-        nickname:req.user.local.username,
-        contacts:[]
-      })
-      .then(data=>
-      console.log(data))
+    .collection('users')
+    .doc(String(req.user._id))
+    .set({
+      id: String(req.user._id),
+      nickname: req.user.local.username,
+      contacts: []
+    })
+    .then(data =>
+      console.log(data));
   res.render('profile.ejs', {
     user: req.user
-  })
-
-})
+  });
+});
 
 module.exports = router;

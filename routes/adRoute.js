@@ -132,8 +132,7 @@ adRouter.get('/editad/:adid', isLoggedIn, (req, res) => {
   });
 });
 
-adRouter.post('/editad', isLoggedIn, (req, res) => {
-  console.log(req.body.adid)
+adRouter.post('/editad', (req, res) => {
   // const cover_photo = req.files[0];
   // let remaining_images = [];
   // for (let i = 1; i < req.files.length; i++) {

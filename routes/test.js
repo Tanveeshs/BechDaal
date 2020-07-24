@@ -25,7 +25,11 @@ router.get('/addFriend/:adName/:id', function(req, res) {
   then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
       myFirestore.collection('users').doc(doc.id).update({
-        contacts: firebase.firestore.FieldValue.arrayUnion({_id:timeStamp,userID:req.params.id,adName:req.params.adName})
+        contacts: firebase.firestore.FieldValue.arrayUnion({
+          _id: timeStamp,
+          userID: req.params.id,
+          adName: req.params.adName
+        })
       });
     });
   });
@@ -35,7 +39,11 @@ router.get('/addFriend/:adName/:id', function(req, res) {
   then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
       myFirestore.collection('users').doc(doc.id).update({
-        contacts: firebase.firestore.FieldValue.arrayUnion({_id:timeStamp,userID:String(req.user._id),adName:req.params.adName})
+        contacts: firebase.firestore.FieldValue.arrayUnion({
+          _id: timeStamp,
+          userID: String(req.user._id),
+          adName: req.params.adName
+        })
       });
     });
   });

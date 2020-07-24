@@ -19,7 +19,7 @@ router.get('/', isLoggedIn, function(req, res) {
 
 });
 
-router.get('/edit', function(req, res) {
+router.get('/edit', isLoggedIn, function(req, res) {
   res.render('editprofile.ejs', {
     user: req.user
   });
@@ -48,7 +48,7 @@ router.post('/editprofile', function(req, res) {
   });
   res.redirect('/myprofile');
 });
-// 
+//
 // router.post('/addAddress', function(req, res){
 //   console.log(Object.values(req.body)[0]);
 //   User.findOneAndUpdate({

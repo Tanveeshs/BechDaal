@@ -1,3 +1,5 @@
+//jshint esversion:6
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const searchRouter = express.Router();
@@ -26,50 +28,50 @@ searchRouter.use(bodyParser.json());
 //   }).limit(5);
 // });
 
-searchRouter.post('/search/:q' , function (req,res, next){
+searchRouter.post('/search/:q', function(req, res, next) {
   var q = req.params.q;
-    const regexp1 = new RegExp(`^${q}`, 'i')  // for finding it as beginning of the first word
-    const regexp2 = new RegExp(`\\s${q}`, 'i')  // for finding as beginning of a middle word
-    flag=0;
-    let res1={}
-    //for searching in sub-category
-    if(flag==0){
-      Ads.find(
-          {sub_category: {
-            $in: [regexp1, regexp2]
-          }
-      }, function (err , data ){
-        if(data.length!=0){
+  const regexp1 = new RegExp(`^${q}`, 'i'); // for finding it as beginning of the first word
+  const regexp2 = new RegExp(`\\s${q}`, 'i'); // for finding as beginning of a middle word
+  flag = 0;
+  let res1 = {};
+  //for searching in sub-category
+  if (flag == 0) {
+    Ads.find({
+      sub_category: {
+        $in: [regexp1, regexp2]
+      }
+    }, function(err, data) {
+      if (data.length != 0) {
         res1 = {
-          Route:1,
-          data:data
-        }
+          Route: 1,
+          data: data
+        };
 
-        flag=1;
+        flag = 1;
 
         res.json(res1);
       }
-      }).limit(5);
-    }
-    if(flag!=1){
-    Ads.find(
-        {brand: {
-          $in: [regexp1, regexp2]
-        }
-    }, function (err , data ){
-      if(data.length!=0){
-      res1 = {
-        Route:2,
-        data:data
-      }
-      flag=2;
-      res.json(res1);
-    }
     }).limit(5);
   }
-if(flag!=1 && flag!=2){
+  if (flag != 1) {
+    Ads.find({
+      brand: {
+        $in: [regexp1, regexp2]
+      }
+    }, function(err, data) {
+      if (data.length != 0) {
+        res1 = {
+          Route: 2,
+          data: data
+        };
+        flag = 2;
+        res.json(res1);
+      }
+    }).limit(5);
+  }
+  if (flag != 1 && flag != 2) {
 
-}
+  }
 
 
 });
