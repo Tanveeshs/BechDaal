@@ -3,4 +3,10 @@
     text-align: center;
   }
 }
+body{
+  font-family: 'Raleway',sans-serif;
+}
+footer{
+  z-index: 0;
+}
 
