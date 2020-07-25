@@ -16,6 +16,7 @@ const cors = require('cors');
 const category = require('./routes/category');
 const myprofile = require('./routes/myprofile');
 const wishlist = require('./routes/wishlist');
+const offers = require('./routes/offers');
 // const smsverify = require('./routes/sms');
 
 mongoose.connect(configDB.url, {
@@ -64,6 +65,7 @@ app.use('/test', test);
 app.use('/search', searchRoute);
 app.use('/myprofile', myprofile);
 app.use('/wish', wishlist);
+app.use('/offers', offers);
 
 function isLoggedIn(req, res, next) {
     try {

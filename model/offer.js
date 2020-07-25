@@ -24,6 +24,10 @@ const offerSchema = new Schema({
   date_expired: {
     type: Date,
     required: true
+  },
+  offer_price : {
+    type: Number,
+    required: true
   }
 })
 
