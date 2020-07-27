@@ -7,6 +7,9 @@ body{
   font-family: 'Raleway',sans-serif;
 }
 footer{
-  z-index: 0;
+  position: absolute;
+  top: 30;
+  right:0;
+  width:100%
 }
 

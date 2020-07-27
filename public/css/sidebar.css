@@ -11,39 +11,40 @@ body{
   top: 77px; /* Stay at the top */
   left: 0;
   background-color:#eaeaea; /* Black */
-  padding-top: 20px;
+  padding-top: 10px;
 }
 .sidenav{
+  position: absolute;
   width:15%;
   padding-right:0;
   z-index: 1;
+  margin-right:70%;
 }
 
 /* The navigation menu links */
 .sidenav a {
-  flex-direction: row;
   width:230px;
-  padding: 6px 8px 6px 16px;
   text-decoration: none;
+  padding:3%;
   font-size: 22px;
   color: #818181;
   display: block;
 }
-.sidenav a:focus{
-  color:lightgray;
-  font-size: 27px;
-  text-decoration: underline;
-}
+
 
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover {
-  color: orange;
+  color: #00bfff;
 }
 
 /* Style page content */
 .main {
   margin-left: 160px; /* Same as the width of the sidebar */
   padding: 0px 10px;
+}
+.activeLink{
+  background-color: #ccf5ff;
+  border-left: 6px solid #00bfff;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */

@@ -29,3 +29,19 @@
     border-radius: 25px;
   }
 }
+.pagination{
+  float:right;
+  margin-bottom: 2%;
+  outline: none;
+}
+#first{
+  color:#4dd2ff;
+  font-size: 20px;
+}
+.page-link{
+  color:#093d6d;
+  font-size:20px;
+}
+.page-item{
+  margin:3px;
+}
