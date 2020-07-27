@@ -11,7 +11,26 @@ body{
   top: 77px; /* Stay at the top */
   left: 0;
   background-color:#eaeaea; /* Black */
-  padding-top: 10px;
+  text-align: center;
+}
+.userCard{
+  padding-top:1%;
+  height: 15%;
+  margin-bottom: 4%;
+  background-color: rgb(204,204,204);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+.userImg{
+  margin-top: 3%;
+  height:50px;
+  width: 50px;
+}
+.username{
+  color:black;
+  font-family: 'Montserrat',sans-serif;
+  font-size: 22px;
+  margin-top:4%
 }
 .sidenav{
   position: absolute;
@@ -19,6 +38,7 @@ body{
   padding-right:0;
   z-index: 1;
   margin-right:70%;
+  padding-top: 4%;
 }
 
 /* The navigation menu links */
@@ -29,6 +49,7 @@ body{
   font-size: 22px;
   color: #818181;
   display: block;
+  margin-bottom: 3%;
 }
 
 
@@ -45,6 +66,7 @@ body{
 .activeLink{
   background-color: #ccf5ff;
   border-left: 6px solid #00bfff;
+  color:black;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */

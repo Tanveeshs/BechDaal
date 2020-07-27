@@ -20,7 +20,7 @@
     <div class="row">
       <%if (array.length==0){%>
       <center>
-        <div class="jumbotron jumbotron-fluid" style="margin-bottom:10% ;">
+        <div class="jumbotron jumbotron-fluid" style="margin-bottom:10%;margin-left: 5%;">
           <div class="container">
             <h1 class="display-4">You have an empty Wishlist!</h1>
             <p class="lead">Browse some ads to add to your wishlist</p>
@@ -29,7 +29,7 @@
       </center>
       <%} else {%>
       <%array.forEach(wish=>{%>
-      <div class="col-md-4 col-sm-12 paddings">
+      <div class="col-md-4 col-sm-12 paddings" style="margin-left: 5%;">
         <div class="card text-white car mx-auto">
           <div class="card-body">
             <img class="Img mx-auto" style="text-align: center;" src="/<%= wish.cover_photo.filename %>"
