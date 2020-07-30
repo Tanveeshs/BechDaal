@@ -34,44 +34,111 @@ searchRouter.post('/search/:q', function(req, res, next) {
   const regexp2 = new RegExp(`\\s${q}`, 'i'); // for finding as beginning of a middle word
   flag = 0;
   let res1 = {};
+
+  try {
+       //Step 1: declare promise
+
+       var myPromise = () => {
+         return new Promise((resolve, reject) => {
+           flag = 0;
+           if (flag == 0) {
+             Ads.find({
+               sub_category: {
+                 $in: [regexp1, regexp2]
+               }
+             }, function(err, data) {
+               if (data.length != 0) {
+                 res1 = {
+                   Route: 1,
+                   data: data
+                 };
+
+                 flag = 1;
+
+               }
+               err
+                  ? reject(err)
+                  : resolve(res1);
+             }).limit(5);
+           }
+           if (flag != 1) {
+             flag = 0;
+             Ads.find({
+               brand: {
+                 $in: [regexp1, regexp2]
+               }
+             }, function(err, data) {
+               if (data.length != 0) {
+                 res1 = {
+                   Route: 2,
+                   data: data
+                 };
+               }
+               err
+                  ? reject(err)
+                  : resolve(res1);
+             }).limit(5);
+           }
+
+
+         });
+       };
+
+       //Step 2: async promise handler
+       var callMyPromise = async () => {
+
+          var result = await (myPromise());
+          //anything here is executed after result is resolved
+          return result;
+       };
+
+       //Step 3: make the call
+       callMyPromise().then(function(result) {
+          res.json(result);
+       });
+
+   } catch (e) {
+     next(e)
+   }
+
   //for searching in sub-category
-  if (flag == 0) {
-    Ads.find({
-      sub_category: {
-        $in: [regexp1, regexp2]
-      }
-    }, function(err, data) {
-      if (data.length != 0) {
-        res1 = {
-          Route: 1,
-          data: data
-        };
-
-        flag = 1;
-
-        res.json(res1);
-      }
-    }).limit(5);
-  }
-  if (flag != 1) {
-    Ads.find({
-      brand: {
-        $in: [regexp1, regexp2]
-      }
-    }, function(err, data) {
-      if (data.length != 0) {
-        res1 = {
-          Route: 2,
-          data: data
-        };
-        flag = 2;
-        res.json(res1);
-      }
-    }).limit(5);
-  }
-  if (flag != 1 && flag != 2) {
-
-  }
+  // if (flag == 0) {
+  //   Ads.find({
+  //     sub_category: {
+  //       $in: [regexp1, regexp2]
+  //     }
+  //   }, function(err, data) {
+  //     if (data.length != 0) {
+  //       res1 = {
+  //         Route: 1,
+  //         data: data
+  //       };
+  //
+  //       flag = 1;
+  //
+  //       res.json(res1);
+  //     }
+  //   }).limit(5);
+  // }
+  // if (flag != 1) {
+  //   Ads.find({
+  //     brand: {
+  //       $in: [regexp1, regexp2]
+  //     }
+  //   }, function(err, data) {
+  //     if (data.length != 0) {
+  //       res1 = {
+  //         Route: 2,
+  //         data: data
+  //       };
+  //       flag = 2;
+  //       res.json(res1);
+  //     }
+  //   }).limit(5);
+  // }
+  // if (flag != 1 && flag != 2) {
+  //
+  // }
 
 
 });
