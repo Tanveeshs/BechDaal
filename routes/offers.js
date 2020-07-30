@@ -14,7 +14,7 @@ var {
   Offer
 } = require('../model/offer');
 
-router.post("/:adId",funciton(req,res){
+router.post('/:adId',function(req,res){
   var newOffer = new Offer();
 
   newOffer.ad = req.params.adId;
