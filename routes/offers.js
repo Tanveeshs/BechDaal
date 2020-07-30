@@ -10,6 +10,26 @@ const {
 var {
   User
 } = require('../model/user');
+var {
+  Offer
+} = require('../model/offer');
+
+router.post("/:adId",funciton(req,res){
+  var newOffer = new Offer();
+
+  newOffer.ad = req.params.adId;
+  newOffer.buyer = req.body.buyerId;
+  newOffer.seller = req.body.sellerId;
+  newOffer.status = 'Sent';
+  newOffer.date_posted=new Date(),
+  newOffer.offer_price = req.body.offer_price;
+
+  newOffer.save(function(err) {
+    if (err)
+      throw err;
+    return done(null, newOffer);
+  });
+});
 
 router.get('/:userId',function(req, res){
     const _id = req.params.userId;
