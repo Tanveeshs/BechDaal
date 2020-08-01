@@ -4,9 +4,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const router = express.Router();
 const Ads = require('../model/ad');
-const {
-  user
-} = require('../model/user');
 var {
   User
 } = require('../model/user');
@@ -19,7 +16,7 @@ router.post('/:adId',function(req,res){
   newOffer.buyer = req.body.buyerId;
   newOffer.seller = req.body.sellerId;
   newOffer.status = 'Sent';
-  newOffer.date_posted=new Date(),
+  newOffer.date_posted=new Date();
   newOffer.date_expired=new Date(),
   newOffer.offer_price = 100;
 
