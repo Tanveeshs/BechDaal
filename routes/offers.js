@@ -10,9 +10,7 @@ const {
 var {
   User
 } = require('../model/user');
-var {
-  Offer
-} = require('../model/offer');
+var Offer = require('../model/offer');
 
 router.post('/:adId',function(req,res){
   var newOffer = new Offer();
@@ -22,12 +20,12 @@ router.post('/:adId',function(req,res){
   newOffer.seller = req.body.sellerId;
   newOffer.status = 'Sent';
   newOffer.date_posted=new Date(),
-  newOffer.offer_price = req.body.offer_price;
+  newOffer.date_expired=new Date(),
+  newOffer.offer_price = 100;
 
   newOffer.save(function(err) {
     if (err)
       throw err;
-    return done(null, newOffer);
   });
 });
 
