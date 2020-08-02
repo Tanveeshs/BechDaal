@@ -173,7 +173,8 @@ adRouter.route('/:adId')
       .then((ad) => {
         console.log(ad);
         res.render('show_ad', {
-          ad: ad
+          ad: ad,
+          user: req.user
         });
       }).catch((err) => console.log(err));
   })
