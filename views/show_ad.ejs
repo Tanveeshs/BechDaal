@@ -7,173 +7,155 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 
 
 </head>
 
 <body>
-  <br>
-  <br>
-  <div style="width: 100%;">
-    <div class="info">
-      <h3>
-        <center>Title: <%=ad.title%></center>
-      </h3>
-      <hr class="hrtitle">
-      <h4>
-        <center>
-          <span style="font-size: 28px;font-weight: bold;"><i>₹</i></span> <span id="priceContainer"><%=ad.price%></span>
-        </center>
-      </h4>
-      <br>
-      <br>
-      <p>Category: <%=ad.category%></p>
-      <p>Sub-Category: <%=ad.sub_category%></p>
-      <p>Model: <%=ad.model%> </p>
-      <p>Brand: <%=ad.brand%></p>
-      <p>Usage Period: </p>
-      <p>Description: <%=ad.description%></p>
-    </div>
-    <div class="imgchange ">
-      <div class="container">
-        <div class="mySlides text-center">
-          <div class="numbertext">1 / 6</div>
-          <img src="/<%= ad.cover_photo.filename %>" style="width:60%" alt="/<%= ad.cover_photo.filename %>">
-        </div>
+<br>
+<br>
+<div style="width: 100%;">
+  <div class="info">
+    <h3>
+      <center>Title: <%=ad.title%></center>
+    </h3>
+    <hr class="hrtitle">
+    <h4>
+      <center>
+        <span style="font-size: 28px;font-weight: bold;"><i>₹</i></span> <span id="priceContainer"><%=ad.price%></span>
+      </center>
+    </h4>
+    <br>
+    <br>
+    <p>Category: <%=ad.category%></p>
+    <p>Sub-Category: <%=ad.sub_category%></p>
+    <p>Model: <%=ad.model%> </p>
+    <p>Brand: <%=ad.brand%></p>
+    <p>Usage Period: </p>
+    <p>Description: <%=ad.description%></p>
+  </div>
+  <div class="imgchange ">
+    <div class="container">
+      <div class="mySlides text-center">
+        <div class="numbertext">1 / 6</div>
+        <img src="/<%= ad.cover_photo.filename %>" style="width:60%" alt="/<%= ad.cover_photo.filename %>">
+      </div>
 
+      <%for(i=0;i<ad.images.length;i++){%>
+      <div class="mySlides text-center">
+        <div class="numbertext"><%=i+1%> / 6</div>
+        <img src="/<%= ad.images[i].filename %>" style="width:60%;" alt="/<%= ad.images[i].filename %>">
+      </div>
+      <%}%>
+
+      <%#<div class="mySlides text-center">
+        <div class="numbertext">1 / 6</div>
+        <img src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%">
+      </div>
+
+      <div class="mySlides text-center">
+        <div class="numbertext">2 / 6</div>
+        <img src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%">
+      </div>
+
+      <div class="mySlides text-center">
+        <div class="numbertext">3 / 6</div>
+        <img src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%">
+      </div>
+
+      <div class="mySlides text-center">
+        <div class="numbertext">4 / 6</div>
+        <img src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%">
+      </div>
+
+      <div class="mySlides text-center">
+        <div class="numbertext">5 / 6</div>
+        <img src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%">
+      </div>
+
+      <div class="mySlides text-center">
+        <div class="numbertext">6 / 6</div>
+        <img src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%">
+      </div> %>
+
+      <a class="prev" onclick="plusSlides(-1)">❮</a>
+      <a class="next" onclick="plusSlides(1)">❯</a>
+
+
+
+      <div class="row text-center">
+        <div class="column">
+          <img class="demo cursor" src="/<%= ad.cover_photo.filename %>" style="width:60%" onclick="currentSlide(1)" alt="/<%= ad.cover_photo.filename %>">
+        </div>
         <%for(i=0;i<ad.images.length;i++){%>
-        <div class="mySlides text-center">
-          <div class="numbertext"><%=i+1%> / 6</div>
-          <img src="/<%= ad.images[i].filename %>" style="width:60%;" alt="/<%= ad.images[i].filename %>">
+        <div class="column">
+          <img class="demo cursor" src="/<%=ad.images[i].filename%>" style="width:60%" onclick="'currentSlide(" +(i+1)+")'" alt="/<%=ad.images[i].filename%>">
         </div>
         <%}%>
-
-  <%#<div class="mySlides text-center">
-    <div class="numbertext">1 / 6</div>
-    <img src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%">
-  </div>
-
-  <div class="mySlides text-center">
-    <div class="numbertext">2 / 6</div>
-    <img src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%">
-  </div>
-
-  <div class="mySlides text-center">
-    <div class="numbertext">3 / 6</div>
-    <img src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%">
-  </div>
-
-  <div class="mySlides text-center">
-    <div class="numbertext">4 / 6</div>
-    <img src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%">
-  </div>
-
-  <div class="mySlides text-center">
-    <div class="numbertext">5 / 6</div>
-    <img src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%">
-  </div>
-
-  <div class="mySlides text-center">
-    <div class="numbertext">6 / 6</div>
-    <img src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%">
-  </div> %>
-
-        <a class="prev" onclick="plusSlides(-1)">❮</a>
-        <a class="next" onclick="plusSlides(1)">❯</a>
-
-
-
-        <div class="row text-center">
-          <div class="column">
-            <img class="demo cursor" src="/<%= ad.cover_photo.filename %>" style="width:60%" onclick="currentSlide(1)" alt="/<%= ad.cover_photo.filename %>">
-          </div>
-          <%for(i=0;i<ad.images.length;i++){%>
-          <div class="column">
-            <img class="demo cursor" src="/<%=ad.images[i].filename%>" style="width:60%" onclick="'currentSlide(" +(i+1)+")'" alt="/<%=ad.images[i].filename%>">
-          </div>
-          <%}%>
-    <%# <div class="column">
-      <img class="demo cursor" src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%" onclick="currentSlide(3)" alt="Mountains and fjords">
-    </div>
-    <div class="column">
-      <img class="demo cursor" src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%" onclick="currentSlide(4)" alt="Northern Lights">
-    </div>
-    <div class="column">
-      <img class="demo cursor" src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%" onclick="currentSlide(5)" alt="Nature and sunrise">
-    </div>
-    <div class="column">
-      <img class="demo cursor" src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%" onclick="currentSlide(5)" alt="Nature and sunrise">
-    </div>
-    <div class="column">
-      <img class="demo cursor" src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%" onclick="currentSlide(5)" alt="Nature and sunrise">
-    </div>
-    <div class="column">
-      <img class="demo cursor" src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%" onclick="currentSlide(6)" alt="Snowy Mountains">
-    </div> %>
+        <%# <div class="column">
+          <img class="demo cursor" src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%" onclick="currentSlide(3)" alt="Mountains and fjords">
         </div>
-      </div>
-
-    </div>
-  </div>
-  <center>
-    <div class="iconsbottom text-center">
-      <button class="btn btn-info a">
-        Chat with Seller <span style="font-size: 20px;" class="fa fa-wechat"></span>
-      </button>
-      <button type="button" class="btn btn-success a"  data-toggle="modal" data-target="#exampleModalCenter">
-        Make an Offer <span style="font-size: 20px;" class="fa fa-handshake-o"></span>
-      </button>
-
-
-      
-
-
-      <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Make an offer</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-          <form>
-              Select offer price : <input type="number" min="<%=ad.price - 0.10*ad.price %>" max="<%=ad.price + 0.10*ad.price  %>">
-          </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Confirm</button>
+        <div class="column">
+          <img class="demo cursor" src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%" onclick="currentSlide(4)" alt="Northern Lights">
+        </div>
+        <div class="column">
+          <img class="demo cursor" src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%" onclick="currentSlide(5)" alt="Nature and sunrise">
+        </div>
+        <div class="column">
+          <img class="demo cursor" src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%" onclick="currentSlide(5)" alt="Nature and sunrise">
+        </div>
+        <div class="column">
+          <img class="demo cursor" src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%" onclick="currentSlide(5)" alt="Nature and sunrise">
+        </div>
+        <div class="column">
+          <img class="demo cursor" src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" style="width:60%" onclick="currentSlide(6)" alt="Snowy Mountains">
+        </div> %>
       </div>
     </div>
+
   </div>
 </div>
+<center>
+  <div class="iconsbottom text-center">
+    <button class="btn btn-info a">
+      Chat with Seller <span style="font-size: 20px;" class="fa fa-wechat"></span>
+    </button>
+    <button type="button" class="btn btn-success a" style="z-index: 10"  data-toggle="modal" data-target="#exampleModalCenter">
+      Make an Offer <span style="font-size: 20px;" class="fa fa-handshake-o"></span>
+    </button>
 
 
 
-      
-  </center>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Make an offer</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              Select offer price : <input type="number" min="<%=ad.price - 0.10*ad.price %>" max="<%=ad.price + 0.10*ad.price  %>">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</center>
 
 
 
-</body>
 <script src="/js/showad.js" charset="utf-8"></script>
-
-
-
-
-<head>
-
-</head>
-
-
-
-
-
-
-
-
+<%-include('partials/footer')-%>
+</body>
