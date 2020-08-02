@@ -22,12 +22,11 @@
   height: 500px;
 }
 
-.container-fluid {
-  margin-top: 300px;
-}
+/*.container-fluid {*/
+/*  margin-top: 300px;*/
+/*}*/
 
 .iconsbottom {
-  position: absolute;
   padding-right: 30px;
   padding-bottom: 0px;
   padding-top: 50px;
