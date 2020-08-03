@@ -79,15 +79,22 @@
             </button>
           </div>
           <div class="modal-body">
-            <form method="POST" action="/offers/<%=ad._id%>">
-              <input type="text" name="adId" value="<%=ad._id%>" style="display:none">
-              <input type="text" name="sellerId" value="<%=ad.user._id%>" style="display:none">
-              Select offer price : <input name='offer_price' type="number" min="<%=ad.price - 0.10*ad.price %>" max="<%=ad.price + 0.10*ad.price  %>">
+            <%if  (typeof user !='undefined') {%>
+      <form method="POST" action="/offers/<%=ad._id%>">
+        <input type="text" name="adId" value="<%=ad._id%>" style="display:none">
+        <input type="text" name="sellerId" value="<%=ad.user._id%>" style="display:none">
+        Select offer price : <input name='offer_price' type="number" min="<%=ad.price - 0.10*ad.price %>" max="<%=ad.price + 0.10*ad.price  %>">
     </div>
     <div class="modal-footer">
       <button type="submit" class="btn btn-primary">Confirm</button>
     </div>
     </form>
+    <%} else {%>
+    <div class="alert alert-danger" role="alert">
+      You need to <a href='/login'>Login</a>.
+    </div>
+  </div>
+  <%}%>
   </div>
   </div>
   </div>
