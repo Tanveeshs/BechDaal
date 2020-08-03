@@ -51,12 +51,6 @@ app.use(passport.session());
 app.use(flash());
 require('./routes/RegisterAndLogin')(app, passport);
 
-app.get('/myoffers', (req, res) => {
-  res.render('myoffers', {
-    user: req.user
-  });
-});
-
 app.use('/user', forgotPass);
 app.use('/verify', verifymail);
 app.use('/sell', adRoute);
