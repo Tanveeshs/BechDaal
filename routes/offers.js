@@ -9,10 +9,14 @@ var {
 } = require('../model/user');
 var Offer = require('../model/offer');
 
-router.get('/', (req, res) => {
-  res.render('myoffers', {
-    user: req.user
-  });
+router.get('/',isLoggedIn, (req, res) => {
+  User.findById(req.user._id)
+    .then((user) => {
+      res.render('myoffers', {
+        user: req.user,
+        offers:user.offers
+      });
+    });
 });
 
 router.post('/:adId', function(req, res) {
@@ -33,15 +37,26 @@ router.post('/:adId', function(req, res) {
   res.redirect('/');
 });
 
-router.get('/myoffers', function(req, res) {
-  User.findById(req.user._id)
-    .then((user) => {
-      if (user != null) {
-        res.send(user.offers);
-      }
-    });
-});
+// router.get('/myoffers', function(req, res) {
+//   User.findById(req.user._id)
+//     .then((user) => {
+//       if (user != null) {
+//         res.send(user.offers);
+//       }
+//     });
+// });
 
+function isLoggedIn(req, res, next) {
+  try {
+    if (req.isAuthenticated()) {
+      req.isLogged = true;
+      return next();
+    }
+    res.redirect('/login');
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 
 module.exports = router;
