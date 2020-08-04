@@ -9,12 +9,12 @@ var {
 } = require('../model/user');
 var Offer = require('../model/offer');
 
-router.get('/',isLoggedIn, (req, res) => {
+router.get('/', isLoggedIn, (req, res) => {
   User.findById(req.user._id)
     .then((user) => {
       res.render('myoffers', {
         user: req.user,
-        offers:user.offers
+        offers: user.offers
       });
     });
 });
@@ -34,6 +34,23 @@ router.post('/:adId', function(req, res) {
     if (err)
       throw err;
   });
+  User.update({
+    _id: newOffer.buyer
+  }, {
+    '$push': {
+      offers: newOffer._id
+    }
+  });
+  // User.find({
+  //   _id: newOffer.buyer
+  // }, (err, buyer) => {
+  //   if (typeof(buyer.offers) == 'undefined'){
+  //     buyer.offers=[]
+  //     buyer.save()
+  //   }
+  //   buyer.offers.push(newOffer._id)
+  //   console.log(buyer.offers)
+  // })
   res.redirect('/');
 });
 
