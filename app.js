@@ -1,8 +1,8 @@
 //jshint esversion:6
 
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');
@@ -26,7 +26,7 @@ mongoose.connect(configDB.url, {
 
 require('./config/passport')(passport);
 
-var app = express();
+let app = express();
 const test = require('./routes/test');
 // const xg = require('./routes/searchRoute');
 
@@ -38,10 +38,12 @@ app.use(express.json());
 app.use(express.urlencoded({
     extended: false
 }));
+// noinspection JSCheckFunctionSignatures
 app.use(cookieParser());
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, 'public')));
+// noinspection JSCheckFunctionSignatures
 app.use(session({
     secret: 'XYZZ'
 }));
@@ -61,17 +63,8 @@ app.use('/myprofile', myprofile);
 app.use('/wish', wishlist);
 app.use('/offers', offers);
 
-function isLoggedIn(req, res, next) {
-    try {
-        if (req.isAuthenticated()) {
-            req.isLogged = true;
-            return next();
-        }
-        res.redirect('/login');
-    } catch (e) {
-        console.log(e);
-    }
-}
 app.listen(3001, function(err) {
+    if(err)
+        console.log(err)
     console.log('Server started');
 });
