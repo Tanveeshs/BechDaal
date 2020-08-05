@@ -104,6 +104,7 @@ adRouter.post('/', (req, res) => {
         user: req.user,
         address: req.body.address,
         contact_number: req.body.contact,
+        featured: req.body.featured,
         images: remaining_images,
         description: req.body.description,
         date_posted: new Date(),
@@ -152,9 +153,10 @@ adRouter.post('/editad', (req, res) => {
       'user': req.user,
       'address': req.body.address,
       'contact_number': req.body.contact,
+      'featured': req.body.featured,
       'description': req.body.description,
     }
-  }, function(err, res) {
+  }, function (err, res) {
     // Updated at most one doc, `res.modifiedCount` contains the number
     // of docs that MongoDB updated
     if (err) {
@@ -181,10 +183,10 @@ adRouter.route('/:adId')
 
   .put((req, res) => {
     Ads.findByIdAndUpdate(req.params.adId, {
-        $set: req.body
-      }, {
-        new: true
-      })
+      $set: req.body
+    }, {
+      new: true
+    })
       .then((ad) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
@@ -192,7 +194,7 @@ adRouter.route('/:adId')
       }).catch((err) => console.log(err));
   });
 
-adRouter.get('/ads/post', isLoggedIn, function(req, res) {
+adRouter.get('/ads/post', isLoggedIn, function (req, res) {
   res.render('postAd.ejs', {
     user: req.user
   });
@@ -209,5 +211,43 @@ function isLoggedIn(req, res, next) {
     console.log(e);
   }
 }
+
+
+adRouter.route('/grid_ads/a')
+  .get((req, res, next) => {
+
+    const page = parseInt(req.query.page);
+    const featuredLimit = 3;
+    const ordinaryLimit = 6;
+
+    const featuredStartIndex = (page - 1) * featuredLimit;
+    const ordinaryStartIndex = (page - 1) * ordinaryLimit;
+
+    const featuredEndIndex = page * featuredLimit;
+    const ordinaryEndIndex = page * ordinaryLimit;
+
+
+    Ads.find({})
+      .then((ads) => {
+        const featuredAds = ads.filter((item, index) => item.price > 5000);
+        const ordinaryAds = ads.filter((item, index) => item.price < 5000);
+
+        const paginatedFeaturedAds = featuredAds.slice(featuredStartIndex, featuredEndIndex);
+        const paginatedOrdinaryAds = ordinaryAds.slice(ordinaryStartIndex, ordinaryEndIndex);
+
+        let results = {
+          featured: paginatedFeaturedAds,
+          ordinary: paginatedOrdinaryAds,
+        }
+
+        if (featuredEndIndex < featuredAds.length || ordinaryEndIndex < ordinaryAds.length) results.nextPage = page + 1
+
+        if (featuredStartIndex > 0) results.previousPage = page - 1;
+
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(results)
+      })
+  })
 
 module.exports = adRouter;

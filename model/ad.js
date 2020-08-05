@@ -43,6 +43,10 @@ const adSchema = new Schema({
   description: {
     type: String
   },
+  featured: {
+    type: Boolean,
+    default: false
+  },
   date_posted: {
     type: Date
   },
