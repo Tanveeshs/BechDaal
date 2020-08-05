@@ -34,34 +34,57 @@ router.post('/:adId', function(req, res) {
     if (err)
       throw err;
   });
-  User.update({
+
+//update buyer offers
+  User.findOne({
     _id: newOffer.buyer
-  }, {
-    '$push': {
-      offers: newOffer._id
+  }, (err, buyer) => {
+    if (typeof(buyer.offers) == 'undefined'){
+      offersArray=[];
+      offersArray.push(newOffer._id);
+      buyer.offers = offersArray;
+      buyer.save();
     }
-  });
-  // User.find({
-  //   _id: newOffer.buyer
-  // }, (err, buyer) => {
-  //   if (typeof(buyer.offers) == 'undefined'){
-  //     buyer.offers=[]
-  //     buyer.save()
-  //   }
-  //   buyer.offers.push(newOffer._id)
-  //   console.log(buyer.offers)
-  // })
+    else{
+      buyer.offers.push(newOffer._id);
+      buyer.save();
+    }
+  })
+
+//update seller offers
+User.findOne({
+  _id: newOffer.seller
+}, (err, seller) => {
+  if (typeof(seller.offers) == 'undefined'){
+    offersArray=[];
+    offersArray.push(newOffer._id);
+    seller.offers = offersArray;
+    seller.save();
+  }
+  else{
+    seller.offers.push(newOffer._id);
+    seller.save();
+  }
+})
+
+//update Ads offers
+Ads.findOne({
+  _id: newOffer.ad
+}, (err, ad) => {
+  if (typeof(ad.offers) == 'undefined'){
+    offersArray=[];
+    offersArray.push(newOffer._id);
+    ad.offers = offersArray;
+    ad.save();
+  }
+  else{
+    ad.offers.push(newOffer._id);
+    ad.save();
+  }
+})
+
   res.redirect('/');
 });
-
-// router.get('/myoffers', function(req, res) {
-//   User.findById(req.user._id)
-//     .then((user) => {
-//       if (user != null) {
-//         res.send(user.offers);
-//       }
-//     });
-// });
 
 function isLoggedIn(req, res, next) {
   try {

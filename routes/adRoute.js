@@ -171,7 +171,7 @@ adRouter.route('/:adId')
   .get((req, res) => {
     AdSchema.findById(req.params.adId)
       .then((ad) => {
-        console.log(ad);
+        // console.log(ad);
         res.render('show_ad', {
           ad: ad,
           user: req.user
