@@ -1,5 +1,5 @@
 //jshint esversion:6
-
+require('dotenv').config()
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -17,7 +17,9 @@ const category = require('./routes/category');
 const myprofile = require('./routes/myprofile');
 const wishlist = require('./routes/wishlist');
 const offers = require('./routes/offers');
+const paymentRouter = require('./routes/payment')
 // const smsverify = require('./routes/sms');
+
 
 mongoose.connect(configDB.url, {
     useNewUrlParser: true,
@@ -60,6 +62,8 @@ app.use('/search', searchRoute);
 app.use('/myprofile', myprofile);
 app.use('/wish', wishlist);
 app.use('/offers', offers);
+app.use('/payment',paymentRouter)
+
 
 function isLoggedIn(req, res, next) {
     try {

@@ -1,11 +1,5 @@
 <%-include('partials/miniheader')-%>
 
-<head>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="/css/postad.css">
-</head>
-
 <form method="post" action="/sell/" enctype="multipart/form-data">
   <center>
     <input style="width:20%;text-align:center" class="w3-input w3-border" style="text-align:center" placeholder="Your descriptive Title..." name="title" />
@@ -202,8 +196,30 @@
       <button type="submit">Submit</button>
     </div>
   </div>
-
 </form>
+
+
+<div>
+  <a href="http://localhost:3001/payment">Premium ad</a>
+</div>
+
+<script>
+  function ButtonClick() {
+    const URL = 'http://localhost:3001/payment'
+    $.ajax({
+      url: URL,
+      method: "GET"
+    })
+  }
+
+</script>
+
+<head>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="/css/postad.css">
+</head>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="/js/postad.js" charset="utf-8"></script>
 

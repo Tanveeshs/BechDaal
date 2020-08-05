@@ -192,7 +192,9 @@ adRouter.route('/:adId')
       }).catch((err) => console.log(err));
   });
 
-adRouter.get('/ads/post', isLoggedIn, function(req, res) {
+adRouter.get('/ads/post',
+    // isLoggedIn,
+    function(req, res) {
   res.render('postAd.ejs', {
     user: req.user
   });
