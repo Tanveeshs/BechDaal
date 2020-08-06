@@ -1,0 +1,43 @@
+<html>
+<body>
+<%if(ads.length>0){%>
+    <% ads.forEach(ad=>{%>
+    <hr>
+    <h4>Title:<%=ad.title%></h4>
+    <h5>Categoy:<%=ad.category%></h5>
+    <h5>SubCategory:<%=ad.sub_category%></h5>
+    <h6>Model:<%=ad.model%></h6>
+    <h6>Brand:<%=ad.brand%></h6>
+    <h6>Price:<%=ad.price%></h6>
+    <h6>User:<%=ad.user.local.username%></h6>
+    <h6>Address:<%=ad.address%></h6>
+    <h6>Contact:<%=ad.contact_number%></h6>
+    <h6>Cover Photo:</h6>
+    <br>
+    <img style="height: 200px;width: 200px;" src="/<%= ad.cover_photo.filename %>" alt="/<%= ad.cover_photo.filename %>">
+    <br>
+    <br>
+    <h6>Other pics</h6>
+    <%for(i=0;i<ad.images.length;i++){%>
+    <img style="width: 200px; height: 200px;" src="/<%=ad.images[i].filename%>" ><br>
+    <%}%>
+    <h4>Desc:<%=ad.description%></h4><br>
+    <hr>
+    <form action="ads/approve/<%=ad._id%>" method="post">
+        <button type="submit">Approve ad</button>
+
+    </form>
+    <form action="ads/reject/<%=ad._id%>" method="post">
+
+        Reason for rejection:<input type="text" name="reason">
+        <button type="submit">Reject Ad</button>
+
+    </form>
+
+
+    <% })%>
+<%}else {%>
+    <h1>No more ads to approve</h1>
+<%}%>
+</body>
+</html>

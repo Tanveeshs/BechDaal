@@ -17,6 +17,7 @@ const categoryRoute = require('./routes/category');
 const myprofile = require('./routes/myprofile');
 const wishlist = require('./routes/wishlist');
 const offers = require('./routes/offers');
+const adminRouter = require('./routes/admin')
 // const smsverify = require('./routes/sms');
 const category = require('./model/category')
 mongoose.connect(configDB.url, {
@@ -30,11 +31,13 @@ let app = express();
 const test = require('./routes/test');
 // const xg = require('./routes/searchRoute');
 const fs = require('fs')
+const bodyParser = require('body-parser')
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(express.json());
+app.use(bodyParser.json())
 app.use(express.urlencoded({
     extended: false
 }));
@@ -62,6 +65,7 @@ app.use('/search', searchRoute);
 app.use('/myprofile', myprofile);
 app.use('/wish', wishlist);
 app.use('/offers', offers);
+app.use('/admin',adminRouter)
 
 app.get('/test1',function (req,res){
     const a1 = new category.CategoryModel()

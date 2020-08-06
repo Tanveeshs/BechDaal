@@ -56,7 +56,18 @@ const adSchema = new Schema({
   offers: [{
     type: mongoose.Types.ObjectId,
     ref: 'Offers'
-  }]
+  }],
+  approved:{
+    type:Boolean,
+    default: false
+  },
+  rejected:{
+    val:{
+      type:Boolean,
+      default:false
+    },
+    reason:String,
+  }
 });
 
 
