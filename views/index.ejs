@@ -58,11 +58,9 @@
 
       <div class="flex-container">
         <%categries.forEach(category=>{%>
-        <div id='<%=category._id%>' class="one"><%=category.name%></div>
+        <div style='padding:10px' id='<%=category._id%>' class="one">
+          <img style='width:150px' src='<%=category.image%>'><%=category.name%></div>
         <%})%>
-        <%# <div class="one">1</div>
-        <div class="one">2</div> %>
-        <div class="one">3</div>
         <div class="one">4</div>
         <div class="one">5</div>
         <div class="one">6</div>

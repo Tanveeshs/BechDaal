@@ -1,3 +1,5 @@
+//jshint esversion:6
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -29,7 +31,7 @@ const offerSchema = new Schema({
     type: Number,
     required: true
   }
-})
+});
 
 const Offers = mongoose.model('Offers', offerSchema);
 module.exports = Offers;
