@@ -11,6 +11,9 @@ var Offer = require('../model/offer');
 
 router.get('/', isLoggedIn, (req, res) => {
   User.findById(req.user._id)
+  .populate('buyer')
+  .populate('seller')
+  .populate('ad')
     .then((user) => {
       res.render('myoffers', {
         user: req.user,
