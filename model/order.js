@@ -19,8 +19,6 @@ const orderSchema  = Schema({
         DeliveryProvider:String,
         ReferenceNumber:String
     }
-    
-
 })
 
 module.exports = mongoose.model('order',orderSchema,'orders')

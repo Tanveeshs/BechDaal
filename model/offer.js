@@ -20,6 +20,9 @@ const offerSchema = new Schema({
     type: String
   },
   PickupTimeSeller:Date,
+  PaymentDetails:{
+    rzpId:String
+  },
   //created:Offer Given by buyer to seller
   //S_Accepted:Offer Accepted by seller
   //BS_Accepted:Offer Re-Accepted by buyer->becomes a order now
