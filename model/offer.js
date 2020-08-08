@@ -19,6 +19,10 @@ const offerSchema = new Schema({
   status: {
     type: String
   },
+  PickupTimeSeller:Date,
+  //created:Offer Given by buyer to seller
+  //S_Accepted:Offer Accepted by seller
+  //BS_Accepted:Offer Re-Accepted by buyer->becomes a order now
   date_posted: {
     type: Date,
     required: true

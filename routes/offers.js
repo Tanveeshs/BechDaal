@@ -10,16 +10,9 @@ var {
 var Offer = require('../model/offer');
 
 router.get('/', isLoggedIn, (req, res) => {
-  User.findById(req.user._id)
-  .populate('buyer')
-  .populate('seller')
-  .populate('ad')
-    .then((user) => {
-      res.render('myoffers', {
-        user: req.user,
-        offers: user.offers
-      });
-    });
+  const offers = req.user.offers;
+  console.log(offers);
+
 });
 
 router.post('/:adId', function(req, res) {
@@ -30,7 +23,7 @@ router.post('/:adId', function(req, res) {
   newOffer.seller = req.body.sellerId;
   newOffer.status = 'Sent';
   newOffer.date_posted = new Date();
-  newOffer.date_expired = new Date(),
+  newOffer.date_expired = new Date();
     newOffer.offer_price = req.body.offer_price;
 
   newOffer.save(function(err) {
@@ -56,6 +49,7 @@ router.post('/:adId', function(req, res) {
 
 //update seller offers
 User.findOne({
+
   _id: newOffer.seller
 }, (err, seller) => {
   if (typeof(seller.offers) == 'undefined'){

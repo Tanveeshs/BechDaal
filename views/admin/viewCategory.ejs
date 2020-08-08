@@ -1,0 +1,37 @@
+<html>
+<head>
+    <title>Categories</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+</head>
+<body>
+
+
+<div class="container">
+    <h1>Categories</h1>
+
+    <%if(Categories.length>0){%>
+
+
+    <%Categories.forEach(category=>{%>
+    <div class="row">
+        <h2>Category Name:<a href="category/edit/<%=category._id%>"><%=category.name%></a></h2>
+        <h3 style="padding-left: 50px">          Subcategories
+            <ul>
+                <%category.subcategory.forEach(subcategory=>{%>
+                <li><%=subcategory%></li>
+                <%})%>
+            </ul>
+        </h3>
+        <img src="<%=category.image%>" alt="Category Image" style="height:200px;width:200px;padding-left: 50px">
+    </div>
+    <hr>
+    <%})%>
+
+    <%}else {%>
+        <h2>No Categories Found</h2>
+    <%}%>
+
+</div>
+</body>
+</html>

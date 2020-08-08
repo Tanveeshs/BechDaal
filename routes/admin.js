@@ -2,6 +2,9 @@ const express = require('express')
 const Router = express.Router();
 const jwt = require('jsonwebtoken')
 const ad = require('../model/ad')
+const bodyParser = require('body-parser');
+const multer = require('multer');
+const Category = require('../model/category').CategoryModel
 const users = [
     {
         username:'admin',
@@ -14,6 +17,26 @@ const users = [
         role: 'admin'
     }
 ]
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname + '-' + Date.now())
+    }
+})
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        cb(null, true);
+    } else {
+        cb(new Error('file type not supported'), false);
+    }
+};
+const upload = multer({
+    storage:storage,
+    fileFilter:fileFilter
+})
+Router.use(bodyParser.json());
 const secret = 'SSSS'
 const authenticateJWT = (req, res, next) => {
     const authHeader = req.session.token;
@@ -27,11 +50,13 @@ const authenticateJWT = (req, res, next) => {
             next();
         });
     } else {
-        res.sendStatus(401);
+        res.redirect('/admin/login');
     }
 };
+
+//Admin Login
 Router.get('/login',(req,res)=>{
-    res.render('adminLogin.ejs')
+    res.render('admin/adminLogin.ejs')
 })
 Router.post('/login', (req, res) => {
     const { username, password } = req.body;
@@ -46,9 +71,11 @@ Router.post('/login', (req, res) => {
         res.send('Username or password incorrect');
     }
 });
+
+//Routes to view,approve,reject an ad
 Router.get('/ads',authenticateJWT,(req,res)=>{
     ad.find({approved:false,"rejected.val":false},function (err,results){
-        res.render('adminAds.ejs',{ads:results})
+        res.render('admin/adminAds.ejs',{ads:results})
     })
 })
 Router.post('/ads/approve/:id', authenticateJWT,(req,res)=>{
@@ -59,7 +86,6 @@ Router.post('/ads/approve/:id', authenticateJWT,(req,res)=>{
         res.redirect('/admin/ads')
     })
 })
-
 Router.post('/ads/reject/:id',authenticateJWT,(req,res)=> {
     const adId = req.params.id;
     ad.findOne({_id: adId}, function (err, result) {
@@ -71,9 +97,63 @@ Router.post('/ads/reject/:id',authenticateJWT,(req,res)=> {
     })
 })
 
+//Admin HomePage
 Router.get('/home', authenticateJWT, (req, res) => {
-    res.render('adminPage.ejs')
+    res.render('admin/adminPage.ejs')
 });
 
+//To add Category
+Router.get('/addCategory',authenticateJWT,(req,res)=>{
+        res.render('admin/addCategory.ejs')
+    })
+Router.post('/addCategory',authenticateJWT,upload.single('CategoryImage'),(req,res)=>{
+        Category.findOne({'name':req.body.category},(err,result)=>{
+            if(err){
+                console.log(err)
+                throw err;
+            }
+            if(result){
+                console.log("Category Exists")
+            }
+            else {
+                var obj = new Category()
+                obj.name = req.body.category;
+                obj.subcategory = req.body.subCategory.split(',')
+                obj.image = req.file.path
+                obj.save()
+            }
+        })
+        res.redirect('/admin/home')
+    })
+
+//View all Categories
+Router.get('/category',(req,res)=>{
+    Category.find({},(err,result)=>{
+        if(err)
+            throw err
+        res.render('admin/viewCategory.ejs',
+            {Categories:result})
+    })
+})
+
+//Editing the category
+Router.route('/category/edit/:id')
+    .get(authenticateJWT,(req,res)=>{
+        const id = req.params.id;
+        Category.findOne({_id:id},(err,result)=>{
+            res.render('admin/editCategory.ejs',{Category:result})
+        })
+    })
+    .post(authenticateJWT,upload.single('CategoryImage'),(req,res)=>{
+        Category.findOne({_id:req.params.id},(err,result)=>{
+            result.name = req.body.category;
+            result.subcategory = req.body.subCategory.split(',')
+            if(req.file != undefined){
+                result.image = '/'+req.file.filename;
+            }
+            result.save()
+            res.redirect('/admin/home')
+        })
+    })
 
 module.exports = Router
