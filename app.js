@@ -35,7 +35,7 @@ const bodyParser = require('body-parser')
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
+var port = process.env.PORT || 8080;
 app.use(express.json());
 app.use(bodyParser.json())
 app.use(express.urlencoded({
@@ -67,7 +67,7 @@ app.use('/wish', wishlist);
 app.use('/offers', offers);
 app.use('/admin',adminRouter)
 
-app.listen(3001, function(err) {
+app.listen(port, function(err) {
     if(err)
         console.log(err)
     console.log('Server started');
