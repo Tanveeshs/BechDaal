@@ -1,45 +1,69 @@
 const express = require('express')
 const Router = express.Router()
-const Razorpay = require('razorpay')
-const instance = new Razorpay({
-    key_id:process.env.razorpay_key,
-    key_secret:process.env.razorpay_secret
-})
+const PaytmChecksum = require('paytmchecksum')
 const crypto = require('crypto')
+const https = require("https");
 
 
 Router.post('/success',function (req,res){
-    console.log(req.body)
-    var hash = crypto.createHmac('SHA256',process.env.razorpay_secret).update(req.body.razorpay_order_id + "|" + req.body.razorpay_payment_id)
-        .digest('hex')
-    console.log(hash)
-    if(hash == req.body.razorpay_signature){
         res.render('success.ejs')
-    }
-
-    else {
-        res.send('Error')
-    }
 })
 Router.get('/',function (req,res){
-    var options = {
-        amount: 2000,  // amount in the smallest currency unit
-        currency: "INR",
-        receipt: "order_rcptid_11",
-        payment_capture: '0'
+    var paytmParams = {}
+    const order_id = Date.now()
+    paytmParams.body = {
+        "requestType"   : "Payment",
+        "mid"           : "iQclut82587421891754",
+        "websiteName"   : "BechDaal",
+        "orderId"       : order_id,
+        "callbackUrl"   : "http://localhost:3001/payment/success",
+        "txnAmount"     : {
+            "value"     : "20.00",
+            "currency"  : "INR",
+        },
+        "userInfo"      : {
+            "custId"    : "Veesh"
+        },
     };
-    instance.orders.create(options, function(err, order) {
-        console.log(order)
-        res.render('payment.ejs',{
-            order_id:order.id,
-            amount:2000,
-            name:req.user.local.username,
-            email:req.user.local.email,
-            contact:req.user.local.contact,
-            key_id:process.env.razorpay_key
-        })
+    PaytmChecksum.generateSignature(JSON.stringify(paytmParams.body), "rCNCzYeolKhWODWv").then(function(checksum){
+        paytmParams.head = {
+            "signature"	: checksum
+        };
 
+        var post_data = JSON.stringify(paytmParams);
+
+        var options = {
+            /* for Staging */
+            hostname: 'securegw-stage.paytm.in',
+            port: 443,
+            path: '/theia/api/v1/initiateTransaction?mid=iQclut82587421891754&orderId='+order_id,
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Content-Length': post_data.length
+            }
+        };
+        var response = "";
+        var post_req = https.request(options, function(post_res) {
+            post_res.on('data', function (chunk) {
+                response += chunk;
+            });
+
+            post_res.on('end', function(){
+                console.log('Response: ', response);
+                const obj= JSON.parse(response)
+                console.log()
+                res.render('payment.ejs',{
+                    'order_id':order_id,
+                    'txnToken':obj.body.txnToken
+                })
+            });
+        });
+
+        post_req.write(post_data);
+        post_req.end();
     });
+
 })
 
 module.exports = Router;
