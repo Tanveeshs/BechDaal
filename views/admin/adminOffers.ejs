@@ -1,0 +1,24 @@
+<html>
+<body>
+<h1>Active Offers</h1>
+<hr>
+<%if(offers.length >0){%>
+
+Sort by Status:<a href="offers?query='Sent'">Sent</a>
+<%offers.forEach(offer=>{%>
+    <h4>Ad Name:<%=offer.ad%></h4>
+    <h4>Buyer Name:<%=offer.buyer%></h4>
+    <h4>Seller Name:<%=offer.seller%></h4>
+    <h4>Status:<%=offer.status%></h4>
+    <h4>Date Expired:<%=offer.date_expired%></h4>
+    <h4>Offer Price:Rs.<%=offer.offer_price%></h4>
+<hr>
+<%})%>
+
+
+
+<%}else {%>
+    <h2>No active offers found</h2>
+<%}%>
+</body>
+</html>

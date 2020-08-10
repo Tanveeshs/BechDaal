@@ -67,23 +67,6 @@ app.use('/wish', wishlist);
 app.use('/offers', offers);
 app.use('/admin',adminRouter)
 
-app.get('/test1',function (req,res){
-    const a1 = new category.CategoryModel()
-    a1.name = 'Cars'
-    a1.subcategory = ['Cars',
-        'Commercial & Other Vehicles',
-        'Spare Parts']
-    a1.image = {
-        data:fs.readFileSync(__dirname+'/category/car.png'),
-        contentType:'image/png'
-    }
-    a1.save(function (err,data) {
-        console.log(data)
-    })
-    res.send('Done')
-})
-
-
 app.listen(3001, function(err) {
     if(err)
         console.log(err)

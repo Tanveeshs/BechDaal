@@ -5,6 +5,7 @@ const ad = require('../model/ad')
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const Category = require('../model/category').CategoryModel
+const User = require('../model/user').User;
 const users = [
     {
         username:'admin',
@@ -53,6 +54,8 @@ const authenticateJWT = (req, res, next) => {
         res.redirect('/admin/login');
     }
 };
+const offers = require('../model/offer')
+const async = require('async')
 
 //Admin Login
 Router.get('/login',(req,res)=>{
@@ -104,27 +107,27 @@ Router.get('/home', authenticateJWT, (req, res) => {
 
 //To add Category
 Router.get('/addCategory',authenticateJWT,(req,res)=>{
-        res.render('admin/addCategory.ejs')
-    })
+    res.render('admin/addCategory.ejs')
+})
 Router.post('/addCategory',authenticateJWT,upload.single('CategoryImage'),(req,res)=>{
-        Category.findOne({'name':req.body.category},(err,result)=>{
-            if(err){
-                console.log(err)
-                throw err;
-            }
-            if(result){
-                console.log("Category Exists")
-            }
-            else {
-                var obj = new Category()
-                obj.name = req.body.category;
-                obj.subcategory = req.body.subCategory.split(',')
-                obj.image = req.file.path
-                obj.save()
-            }
-        })
-        res.redirect('/admin/home')
+    Category.findOne({'name':req.body.category},(err,result)=>{
+        if(err){
+            console.log(err)
+            throw err;
+        }
+        if(result){
+            console.log("Category Exists")
+        }
+        else {
+            var obj = new Category()
+            obj.name = req.body.category;
+            obj.subcategory = req.body.subCategory.split(',')
+            obj.image = req.file.path
+            obj.save()
+        }
     })
+    res.redirect('/admin/home')
+})
 
 //View all Categories
 Router.get('/category',(req,res)=>{
@@ -154,6 +157,110 @@ Router.route('/category/edit/:id')
             result.save()
             res.redirect('/admin/home')
         })
+    })
+
+//View Active Offers
+Router.route('/offers')
+    .get(authenticateJWT,(req,res)=> {
+        if(req.query.status){
+            offers.find({date_expired: {$gte: Date.now()},status:q}, function (err, results) {
+                let userIds = []
+                let adIds = []
+                let userDict = {}
+                let adDict = {}
+                results.forEach(offer => {
+                    userIds.push(offer.buyer)
+                    userIds.push(offer.seller)
+                    adIds.push(offer.ad)
+                })
+                async.parallel([
+                    function (callback){
+                        User.find({_id: {$in: userIds}}, function (err, users) {
+                            users.forEach(user => {
+                                userDict[user._id] = user;
+                            })
+                            callback(null,'Done')
+                        })
+                    },
+                    function (callback){
+                        ad.find({_id: {$in: adIds}}, function (err, users) {
+                            users.forEach(user => {
+                                adDict[user._id] = user;
+                            })
+                            callback(null,'Done')
+                        })
+                    }
+                ],function (err,results1){
+                    let currentOffers=[]
+                    results.forEach(offer=>{
+                        let off = {
+                            ad:adDict[offer.ad].title,
+                            buyer:userDict[offer.buyer].local.username,
+                            seller:userDict[offer.seller].local.username,
+                            status:offer.status,
+                            date_expired:offer.date_expired,
+                            offer_price:offer.offer_price
+                        }
+                        currentOffers.push(off)
+                    })
+                    res.render('admin/adminOffers.ejs',{
+                        'offers':currentOffers
+                    })
+                })
+
+
+            })
+        }
+        else {
+            offers.find({date_expired: {$gte: Date.now()}}, function (err, results) {
+                let userIds = []
+                let adIds = []
+                let userDict = {}
+                let adDict = {}
+                results.forEach(offer => {
+                    userIds.push(offer.buyer)
+                    userIds.push(offer.seller)
+                    adIds.push(offer.ad)
+                })
+                async.parallel([
+                    function (callback){
+                        User.find({_id: {$in: userIds}}, function (err, users) {
+                            users.forEach(user => {
+                                userDict[user._id] = user;
+                            })
+                            callback(null,'Done')
+                        })
+                    },
+                    function (callback){
+                        ad.find({_id: {$in: adIds}}, function (err, users) {
+                            users.forEach(user => {
+                                adDict[user._id] = user;
+                            })
+                            callback(null,'Done')
+                        })
+                    }
+                ],function (err,results1){
+                    let currentOffers=[]
+                    results.forEach(offer=>{
+                        let off = {
+                            ad:adDict[offer.ad].title,
+                            buyer:userDict[offer.buyer].local.username,
+                            seller:userDict[offer.seller].local.username,
+                            status:offer.status,
+                            date_expired:offer.date_expired,
+                            offer_price:offer.offer_price
+                        }
+                        currentOffers.push(off)
+                    })
+                    res.render('admin/adminOffers.ejs',{
+                        'offers':currentOffers
+                    })
+                })
+
+
+            })
+
+        }
     })
 
 module.exports = Router

@@ -23,7 +23,7 @@ router.post('/:adId', function(req, res) {
   newOffer.seller = req.body.sellerId;
   newOffer.status = 'Sent';
   newOffer.date_posted = new Date();
-  newOffer.date_expired = new Date();
+  newOffer.date_expired = Date.now()+(24*60*60*1000);
     newOffer.offer_price = req.body.offer_price;
 
   newOffer.save(function(err) {
