@@ -35,6 +35,10 @@
       line-height: 75px;
       font-size: 30px;
       border: 1px solid black;
+      padding-top: 20px;
+      padding-left: 10px;
+      padding-bottom: 10px;
+      padding-right: 10px;
     }
 
     .two {
@@ -47,21 +51,27 @@
       font-size: 30px;
       border: 1px solid black;
     }
+    .Img{
+        width:75px;
+        height: 75px;
+        border-radius: 35px;
+    }
   </style>
 </head>
 
 <body>
   <div class="row no-gutters">
     <div class="col-md-10" style="padding-right:0">
+      <br>
 
       <h3 style="color: DodgerBlue; text-align:center">Browse Categories</h3>
 
       <div class="flex-container">
         <%categries.forEach(category=>{%>
-        <div style='padding:10px' id='<%=category._id%>' class="one">
-          <img style='width:150px' src='<%=category.image%>'><%=category.name%></div>
+        <div id='<%=category._id%>' class="one">
+          <img class='Img' src='<%=category.image%>'> <br>
+          <%=category.name%></div>
         <%})%>
-        <div class="one">4</div>
         <div class="one">5</div>
         <div class="one">6</div>
         <div class="one">7</div>
