@@ -160,10 +160,11 @@ Router.route('/category/edit/:id')
     })
 
 //View Active Offers
-Router.route('/offers')
+Router.route('/offers/:search')
     .get(authenticateJWT,(req,res)=> {
-        if(req.query.status){
-            offers.find({date_expired: {$gte: Date.now()},status:q}, function (err, results) {
+
+        if(req.params.search != 'all'){
+            offers.find({date_expired: {$gte: Date.now()},status:req.params.search}, function (err, results) {
                 let userIds = []
                 let adIds = []
                 let userDict = {}

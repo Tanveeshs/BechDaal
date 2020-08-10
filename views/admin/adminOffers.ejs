@@ -4,7 +4,7 @@
 <hr>
 <%if(offers.length >0){%>
 
-Sort by Status:<a href="offers?query='Sent'">Sent</a>
+Sort by Status:<a href="Sent">Sent</a> <a href="all">All</a>
 <%offers.forEach(offer=>{%>
     <h4>Ad Name:<%=offer.ad%></h4>
     <h4>Buyer Name:<%=offer.buyer%></h4>
