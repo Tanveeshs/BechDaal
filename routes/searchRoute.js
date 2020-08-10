@@ -199,6 +199,7 @@ searchRouter.post('/search/:q', function(req, res, next) {
 
     //Step 3: make the call
     callMyPromise().then(function(result) {
+      console.log(result)
       res.json(result);
     });
 
