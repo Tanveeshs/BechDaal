@@ -32,6 +32,8 @@ const test = require('./routes/test');
 // const xg = require('./routes/searchRoute');
 const fs = require('fs')
 const bodyParser = require('body-parser')
+const http = require("http");
+const https = require("https");
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -67,8 +69,7 @@ app.use('/wish', wishlist);
 app.use('/offers', offers);
 app.use('/admin',adminRouter)
 
-app.listen(port, function(err) {
-    if(err)
-        console.log(err)
-    console.log('Server started');
-});
+http.createServer(app).listen(80);
+https.createServer(options, app).listen(443);
+
+// app.listen(3000)
