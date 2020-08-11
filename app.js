@@ -76,7 +76,7 @@ app.use('/wish', wishlist);
 app.use('/offers', offers);
 app.use('/admin',adminRouter)
 
-// http.createServer(app).listen(80);
+http.createServer(app).listen(80);
 https.createServer(options, app).listen(443);
 
 // app.listen(3000)
