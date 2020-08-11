@@ -19,7 +19,9 @@ const wishlist = require('./routes/wishlist');
 const offers = require('./routes/offers');
 const adminRouter = require('./routes/admin')
 // const smsverify = require('./routes/sms');
-const category = require('./model/category')
+
+
+
 mongoose.connect(configDB.url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -76,7 +78,17 @@ app.use('/wish', wishlist);
 app.use('/offers', offers);
 app.use('/admin',adminRouter)
 
-http.createServer(app).listen(80);
-https.createServer(options, app).listen(443);
+var https_server = https.createServer(options, app).listen(443, function(err){
+    console.log("Node.js Express HTTPS Server Listening on Port 443");
+});
+
+var http_server = http.createServer(function(req,res){
+    // 301 redirect (reclassifies google listings)
+    res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+    res.end();
+}).listen(80, function(err){
+    console.log("Node.js Express HTTPS Server Listening on Port 80");
+});
+
 
 // app.listen(3000)
