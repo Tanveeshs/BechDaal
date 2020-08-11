@@ -25,12 +25,19 @@ mongoose.connect(configDB.url, {
     useUnifiedTopology: true
 });
 
+const fs = require('fs')
+var options = {
+    key: fs.readFileSync('private.key'),
+    cert: fs.readFileSync('certificate.crt')
+};
+
+
 require('./config/passport')(passport);
 
 let app = express();
 const test = require('./routes/test');
 // const xg = require('./routes/searchRoute');
-const fs = require('fs')
+
 const bodyParser = require('body-parser')
 const http = require("http");
 const https = require("https");
@@ -70,6 +77,6 @@ app.use('/offers', offers);
 app.use('/admin',adminRouter)
 
 http.createServer(app).listen(80);
-// https.createServer(options, app).listen(443);
+https.createServer(options, app).listen(443);
 
 // app.listen(3000)
