@@ -84,11 +84,7 @@ var https_server = https.createServer(options, app).listen(443, function(err){
     console.log("Node.js Express HTTPS Server Listening on Port 443");
 });
 
-var http_server = http.createServer(function(req,res){
-    // 301 redirect (reclassifies google listings)
-    res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
-    res.end();
-}).listen(80, function(err){
+var http_server = http.createServer(app).listen(80, function(err){
     console.log("Node.js Express HTTPS Server Listening on Port 80");
 });
 
