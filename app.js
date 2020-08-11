@@ -19,7 +19,7 @@ const wishlist = require('./routes/wishlist');
 const offers = require('./routes/offers');
 const adminRouter = require('./routes/admin')
 // const smsverify = require('./routes/sms');
-
+var forceSsl = require('express-force-ssl');
 
 
 mongoose.connect(configDB.url, {
@@ -55,6 +55,7 @@ app.use(express.urlencoded({
 // noinspection JSCheckFunctionSignatures
 app.use(cookieParser());
 app.use(cors());
+app.use(forceSsl);
 app.use(express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, 'public')));
 // noinspection JSCheckFunctionSignatures
