@@ -115,7 +115,7 @@ adRouter.post('/', (req, res) => {
         .then((ad) => {
           res.statusCode = 200;
           res.setHeader('Content-Type', 'application/json');
-          res.json(ad);
+          res.render('afterPostAd.ejs');
         })
         .catch((err) => console.log(err));
     }
