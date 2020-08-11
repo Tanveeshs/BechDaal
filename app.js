@@ -55,16 +55,15 @@ app.use(express.urlencoded({
 // noinspection JSCheckFunctionSignatures
 app.use(cookieParser());
 app.use(cors());
-app.use(forceSsl);
+// app.use(forceSsl);
 app.use(express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, 'public')));
 // noinspection JSCheckFunctionSignatures
 app.use(session({
     secret: 'XYZZ'
 }));
-var compression = require('compression');
 
-app.use(compression()); //use compression
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
@@ -81,13 +80,15 @@ app.use('/wish', wishlist);
 app.use('/offers', offers);
 app.use('/admin',adminRouter)
 
-var https_server = https.createServer(options, app).listen(443, function(err){
-    console.log("Node.js Express HTTPS Server Listening on Port 443");
-});
+// var https_server = https.createServer(options, app).listen(443, function(err){
+//     console.log("Node.js Express HTTPS Server Listening on Port 443");
+// });
 
-var http_server = http.createServer(app).listen(80, function(err){
+// var http_server = http.createServer(app).listen(80, function(err){
+//     console.log("Node.js Express HTTPS Server Listening on Port 80");
+// });
+
+
+var http_server = http.createServer(app).listen(3000, function(err){
     console.log("Node.js Express HTTPS Server Listening on Port 80");
 });
-
-
-// app.listen(3000)
