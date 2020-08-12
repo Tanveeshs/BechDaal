@@ -21,7 +21,7 @@ const adminRouter = require('./routes/admin')
 // const smsverify = require('./routes/sms');
 var forceSsl = require('express-force-ssl');
 
-
+const PORT = process.env.PORT || 8080;
 mongoose.connect(configDB.url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -80,6 +80,11 @@ app.use('/wish', wishlist);
 app.use('/offers', offers);
 app.use('/admin',adminRouter)
 
+
+
+app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}...`);
+});
 // var https_server = https.createServer(options, app).listen(443, function(err){
 //     console.log("Node.js Express HTTPS Server Listening on Port 443");
 // });
@@ -89,6 +94,6 @@ app.use('/admin',adminRouter)
 // });
 
 
-var http_server = http.createServer(app).listen(3000, function(err){
-    console.log("Node.js Express HTTPS Server Listening on Port 80");
-});
+// var http_server = http.createServer(app).listen(3000, function(err){
+//     console.log("Node.js Express HTTPS Server Listening on Port 300to app0");
+// });
