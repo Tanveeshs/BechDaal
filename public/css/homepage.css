@@ -1,0 +1,61 @@
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.one {
+  background-color: #f1f1f1;
+  width: 200px;
+  margin: 20px 40px;
+  text-align: center;
+  line-height: 75px;
+  font-size: 30px;
+  border: 1px solid black;
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  padding-right: 10px;
+}
+
+.two {
+  width: 330px;
+  height: 250px;
+  margin: 20px 20px;
+  background-color: #ffffff;
+  width: 330px;
+  text-align: center;
+  line-height: 75px;
+  font-size: 30px;
+  border: 1px solid black;
+}
+
+.images{
+    height:90px;
+    width: 90px;
+    background-color: black;
+    margin-top: 20px;
+    margin-left: 30px;
+}
+.icondisplay{
+    float:right;
+    padding:5px;
+}
+.para{
+    text-align: left;
+    padding-left: 20px;
+    font-size: 25px;
+    margin: 0px;
+    height: 35px;
+}
+k{
+    float: right;
+    font-size: 13px;
+    padding: 10px;
+
+}
+
+.Img{
+    width:75px;
+    height: 75px;
+    border-radius: 35px;
+}
