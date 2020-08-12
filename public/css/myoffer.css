@@ -34,3 +34,8 @@ label {
   margin-left: 10%;
   display: inline-block;
 }
+.Btn-style{
+    padding:2px 30px;
+    border-radius:10px;
+    font-size: 0.9rem;
+}

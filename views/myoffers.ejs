@@ -19,9 +19,20 @@
     <%} else {%>
       <%offers.forEach(offer=>{%>
         <hr>
-        <label>Ad Name:<input class="inputstyle" value='<%=offer.ad%>'></input></label><br>
-        <label>Buyer Name:<input class="inputstyle" value='<%=offer.buyer%>'></input></label><br>
-        <label>Price Quoted:<input class="inputstyle" value='<%=offer.offer_price%>'></input></label>
+        <div class="row">
+            <div class="col-md-9">
+                <label>Ad Name:<input class="inputstyle" value='<%=offer.ad%>'></input></label><br>
+                <label>Buyer Name:<input class="inputstyle" value='<%=offer.buyer%>'></input></label><br>
+                <label>Price Quoted:<input class="inputstyle" value='<%=offer.offer_price%>'></input></label>
+            </div>
+            <div class="col-md-3" style="padding:20px">
+                <center>
+                    <button type="button" class="btn btn-outline-danger Btn-style" style="margin-top:15px;">Accept</button><br><br>
+                    <button type="button" class="btn btn-outline-dark Btn-style">Decline</button>
+                </center>
+            </div>
+        </div>
+
         <hr>
       <%})%>
     <%}%>
