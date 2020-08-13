@@ -117,5 +117,6 @@ dist
 
 .crt
 .key
+.json
 
 .DS_Store
