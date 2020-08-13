@@ -37,7 +37,12 @@ const offerSchema = new Schema({
   offer_price : {
     type: Number,
     required: true
-  }
+  },
+  expireAt: {
+  type: Date,
+  default: Date.now,
+  index: { expires: '1d' },
+},
 });
 
 const Offers = mongoose.model('Offers', offerSchema);
