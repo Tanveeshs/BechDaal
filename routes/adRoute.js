@@ -7,6 +7,8 @@ const multer = require('multer');
 const AdSchema = require('../model/ad');
 const Ads = require('../model/ad');
 
+
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, './uploads');

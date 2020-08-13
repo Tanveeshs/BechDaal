@@ -66,7 +66,7 @@ $('.fa-times').click(function() {
   $('#blah' + currentCross).attr('src', '/images/Imagehere.jpg');
 });
 
-var URL = "https://bechdaal.tech/category";
+var URL = "https://localhost:3000/category";
 var selectedcategory;
 $('#category').on('change', function() {
   selectedcategory = $('#category').find(":selected").text();

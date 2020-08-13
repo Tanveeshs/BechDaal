@@ -55,7 +55,6 @@ app.use(express.urlencoded({
 // noinspection JSCheckFunctionSignatures
 app.use(cookieParser());
 app.use(cors());
-// app.use(forceSsl);
 app.use(express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, 'public')));
 // noinspection JSCheckFunctionSignatures
@@ -79,12 +78,49 @@ app.use('/myprofile', myprofile);
 app.use('/wish', wishlist);
 app.use('/offers', offers);
 app.use('/admin',adminRouter)
+const multer = require('multer')
+const multerMid = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+        fileSize: 5 * 1024 * 1024,
+    },
+})
+app.use(multerMid.array('images',5))
+
+var {Storage} = require('@google-cloud/storage');
+app.post('/testImage',(req,res)=>{
+    const storage = new Storage({
+        keyFilename: 'cloudStorage.json',
+        projectId: 'stoked-courier-276420',
+    })
+    const bucket = storage.bucket('bechdaal_bucket',)
+    const { originalname, buffer } = req.files[0]
+    const blob = bucket.file('ad_images/'+originalname.replace(/ /g, "_"))
+    const blobStream = blob.createWriteStream({
+        resumable: false
+    })
+    blobStream.on('finish', () => {
+        const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`
+        console.log(publicUrl)
+    })
+        .on('error', () => {console.log("error")})
+        .end(buffer)
+})
 
 
 
-app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}...`);
-});
+
+
+
+//for app engine
+// app.listen(PORT, () => {
+//     console.log(`Server listening on port ${PORT}...`);
+// });
+
+
+//for compute engine
+
+// app.use(forceSsl);
 // var https_server = https.createServer(options, app).listen(443, function(err){
 //     console.log("Node.js Express HTTPS Server Listening on Port 443");
 // });
@@ -93,7 +129,8 @@ app.listen(PORT, () => {
 //     console.log("Node.js Express HTTPS Server Listening on Port 80");
 // });
 
+//local test
 
-// var http_server = http.createServer(app).listen(3000, function(err){
-//     console.log("Node.js Express HTTPS Server Listening on Port 300to app0");
-// });
+var http_server = http.createServer(app).listen(3000, function(err){
+    console.log("Node.js Express HTTPS Server Listening on Port 300to app0");
+});
