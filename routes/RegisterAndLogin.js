@@ -3,14 +3,18 @@ var {
   User
 } = require('../model/user');
 const Category = require('../model/category').CategoryModel;
+const ad = require('../model/ad')
 
 module.exports = function(app, passport) {
   app.get('/', function(req, res) {
     Category.find({}, function(err, result) {
-      res.render('index.ejs', {
-        user: req.user,
-        categries: result
-      });
+      ad.find({}, (err, ads) => {
+        res.render('index.ejs', {
+          user: req.user,
+          categries: result,
+          ads: ads
+        });
+      })
     });
   });
 

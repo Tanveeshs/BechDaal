@@ -22,7 +22,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/homepage.css">
-  
+
 </head>
 
 <body>
@@ -45,42 +45,49 @@
       </div>
       <hr style="height:1px;background-color:black;margin: 10px 15%;">
       <div class="flex-container">
-          <div class="two">
-              <img class="images"></img><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
-              <p class="para">₹ 1000</p>
-              <p class="para">Title</p>
-              <k>Aug 10,2020</k>
-          </div>
-          <div class="two">
-              <img class="images"></img><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
-              <p class="para">₹ 1000</p>
-              <p class="para">Title</p>
-              <k>Aug 10,2020</k>
-          </div>
-          <div class="two">
-              <img class="images"></img><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
-              <p class="para">₹ 1000</p>
-              <p class="para">Title</p>
-              <k>Aug 10,2020</k>
-          </div>
-          <div class="two">
-              <img class="images"></img><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
-              <p class="para">₹ 1000</p>
-              <p class="para">Title</p>
-              <k>Aug 10,2020</k>
-          </div>
-          <div class="two">
-              <img class="images"></img><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
-              <p class="para">₹ 1000</p>
-              <p class="para">Title</p>
-              <k>Aug 10,2020</k>
-          </div>
-          <div class="two">
-              <img class="images"></img><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
-              <p class="para">₹ 1000</p>
-              <p class="para">Title</p>
-              <k>Aug 10,2020</k>
-          </div>
+        <%ads.forEach(ad=>{%>
+        <div class="two">
+          <%if (typeof(ad.cover_photo.filename)=='undefined'){%>
+            <img class="images" src='images/1.jpg'><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
+          <%} else {%>
+            <img class="images" src='/<%= ad.cover_photo.filename %>'><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
+          <%}%>
+          <p class="para">₹ <%=ad.price%></p>
+          <p class="para"><%=ad.title%></p>
+          <k><%=ad.date_posted%></k>
+        </div>
+        <%})%>
+
+        <%# <div class="two">
+          <img class="images"></img><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
+          <p class="para">₹ 1000</p>
+          <p class="para">Title</p>
+          <k>Aug 10,2020</k>
+        </div>
+        <div class="two">
+          <img class="images"></img><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
+          <p class="para">₹ 1000</p>
+          <p class="para">Title</p>
+          <k>Aug 10,2020</k>
+        </div>
+        <div class="two">
+          <img class="images"></img><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
+          <p class="para">₹ 1000</p>
+          <p class="para">Title</p>
+          <k>Aug 10,2020</k>
+        </div>
+        <div class="two">
+          <img class="images"></img><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
+          <p class="para">₹ 1000</p>
+          <p class="para">Title</p>
+          <k>Aug 10,2020</k>
+        </div>
+        <div class="two">
+          <img class="images"></img><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
+          <p class="para">₹ 1000</p>
+          <p class="para">Title</p>
+          <k>Aug 10,2020</k>
+        </div> %>
       </div>
     </div>
     <div class="col-md-2" style="background-color:blue">
