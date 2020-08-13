@@ -32,7 +32,7 @@
 .images{
     height:90px;
     width: 90px;
-    background-color: black;
+    /* background-color: black; */
     margin-top: 20px;
     margin-left: 30px;
 }
