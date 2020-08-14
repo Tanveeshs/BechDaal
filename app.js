@@ -109,6 +109,7 @@ app.post('/testImage',(req,res)=>{
 
 app.get('/CloudTest',(req,res)=>{
     res.send("Show Demo")
+    console.log('GOod')
 })
 
 
