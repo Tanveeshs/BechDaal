@@ -32,6 +32,8 @@ const userSchema = new mongoose.Schema({
     email: String,
     name: String
   },
+  isSeller:{type:Boolean},
+  rejected:{type:Boolean,default:false},
   name: String,
   LoginTime: {
     type: Date,

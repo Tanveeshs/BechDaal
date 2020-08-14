@@ -1,0 +1,37 @@
+<html>
+<head>
+    <title>Categories</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+</head>
+<body>
+
+
+<div class="container">
+    <h1>Pending Sellers</h1>
+
+    <%if(users.length>0){%>
+
+
+    <%users.forEach(user=>{%>
+    <div class="row">
+        <h2>User Name:<%=user.local.username%></h2>
+        <h3 style="padding-left: 50px">          Details
+            <ul>
+                <li><%=user.local.contact%></li>
+                <li><%=user.local.email%></li>
+            </ul>
+        </h3>
+        <a href="sellers/approve/<%=user._id%>">Approve</a>
+        <a href="sellers/reject/<%=user._id%>">Reject</a>
+    </div>
+    <hr>
+    <%})%>
+
+    <%}else {%>
+        <h2>No Users Found</h2>
+    <%}%>
+
+</div>
+</body>
+</html>

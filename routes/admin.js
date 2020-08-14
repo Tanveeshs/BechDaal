@@ -162,7 +162,7 @@ Router.route('/category/edit/:id')
 //View Active Offers
 Router.route('/offers/:search')
     .get(authenticateJWT,(req,res)=> {
-        if(req.params.search != 'all'){
+        if(req.params.search !== 'all'){
             offers.find({date_expired: {$gte: Date.now()},status:req.params.search}, function (err, results) {
                 let userIds = []
                 let adIds = []
@@ -259,5 +259,38 @@ Router.route('/offers/:search')
             })
         }
     })
+
+Router.route('/sellers')
+    .get(authenticateJWT,(req,res)=>{
+
+        User.find({isSeller:true, IsActive:false,rejected:false},function (err,results){
+            if (err){
+                console.log(err)
+                throw err;
+            }
+            res.render('admin/viewSellers.ejs',{users:results})
+        })
+    })
+
+Router.get('/sellers/approve/:id', authenticateJWT,(req,res)=>{
+    const adId = req.params.id;
+    User.findOneAndUpdate({_id:adId},{$set:{IsActive:true}},function (err,result) {
+        if(err){
+            throw err;
+        }
+        res.redirect('/admin/sellers')
+    })
+})
+Router.get('/sellers/reject/:id',authenticateJWT,(req,res)=> {
+    const adId = req.params.id;
+    User.findOneAndUpdate({_id: adId},{$set:{rejected:true}}, function (err, result) {
+        if(err){
+            console.log(err)
+            throw err
+        }
+        res.redirect('/admin/sellers')
+    })
+})
+
 
 module.exports = Router
