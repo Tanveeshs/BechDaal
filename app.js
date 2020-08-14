@@ -107,7 +107,9 @@ app.post('/testImage',(req,res)=>{
         .end(buffer)
 })
 
-
+app.get('/CloudTest',(req,res)=>{
+    res.send("Show Demo")
+})
 
 
 
