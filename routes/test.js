@@ -1,5 +1,7 @@
 //jshint esversion:6
 
+//I dont think we need
+
 const express = require('express');
 const router = express.Router();
 const admin = require('../config/firebase');

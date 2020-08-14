@@ -3,6 +3,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-node');
 const userSchema = new mongoose.Schema({
+
+  //Contact address could be outside
   local: {
     username: String,
     email: String,
@@ -14,11 +16,13 @@ const userSchema = new mongoose.Schema({
       default: false
     }
   },
-
+  //Discuss not required
   offers: [{
     type: mongoose.Types.ObjectId,
     ref: 'Offers'
   }],
+
+  //Got domain can work on facebook
 
   // facebook: {
   //   id: String,
@@ -26,24 +30,33 @@ const userSchema = new mongoose.Schema({
   //   name: String,
   //   email: String
   // },
+
   google: {
     id: String,
     token: String,
     email: String,
     name: String
   },
+  //true if seller
   isSeller:{type:Boolean},
+
+  //if rejected wont be shown
   rejected:{type:Boolean,default:false},
+
+  //why is it there
   name: String,
   LoginTime: {
     type: Date,
     default: Date.now()
   },
+
   wishlist: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Ads'
   }],
+  //Extra Field
   ContactNumber: Number,
+
   IsActive: Boolean,
 });
 

@@ -3,14 +3,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const router = express.Router();
-const Ads = require('../model/ad');
-const {
-  user
-} = require('../model/user');
 var {
   User
 } = require('../model/user');
 
+//MONGO SANITITZE
+//USe let instead of var
 
 router.get('/', isLoggedIn, function(req, res) {
   res.render('myprofile.ejs', {
@@ -25,6 +23,8 @@ router.get('/edit', isLoggedIn, function(req, res) {
   });
 
 });
+//DONT USE GLOBAL VARIABLES
+
 
 router.post('/editprofile', function(req, res) {
 

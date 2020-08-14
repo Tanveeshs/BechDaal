@@ -8,6 +8,9 @@ const AdSchema = require('../model/ad');
 const Ads = require('../model/ad');
 
 
+//Tell them to check for inmemory storage implemented in app.js
+//For post an ad
+//Har jagah mongoSanitize
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -49,6 +52,8 @@ adRouter.use(bodyParser.json());
 //   });
 // });
 
+
+//restrict myads only to a seller
 adRouter.get('/', isLoggedIn, (req, res) => {
   Ads.find({
     'user._id': req.user._id
@@ -60,6 +65,7 @@ adRouter.get('/', isLoggedIn, (req, res) => {
     // res.json(ads)
   });
 });
+
 
 adRouter.get('/ad/ad', isLoggedIn, (req, res) => {
   Ads.find({
@@ -79,6 +85,7 @@ adRouter.get('/ad/ad/:adid', isLoggedIn, (req, res) => {
   });
 });
 
+//Changes to Image Upload
 adRouter.post('/', (req, res) => {
   upload(req, res, (err) => {
     if (err) {

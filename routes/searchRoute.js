@@ -7,6 +7,9 @@ const Ads = require('../model/ad');
 searchRouter.use(bodyParser.json());
 
 
+//Sanitize Pehle
+//Use async parallel
+
 // searchRouter.post('/search/:q' , function (req,res, next){
 //   // console.log('in searchRoute!');
 //   var q = req.params.q;

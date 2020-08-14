@@ -12,6 +12,8 @@ var Offer = require('../model/offer');
 var offers = require('../model/offer');
 const ad = require('../model/ad');
 
+
+//After new offers schema query would be one mongo query
 router.get('/', isLoggedIn, (req, res) => {
   offers.find({
     date_expired: {

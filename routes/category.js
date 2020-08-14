@@ -2,18 +2,19 @@
 
 const express = require('express');
 const router = express.Router();
-// const jwt = require('jwt-simple');
 const user = require('../model/user');
 const Category = require('../model/category').CategoryModel;
-// const mail = require('../utils/mailer');
 const User = require('../model/user');
 
+
+//Khaali required fields pass karo reduces compute time
 router.get('/', function(req, res) {
   Category.find({}, function(err, result) {
     res.send(result);
   });
 });
 
+//Khaali required fields pass karo reduces compute time
 router.get('/:categoryname', function(req, res) {
   // res.send(req.params.categoryname);
   categoryName = req.params.categoryname;
@@ -31,6 +32,7 @@ router.get('/:categoryname', function(req, res) {
   // name1.save();
 });
 
+//Khaali required fields pass karo reduces compute time
 router.get('/:categoryname/:subcategoryname', function(req, res) {
   // res.send(req.params.categoryname);
   categoryName = req.params.categoryname;

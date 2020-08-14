@@ -78,6 +78,9 @@ app.use('/myprofile', myprofile);
 app.use('/wish', wishlist);
 app.use('/offers', offers);
 app.use('/admin',adminRouter)
+
+
+//Way to upload to GCS
 const multer = require('multer')
 const multerMid = multer({
     storage: multer.memoryStorage(),
