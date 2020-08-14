@@ -68,7 +68,7 @@ $('.fa-times').click(function() {
 });
 
 // var URL = "http://localhost:3000/category";
-const url = "https://bechdaal.tech/category"
+const URL = "https://bechdaal.tech/category"
 
 var selectedcategory;
 $('#category').on('change', function() {
