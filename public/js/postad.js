@@ -1,5 +1,6 @@
 //jshint esversion:6
-
+// const url = "http://localhost:3000/category"
+const url = "https://bechdaal.tech/category"
 Array.prototype.forEach.call(document.querySelectorAll('.fileButton'), function(button) {
   const hiddenInput = button.parentElement.querySelector('#fileInput');
   let label = button.parentElement.querySelector('.fileLabel');
@@ -66,7 +67,9 @@ $('.fa-times').click(function() {
   $('#blah' + currentCross).attr('src', '/images/Imagehere.jpg');
 });
 
-var URL = "https://localhost:3000/category";
+// var URL = "http://localhost:3000/category";
+const url = "https://bechdaal.tech/category"
+
 var selectedcategory;
 $('#category').on('change', function() {
   selectedcategory = $('#category').find(":selected").text();
