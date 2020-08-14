@@ -6,21 +6,12 @@ const adRouter = express.Router();
 const multer = require('multer');
 const AdSchema = require('../model/ad');
 const Ads = require('../model/ad');
-
-
+const async = require('async')
+const storage = require('../config/cloudStorage')
+const sanitize = require('mongo-sanitize')
 //Tell them to check for inmemory storage implemented in app.js
 //For post an ad
 //Har jagah mongoSanitize
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, './uploads');
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  }
-});
-
 const fileFilter = (req, file, cb) => {
   if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
     cb(null, true);
@@ -28,12 +19,13 @@ const fileFilter = (req, file, cb) => {
     cb(new Error('file type not supported'), false);
   }
 };
-
-const upload = multer({
-  storage,
-  fileFilter
-}).array('images', 12);
-
+const multerMid = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024,
+  },
+  fileFilter:fileFilter
+}).array('images',12)
 adRouter.use(bodyParser.json());
 
 
@@ -54,19 +46,24 @@ adRouter.use(bodyParser.json());
 
 
 //restrict myads only to a seller
+//DONE
 adRouter.get('/', isLoggedIn, (req, res) => {
-  Ads.find({
-    'user._id': req.user._id
-  }, (err, ads) => {
-    res.render('myAds', {
-      ads: ads,
-      user: req.user
+  if(req.user.isSeller === true){
+    Ads.find({
+      'user._id': req.user._id
+    }, (err, ads) => {
+      res.render('myAds', {
+        ads: ads,
+        user: req.user
+      });
     });
-    // res.json(ads)
-  });
+  }else {
+    //Add a UI here
+    res.send("Incorrect Page")
+  }
 });
 
-
+//What is this API for??
 adRouter.get('/ad/ad', isLoggedIn, (req, res) => {
   Ads.find({
     'user._id': req.user._id
@@ -76,6 +73,7 @@ adRouter.get('/ad/ad', isLoggedIn, (req, res) => {
   });
 });
 
+//WHAT IS THIS API FOR??
 adRouter.get('/ad/ad/:adid', isLoggedIn, (req, res) => {
   Ads.find({
     _id: req.params.adid
@@ -85,9 +83,12 @@ adRouter.get('/ad/ad/:adid', isLoggedIn, (req, res) => {
   });
 });
 
+
 //Changes to Image Upload
+//DONE
+//MAKE AN ERROR PAGE
 adRouter.post('/', (req, res) => {
-  upload(req, res, (err) => {
+  multerMid(req, res, async (err) => {
     if (err) {
       console.log('Error: ', err);
       res.statusCode = 400;
@@ -95,53 +96,89 @@ adRouter.post('/', (req, res) => {
       res.json({
         msg: 'error'
       });
-    } else {
-      const cover_photo = req.files[0];
-      let remaining_images = [];
-      for (let i = 1; i < req.files.length; i++) {
-        // remaining_images[i - 1] = req.files[i];
-        remaining_images.push(req.files[i]);
-      }
-      const new_ad = new AdSchema({
-        title: req.body.title,
-        category: req.body.category,
-        sub_category: req.body.subcategory,
-        model: req.body.model,
-        brand: req.body.brand,
-        cover_photo: cover_photo,
-        price: req.body.price,
-        user: req.user,
-        address: req.body.address,
-        contact_number: req.body.contact,
-        featured: req.body.featured,
-        images: remaining_images,
-        description: req.body.description,
-        date_posted: new Date(),
-        // date_sold: req.body.date_sold
-      });
+    }  else {
+      let cover_photo='';
+      let remaining_images=[];
+      async.forEachOf(req.files,function (file,i,callback){
+            console.log(i)
+            const bucket = storage.bucket('bechdaal_bucket')
+            const { originalname, buffer } = file
+            const blob = bucket.file('ad_images/'+originalname.replace(/ /g, "_"))
+            const blobStream = blob.createWriteStream({
+              resumable: false
+            })
+            blobStream.on('finish', () => {
+              if(i===0){
+                cover_photo =`https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+              }
+              else {
+                remaining_images.push(`https://storage.googleapis.com/${bucket.name}/${blob.name}`);
+              }
+              callback(null)
+            }).on('error', (err) => {callback(err)}).end(buffer)
+          },
+          function (err){
+            if(err){
+              console.log(err)
+              res.send('ERROR')
+            } else {
+              console.log('Images Uploaded')
+              const new_ad = new AdSchema({
+                title: req.body.title,
+                category: req.body.category,
+                sub_category: req.body.subcategory,
+                model: req.body.model,
+                brand: req.body.brand,
+                cover_photo: cover_photo,
+                price: req.body.price,
+                user: req.user,
+                address: req.body.address,
+                contact_number: req.body.contact,
+                featured: req.body.featured,
+                images: remaining_images,
+                description: req.body.description,
+                date_posted: new Date(),
+                // date_sold: req.body.date_sold
+              });
+              console.log(new_ad)
 
-      new_ad.save()
-        .then((ad) => {
-          res.statusCode = 200;
-          res.setHeader('Content-Type', 'application/json');
-          res.json(ad);
-        })
-        .catch((err) => console.log(err));
+              new_ad.save()
+                  .then((ad) => {
+                    res.statusCode = 200;
+                    res.setHeader('Content-Type', 'application/json');
+                    res.json(ad);
+                  })
+                  .catch((err) => console.log(err));
+            }
+          })
     }
   });
 });
 
+
+//DONE
+//ERROR PAGE LEFT
 adRouter.get('/editad/:adid', isLoggedIn, (req, res) => {
-  Ads.find({
-    _id: req.params.adid
-  }, (err, ad) => {
-    res.render('editad', {
-      ad: ad,
-      user: req.user
+  if(req.user.isSeller ===true){
+    Ads.find({
+      _id: sanitize(req.params.adid)
+    }, (err, ad) => {
+      res.render('editad', {
+        ad: ad,
+        user: req.user
+      });
     });
-  });
+  }else {
+    console.log("Error")
+    res.send("Error")
+  }
+
 });
 
+
+//CANNOT SET FEATURED YAHAN SE
+//EXTERNAL API FOR THAT
+//HOW TO UPDATE IMAGES HERE??
 adRouter.post('/editad', (req, res) => {
   // const cover_photo = req.files[0];
   // let remaining_images = [];
@@ -150,20 +187,19 @@ adRouter.post('/editad', (req, res) => {
   //   remaining_images.push(req.files[i]);
   // }
   Ads.findOneAndUpdate({
-    _id: req.body.adid
+    _id: sanitize(req.body.adid)
   }, {
     '$set': {
-      'title': req.body.title,
-      'category': req.body.category,
-      'sub_category': req.body.subcategory,
-      'model': req.body.model,
-      'brand': req.body.brand,
-      'price': req.body.price,
+      'title': sanitize(req.body.title),
+      'category': sanitize(req.body.category),
+      'sub_category': sanitize(req.body.subcategory),
+      'model': sanitize(req.body.model),
+      'brand': sanitize(req.body.brand),
+      'price': sanitize(req.body.price),
       'user': req.user,
-      'address': req.body.address,
-      'contact_number': req.body.contact,
-      'featured': req.body.featured,
-      'description': req.body.description,
+      'address': sanitize(req.body.address),
+      'contact_number': sanitize(req.body.contact),
+      'description': sanitize(req.body.description),
     }
   }, function (err, res) {
     // Updated at most one doc, `res.modifiedCount` contains the number
@@ -177,31 +213,30 @@ adRouter.post('/editad', (req, res) => {
 
 /* docs */
 // here you will just add the id of the ad in the url itself, and will get that single ad
-
+//WHAT DOES PUT Route do here??
 adRouter.route('/:adId')
-  .get((req, res) => {
-    AdSchema.findById(req.params.adId)
-      .then((ad) => {
-        // console.log(ad);
-        res.render('show_ad', {
-          ad: ad,
-          user: req.user
-        });
-      }).catch((err) => console.log(err));
-  })
-
-  .put((req, res) => {
-    Ads.findByIdAndUpdate(req.params.adId, {
-      $set: req.body
-    }, {
-      new: true
+    .get((req, res) => {
+      AdSchema.findById(sanitize(req.params.adId))
+          .then((ad) => {
+            // console.log(ad);
+            res.render('show_ad', {
+              ad: ad,
+              user: req.user
+            });
+          }).catch((err) => console.log(err));
     })
-      .then((ad) => {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(ad);
-      }).catch((err) => console.log(err));
-  });
+    .put((req, res) => {
+      Ads.findByIdAndUpdate(req.params.adId, {
+        $set: req.body
+      }, {
+        new: true
+      })
+          .then((ad) => {
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.json(ad);
+          }).catch((err) => console.log(err));
+    });
 
 adRouter.get('/ads/post', isLoggedIn, function (req, res) {
   res.render('postAd.ejs', {
@@ -223,40 +258,40 @@ function isLoggedIn(req, res, next) {
 
 
 adRouter.route('/grid_ads/a')
-  .get((req, res, next) => {
+    .get((req, res, next) => {
 
-    const page = parseInt(req.query.page);
-    const featuredLimit = 3;
-    const ordinaryLimit = 6;
+      const page = parseInt(req.query.page);
+      const featuredLimit = 3;
+      const ordinaryLimit = 6;
 
-    const featuredStartIndex = (page - 1) * featuredLimit;
-    const ordinaryStartIndex = (page - 1) * ordinaryLimit;
+      const featuredStartIndex = (page - 1) * featuredLimit;
+      const ordinaryStartIndex = (page - 1) * ordinaryLimit;
 
-    const featuredEndIndex = page * featuredLimit;
-    const ordinaryEndIndex = page * ordinaryLimit;
+      const featuredEndIndex = page * featuredLimit;
+      const ordinaryEndIndex = page * ordinaryLimit;
 
 
-    Ads.find({})
-      .then((ads) => {
-        const featuredAds = ads.filter((item, index) => item.price > 5000);
-        const ordinaryAds = ads.filter((item, index) => item.price < 5000);
+      Ads.find({})
+          .then((ads) => {
+            const featuredAds = ads.filter((item, index) => item.price > 5000);
+            const ordinaryAds = ads.filter((item, index) => item.price < 5000);
 
-        const paginatedFeaturedAds = featuredAds.slice(featuredStartIndex, featuredEndIndex);
-        const paginatedOrdinaryAds = ordinaryAds.slice(ordinaryStartIndex, ordinaryEndIndex);
+            const paginatedFeaturedAds = featuredAds.slice(featuredStartIndex, featuredEndIndex);
+            const paginatedOrdinaryAds = ordinaryAds.slice(ordinaryStartIndex, ordinaryEndIndex);
 
-        let results = {
-          featured: paginatedFeaturedAds,
-          ordinary: paginatedOrdinaryAds,
-        }
+            let results = {
+              featured: paginatedFeaturedAds,
+              ordinary: paginatedOrdinaryAds,
+            }
 
-        if (featuredEndIndex < featuredAds.length || ordinaryEndIndex < ordinaryAds.length) results.nextPage = page + 1
+            if (featuredEndIndex < featuredAds.length || ordinaryEndIndex < ordinaryAds.length) results.nextPage = page + 1
 
-        if (featuredStartIndex > 0) results.previousPage = page - 1;
+            if (featuredStartIndex > 0) results.previousPage = page - 1;
 
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(results)
-      })
-  })
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.json(results)
+          })
+    })
 
 module.exports = adRouter;

@@ -26,11 +26,11 @@ const offerSchema = new Schema({
     type: String
   },
   //Add tracking Number
-  PickupTimeSeller:Date,
+  // PickupTimeSeller:Date,
   //Discuss about paytm
-  PaymentDetails:{
-    rzpId:String
-  },
+  // PaymentDetails:{
+  //   rzpId:String
+  // },
   date_posted: {
     type: Date,
     required: true

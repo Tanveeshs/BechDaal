@@ -44,7 +44,6 @@ const userSchema = new mongoose.Schema({
   rejected:{type:Boolean,default:false},
 
   //why is it there
-  name: String,
   LoginTime: {
     type: Date,
     default: Date.now()
