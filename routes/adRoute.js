@@ -1,5 +1,7 @@
 //jshint esversion:6
 
+//DONE
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const adRouter = express.Router();
@@ -199,7 +201,7 @@ adRouter.post('/editad', (req, res) => {
       'contact_number': sanitize(req.body.contact),
       'description': sanitize(req.body.description),
     }
-  }, function (err, res) {
+  }, function (err) {
     // Updated at most one doc, `res.modifiedCount` contains the number
     // of docs that MongoDB updated
     if (err) {

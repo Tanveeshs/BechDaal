@@ -1,14 +1,15 @@
 //jshint esversion:6
+//DONE
+//ADDRESS WAALA ISSUE SORT KARNA HAI
+
 
 const express = require('express');
-const bodyParser = require('body-parser');
+const sanitize = require("mongo-sanitize");
 const router = express.Router();
-var {
+let {
   User
 } = require('../model/user');
 
-//MONGO SANITITZE
-//USe let instead of var
 
 router.get('/', isLoggedIn, function(req, res) {
   res.render('myprofile.ejs', {
@@ -28,17 +29,17 @@ router.get('/edit', isLoggedIn, function(req, res) {
 
 router.post('/editprofile', function(req, res) {
 
-  a = req.body.ivalue;
+  let a = req.body.ivalue;
   a = a.split(',');
   User.findOneAndUpdate({
     _id: req.user._id
   }, {
     "$set": {
-      'local.username': req.body.username1,
-      'local.contact': req.body.contact1,
+      'local.username': sanitize(req.body.username1),
+      'ContactNumber': sanitize(req.body.contact1),
       'local.address': a
     }
-  }, function(err, res) {
+  }, function(err) {
     // Updated at most one doc, `res.modifiedCount` contains the number
     // of docs that MongoDB updated
     if (err) {

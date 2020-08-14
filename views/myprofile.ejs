@@ -32,7 +32,11 @@
             </p>
             <p class="contact">
                 <span style="color:#994d00; font-size: 1.5rem; "> Contact No:</span>
-                <span style="margin-left: 2%;font-size: 1.5rem;"><%= user.local.contact %></span>
+                <%if(user.ContactNumber){%>
+                    <span style="margin-left: 2%;font-size: 1.5rem;"><%= user.local.contact %></span>
+                <%}else {%>
+                    <span>Please Enter Your Contact Number</span>
+                <%}%>
             </p>
             <% for (var i = 0; i < user.local.address.length; i++) {%>
             <p class="address">
