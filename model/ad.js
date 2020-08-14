@@ -18,6 +18,7 @@ const adSchema = new Schema({
   sub_category: {
     type: String
   },
+  //Think if is required
   model: {
     type: String
   },
@@ -31,32 +32,42 @@ const adSchema = new Schema({
   address: {
     type: String
   },
+  //Check if user has contact default value set to that
   contact_number: {
     type: Number
   },
+  //change to type string
   cover_photo: {
-    type: Object
+    type: String
   },
+  //change to string
   images: [{
     type: Object
   }],
   description: {
     type: String
   },
+  //true if paid extra
   featured: {
     type: Boolean,
     default: false
   },
+  //decide for pincode
+  serviceable_area:[String],
   date_posted: {
     type: Date
   },
-  date_sold: {
-    type: Date
-  },
-  offers: [{
-    type: mongoose.Types.ObjectId,
-    ref: 'Offers'
-  }],
+  // Not required
+
+  // date_sold: {
+  //   type: Date
+  // },
+  //
+  // offers: [{
+  //   type: mongoose.Types.ObjectId,
+  //   ref: 'Offers'
+  // }],
+
   approved:{
     type:Boolean,
     default: false

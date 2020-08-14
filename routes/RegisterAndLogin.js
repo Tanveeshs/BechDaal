@@ -46,6 +46,8 @@ module.exports = function(app, passport) {
     failureFlash: true // allow flash messages
   }));
 
+
+  //Use projections
   app.get('/verify', function(req, res) {
     User.findOne({
       'local.email': req.user.local.email

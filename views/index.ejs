@@ -47,10 +47,10 @@
       <div class="flex-container">
         <%ads.forEach(ad=>{%>
         <div class="two">
-          <%if (typeof(ad.cover_photo.filename)=='undefined'){%>
+          <%if (typeof(ad.cover_photo)==='undefined'){%>
             <img class="images" src='images/1.jpg'><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
           <%} else {%>
-            <img class="images" src='/<%= ad.cover_photo.filename %>'><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
+            <img class="images" src='<%= ad.cover_photo %>'><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
           <%}%>
           <p class="para">₹ <%=ad.price%></p>
           <p class="para"><%=ad.title%></p>

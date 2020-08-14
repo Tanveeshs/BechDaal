@@ -1,5 +1,9 @@
 //jshint esversion:6
 
+
+
+
+//Secrets ko .env karna hai
 const express = require('express');
 const router = express.Router();
 const jwt = require('jwt-simple');
@@ -49,7 +53,7 @@ router.post('/passwordreset', function(req, res) {
         console.log(token);
         // let content = 'http://'+ip+':'+port+'/user/resetpassword/'+payload.id+'/'+token
         //For locally uncomment this
-        let content = 'http://localhost:3000/user/resetpassword/' + payload.id + '/' + token;
+        let content = 'https://bechdaal.tech/user/resetpassword/' + payload.id + '/' + token;
         mail(emailAddress, content);
         res.send('Mail Sent Successfully');
         val = true;
