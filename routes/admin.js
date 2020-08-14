@@ -1,3 +1,5 @@
+//DO NOT TOUCH
+
 const express = require('express')
 const Router = express.Router();
 const jwt = require('jsonwebtoken')
@@ -66,8 +68,8 @@ Router.post('/login', (req, res) => {
     const user = users.find(u => { return u.username === username && u.password === password });
 
     if (user) {
-        const accessToken = jwt.sign({ username: user.username,  role: user.role }, secret);
-        req.session.token = accessToken
+
+        req.session.token = jwt.sign({ username: user.username,  role: user.role }, secret);
         console.log(req.session)
         res.redirect('home')
     } else {
@@ -151,7 +153,7 @@ Router.route('/category/edit/:id')
         Category.findOne({_id:req.params.id},(err,result)=>{
             result.name = req.body.category;
             result.subcategory = req.body.subCategory.split(',')
-            if(req.file != undefined){
+            if(req.file !== undefined){
                 result.image = '/'+req.file.filename;
             }
             result.save()
@@ -190,7 +192,11 @@ Router.route('/offers/:search')
                             callback(null,'Done')
                         })
                     }
-                ],function (err,results1){
+                ],function (err){
+                    if(err){
+                        console.log("Error:",err)
+
+                    }
                     let currentOffers=[]
                     results.forEach(offer=>{
                         let off = {
@@ -239,7 +245,10 @@ Router.route('/offers/:search')
                             callback(null,'Done')
                         })
                     }
-                ],function (err,results1){
+                ],function (err){
+                    if(err){
+                        console.log("Error",err)
+                    }
                     let currentOffers=[]
                     results.forEach(offer=>{
                         let off = {
@@ -274,7 +283,7 @@ Router.route('/sellers')
 
 Router.get('/sellers/approve/:id', authenticateJWT,(req,res)=>{
     const adId = req.params.id;
-    User.findOneAndUpdate({_id:adId},{$set:{IsActive:true}},function (err,result) {
+    User.findOneAndUpdate({_id:adId},{$set:{IsActive:true}},function (err) {
         if(err){
             throw err;
         }
@@ -283,7 +292,7 @@ Router.get('/sellers/approve/:id', authenticateJWT,(req,res)=>{
 })
 Router.get('/sellers/reject/:id',authenticateJWT,(req,res)=> {
     const adId = req.params.id;
-    User.findOneAndUpdate({_id: adId},{$set:{rejected:true}}, function (err, result) {
+    User.findOneAndUpdate({_id: adId},{$set:{rejected:true}}, function (err,) {
         if(err){
             console.log(err)
             throw err
