@@ -9,9 +9,7 @@ const Ads = require('../model/ad');
 const async = require('async')
 const storage = require('../config/cloudStorage')
 const sanitize = require('mongo-sanitize')
-//Tell them to check for inmemory storage implemented in app.js
-//For post an ad
-//Har jagah mongoSanitize
+
 const fileFilter = (req, file, cb) => {
   if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
     cb(null, true);

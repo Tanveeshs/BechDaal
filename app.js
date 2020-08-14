@@ -80,41 +80,6 @@ app.use('/offers', offers);
 app.use('/admin',adminRouter)
 
 
-//Way to upload to GCS
-const multer = require('multer')
-const multerMid = multer({
-    storage: multer.memoryStorage(),
-    limits: {
-        fileSize: 5 * 1024 * 1024,
-    },
-})
-app.use(multerMid.array('images',5))
-
-var {Storage} = require('@google-cloud/storage');
-app.post('/testImage',(req,res)=>{
-    const storage = new Storage({
-        keyFilename: 'cloudStorage.json',
-        projectId: 'stoked-courier-276420',
-    })
-    const bucket = storage.bucket('bechdaal_bucket',)
-    const { originalname, buffer } = req.files[0]
-    const blob = bucket.file('ad_images/'+originalname.replace(/ /g, "_"))
-    const blobStream = blob.createWriteStream({
-        resumable: false
-    })
-    blobStream.on('finish', () => {
-        const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`
-        console.log(publicUrl)
-    })
-        .on('error', () => {console.log("error")})
-        .end(buffer)
-})
-
-
-
-
-
-
 //for app engine
 // app.listen(PORT, () => {
 //     console.log(`Server listening on port ${PORT}...`);

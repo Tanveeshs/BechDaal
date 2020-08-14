@@ -10,16 +10,17 @@
     <h6>Brand:<%=ad.brand%></h6>
     <h6>Price:<%=ad.price%></h6>
     <h6>User:<%=ad.user.local.username%></h6>
+    <h6>User is a Seller:<%= ad.user.isSeller%></h6>
     <h6>Address:<%=ad.address%></h6>
     <h6>Contact:<%=ad.contact_number%></h6>
     <h6>Cover Photo:</h6>
     <br>
-    <img style="height: 200px;width: 200px;" src="/<%= ad.cover_photo.filename %>" alt="/<%= ad.cover_photo.filename %>">
+    <img style="height: 200px;width: 200px;" src="<%= ad.cover_photo %>" alt="<%= ad.cover_photo %>">
     <br>
     <br>
     <h6>Other pics</h6>
     <%for(i=0;i<ad.images.length;i++){%>
-    <img style="width: 200px; height: 200px;" src="/<%=ad.images[i].filename%>" ><br>
+    <img style="width: 200px; height: 200px;" src="<%=ad.images[i]%>" ><br>
     <%}%>
     <h4>Desc:<%=ad.description%></h4><br>
     <hr>

@@ -70,5 +70,18 @@ function isLoggedIn(req, res, next) {
     console.log(e);
   }
 }
+function isSellerAndAuthenticated(req, res, next) {
+    try {
+        if (req.isAuthenticated()) {
+            if(req.user.isSeller){
+                return next();
+            }
+        }
+        res.redirect('/login');
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 
 module.exports = wishlistRouter;
