@@ -22,6 +22,11 @@ const userSchema = new mongoose.Schema({
     ref: 'Offers'
   }],
 
+  noOfFreeAds: {
+    type: Number,
+    default: 0
+  }
+
   //Got domain can work on facebook
 
   // facebook: {

@@ -10,7 +10,8 @@ const AdSchema = require('../model/ad');
 const Ads = require('../model/ad');
 const async = require('async')
 const storage = require('../config/cloudStorage')
-const sanitize = require('mongo-sanitize')
+const sanitize = require('mongo-sanitize');
+const { User } = require('../model/user');
 
 const fileFilter = (req, file, cb) => {
   if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
@@ -24,8 +25,8 @@ const multerMid = multer({
   limits: {
     fileSize: 5 * 1024 * 1024,
   },
-  fileFilter:fileFilter
-}).array('images',12)
+  fileFilter: fileFilter
+}).array('images', 12)
 adRouter.use(bodyParser.json());
 
 
@@ -48,7 +49,7 @@ adRouter.use(bodyParser.json());
 //restrict myads only to a seller
 //DONE
 adRouter.get('/', isLoggedIn, (req, res) => {
-  if(req.user.isSeller === true){
+  if (req.user.isSeller === true) {
     Ads.find({
       'user._id': req.user._id
     }, (err, ads) => {
@@ -57,7 +58,7 @@ adRouter.get('/', isLoggedIn, (req, res) => {
         user: req.user
       });
     });
-  }else {
+  } else {
     //Add a UI here
     res.send("Incorrect Page")
   }
@@ -96,61 +97,76 @@ adRouter.post('/', (req, res) => {
       res.json({
         msg: 'error'
       });
-    }  else {
-      let cover_photo='';
-      let remaining_images=[];
-      async.forEachOf(req.files,function (file,i,callback){
-            console.log(i)
-            const bucket = storage.bucket('bechdaal_bucket')
-            const { originalname, buffer } = file
-            const blob = bucket.file('ad_images/'+originalname.replace(/ /g, "_"))
-            const blobStream = blob.createWriteStream({
-              resumable: false
-            })
-            blobStream.on('finish', () => {
-              if(i===0){
-                cover_photo =`https://storage.googleapis.com/${bucket.name}/${blob.name}`;
-              }
-              else {
-                remaining_images.push(`https://storage.googleapis.com/${bucket.name}/${blob.name}`);
-              }
-              callback(null)
-            }).on('error', (err) => {callback(err)}).end(buffer)
-          },
-          function (err){
-            if(err){
-              console.log(err)
-              res.send('ERROR')
-            } else {
-              console.log('Images Uploaded')
-              const new_ad = new AdSchema({
-                title: req.body.title,
-                category: req.body.category,
-                sub_category: req.body.subcategory,
-                model: req.body.model,
-                brand: req.body.brand,
-                cover_photo: cover_photo,
-                price: req.body.price,
-                user: req.user,
-                address: req.body.address,
-                contact_number: req.body.contact,
-                featured: req.body.featured,
-                images: remaining_images,
-                description: req.body.description,
-                date_posted: new Date(),
-                // date_sold: req.body.date_sold
-              });
-              console.log(new_ad)
+    } else {
+      let cover_photo = '';
+      let remaining_images = [];
+      async.forEachOf(req.files, function (file, i, callback) {
+        console.log(i)
+        const bucket = storage.bucket('bechdaal_bucket')
+        const { originalname, buffer } = file
+        const blob = bucket.file('ad_images/' + originalname.replace(/ /g, "_"))
+        const blobStream = blob.createWriteStream({
+          resumable: false
+        })
+        blobStream.on('finish', () => {
+          if (i === 0) {
+            cover_photo = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+          }
+          else {
+            remaining_images.push(`https://storage.googleapis.com/${bucket.name}/${blob.name}`);
+          }
+          callback(null)
+        }).on('error', (err) => { callback(err) }).end(buffer)
+      },
+        function (err) {
+          if (err) {
+            console.log(err)
+            res.send('ERROR')
+          } else {
+            console.log('Images Uploaded')
+            const new_ad = new AdSchema({
+              title: sanitize(req.body.title),
+              category: sanitize(req.body.category),
+              sub_category: sanitize(req.body.subcategory),
+              model: sanitize(req.body.model),
+              brand: sanitize(req.body.brand),
+              cover_photo: sanitize(cover_photo),
+              price: sanitize(req.body.price),
+              user: sanitize(req.user),
+              address: sanitize(req.body.address),
+              contact_number: sanitize(req.body.contact),
+              featured: sanitize(req.body.featured),
+              images: sanitize(remaining_images),
+              description: sanitize(req.body.description),
+              date_posted: sanitize(new Date()),
+              // date_sold: req.body.date_sold
+            });
+            console.log(new_ad)
 
-              new_ad.save()
-                  .then((ad) => {
-                    res.statusCode = 200;
-                    res.setHeader('Content-Type', 'application/json');
-                    res.json(ad);
+            new_ad.save()
+              .then((ad) => {
+
+                // decrementing no of free ads available to user
+                User.findById(sanitize(req.user._id))
+                  .then((user) => {
+                    if (user.noOfFreeAds < 3) {
+                      user.noOfFreeAds += 1;
+                      user.save()
+                        .then((user) => {
+                          console.log(`You have now ${3 - user.noOfFreeAds} free ads remaining`);
+                        })
+                    } else {
+                      console.log(`You don't have any free postable ads now`);
+                    }
                   })
-                  .catch((err) => console.log(err));
-            }
-          })
+
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json(ad);
+              })
+              .catch((err) => console.log(err));
+          }
+        })
     }
   });
 });
@@ -159,7 +175,7 @@ adRouter.post('/', (req, res) => {
 //DONE
 //ERROR PAGE LEFT
 adRouter.get('/editad/:adid', isLoggedIn, (req, res) => {
-  if(req.user.isSeller ===true){
+  if (req.user.isSeller === true) {
     Ads.find({
       _id: sanitize(req.params.adid)
     }, (err, ad) => {
@@ -168,7 +184,7 @@ adRouter.get('/editad/:adid', isLoggedIn, (req, res) => {
         user: req.user
       });
     });
-  }else {
+  } else {
     console.log("Error")
     res.send("Error")
   }
@@ -215,28 +231,28 @@ adRouter.post('/editad', (req, res) => {
 // here you will just add the id of the ad in the url itself, and will get that single ad
 //WHAT DOES PUT Route do here??
 adRouter.route('/:adId')
-    .get((req, res) => {
-      AdSchema.findById(sanitize(req.params.adId))
-          .then((ad) => {
-            // console.log(ad);
-            res.render('show_ad', {
-              ad: ad,
-              user: req.user
-            });
-          }).catch((err) => console.log(err));
+  .get((req, res) => {
+    AdSchema.findById(sanitize(req.params.adId))
+      .then((ad) => {
+        // console.log(ad);
+        res.render('show_ad', {
+          ad: ad,
+          user: req.user
+        });
+      }).catch((err) => console.log(err));
+  })
+  .put((req, res) => {
+    Ads.findByIdAndUpdate(req.params.adId, {
+      $set: req.body
+    }, {
+      new: true
     })
-    .put((req, res) => {
-      Ads.findByIdAndUpdate(req.params.adId, {
-        $set: req.body
-      }, {
-        new: true
-      })
-          .then((ad) => {
-            res.statusCode = 200;
-            res.setHeader('Content-Type', 'application/json');
-            res.json(ad);
-          }).catch((err) => console.log(err));
-    });
+      .then((ad) => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(ad);
+      }).catch((err) => console.log(err));
+  });
 
 adRouter.get('/ads/post', isLoggedIn, function (req, res) {
   res.render('postAd.ejs', {
@@ -258,40 +274,40 @@ function isLoggedIn(req, res, next) {
 
 
 adRouter.route('/grid_ads/a')
-    .get((req, res, next) => {
+  .get((req, res, next) => {
 
-      const page = parseInt(req.query.page);
-      const featuredLimit = 3;
-      const ordinaryLimit = 6;
+    const page = parseInt(req.query.page);
+    const featuredLimit = 3;
+    const ordinaryLimit = 6;
 
-      const featuredStartIndex = (page - 1) * featuredLimit;
-      const ordinaryStartIndex = (page - 1) * ordinaryLimit;
+    const featuredStartIndex = (page - 1) * featuredLimit;
+    const ordinaryStartIndex = (page - 1) * ordinaryLimit;
 
-      const featuredEndIndex = page * featuredLimit;
-      const ordinaryEndIndex = page * ordinaryLimit;
+    const featuredEndIndex = page * featuredLimit;
+    const ordinaryEndIndex = page * ordinaryLimit;
 
 
-      Ads.find({})
-          .then((ads) => {
-            const featuredAds = ads.filter((item, index) => item.price > 5000);
-            const ordinaryAds = ads.filter((item, index) => item.price < 5000);
+    Ads.find({})
+      .then((ads) => {
+        const featuredAds = ads.filter((item, index) => item.price > 5000);
+        const ordinaryAds = ads.filter((item, index) => item.price < 5000);
 
-            const paginatedFeaturedAds = featuredAds.slice(featuredStartIndex, featuredEndIndex);
-            const paginatedOrdinaryAds = ordinaryAds.slice(ordinaryStartIndex, ordinaryEndIndex);
+        const paginatedFeaturedAds = featuredAds.slice(featuredStartIndex, featuredEndIndex);
+        const paginatedOrdinaryAds = ordinaryAds.slice(ordinaryStartIndex, ordinaryEndIndex);
 
-            let results = {
-              featured: paginatedFeaturedAds,
-              ordinary: paginatedOrdinaryAds,
-            }
+        let results = {
+          featured: paginatedFeaturedAds,
+          ordinary: paginatedOrdinaryAds,
+        }
 
-            if (featuredEndIndex < featuredAds.length || ordinaryEndIndex < ordinaryAds.length) results.nextPage = page + 1
+        if (featuredEndIndex < featuredAds.length || ordinaryEndIndex < ordinaryAds.length) results.nextPage = page + 1
 
-            if (featuredStartIndex > 0) results.previousPage = page - 1;
+        if (featuredStartIndex > 0) results.previousPage = page - 1;
 
-            res.statusCode = 200;
-            res.setHeader('Content-Type', 'application/json');
-            res.json(results)
-          })
-    })
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(results)
+      })
+  })
 
 module.exports = adRouter;

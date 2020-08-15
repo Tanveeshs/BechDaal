@@ -57,6 +57,15 @@ const adSchema = new Schema({
   date_posted: {
     type: Date
   },
+  deliverableAreas: [{
+    type: String
+  }],
+  deliveryFromTime: {
+    type: Date()
+  },
+  deliveryToTime: {
+    type: Date()
+  }
   // Not required
 
   // date_sold: {
