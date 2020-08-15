@@ -1,10 +1,10 @@
 const express = require('express')
 const Router = express.Router()
 const Razorpay = require('razorpay')
-const instance = new Razorpay({
-    key_id:process.env.razorpay_key,
-    key_secret:process.env.razorpay_secret
-})
+// const instance = new Razorpay({
+//     key_id:process.env.razorpay_key,
+//     key_secret:process.env.razorpay_secret
+// })
 const ad = require('../model/ad')
 const uuid = require('uuid')
 const crypto = require('crypto')
@@ -40,7 +40,7 @@ Router.post('/ad',function (req,res){
             name:req.user.local.username,
             email:req.user.local.email,
             contact:req.user.local.contact,
-            key_id:process.env.razorpay_key,
+            // key_id:process.env.razorpay_key,
         })
     });
 })
