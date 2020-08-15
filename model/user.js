@@ -22,6 +22,11 @@ const userSchema = new mongoose.Schema({
     ref: 'Offers'
   }],
 
+  noOfFreeAds: {
+    type: Number,
+    default: 0
+  },
+
   //Got domain can work on facebook
 
   // facebook: {
@@ -55,8 +60,14 @@ const userSchema = new mongoose.Schema({
   }],
   //Extra Field
   ContactNumber: Number,
-
   IsActive: Boolean,
+  Ratings:{type:
+        [{
+        rating:Number,
+        adId:mongoose.Types.ObjectId
+        }],
+        default:null}
+
 });
 
 userSchema.methods.generateHash = function(password) {
