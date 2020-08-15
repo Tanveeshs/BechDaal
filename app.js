@@ -1,5 +1,7 @@
 //jshint esversion:6
 
+const dotenv = require('dotenv');
+dotenv.config();
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -19,6 +21,7 @@ const wishlist = require('./routes/wishlist');
 const offers = require('./routes/offers');
 const adminRouter = require('./routes/admin')
 // const smsverify = require('./routes/sms');
+var forceSsl = require('express-force-ssl');
 
 const PORT = process.env.PORT || 8080;
 mongoose.connect(configDB.url, {
@@ -60,10 +63,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     secret: 'XYZZ'
 }));
-
-
+const ratingsAndReviews = require('./routes/RatingsAndReviews')
+const payment = require('./routes/payment')
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use(flash());
 require('./routes/RegisterAndLogin')(app, passport);
 
@@ -77,55 +81,14 @@ app.use('/myprofile', myprofile);
 app.use('/wish', wishlist);
 app.use('/offers', offers);
 app.use('/admin',adminRouter)
-const multer = require('multer')
-const multerMid = multer({
-    storage: multer.memoryStorage(),
-    limits: {
-        fileSize: 5 * 1024 * 1024,
-    },
-})
-app.use(multerMid.array('images',5))
-
-var {Storage} = require('@google-cloud/storage');
-app.post('/testImage',(req,res)=>{
-    const storage = new Storage({
-        keyFilename: 'cloudStorage.json',
-        projectId: 'stoked-courier-276420',
-    })
-    const bucket = storage.bucket('bechdaal_bucket',)
-    const { originalname, buffer } = req.files[0]
-    const blob = bucket.file('ad_images/'+originalname.replace(/ /g, "_"))
-    const blobStream = blob.createWriteStream({
-        resumable: false
-    })
-    blobStream.on('finish', () => {
-        const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`
-        console.log(publicUrl)
-    })
-        .on('error', () => {console.log("error")})
-        .end(buffer)
-})
-
-app.get('/CloudTest',(req,res)=>{
-    res.send("Show Demo")
-    console.log('GOod')
-})
-
-
+app.use('/payment',payment)
+app.use('/reviews',ratingsAndReviews)
 
 
 //for app engine
-
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}...`);
 });
-
-
-//for compute engine
-
-// var https_server = https.createServer(options, app).listen(443, function(err){
-//     console.log("Node.js Express HTTPS Server Listening on Port 443");
-// });
 
 // var http_server = http.createServer(app).listen(80, function(err){
 //     console.log("Node.js Express HTTPS Server Listening on Port 80");
