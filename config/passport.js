@@ -114,7 +114,7 @@ module.exports = function(passport) {
                 throw err;
 
               // if successful, return the new user
-              return done(null, newUser, req.flash('message', 'Signup'));
+              return done(null, newUser);
             });
           }
 
@@ -162,7 +162,7 @@ module.exports = function(passport) {
             newUser.save(function(err) {
               if (err)
                 throw err;
-              return done(null, newUser,req.flash('message','Signup'));
+              return done(null, newUser);
             });
           }
         });
