@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const Category = require('../model/category').CategoryModel
 const User = require('../model/user').User;
+const Storage = require('../config/cloudStorage')
 const users = [
     {
         username:'admin',
@@ -20,14 +21,6 @@ const users = [
         role: 'admin'
     }
 ]
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads')
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname + '-' + Date.now())
-    }
-})
 const fileFilter = (req, file, cb) => {
     if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
         cb(null, true);
@@ -36,9 +29,13 @@ const fileFilter = (req, file, cb) => {
     }
 };
 const upload = multer({
-    storage:storage,
-    fileFilter:fileFilter
+    storage: multer.memoryStorage(),
+    limits: {
+        fileSize: 5 * 1024 * 1024,
+    },
+    fileFilter: fileFilter
 })
+
 Router.use(bodyParser.json());
 const secret = 'SSSS'
 const authenticateJWT = (req, res, next) => {
@@ -70,7 +67,6 @@ Router.post('/login', (req, res) => {
     if (user) {
 
         req.session.token = jwt.sign({ username: user.username,  role: user.role }, secret);
-        console.log(req.session)
         res.redirect('home')
     } else {
         res.send('Username or password incorrect');
@@ -124,9 +120,20 @@ Router.post('/addCategory',authenticateJWT,upload.single('CategoryImage'),(req,r
             var obj = new Category()
             obj.name = req.body.category;
             obj.subcategory = req.body.subCategory.split(',')
-            obj.image = req.file.path
-            obj.save()
+            const bucket = Storage.bucket('bechdaal_bucket')
+            const { originalname, buffer } = req.file
+            const blob = bucket.file('category_images/' + originalname.replace(/ /g, "_"))
+            const blobStream = blob.createWriteStream({
+                resumable: false
+            })
+            blobStream.on('finish', () => {
+                obj.image = `https://storage.googleapis.com/${bucket.name}/${blob.name}`
+                obj.save()
+            }).on('error', (err) => {
+                console.log("Error")
+            }).end(buffer)
         }
+
     })
     res.redirect('/admin/home')
 })
@@ -153,10 +160,25 @@ Router.route('/category/edit/:id')
         Category.findOne({_id:req.params.id},(err,result)=>{
             result.name = req.body.category;
             result.subcategory = req.body.subCategory.split(',')
-            if(req.file !== undefined){
-                result.image = '/'+req.file.filename;
+            if(req.file){
+                const bucket = Storage.bucket('bechdaal_bucket')
+                const { originalname, buffer } = req.file
+                const blob = bucket.file('category_images/' + originalname.replace(/ /g, "_"))
+                const blobStream = blob.createWriteStream({
+                    resumable: false
+                })
+                blobStream.on('finish', () => {
+                    result.image = `https://storage.googleapis.com/${bucket.name}/${blob.name}`
+                    result.save()
+                }).on('error', (err) => {
+                    console.log("Error")
+                }).end(buffer)
             }
-            result.save()
+            else {
+                result.save()
+            }
+
+        }).then(()=>{
             res.redirect('/admin/home')
         })
     })

@@ -60,12 +60,10 @@ const adSchema = new Schema({
   deliverableAreas: [{
     type: String
   }],
-  deliveryFromTime: {
-    type: Date()
-  },
-  deliveryToTime: {
-    type: Date()
-  }
+  deliveryTimes:[{
+    From:String,
+    To:String
+  }],
   // Not required
 
   // date_sold: {

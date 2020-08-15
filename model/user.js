@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
   noOfFreeAds: {
     type: Number,
     default: 0
-  }
+  },
 
   //Got domain can work on facebook
 
