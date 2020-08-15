@@ -29,12 +29,12 @@ const userSchema = new mongoose.Schema({
 
   //Got domain can work on facebook
 
-  // facebook: {
-  //   id: String,
-  //   token: String,
-  //   name: String,
-  //   email: String
-  // },
+  facebook: {
+    id: String,
+    token: String,
+    name: String,
+    email: String
+  },
 
   google: {
     id: String,
