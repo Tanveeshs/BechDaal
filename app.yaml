@@ -4,3 +4,6 @@ handlers:
     secure: always
     redirect_http_response_code: 301
     script: auto
+automatic_scaling:
+  target_cpu_utilization: 0.80
+  max_instances: 2
