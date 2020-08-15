@@ -1,0 +1,22 @@
+
+<html>
+<body>
+<form action="http://localhost:3001/payment/callback/" method="POST">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"
+            data-key="<%=key_id%>"
+            data-amount="<%=amount%>" data-currency="INR"
+            data-order_id="<%=order_id%>"
+            data-buttontext="Pay with Razorpay"
+            data-name="Bech Daal"
+            data-description="Premium Ads"
+            data-image="http://localhost:3001/images/Bech Daal Logo.png"
+            data-prefill.name="<%=name%>"
+            data-prefill.email="<%=email%>"
+            data-prefill.contact="<%=contact%>"
+            data-theme.color="#F37254"
+    ></script>
+    <input type="hidden" custom="Hidden Element" name="hidden">
+
+</form>
+</body>
+</html>

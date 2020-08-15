@@ -78,7 +78,23 @@ const adSchema = new Schema({
       default:false
     },
     reason:String,
-  }
+  },
+  payment:{
+    order_id:String,
+    payment_id:String,
+  },
+  //Would be set to true if Paud or free ad
+  //Would be set to false if Unpaid
+  isPaid:Boolean,
+  reviews:[{
+    Comment:String,
+    by:String,
+    time:{type:Date,default:Date.now()}
+  }],
+  //Average Rating
+  AvgRating:{type:Number,default:0},
+  //Number of Users That rated
+  NumRated:{type:Number,default:0}
 });
 
 

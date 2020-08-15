@@ -55,8 +55,14 @@ const userSchema = new mongoose.Schema({
   }],
   //Extra Field
   ContactNumber: Number,
-
   IsActive: Boolean,
+  Ratings:{type:
+        [{
+        rating:Number,
+        adId:mongoose.Types.ObjectId
+        }],
+        default:null}
+
 });
 
 userSchema.methods.generateHash = function(password) {
