@@ -1,5 +1,7 @@
 //jshint esversion:6
 
+const dotenv = require('dotenv');
+dotenv.config();
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -61,10 +63,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     secret: 'XYZZ'
 }));
-
-
+const ratingsAndReviews = require('./routes/RatingsAndReviews')
+const payment = require('./routes/payment')
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use(flash());
 require('./routes/RegisterAndLogin')(app, passport);
 
@@ -78,6 +81,8 @@ app.use('/myprofile', myprofile);
 app.use('/wish', wishlist);
 app.use('/offers', offers);
 app.use('/admin',adminRouter)
+app.use('/payment',payment)
+app.use('/reviews',ratingsAndReviews)
 
 
 //for app engine

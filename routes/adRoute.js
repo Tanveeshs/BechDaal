@@ -261,15 +261,15 @@ adRouter.get('/ads/post', isLoggedIn, function (req, res) {
 });
 
 function isLoggedIn(req, res, next) {
-  try {
-    if (req.isAuthenticated()) {
-      req.isLogged = true;
-      return next();
+    try {
+        if (req.isAuthenticated()) {
+            req.isLogged = true;
+            return next();
+        }
+        res.redirect('/login');
+    } catch (e) {
+        console.log(e);
     }
-    res.redirect('/login');
-  } catch (e) {
-    console.log(e);
-  }
 }
 
 
