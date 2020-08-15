@@ -4,4 +4,6 @@ handlers:
     secure: always
     redirect_http_response_code: 301
     script: auto
-
+basic_scaling:
+  max_instances: 2
+  idle_timeout: 2m
