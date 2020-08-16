@@ -54,10 +54,11 @@ adRouter.get('/', isLoggedIn, (req, res) => {
     Ads.find({
       'user._id': req.user._id
     }, (err, ads) => {
-      res.render('myAds', {
-        ads: ads,
-        user: req.user
-      });
+      // res.render('myAds', {
+      //   ads: ads,
+      //   user: req.user
+      // });
+        res.send(ads)
     });
   } else {
     //Add a UI here

@@ -1,6 +1,6 @@
 //jshint esversion:6
 
-// const dotenv = require('dotenv');
+const dotenv = require('dotenv');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -92,9 +92,9 @@ app.get('/test',function (req,res){
     res.send('Done')
 })
 //for app engine
-app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}...`);
-});
+// app.listen(PORT, () => {
+//     console.log(`Server listening on port ${PORT}...`);
+// });
 
 
 //for compute engine
@@ -104,9 +104,9 @@ app.listen(PORT, () => {
 //     console.log("Node.js Express HTTPS Server Listening on Port 443");
 // });
 
-// var http_server = http.createServer(app).listen(80, function(err){
-//     console.log("Node.js Express HTTPS Server Listening on Port 80");
-// });
+var http_server = http.createServer(app).listen(80, function(err){
+    console.log("Node.js Express HTTPS Server Listening on Port 80");
+});
 
 //local test
 
