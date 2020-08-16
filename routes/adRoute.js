@@ -125,20 +125,20 @@ adRouter.post('/', (req, res) => {
           } else {
             console.log('Images Uploaded')
             const new_ad = new AdSchema({
-              title: sanitize(req.body.title),
-              category: sanitize(req.body.category),
-              sub_category: sanitize(req.body.subcategory),
-              model: sanitize(req.body.model),
-              brand: sanitize(req.body.brand),
-              cover_photo: sanitize(cover_photo),
-              price: sanitize(req.body.price),
-              user: sanitize(req.user),
-              address: sanitize(req.body.address),
-              contact_number: sanitize(req.body.contact),
-              featured: sanitize(req.body.featured),
-              images: sanitize(remaining_images),
-              description: sanitize(req.body.description),
-              date_posted: sanitize(new Date()),
+              title: req.body.title,
+              category: req.body.category,
+              sub_category: req.body.subcategory,
+              model: req.body.model,
+              brand: req.body.brand,
+              cover_photo: cover_photo,
+              price: req.body.price,
+              user: req.user,
+              address: req.body.address,
+              contact_number: req.body.contact,
+              featured: req.body.featured,
+              images: remaining_images,
+              description: req.body.description,
+              date_posted: new Date(),
               // date_sold: req.body.date_sold
             });
             console.log(new_ad)
@@ -147,7 +147,7 @@ adRouter.post('/', (req, res) => {
               .then((ad) => {
 
                 // decrementing no of free ads available to user
-                User.findById(sanitize(req.user._id))
+                User.findById(req.user._id)
                   .then((user) => {
                     if (user.noOfFreeAds < 3) {
                       user.noOfFreeAds += 1;
@@ -206,16 +206,16 @@ adRouter.post('/editad', (req, res) => {
     _id: sanitize(req.body.adid)
   }, {
     '$set': {
-      'title': sanitize(req.body.title),
-      'category': sanitize(req.body.category),
-      'sub_category': sanitize(req.body.subcategory),
-      'model': sanitize(req.body.model),
-      'brand': sanitize(req.body.brand),
-      'price': sanitize(req.body.price),
+      'title':req.body.title,
+      'category': req.body.category,
+      'sub_category': req.body.subcategory,
+      'model': req.body.model,
+      'brand': req.body.brand,
+      'price': req.body.price,
       'user': req.user,
-      'address': sanitize(req.body.address),
-      'contact_number': sanitize(req.body.contact),
-      'description': sanitize(req.body.description),
+      'address': req.body.address,
+      'contact_number': req.body.contact,
+      'description': req.body.description,
     }
   }, function (err) {
     // Updated at most one doc, `res.modifiedCount` contains the number
