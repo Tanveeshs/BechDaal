@@ -8,16 +8,16 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
-const fs = require('fs')
-const bodyParser = require('body-parser')
+const fs = require('fs');
+const bodyParser = require('body-parser');
 const http = require("http");
 const cors = require('cors');
 
 dotenv.config();
 const configDB = require('./config/database');
 mongoose.connect(configDB.url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
 const PORT = process.env.PORT || 8080;
 // Not required for now HTTPS CERT
@@ -28,15 +28,15 @@ const PORT = process.env.PORT || 8080;
 require('./config/passport')(passport);
 let app = express();
 app.use(express.json());
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 app.use(express.urlencoded({
-    extended: false
+  extended: false
 }));
 // noinspection JSCheckFunctionSignatures
 app.use(cookieParser());
 // noinspection JSCheckFunctionSignatures
 app.use(session({
-    secret: 'BechDaal'
+  secret: 'BechDaal'
 }));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -57,10 +57,10 @@ const categoryRoute = require('./routes/category');
 const myprofile = require('./routes/myprofile');
 const wishlist = require('./routes/wishlist');
 const offers = require('./routes/offers');
-const adminRouter = require('./routes/admin')
-const ratingsAndReviews = require('./routes/RatingsAndReviews')
-const payment = require('./routes/payment')
-const docsRouter = require('./routes/docs')
+const adminRouter = require('./routes/admin');
+const ratingsAndReviews = require('./routes/RatingsAndReviews');
+const payment = require('./routes/payment');
+const docsRouter = require('./routes/docs');
 // const test = require('./routes/test');
 // const smsverify = require('./routes/sms');
 // const xg = require('./routes/searchRoute');
@@ -80,16 +80,16 @@ app.use('/search', searchRoute);
 app.use('/myprofile', myprofile);
 app.use('/wish', wishlist);
 app.use('/offers', offers);
-app.use('/admin',adminRouter)
-app.use('/payment',payment)
-app.use('/reviews',ratingsAndReviews)
-app.use('/docs',docsRouter)
+app.use('/admin', adminRouter);
+app.use('/payment', payment);
+app.use('/reviews', ratingsAndReviews);
+app.use('/docs', docsRouter);
 
 
-app.get('/test',function (req,res){
-    console.log(Date.now()+(1000*60*60*24))
-    res.send('Done')
-})
+app.get('/test', function(req, res) {
+  console.log(Date.now() + (1000 * 60 * 60 * 24));
+  res.send('Done');
+});
 //for app engine
 // app.listen(PORT, () => {
 //     console.log(`Server listening on port ${PORT}...`);
@@ -109,6 +109,6 @@ app.get('/test',function (req,res){
 
 //local test
 
-var http_server = http.createServer(app).listen(3000, function(err){
-    console.log("Node.js Express HTTPS Server Listening on Port 300to app0");
+var http_server = http.createServer(app).listen(3000, function(err) {
+  console.log("Node.js Express HTTPS Server Listening on Port 300 to app0");
 });
