@@ -25,7 +25,7 @@ const multerMid = multer({
   limits: {
     fileSize: 5 * 1024 * 1024,
   },
-  fileFilter: fileFilter
+    fileFilter: fileFilter
 }).array('images', 12)
 adRouter.use(bodyParser.json());
 
@@ -104,7 +104,9 @@ adRouter.post('/', (req, res) => {
         console.log(i)
         const bucket = storage.bucket('bechdaal_bucket')
         const { originalname, buffer } = file
-        const blob = bucket.file('ad_images/' + originalname.replace(/ /g, "_"))
+        const fileName = originalname+'-'+Date.now()
+        const blob = bucket.file('ad_images/' + fileName.replace(/ /g, "_"))
+
         const blobStream = blob.createWriteStream({
           resumable: false
         })
@@ -161,7 +163,6 @@ adRouter.post('/', (req, res) => {
                   })
 
                 res.statusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
                 // res.json(ad);
                 res.render('afterPostAd.ejs')
               })
