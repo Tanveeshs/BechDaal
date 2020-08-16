@@ -104,12 +104,12 @@ app.get('/test',function (req,res){
 //     console.log("Node.js Express HTTPS Server Listening on Port 443");
 // });
 
-var http_server = http.createServer(app).listen(80, function(err){
-    console.log("Node.js Express HTTPS Server Listening on Port 80");
-});
+// var http_server = http.createServer(app).listen(80, function(err){
+//     console.log("Node.js Express HTTPS Server Listening on Port 80");
+// });
 
 //local test
 
-// var http_server = http.createServer(app).listen(3000, function(err){
-//     console.log("Node.js Express HTTPS Server Listening on Port 300to app0");
-// });
+var http_server = http.createServer(app).listen(3000, function(err){
+    console.log("Node.js Express HTTPS Server Listening on Port 300to app0");
+});
