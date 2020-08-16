@@ -4,29 +4,30 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const adRouter = express.Router();
 const multer = require('multer');
-const AdSchema = require('../model/ad');
-const Ads = require('../model/ad');
 const async = require('async')
-const storage = require('../config/cloudStorage')
 const sanitize = require('mongo-sanitize');
-const { User } = require('../model/user');
 
+const storage = require('../config/cloudStorage')
+const adRouter = express.Router();
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-    cb(null, true);
-  } else {
-    cb(new Error('file type not supported'), false);
-  }
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        cb(null, true);
+    } else {
+        cb(new Error('file type not supported'), false);
+    }
 };
 const multerMid = multer({
-  storage: multer.memoryStorage(),
-  limits: {
-    fileSize: 5 * 1024 * 1024,
-  },
+    storage: multer.memoryStorage(),
+    limits: {
+        fileSize: 5 * 1024 * 1024,
+    },
     fileFilter: fileFilter
 }).array('images', 12)
+
+const Ads = require('../model/ad');
+const { User } = require('../model/user');
+
 adRouter.use(bodyParser.json());
 
 
@@ -127,7 +128,7 @@ adRouter.post('/', (req, res) => {
             res.send('ERROR')
           } else {
             console.log('Images Uploaded')
-            const new_ad = new AdSchema({
+            const new_ad = new Ads({
               title: req.body.title,
               category: req.body.category,
               sub_category: req.body.subcategory,
@@ -242,7 +243,7 @@ adRouter.post('/editad', (req, res) => {
 //WHAT DOES PUT Route do here??
 adRouter.route('/:adId')
   .get((req, res) => {
-    AdSchema.findById(sanitize(req.params.adId))
+    Ads.findById(sanitize(req.params.adId))
       .then((ad) => {
         // console.log(ad);
         res.render('show_ad', {
@@ -267,7 +268,7 @@ adRouter.route('/:adId')
 
 //Thinking to use this to display the ad
 adRouter.post('/show',(req, res) => {
-        AdSchema.findById(sanitize(req.body.adId))
+        Ads.findById(sanitize(req.body.adId))
             .then((ad) => {
                 // console.log(ad);
                 res.render('show_ad', {

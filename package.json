@@ -43,6 +43,7 @@
     "passport-local": "^1.0.0",
     "razorpay": "^2.0.6",
     "socket.io": "^2.3.0",
-    "uuid": "^8.3.0"
+    "uuid": "^8.3.0",
+    "xml": "^1.0.1"
   }
 }

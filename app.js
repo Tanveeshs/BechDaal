@@ -61,6 +61,7 @@ const adminRouter = require('./routes/admin')
 const ratingsAndReviews = require('./routes/RatingsAndReviews')
 const payment = require('./routes/payment')
 const docsRouter = require('./routes/docs')
+const sitemapRouter = require('./routes/sitemap')
 // const test = require('./routes/test');
 // const smsverify = require('./routes/sms');
 // const xg = require('./routes/searchRoute');
@@ -84,7 +85,7 @@ app.use('/admin',adminRouter)
 app.use('/payment',payment)
 app.use('/reviews',ratingsAndReviews)
 app.use('/docs',docsRouter)
-
+app.use('/sitemap',sitemapRouter)
 
 app.get('/test',function (req,res){
     console.log(Date.now()+(1000*60*60*24))
