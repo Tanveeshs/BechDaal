@@ -90,7 +90,7 @@ const adSchema = new Schema({
     order_id:String,
     payment_id:String,
   },
-  //Would be set to true if Paud or free ad
+  //Would be set to true if Paid or free ad
   //Would be set to false if Unpaid
   isPaid:Boolean,
   reviews:[{

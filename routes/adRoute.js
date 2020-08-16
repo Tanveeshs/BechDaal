@@ -162,7 +162,8 @@ adRouter.post('/', (req, res) => {
 
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
-                res.json(ad);
+                // res.json(ad);
+                res.render('afterPostAd.ejs')
               })
               .catch((err) => console.log(err));
           }
@@ -216,6 +217,7 @@ adRouter.post('/editad', (req, res) => {
       'address': req.body.address,
       'contact_number': req.body.contact,
       'description': req.body.description,
+      'approved':false,
     }
   }, function (err) {
     // Updated at most one doc, `res.modifiedCount` contains the number
