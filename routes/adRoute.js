@@ -4,29 +4,30 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const adRouter = express.Router();
 const multer = require('multer');
-const AdSchema = require('../model/ad');
-const Ads = require('../model/ad');
 const async = require('async')
-const storage = require('../config/cloudStorage')
 const sanitize = require('mongo-sanitize');
-const { User } = require('../model/user');
 
+const storage = require('../config/cloudStorage')
+const adRouter = express.Router();
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-    cb(null, true);
-  } else {
-    cb(new Error('file type not supported'), false);
-  }
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        cb(null, true);
+    } else {
+        cb(new Error('file type not supported'), false);
+    }
 };
 const multerMid = multer({
-  storage: multer.memoryStorage(),
-  limits: {
-    fileSize: 5 * 1024 * 1024,
-  },
-  fileFilter: fileFilter
+    storage: multer.memoryStorage(),
+    limits: {
+        fileSize: 5 * 1024 * 1024,
+    },
+    fileFilter: fileFilter
 }).array('images', 12)
+
+const Ads = require('../model/ad');
+const { User } = require('../model/user');
+
 adRouter.use(bodyParser.json());
 
 
@@ -88,6 +89,7 @@ adRouter.get('/ad/ad/:adid', isLoggedIn, (req, res) => {
 //Changes to Image Upload
 //DONE
 //MAKE AN ERROR PAGE
+//Think yahaan pe If I dont have postable ads I still posted the ad
 adRouter.post('/', (req, res) => {
   multerMid(req, res, async (err) => {
     if (err) {
@@ -104,7 +106,9 @@ adRouter.post('/', (req, res) => {
         console.log(i)
         const bucket = storage.bucket('bechdaal_bucket')
         const { originalname, buffer } = file
-        const blob = bucket.file('ad_images/' + originalname.replace(/ /g, "_"))
+        const fileName = originalname+'-'+Date.now()
+        const blob = bucket.file('ad_images/' + fileName.replace(/ /g, "_"))
+
         const blobStream = blob.createWriteStream({
           resumable: false
         })
@@ -124,7 +128,7 @@ adRouter.post('/', (req, res) => {
             res.send('ERROR')
           } else {
             console.log('Images Uploaded')
-            const new_ad = new AdSchema({
+            const new_ad = new Ads({
               title: req.body.title,
               category: req.body.category,
               sub_category: req.body.subcategory,
@@ -141,11 +145,8 @@ adRouter.post('/', (req, res) => {
               date_posted: new Date(),
               // date_sold: req.body.date_sold
             });
-            console.log(new_ad)
-
             new_ad.save()
               .then((ad) => {
-
                 // decrementing no of free ads available to user
                 User.findById(req.user._id)
                   .then((user) => {
@@ -159,10 +160,8 @@ adRouter.post('/', (req, res) => {
                       console.log(`You don't have any free postable ads now`);
                     }
                   })
-
-                res.statusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
-                res.json(ad);
+                // res.json(ad);
+                res.render('afterPostAd.ejs')
               })
               .catch((err) => console.log(err));
           }
@@ -175,14 +174,20 @@ adRouter.post('/', (req, res) => {
 //DONE
 //ERROR PAGE LEFT
 adRouter.get('/editad/:adid', isLoggedIn, (req, res) => {
-  if (req.user.isSeller === true) {
+    if (req.user.isSeller === true) {
     Ads.find({
-      _id: sanitize(req.params.adid)
+      _id: sanitize(req.params.adid),
+      'user._id':req.user._id
     }, (err, ad) => {
-      res.render('editad', {
-        ad: ad,
-        user: req.user
-      });
+        if(ad){
+            res.render('editad', {
+                ad: ad,
+                user: req.user
+            });
+        }
+        else {
+            res.send("Error")
+        }
     });
   } else {
     console.log("Error")
@@ -202,29 +207,35 @@ adRouter.post('/editad', (req, res) => {
   //   // remaining_images[i - 1] = req.files[i];
   //   remaining_images.push(req.files[i]);
   // }
-  Ads.findOneAndUpdate({
-    _id: sanitize(req.body.adid)
-  }, {
-    '$set': {
-      'title':req.body.title,
-      'category': req.body.category,
-      'sub_category': req.body.subcategory,
-      'model': req.body.model,
-      'brand': req.body.brand,
-      'price': req.body.price,
-      'user': req.user,
-      'address': req.body.address,
-      'contact_number': req.body.contact,
-      'description': req.body.description,
+    if(req.user.isSeller){
+        Ads.findOneAndUpdate({
+            _id: sanitize(req.body.adid),
+            'user._id':req.user._id
+        }, {
+            '$set': {
+                'title':req.body.title,
+                'category': req.body.category,
+                'sub_category': req.body.subcategory,
+                'model': req.body.model,
+                'brand': req.body.brand,
+                'price': req.body.price,
+                'user': req.user,
+                'address': req.body.address,
+                'contact_number': req.body.contact,
+                'description': req.body.description,
+                'approved':false,
+            }
+        }, function (err) {
+            // Updated at most one doc, `res.modifiedCount` contains the number
+            // of docs that MongoDB updated
+            if (err) {
+                console.log(err);
+            }
+        });
+        res.redirect('/sell');
+    } else {
+      res.send("Error")
     }
-  }, function (err) {
-    // Updated at most one doc, `res.modifiedCount` contains the number
-    // of docs that MongoDB updated
-    if (err) {
-      console.log(err);
-    }
-  });
-  res.redirect('/sell');
 });
 
 /* docs */
@@ -232,7 +243,7 @@ adRouter.post('/editad', (req, res) => {
 //WHAT DOES PUT Route do here??
 adRouter.route('/:adId')
   .get((req, res) => {
-    AdSchema.findById(sanitize(req.params.adId))
+    Ads.findById(sanitize(req.params.adId))
       .then((ad) => {
         // console.log(ad);
         res.render('show_ad', {
@@ -241,18 +252,34 @@ adRouter.route('/:adId')
         });
       }).catch((err) => console.log(err));
   })
-  .put((req, res) => {
-    Ads.findByIdAndUpdate(req.params.adId, {
-      $set: req.body
-    }, {
-      new: true
+// .put((req, res) => {
+//   Ads.findByIdAndUpdate(req.params.adId, {
+//     $set: req.body
+//   }, {
+//     new: true
+//   })
+//     .then((ad) => {
+//       res.statusCode = 200;
+//       res.setHeader('Content-Type', 'application/json');
+//       res.json(ad);
+//     }).catch((err) => console.log(err));
+// });
+
+
+//Thinking to use this to display the ad
+adRouter.post('/show',(req, res) => {
+        Ads.findById(sanitize(req.body.adId))
+            .then((ad) => {
+                // console.log(ad);
+                res.render('show_ad', {
+                    ad: ad,
+                    user: req.user
+                });
+            }).catch((err) => console.log(err));
     })
-      .then((ad) => {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(ad);
-      }).catch((err) => console.log(err));
-  });
+
+
+
 
 adRouter.get('/ads/post', isLoggedIn, function (req, res) {
   res.render('postAd.ejs', {
