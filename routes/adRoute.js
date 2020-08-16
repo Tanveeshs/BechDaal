@@ -173,14 +173,20 @@ adRouter.post('/', (req, res) => {
 //DONE
 //ERROR PAGE LEFT
 adRouter.get('/editad/:adid', isLoggedIn, (req, res) => {
-  if (req.user.isSeller === true) {
+    if (req.user.isSeller === true) {
     Ads.find({
-      _id: sanitize(req.params.adid)
+      _id: sanitize(req.params.adid),
+      'user._id':req.user._id
     }, (err, ad) => {
-      res.render('editad', {
-        ad: ad,
-        user: req.user
-      });
+        if(ad){
+            res.render('editad', {
+                ad: ad,
+                user: req.user
+            });
+        }
+        else {
+            res.send("Error")
+        }
     });
   } else {
     console.log("Error")
@@ -200,30 +206,35 @@ adRouter.post('/editad', (req, res) => {
   //   // remaining_images[i - 1] = req.files[i];
   //   remaining_images.push(req.files[i]);
   // }
-  Ads.findOneAndUpdate({
-    _id: sanitize(req.body.adid)
-  }, {
-    '$set': {
-      'title':req.body.title,
-      'category': req.body.category,
-      'sub_category': req.body.subcategory,
-      'model': req.body.model,
-      'brand': req.body.brand,
-      'price': req.body.price,
-      'user': req.user,
-      'address': req.body.address,
-      'contact_number': req.body.contact,
-      'description': req.body.description,
-      'approved':false,
+    if(req.user.isSeller){
+        Ads.findOneAndUpdate({
+            _id: sanitize(req.body.adid),
+            'user._id':req.user._id
+        }, {
+            '$set': {
+                'title':req.body.title,
+                'category': req.body.category,
+                'sub_category': req.body.subcategory,
+                'model': req.body.model,
+                'brand': req.body.brand,
+                'price': req.body.price,
+                'user': req.user,
+                'address': req.body.address,
+                'contact_number': req.body.contact,
+                'description': req.body.description,
+                'approved':false,
+            }
+        }, function (err) {
+            // Updated at most one doc, `res.modifiedCount` contains the number
+            // of docs that MongoDB updated
+            if (err) {
+                console.log(err);
+            }
+        });
+        res.redirect('/sell');
+    } else {
+      res.send("Error")
     }
-  }, function (err) {
-    // Updated at most one doc, `res.modifiedCount` contains the number
-    // of docs that MongoDB updated
-    if (err) {
-      console.log(err);
-    }
-  });
-  res.redirect('/sell');
 });
 
 /* docs */
@@ -240,18 +251,34 @@ adRouter.route('/:adId')
         });
       }).catch((err) => console.log(err));
   })
-  .put((req, res) => {
-    Ads.findByIdAndUpdate(req.params.adId, {
-      $set: req.body
-    }, {
-      new: true
+// .put((req, res) => {
+//   Ads.findByIdAndUpdate(req.params.adId, {
+//     $set: req.body
+//   }, {
+//     new: true
+//   })
+//     .then((ad) => {
+//       res.statusCode = 200;
+//       res.setHeader('Content-Type', 'application/json');
+//       res.json(ad);
+//     }).catch((err) => console.log(err));
+// });
+
+
+//Thinking to use this to display the ad
+adRouter.post('/show',(req, res) => {
+        AdSchema.findById(sanitize(req.body.adId))
+            .then((ad) => {
+                // console.log(ad);
+                res.render('show_ad', {
+                    ad: ad,
+                    user: req.user
+                });
+            }).catch((err) => console.log(err));
     })
-      .then((ad) => {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(ad);
-      }).catch((err) => console.log(err));
-  });
+
+
+
 
 adRouter.get('/ads/post', isLoggedIn, function (req, res) {
   res.render('postAd.ejs', {

@@ -90,5 +90,35 @@ Router.post('/callback',function (req,res){
 })
 
 
+Router.get('/offer',(req,res)=>{
+    const adId = sanitize(req.body.adId)
+    const quantity = req.body.quantity;
+    const specialMentions = req.body.specialMentions;
+    ad.findOne({_id:adId},(err,adPaidFor)=>{
+        let amount =Number(adPaidFor.price)*100*Number(quantity);
+        var options = {
+            amount:amount ,  // amount in the smallest currency unit
+            currency: "INR",
+            receipt: uuid.v4(),
+            payment_capture: '1',
+            notes:{
+                adId:adId,
+                quantity:quantity,
+                specialMentions:specialMentions
+            },
+            transfers:[{
+                account:adPaidFor.user.rzpId,
+                amount:0.95*amount,
+                currency:"INR",
+                on_hold:1,
+                on_hold_until:Date.now()+(1000*60*60*24)
+            }]
+        };
+        instance.orders.create()
+
+    })
+
+})
+
 
 module.exports = Router;

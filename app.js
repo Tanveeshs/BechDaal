@@ -85,6 +85,11 @@ app.use('/payment',payment)
 app.use('/reviews',ratingsAndReviews)
 app.use('/docs',docsRouter)
 
+
+app.get('/test',function (req,res){
+    console.log(Date.now()+(1000*60*60*24))
+    res.send('Done')
+})
 //for app engine
 // app.listen(PORT, () => {
 //     console.log(`Server listening on port ${PORT}...`);

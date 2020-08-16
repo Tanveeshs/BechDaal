@@ -53,7 +53,7 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now()
   },
-
+  rzpId:String,
   wishlist: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Ads'
@@ -63,10 +63,10 @@ const userSchema = new mongoose.Schema({
   IsActive: Boolean,
   Ratings:{type:
         [{
-        rating:Number,
-        adId:mongoose.Types.ObjectId
+          rating:Number,
+          adId:mongoose.Types.ObjectId
         }],
-        default:null}
+    default:null}
 
 });
 
