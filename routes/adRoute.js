@@ -88,6 +88,7 @@ adRouter.get('/ad/ad/:adid', isLoggedIn, (req, res) => {
 //Changes to Image Upload
 //DONE
 //MAKE AN ERROR PAGE
+//Think yahaan pe If I dont have postable ads I still posted the ad
 adRouter.post('/', (req, res) => {
   multerMid(req, res, async (err) => {
     if (err) {
@@ -143,11 +144,8 @@ adRouter.post('/', (req, res) => {
               date_posted: new Date(),
               // date_sold: req.body.date_sold
             });
-            console.log(new_ad)
-
             new_ad.save()
               .then((ad) => {
-
                 // decrementing no of free ads available to user
                 User.findById(req.user._id)
                   .then((user) => {
@@ -161,8 +159,6 @@ adRouter.post('/', (req, res) => {
                       console.log(`You don't have any free postable ads now`);
                     }
                   })
-
-                res.statusCode = 200;
                 // res.json(ad);
                 res.render('afterPostAd.ejs')
               })
