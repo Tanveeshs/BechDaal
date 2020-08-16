@@ -177,8 +177,9 @@ adRouter.post('/editad/view', isLoggedIn, (req, res) => {
     if (req.user.isSeller === true) {
     Ads.find({
       _id: sanitize(req.body.adid),
-      'user._id':req.user._id
+      'user._id':String(req.user._id)
     }, (err, ad) => {
+        console.log(req.body.adid)
         if(ad){
             res.render('editad', {
                 ad: ad,

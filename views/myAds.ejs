@@ -170,19 +170,21 @@
   function editad(input) {
     var ad = input.id
     $.ajax({
-      type: 'POST',
-      url: '/sell/editad/view',
-      data:{
-        adId:ad
-      },
+      type: 'GET',
+      url: '/sell/editad/' + ad,
       success: function () {
-        window.location.href = 'http://localhost:3001/sell/editad/view'
+        window.location.href = 'http://localhost:3001/sell/editad/' + ad
       },
       error: function () {
         console.log('fail')
       }
     });
   }
+  function editad1(input){
+    var form = document.getElementById("form"+input.id);
+    console.log("Hit")
+    form.submit()
+    }
   let data;
   let page =0;
   $.ajax({
@@ -194,7 +196,8 @@
       let s = data.slice(0,2);
       for(let i=0;i<2;i++){
         $(".mainContent").append(
-                "<div id='"+s[i]._id+"' onclick='editad(this)' class='col-md-4 col-sm-12 paddings'>\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> <img class='Img mx-auto' style='text-align: center;' src='"+s[i].cover_photo+" %>' />\
+
+                "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-md-4 col-sm-12 paddings'>\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> <img class='Img mx-auto' style='text-align: center;' src='"+s[i].cover_photo+" %>' />\
                     <br />\
                     <label for='title' class='text'>Title</label>\
                     <label for='' class='label-text'>"+s[i].title+"\
@@ -202,9 +205,13 @@
                     <br />\
                     <label for='title'>Date posted</label>\
                     <label for='' class='label-text'>"+s[i].date_posted+"</label>\
+                    <form method='POST' id='form"+s[i]._id+"' action='/sell/editad/view'>\
+                    <input type='hidden' name='adid' value='"+s[i]._id+"'>\
+                    </form>\
                   </div>\
                 </div>\
-              </div>")
+              </div>\
+              ")
       }
     },
     error: function (err) {

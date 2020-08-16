@@ -27,7 +27,7 @@ $(document).ready(() => {
   });
 
   $.ajax({
-    url: "http://localhost:3001/category",
+    url: "http://localhost:3000/category",
     method: "GET"
   }).done(function(catagories) {
     ad = ads.value;
@@ -43,7 +43,7 @@ $(document).ready(() => {
   });
 
   $.ajax({
-    url: "http://localhost:3001/category",
+    url: "http://localhost:3000/category",
     method: "GET"
   }).done(catagories => {
     ad = ads.value;
