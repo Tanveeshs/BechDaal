@@ -60,6 +60,7 @@ const offers = require('./routes/offers');
 const adminRouter = require('./routes/admin')
 const ratingsAndReviews = require('./routes/RatingsAndReviews')
 const payment = require('./routes/payment')
+const docsRouter = require('./routes/docs')
 // const test = require('./routes/test');
 // const smsverify = require('./routes/sms');
 // const xg = require('./routes/searchRoute');
@@ -82,7 +83,7 @@ app.use('/offers', offers);
 app.use('/admin',adminRouter)
 app.use('/payment',payment)
 app.use('/reviews',ratingsAndReviews)
-
+app.use('/docs',docsRouter)
 
 //for app engine
 // app.listen(PORT, () => {
