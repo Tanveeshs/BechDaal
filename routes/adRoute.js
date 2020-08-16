@@ -54,11 +54,10 @@ adRouter.get('/', isLoggedIn, (req, res) => {
     Ads.find({
       'user._id': req.user._id
     }, (err, ads) => {
-      // res.render('myAds', {
-      //   ads: ads,
-      //   user: req.user
-      // });
-        res.send(ads)
+      res.render('myAds', {
+        ads: ads,
+        user: req.user
+      });
     });
   } else {
     //Add a UI here
@@ -174,10 +173,10 @@ adRouter.post('/', (req, res) => {
 
 //DONE
 //ERROR PAGE LEFT
-adRouter.get('/editad/:adid', isLoggedIn, (req, res) => {
+adRouter.post('/editad/view', isLoggedIn, (req, res) => {
     if (req.user.isSeller === true) {
     Ads.find({
-      _id: sanitize(req.params.adid),
+      _id: sanitize(req.body.adid),
       'user._id':req.user._id
     }, (err, ad) => {
         if(ad){

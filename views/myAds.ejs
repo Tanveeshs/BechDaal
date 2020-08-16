@@ -170,10 +170,13 @@
   function editad(input) {
     var ad = input.id
     $.ajax({
-      type: 'GET',
-      url: '/sell/editad/' + ad,
+      type: 'POST',
+      url: '/sell/editad/view',
+      data:{
+        adId:ad
+      },
       success: function () {
-        window.location.href = 'http://localhost:3001/sell/editad/' + ad
+        window.location.href = 'http://localhost:3001/sell/editad/view'
       },
       error: function () {
         console.log('fail')
@@ -191,7 +194,7 @@
       let s = data.slice(0,2);
       for(let i=0;i<2;i++){
         $(".mainContent").append(
-                "<div id='"+s[i]._id+"' onclick='editad(this)' class='col-md-4 col-sm-12 paddings'>\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> <img class='Img mx-auto' style='text-align: center;' src='/"+s[i].cover_photo.filename+" %>' />\
+                "<div id='"+s[i]._id+"' onclick='editad(this)' class='col-md-4 col-sm-12 paddings'>\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> <img class='Img mx-auto' style='text-align: center;' src='"+s[i].cover_photo+" %>' />\
                     <br />\
                     <label for='title' class='text'>Title</label>\
                     <label for='' class='label-text'>"+s[i].title+"\
