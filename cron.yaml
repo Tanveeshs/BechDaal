@@ -1,4 +1,0 @@
-cron:
-- description: "remove rejected offers"
-  url: /test
-  schedule: every 2 minutes
