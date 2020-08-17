@@ -29,7 +29,7 @@ router.get('/', isLoggedIn, (req, res) => {
       }
     })
     res.render('myoffers.ejs',{
-      seller:(req.user.isSeller===true),
+      user:req.user,
       paid_orders:paid_orders,
       seller_accepted_orders:seller_accepted_orders,
       received_orders:received_orders
