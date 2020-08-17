@@ -41,6 +41,12 @@ module.exports = function(passport) {
             newUser.local.email = email;
             newUser.local.username = username;
             newUser.local.password = newUser.generateHash(password);
+            if(req.body.Person==="Seller"){
+              newUser.isSeller = true
+            }
+            else {
+              newUser.isSeller = false;
+            }
             newUser.save(function(err) {
               if (err)
                 throw err;

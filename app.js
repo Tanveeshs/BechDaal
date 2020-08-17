@@ -12,7 +12,7 @@ const fs = require('fs')
 const bodyParser = require('body-parser')
 const http = require("http");
 const cors = require('cors');
-
+var schedule = require('node-schedule');
 dotenv.config();
 const configDB = require('./config/database');
 mongoose.connect(configDB.url, {
@@ -86,6 +86,10 @@ app.use('/payment',payment)
 app.use('/reviews',ratingsAndReviews)
 app.use('/docs',docsRouter)
 app.use('/sitemap',sitemapRouter)
+
+var j = schedule.scheduleJob('42 * * * *', function(){
+    console.log('The answer to life, the universe, and everything!');
+});
 
 
 //for app engine
