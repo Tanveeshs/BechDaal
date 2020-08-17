@@ -1,6 +1,6 @@
 //jshint esversion:6
 
-const dotenv = require('dotenv');
+// const dotenv = require('dotenv');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -8,12 +8,11 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
-const fs = require('fs')
 const bodyParser = require('body-parser')
 const http = require("http");
 const cors = require('cors');
 
-dotenv.config();
+// dotenv.config();
 const configDB = require('./config/database');
 mongoose.connect(configDB.url, {
     useNewUrlParser: true,
@@ -89,9 +88,9 @@ app.use('/sitemap',sitemapRouter)
 
 
 //for app engine
-// app.listen(PORT, () => {
-//     console.log(`Server listening on port ${PORT}...`);
-// });
+app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}...`);
+});
 
 
 //for compute engine
@@ -107,6 +106,6 @@ app.use('/sitemap',sitemapRouter)
 
 //local test
 
-var http_server = http.createServer(app).listen(3000, function(err){
-    console.log("Node.js Express HTTPS Server Listening on Port 300to app0");
-});
+// var http_server = http.createServer(app).listen(3000, function(err){
+//     console.log("Node.js Express HTTPS Server Listening on Port 300to app0");
+// });
