@@ -10,20 +10,19 @@ const uuid = require('uuid')
 const crypto = require('crypto')
 const sanitize = require("mongo-sanitize");
 const offer = require('../model/offer')
-const async = require('async')
 
 //Payment Route for Featured Ad and Normal Ad
-//Send amount and adId
+//Params: amount and adId
 Router.post('/ad',function (req,res){
     const adId = req.body.adId;
     const amount = Number(req.body.amount)*100;
-    var options = {
+    let options = {
         amount: amount,  // amount in the smallest currency unit
         currency: "INR",
         receipt: uuid.v4(),
         payment_capture: '1',
-        notes:{
-            adId:adId,
+        notes: {
+            adId: adId,
         }
     };
     instance.orders.create(options, function(err, order) {
@@ -65,9 +64,6 @@ Router.post('/ad',function (req,res){
     });
 })
 
-
-
-
 //Callback for the Featured ad and Normal ad
 //If payment successful we are setting isPaid to true
 //Add Error Page
@@ -81,7 +77,7 @@ Router.post('/callback',function (req,res){
                 if(r.amount===2000){
                     ad.findOneAndUpdate({'payment.order_id':req.body.razorpay_order_id},{$set:{
                             'payment.payment_id':req.body.razorpay_payment_id,featured:true,isPaid: true}
-                            },function (err,doc){
+                            },function (err){
                         if(err){
                             console.log(err)
                         }
@@ -92,7 +88,7 @@ Router.post('/callback',function (req,res){
                 else {
                     ad.findOneAndUpdate({'payment.order_id':req.body.razorpay_order_id},{$set:{
                             'payment.payment_id':req.body.razorpay_payment_id,isPaid:true}
-                            },function (err,doc){
+                            },function (err){
                         if(err){
 
                         }
@@ -104,7 +100,7 @@ Router.post('/callback',function (req,res){
                 res.send('Done')
             })
             .catch((err)=>{
-                res.send("Error Wrong Order ID")
+                res.send("Error Wrong Order ID",err)
             })
     } else {
         res.send('Error')
@@ -113,10 +109,7 @@ Router.post('/callback',function (req,res){
 
 
 //payment for offer
-//send adId
-//quantity
-//specialMentions
-//Deliverytime
+//Params adId,quantity,specialMentions,DeliveryTime
 Router.get('/offer',(req,res)=>{
     const adId = sanitize(req.body.adId)
     const quantity = req.body.quantity;
@@ -148,7 +141,7 @@ Router.get('/offer',(req,res)=>{
                 amount:0.95*amount,
                 currency:"INR",
                 on_hold:1,
-                on_hold_until:Date.now()+(1000*60*60*24)
+                on_hold_until:Date.now()+(1000*60*60*24*2)
             }]
         };
         instance.orders.create(options,function (err,order){
@@ -188,4 +181,6 @@ Router.get("/offer/callback",(req,res)=> {
             .catch(err=>{console.log(err)})
     }
 })
+
+
 module.exports = Router;

@@ -13,6 +13,7 @@ const offerSchema = new Schema({
   //Created:Offer Given by buyer to seller
   //B_Paid:Buyer Paid
   //S_Accepted:Offer Accepted by seller
+  //S_Rejected:Offer Rejected by seller
   //Received->
   status: {
     type: String
@@ -27,7 +28,8 @@ const offerSchema = new Schema({
   },
   payment:{
     order_id:String,
-    payment_id:String
+    payment_id:String,
+    refundInitiated:Boolean,
   },
   quantity:Number,
   SpecialMentions:String,
