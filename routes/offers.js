@@ -73,23 +73,31 @@ router.post('/reject',(req,res)=>{
 })
 
 
+
+//Uncomment In production version
+
 //Cron Job for removing neither accepted nor rejected orders
-cron.schedule("0 * * * *", function() {
-  offers.find({status:'B_Paid',date_expired:{$lte:Date.now()}},{payment:1,status:1},function (err,offers){
-    offers.forEach(offer=>{
-      offer.status = 'Time_Expired'
-      const url = `https://${process.env.razorpay_key}:${process.env.razorpay_secret}@api.razorpay.com/v1/payments/`+offer.payment.payment_id+'/refund';
-      axios.post(url).then(r => {
-        offer.payment.refundInitiated = true;
-        offer.save()
-      }).catch(err=>{
-        console.log("Error in initiating refund")
-        })
-    })
-
-  })
-
-});
+//And initiating refunds
+//Currently cron job will hit at every 1 hour between 8:30 to 20:30
+// cron.schedule("30 8-20 * * *", function() {
+//   offers.find({status:'B_Paid',date_expired:{$lte:Date.now()}},{payment:1,status:1},function (err,offers){
+//
+//     offers.forEach(offer=>{
+//       offer.status = 'Time_Expired'
+//       const url = `https://${process.env.razorpay_key}:${process.env.razorpay_secret}@api.razorpay.com/v1/payments/`+offer.payment.payment_id+'/refund';
+//       axios.post(url).then(r => {
+//         offer.payment.refundInitiated = true;
+//         offer.save()
+//       }).catch(err=>{
+//         console.log("Error in initiating refund")
+//         })
+//     })
+//
+//   })
+// },{
+//   scheduled:true,
+//   timezone:"Asia/Kolkata"
+// });
 
 
 
