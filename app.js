@@ -86,6 +86,10 @@ app.use('/reviews',ratingsAndReviews)
 app.use('/docs',docsRouter)
 app.use('/sitemap',sitemapRouter)
 
+app.get('/test',(req,res)=>{
+    console.log("Testing")
+    return
+})
 
 //for app engine
 app.listen(PORT, () => {
