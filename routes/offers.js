@@ -4,6 +4,7 @@ const axios = require('axios');
 const express = require('express');
 const router = express.Router();
 
+const cron = require("node-cron");
 let offers = require('../model/offer');
 
 
@@ -51,7 +52,7 @@ router.post('/accept',(req,res)=>{
 })
 //Reject An Offer Initiate a refund
 //params OfferId
-router.post('/rejected',(req,res)=>{
+router.post('/reject',(req,res)=>{
   const offerId = req.body.offerId;
   offers.findOneAndUpdate({_id:offerId},{$set:{status:'S_Rejected'}},{new:true},function (err,offer){
     if(err){
@@ -71,6 +72,24 @@ router.post('/rejected',(req,res)=>{
   })
 })
 
+
+//Cron Job for removing neither accepted nor rejected orders
+cron.schedule("0 * * * *", function() {
+  offers.find({status:'B_Paid',date_expired:{$lte:Date.now()}},{payment:1,status:1},function (err,offers){
+    offers.forEach(offer=>{
+      offer.status = 'Time_Expired'
+      const url = `https://${process.env.razorpay_key}:${process.env.razorpay_secret}@api.razorpay.com/v1/payments/`+offer.payment.payment_id+'/refund';
+      axios.post(url).then(r => {
+        offer.payment.refundInitiated = true;
+        offer.save()
+      }).catch(err=>{
+        console.log("Error in initiating refund")
+        })
+    })
+
+  })
+
+});
 
 
 

@@ -87,9 +87,7 @@ app.use('/reviews',ratingsAndReviews)
 app.use('/docs',docsRouter)
 app.use('/sitemap',sitemapRouter)
 
-var j = schedule.scheduleJob('42 * * * *', function(){
-    console.log('The answer to life, the universe, and everything!');
-});
+
 
 
 //for app engine

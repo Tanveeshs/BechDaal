@@ -14,6 +14,7 @@ const offerSchema = new Schema({
   //B_Paid:Buyer Paid
   //S_Accepted:Offer Accepted by seller
   //S_Rejected:Offer Rejected by seller
+  //Time_Expired:If Seller Did not accept or Reject
   //Received->
   status: {
     type: String
