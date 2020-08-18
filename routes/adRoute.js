@@ -91,83 +91,74 @@ adRouter.get('/ad/ad/:adid', isLoggedIn, (req, res) => {
 //MAKE AN ERROR PAGE
 //Think yahaan pe If I dont have postable ads I still posted the ad
 adRouter.post('/', (req, res) => {
-  multerMid(req, res, async (err) => {
-    if (err) {
-      console.log('Error: ', err);
-      res.statusCode = 400;
-      res.setHeader('Content-Type', 'application/json');
-      res.json({
-        msg: 'error'
-      });
-    } else {
-      let cover_photo = '';
-      let remaining_images = [];
-      async.forEachOf(req.files, function (file, i, callback) {
-        console.log(i)
-        const bucket = storage.bucket('bechdaal_bucket')
-        const { originalname, buffer } = file
-        const fileName = originalname+'-'+Date.now()
-        const blob = bucket.file('ad_images/' + fileName.replace(/ /g, "_"))
+  User.findById(req.user._id)
+  .then((user) => {
+    if (user.noOfFreeAds >= 3) res.render('payment.ejs');
+    else {
 
-        const blobStream = blob.createWriteStream({
-          resumable: false
-        })
-        blobStream.on('finish', () => {
-          if (i === 0) {
-            cover_photo = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
-          }
-          else {
-            remaining_images.push(`https://storage.googleapis.com/${bucket.name}/${blob.name}`);
-          }
-          callback(null)
-        }).on('error', (err) => { callback(err) }).end(buffer)
-      },
-        function (err) {
-          if (err) {
-            console.log(err)
-            res.send('ERROR')
-          } else {
-            console.log('Images Uploaded')
-            const new_ad = new Ads({
-              title: req.body.title,
-              category: req.body.category,
-              sub_category: req.body.subcategory,
-              model: req.body.model,
-              brand: req.body.brand,
-              cover_photo: cover_photo,
-              price: req.body.price,
-              user: req.user,
-              address: req.body.address,
-              contact_number: req.body.contact,
-              featured: req.body.featured,
-              images: remaining_images,
-              description: req.body.description,
-              date_posted: new Date(),
-              // date_sold: req.body.date_sold
-            });
-            new_ad.save()
-              .then((ad) => {
-                // decrementing no of free ads available to user
-                User.findById(req.user._id)
-                  .then((user) => {
-                    if (user.noOfFreeAds < 3) {
-                      user.noOfFreeAds += 1;
-                      user.save()
-                        .then((user) => {
-                          console.log(`You have now ${3 - user.noOfFreeAds} free ads remaining`);
-                        })
-                    } else {
-                      console.log(`You don't have any free postable ads now`);
-                    }
-                  })
-                // res.json(ad);
-                res.render('afterPostAd.ejs')
-              })
-              .catch((err) => console.log(err));
-          }
-        })
+      multerMid(req, res, async (err) => {
+        if (err) {
+          console.log('Error: ', err);
+          res.statusCode = 400;
+          res.setHeader('Content-Type', 'application/json');
+          res.json({
+            msg: 'error'
+          });
+        } else {
+          let cover_photo = '';
+          let remaining_images = [];
+          async.forEachOf(req.files, function (file, i, callback) {
+            console.log(i)
+            const bucket = storage.bucket('bechdaal_bucket')
+            const { originalname, buffer } = file
+            const fileName = originalname+'-'+Date.now()
+            const blob = bucket.file('ad_images/' + fileName.replace(/ /g, "_"))
+    
+            const blobStream = blob.createWriteStream({
+              resumable: false
+            })
+            blobStream.on('finish', () => {
+              if (i === 0) {
+                cover_photo = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+              }
+              else {
+                remaining_images.push(`https://storage.googleapis.com/${bucket.name}/${blob.name}`);
+              }
+              callback(null)
+            }).on('error', (err) => { callback(err) }).end(buffer)
+          },
+            function (err) {
+              if (err) {
+                console.log(err)
+                res.send('ERROR')
+              } else {
+                console.log('Images Uploaded')
+                const new_ad = new Ads({
+                  title: req.body.title,
+                  category: req.body.category,
+                  sub_category: req.body.subcategory,
+                  model: req.body.model,
+                  brand: req.body.brand,
+                  cover_photo: cover_photo,
+                  price: req.body.price,
+                  user: req.user,
+                  address: req.body.address,
+                  contact_number: req.body.contact,
+                  featured: req.body.featured,
+                  images: remaining_images,
+                  description: req.body.description,
+                  date_posted: new Date(),
+                  // date_sold: req.body.date_sold
+                });
+              new_ad.save()
+              .then((ad) => res.render('afterPostAd.ejs'))
+              .catch((err) => console.log(err))
+            }
+          })
+        }
+      });
     }
-  });
+  })
 });
 
 
