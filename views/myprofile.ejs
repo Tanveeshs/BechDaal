@@ -18,7 +18,7 @@
             <div class="userIcon" style="margin-left:45%; margin-top: 10%;">
                 <i style="font-size:95px;font-weight: bold; " class="fa fa-user-circle-o" aria-hidden="true"></i>
                 <br>
-                <p style="color:#994d00; font-size: 2rem;"> <%= user.local.username %></p>
+                <p style="color:#994d00; font-size: 30px"> <%= user.local.username %></p>
                 <!-- <input type="text" style=" border: none;
             border-bottom: 1px solid gray;margin-left:-15%;
             width: 250px;padding:3px;font-size: 1.1rem; text-align: center;"> -->
@@ -26,22 +26,22 @@
             <br>
             <br>
             <p class="email">
-                <span style="color:#994d00;"> Email-id:</span>
+                <span style="color:#994d00;font-weight: bold;font-size: 20px;"> Email-id:</span>
                 <span><%= user.local.email %></span>
                 <!-- <span> <button class="verify_btn">Verify</button> </span> -->
             </p>
             <p class="contact">
-                <span style="color:#994d00; font-size: 1.5rem; "> Contact No:</span>
+                <span style="color:#994d00; font-size: 20px;font-weight: bold; "> Contact No:</span>
                 <%if(user.ContactNumber){%>
-                    <span style="margin-left: 2%;font-size: 1.5rem;"><%= user.local.contact %></span>
+                <span style="margin-left: 2%;font-size: 20px;"><%= user.local.contact %></span>
                 <%}else {%>
-                    <span>Please Enter Your Contact Number</span>
+                <span style="font-size: 20px;">Please Enter Your Contact Number</span>
                 <%}%>
             </p>
             <% for (var i = 0; i < user.local.address.length; i++) {%>
             <p class="address">
-                <span style="color:#994d00; font-size: 1.5rem; "> Address <%= i+1 %>:</span>
-                <span style="margin-left: 2%;font-size: 1.5rem;"><%= user.local.address[i] %></span>
+                <span style="color:#994d00; font-size: 20px;font-weight: bold; "> Address:</span>
+                <span style="margin-left: 2%;font-size: 20px;"><%= user.local.address[i] %></span>
             </p>
             <% } %>
             <!-- <p class="address" style="display:flex;flex-direction: row;">
