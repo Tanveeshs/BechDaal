@@ -59,3 +59,25 @@ k{
     height: 75px;
     border-radius: 35px;
 }
+.pagination{
+  margin-left: 80%;
+}
+#previous{
+  border-top-left-radius: 20px;
+  border-bottom-left-radius:20px ;
+  border:1px solid rgba(0, 0, 0, 0.815);
+  color:black;
+  font-size: 18px;
+}
+#first{
+  border:1px solid rgba(0, 0, 0, 0.815);
+  color:black;
+  font-size: 18px;
+}
+#Next{
+  border-top-right-radius: 20px;
+  border-bottom-right-radius:20px ;
+  border:1px solid rgba(0, 0, 0, 0.815);
+  color:black;
+  font-size: 18px;
+}

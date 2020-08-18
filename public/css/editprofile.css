@@ -1,1 +1,45 @@
-body{font-family:'Titillium Web',sans-serif;font-size:1.1rem}.container{width:100%;align-content:center}.verify_btn{padding:4px 15px;margin-left:2%;background-color:#e65c00;border:1px solid #e65c00;border-radius:12px;font-size:1.03rem;color:#fff}.userDetails{width:60%;margin:auto}.email{width:70%;font-size:1.5rem}.address_input{border:none;border-bottom:1px solid gray;width:250px;padding:10px}.addAddress{font-size:1.5rem;color:gray}.newAddress{font-size:1rem;color:gray}.saveAs{font-size:20px;padding-right:30px}#saveAsAddress{margin-top:9px}
+body{font-family:'Titillium Web',sans-serif;}.container{width:100%;align-content:center}.verify_btn{padding:4px 15px;margin-left:2%;background-color:#e65c00;border:1px solid #e65c00;border-radius:12px;font-size:1.03rem;color:#fff}.userDetails{width:60%;margin:auto}.email{width:70%;font-size:1.5rem}.address_input{border:none;border-bottom:1px solid gray;width:250px;padding:10px}.addAddress{font-size:1.5rem;color:gray}.newAddress{font-size:1rem;color:gray}.saveAs{font-size:20px;padding-right:30px}#saveAsAddress{margin-top:9px}
+.addAddress{
+    font-size:18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.verify_btn{
+    width:200px;
+    align-content: center;
+    align-self: center;
+    margin-left: 37.5%;
+    margin-top:5%;
+    color:#86592d;
+    font-weight: bold;
+    border:1px solid #d9b38c;
+    background-color: #d9b38c;
+    cursor: pointer;
+}
+.set_button{
+    color:#86592d;
+    font-weight: bold;
+    background-color: #d9b38c;
+    width:80px;
+    align-content: center;
+    border:1px solid #d9b38c;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top:5%;
+}
+.newAddress{
+    border:1px solid gray;
+    padding:20px;
+    box-shadow: 5px 5px 5px lightgray;
+    border-radius: 10px;
+}
+.contact{
+    width:350px;
+}
+.emailValue{
+    margin-left: 7%;
+    font-size:18px;
+}
+.address_input{
+    width:300px;
+}

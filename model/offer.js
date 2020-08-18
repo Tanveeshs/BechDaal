@@ -2,55 +2,44 @@
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const {AdSchema} = require('./ad')
+const {user_schema_body} = require('./user')
 
 const offerSchema = new Schema({
-  //use adSchema
-  ad: {
-    type: mongoose.Types.ObjectId,
-    ref: 'Ads'
-  },
-  //use userSchema
-  buyer: {
-    type: mongoose.Types.ObjectId,
-    ref: 'User'
-  },
-  //use userSchema
-  seller: {
-    type: mongoose.Types.ObjectId,
-    ref: 'User'
-  },
-  //created:Offer Given by buyer to seller
+  ad: AdSchema,
+  buyer: user_schema_body,
+  seller: user_schema_body,
+
+  //Created:Offer Given by buyer to seller
+  //B_Paid:Buyer Paid
   //S_Accepted:Offer Accepted by seller
+  //S_Rejected:Offer Rejected by seller
+  //Time_Expired:If Seller Did not accept or Reject
   //Received->
   status: {
     type: String
   },
-  //Add tracking Number
-  // PickupTimeSeller:Date,
-  //Discuss about paytm
-  // PaymentDetails:{
-  //   rzpId:String
-  // },
   date_posted: {
     type: Date,
     required: true
   },
-  //Reduce Buffer time
   date_expired: {
     type: Date,
     required: true
   },
-  //Wont be required
-  offer_price : {
-    type: Number,
-    required: true
+  payment:{
+    order_id:String,
+    payment_id:String,
+    refundInitiated:Boolean,
   },
-  //Ask iska use
-  expireAt: {
-  type: Date,
-  default: Date.now,
-  index: { expires: '1d' },
-},
+  quantity:Number,
+  SpecialMentions:String,
+  DeliveryTime:Date,
+//   expireAt: {
+//   type: Date,
+//   default: Date.now,
+//   index: { expires: '1d' },
+// },
 });
 
 const Offers = mongoose.model('Offers', offerSchema);

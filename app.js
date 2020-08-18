@@ -12,8 +12,8 @@ const fs = require('fs')
 const bodyParser = require('body-parser')
 const http = require("http");
 const cors = require('cors');
-
-// dotenv.config();
+var schedule = require('node-schedule');
+dotenv.config();
 const configDB = require('./config/database');
 mongoose.connect(configDB.url, {
     useNewUrlParser: true,
@@ -87,10 +87,9 @@ app.use('/reviews',ratingsAndReviews)
 app.use('/docs',docsRouter)
 app.use('/sitemap',sitemapRouter)
 
-app.get('/test',function (req,res){
-    console.log(Date.now()+(1000*60*60*24))
-    res.send('Done')
-})
+
+
+
 //for app engine
 // app.listen(PORT, () => {
 //     console.log(`Server listening on port ${PORT}...`);
