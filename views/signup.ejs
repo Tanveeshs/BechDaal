@@ -258,6 +258,7 @@
           visibility: hidden;
           font-size: 0px;
         }
+        
 
         /* .a{
 
@@ -341,11 +342,11 @@
                 <i class="fas fa-check-circle name-check" style="margin-left: 30px; visibility: hidden"></i>
               </div>
             </div>
-            <div class="text-muted" style="text-align: left; font-size:12px">
+            <div class="text-muted text-center" style="text-align: left; font-size:12px;">
               Username should contain:
-              <ul>
+              <ul style="list-style: none;">
                 <li>Minimum 5 characters</li>
-                <li>No special characters other than - and _ , which should be again followed by text</li>
+                <li>No special characters other than - and _ , which should<br /> be again followed by text</li>
               </ul>
             </div>
             <div class="card">
@@ -376,15 +377,27 @@
                 <i class="fas fa-eye" id="togglePass" style="margin-left: 30px;"></i>
               </div>
             </div>
-            <div class="text-muted" style="text-align: left; font-size:12px">
+            <div class="text-muted text-center" style="text-align: left; font-size:12px">
               Password should contain:
-              <ul>
+              <ul style="list-style: none;">
                 <li>Minimum 6 characters</li>
                 <li>One Uppercase letter</li>
                 <li>One Lowercase letter</li>
                 <li>One digit</li>
                 <li>One Special symbol</li>
               </ul>
+
+              <div class="card">           
+                <div class="iconContainer">
+                  <p> <i class="fa fa-2x fa-mobile" style="color: black;" aria-hidden="true"></i>
+                  </p>
+                </div>
+                <div class="inputContainer" style="width:70%">
+                  <label class="text-muted" style="padding-top: 10px;">Mobile Number</label>
+                  <br />
+                  <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}">
+                </div>
+              </div>
               <div class="card">
                 
                 <div class="inputContainer" style="width:70%">
