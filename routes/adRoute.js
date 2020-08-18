@@ -1,32 +1,34 @@
-//jshint esversion:6
+//jshint esversion:8
 
 //DONE
 
 const express = require('express');
 const bodyParser = require('body-parser');
 const multer = require('multer');
-const async = require('async')
+const async = require('async');
 const sanitize = require('mongo-sanitize');
 
-const storage = require('../config/cloudStorage')
+const storage = require('../config/cloudStorage');
 const adRouter = express.Router();
 const fileFilter = (req, file, cb) => {
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-        cb(null, true);
-    } else {
-        cb(new Error('file type not supported'), false);
-    }
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    cb(new Error('file type not supported'), false);
+  }
 };
 const multerMid = multer({
-    storage: multer.memoryStorage(),
-    limits: {
-        fileSize: 5 * 1024 * 1024,
-    },
-    fileFilter: fileFilter
-}).array('images', 12)
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024,
+  },
+  fileFilter: fileFilter
+}).array('images', 12);
 
 const Ads = require('../model/ad');
-const { User } = require('../model/user');
+const {
+  User
+} = require('../model/user');
 
 adRouter.use(bodyParser.json());
 
@@ -61,7 +63,7 @@ adRouter.get('/', isLoggedIn, (req, res) => {
     });
   } else {
     //Add a UI here
-    res.send("Incorrect Page")
+    res.send("Incorrect Page");
   }
 });
 
@@ -92,98 +94,101 @@ adRouter.get('/ad/ad/:adid', isLoggedIn, (req, res) => {
 //Think yahaan pe If I dont have postable ads I still posted the ad
 adRouter.post('/', (req, res) => {
   User.findById(req.user._id)
-  .then((user) => {
-    if (user.noOfFreeAds >= 3) res.render('payment.ejs');
-    else {
+    .then((user) => {
+      if (user.noOfFreeAds >= 3) res.render('payment.ejs');
+      else {
 
-      multerMid(req, res, async (err) => {
-        if (err) {
-          console.log('Error: ', err);
-          res.statusCode = 400;
-          res.setHeader('Content-Type', 'application/json');
-          res.json({
-            msg: 'error'
-          });
-        } else {
-          let cover_photo = '';
-          let remaining_images = [];
-          async.forEachOf(req.files, function (file, i, callback) {
-            console.log(i)
-            const bucket = storage.bucket('bechdaal_bucket')
-            const { originalname, buffer } = file
-            const fileName = originalname+'-'+Date.now()
-            const blob = bucket.file('ad_images/' + fileName.replace(/ /g, "_"))
-    
-            const blobStream = blob.createWriteStream({
-              resumable: false
-            })
-            blobStream.on('finish', () => {
-              if (i === 0) {
-                cover_photo = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
-              }
-              else {
-                remaining_images.push(`https://storage.googleapis.com/${bucket.name}/${blob.name}`);
-              }
-              callback(null)
-            }).on('error', (err) => { callback(err) }).end(buffer)
-          },
-            function (err) {
-              if (err) {
-                console.log(err)
-                res.send('ERROR')
-              } else {
-                console.log('Images Uploaded')
-                const new_ad = new Ads({
-                  title: req.body.title,
-                  category: req.body.category,
-                  sub_category: req.body.subcategory,
-                  model: req.body.model,
-                  brand: req.body.brand,
-                  cover_photo: cover_photo,
-                  price: req.body.price,
-                  user: req.user,
-                  address: req.body.address,
-                  contact_number: req.body.contact,
-                  featured: req.body.featured,
-                  images: remaining_images,
-                  description: req.body.description,
-                  date_posted: new Date(),
-                  // date_sold: req.body.date_sold
+        multerMid(req, res, async (err) => {
+          if (err) {
+            console.log('Error: ', err);
+            res.statusCode = 400;
+            res.setHeader('Content-Type', 'application/json');
+            res.json({
+              msg: 'error'
+            });
+          } else {
+            let cover_photo = '';
+            let remaining_images = [];
+            async.forEachOf(req.files, function(file, i, callback) {
+                console.log(i);
+                const bucket = storage.bucket('bechdaal_bucket');
+                const {
+                  originalname,
+                  buffer
+                } = file;
+                const fileName = originalname + '-' + Date.now();
+                const blob = bucket.file('ad_images/' + fileName.replace(/ /g, "_"));
+
+                const blobStream = blob.createWriteStream({
+                  resumable: false
                 });
-              new_ad.save()
-              .then((ad) => res.render('afterPostAd.ejs'))
-              .catch((err) => console.log(err))
-            }
-          })
-        }
-      });
-    }
-  })
+                blobStream.on('finish', () => {
+                  if (i === 0) {
+                    cover_photo = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+                  } else {
+                    remaining_images.push(`https://storage.googleapis.com/${bucket.name}/${blob.name}`);
+                  }
+                  callback(null);
+                }).on('error', (err) => {
+                  callback(err)
+                }).end(buffer);
+              },
+              function(err) {
+                if (err) {
+                  console.log(err);
+                  res.send('ERROR');
+                } else {
+                  console.log('Images Uploaded');
+                  const new_ad = new Ads({
+                    title: req.body.title,
+                    category: req.body.category,
+                    sub_category: req.body.subcategory,
+                    model: req.body.model,
+                    brand: req.body.brand,
+                    cover_photo: cover_photo,
+                    price: req.body.price,
+                    user: req.user,
+                    address: req.body.address,
+                    contact_number: req.body.contact,
+                    featured: req.body.featured,
+                    images: remaining_images,
+                    description: req.body.description,
+                    date_posted: new Date(),
+                    // date_sold: req.body.date_sold
+                  });
+                  new_ad.save()
+                    .then((ad) => res.render('afterPostAd.ejs'))
+                    .catch((err) => console.log(err));
+                }
+              });
+          }
+        });
+      }
+    });
 });
 
 
 //DONE
 //ERROR PAGE LEFT
 adRouter.post('/editad/view', isLoggedIn, (req, res) => {
-    if (req.user.isSeller === true) {
+  if (req.user.isSeller === true) {
     Ads.find({
       _id: sanitize(req.body.adid),
-      'user._id':String(req.user._id)
+      'user._id': String(req.user._id)
     }, (err, ad) => {
-        console.log(req.body.adid)
-        if(ad){
-            res.render('editad', {
-                ad: ad,
-                user: req.user
-            });
-        }
-        else {
-            res.send("Error")
-        }
+      console.log(req.body.adid);
+      if (ad) {
+        res.render('editad', {
+          ad: ad,
+          user: req.user
+        });
+      } else {
+        res.send("Error");
+      }
     });
   } else {
-    console.log("Error")
-    res.send("Error")
+    console.log("Error");
+    res.send("Error");
   }
 
 });
@@ -199,35 +204,35 @@ adRouter.post('/editad', (req, res) => {
   //   // remaining_images[i - 1] = req.files[i];
   //   remaining_images.push(req.files[i]);
   // }
-    if(req.user.isSeller){
-        Ads.findOneAndUpdate({
-            _id: sanitize(req.body.adid),
-            'user._id':req.user._id
-        }, {
-            '$set': {
-                'title':req.body.title,
-                'category': req.body.category,
-                'sub_category': req.body.subcategory,
-                'model': req.body.model,
-                'brand': req.body.brand,
-                'price': req.body.price,
-                'user': req.user,
-                'address': req.body.address,
-                'contact_number': req.body.contact,
-                'description': req.body.description,
-                'approved':false,
-            }
-        }, function (err) {
-            // Updated at most one doc, `res.modifiedCount` contains the number
-            // of docs that MongoDB updated
-            if (err) {
-                console.log(err);
-            }
-        });
-        res.redirect('/sell');
-    } else {
-      res.send("Error")
-    }
+  if (req.user.isSeller) {
+    Ads.findOneAndUpdate({
+      _id: sanitize(req.body.adid),
+      'user._id': req.user._id
+    }, {
+      '$set': {
+        'title': req.body.title,
+        'category': req.body.category,
+        'sub_category': req.body.subcategory,
+        'model': req.body.model,
+        'brand': req.body.brand,
+        'price': req.body.price,
+        'user': req.user,
+        'address': req.body.address,
+        'contact_number': req.body.contact,
+        'description': req.body.description,
+        'approved': false,
+      }
+    }, function(err) {
+      // Updated at most one doc, `res.modifiedCount` contains the number
+      // of docs that MongoDB updated
+      if (err) {
+        console.log(err);
+      }
+    });
+    res.redirect('/sell');
+  } else {
+    res.send("Error");
+  }
 });
 
 /* docs */
@@ -243,7 +248,7 @@ adRouter.route('/:adId')
           user: req.user
         });
       }).catch((err) => console.log(err));
-  })
+  });
 // .put((req, res) => {
 //   Ads.findByIdAndUpdate(req.params.adId, {
 //     $set: req.body
@@ -259,36 +264,36 @@ adRouter.route('/:adId')
 
 
 //Thinking to use this to display the ad
-adRouter.post('/show',(req, res) => {
-        Ads.findById(sanitize(req.body.adId))
-            .then((ad) => {
-                // console.log(ad);
-                res.render('show_ad', {
-                    ad: ad,
-                    user: req.user
-                });
-            }).catch((err) => console.log(err));
-    })
+adRouter.post('/show', (req, res) => {
+  Ads.findById(sanitize(req.body.adId))
+    .then((ad) => {
+      // console.log(ad);
+      res.render('show_ad', {
+        ad: ad,
+        user: req.user
+      });
+    }).catch((err) => console.log(err));
+});
 
 
 
 
-adRouter.get('/ads/post', isLoggedIn, function (req, res) {
+adRouter.get('/ads/post', isLoggedIn, function(req, res) {
   res.render('postAd.ejs', {
     user: req.user
   });
 });
 
 function isLoggedIn(req, res, next) {
-    try {
-        if (req.isAuthenticated()) {
-            req.isLogged = true;
-            return next();
-        }
-        res.redirect('/login');
-    } catch (e) {
-        console.log(e);
+  try {
+    if (req.isAuthenticated()) {
+      req.isLogged = true;
+      return next();
     }
+    res.redirect('/login');
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 
@@ -317,16 +322,16 @@ adRouter.route('/grid_ads/a')
         let results = {
           featured: paginatedFeaturedAds,
           ordinary: paginatedOrdinaryAds,
-        }
+        };
 
-        if (featuredEndIndex < featuredAds.length || ordinaryEndIndex < ordinaryAds.length) results.nextPage = page + 1
+        if (featuredEndIndex < featuredAds.length || ordinaryEndIndex < ordinaryAds.length) results.nextPage = page + 1;
 
         if (featuredStartIndex > 0) results.previousPage = page - 1;
 
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(results)
-      })
-  })
+        res.json(results);
+      });
+  });
 
 module.exports = adRouter;
