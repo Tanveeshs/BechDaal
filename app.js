@@ -86,7 +86,9 @@ app.use('/docs',docsRouter)
 app.use('/sitemap',sitemapRouter)
 
 
+app.get('/test',(req,res)=>{
 
+})
 
 //for app engine
 // app.listen(PORT, () => {

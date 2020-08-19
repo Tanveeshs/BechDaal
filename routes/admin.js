@@ -116,7 +116,6 @@ Router.post('/ads/reject/:id',authenticateJWT,(req,res)=> {
         res.redirect('/admin/ads')
     })
 })
-
 Router.get("/ads/details",authenticateJWT,function (req,res){
     res.render("admin/adminAdDetails.ejs")
 })
@@ -170,7 +169,8 @@ Router.post('/addCategory',authenticateJWT,upload.single('CategoryImage'),(req,r
 })
 
 //View all Categories
-Router.get('/category',(req,res)=>{
+Router.get('/category',authenticateJWT,
+    (req,res)=>{
     Category.find({},(err,result)=>{
         if(err)
             throw err

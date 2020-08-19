@@ -50,21 +50,17 @@ adRouter.use(bodyParser.json());
 
 
 //restrict myads only to a seller
-//DONE
-adRouter.get('/', isLoggedIn, (req, res) => {
-    if (req.user.isSeller === true) {
-        Ads.find({
-            'user._id': req.user._id
-        }, (err, ads) => {
-            res.render('myAds', {
-                ads: ads,
-                user: req.user
-            });
+
+adRouter.get('/', isLoggedIn,isSeller,(req, res) => {
+
+    Ads.find({
+        'user._id': req.user._id
+    }, (err, ads) => {
+        res.render('myAds', {
+            ads: ads,
+            user: req.user
         });
-    } else {
-        //Add a UI here
-        res.send("Incorrect Page");
-    }
+    });
 });
 
 //What is this API for??
@@ -88,12 +84,10 @@ adRouter.get('/ad/ad/:adid', isLoggedIn, (req, res) => {
 });
 
 
-//Changes to Image Upload
 //DONE
 //MAKE AN ERROR PAGE
-//Think yahaan pe If I dont have postable ads I still posted the ad
-adRouter.post('/', (req, res) => {
-    multerMid(req, res, async (err) => {
+adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
+    multerMid(req, res,(err) => {
         console.log(req.body)
         if (req.body.featured) {
             if (req.user.noOfFeaturedAds > 0) {
@@ -149,8 +143,6 @@ adRouter.post('/', (req, res) => {
                                             cover_photo: cover_photo,
                                             price: req.body.price,
                                             user: req.user,
-                                            address: req.body.address,
-                                            contact_number: req.body.contact,
                                             featured:true,
                                             isPaid:2,
                                             images: remaining_images,
@@ -245,8 +237,6 @@ adRouter.post('/', (req, res) => {
                                             cover_photo: cover_photo,
                                             price: req.body.price,
                                             user: req.user,
-                                            address: req.body.address,
-                                            contact_number: req.body.contact,
                                             featured: false,
                                             images: remaining_images,
                                             isPaid:0,
@@ -338,8 +328,6 @@ adRouter.post('/', (req, res) => {
                                             cover_photo: cover_photo,
                                             price: req.body.price,
                                             user: req.user,
-                                            address: req.body.address,
-                                            contact_number: req.body.contact,
                                             featured: false,
                                             isPaid:1,
                                             images: remaining_images,
@@ -387,27 +375,21 @@ adRouter.post('/', (req, res) => {
 })
 //DONE
 //ERROR PAGE LEFT
-adRouter.post('/editad/view', isLoggedIn, (req, res) => {
-    if (req.user.isSeller === true) {
-        Ads.find({
-            _id: sanitize(req.body.adid),
-            'user._id': String(req.user._id)
-        }, (err, ad) => {
-            console.log(req.body.adid);
-            if (ad) {
-                res.render('editad', {
-                    ad: ad,
-                    user: req.user
-                });
-            } else {
-                res.send("Error");
-            }
-        });
-    } else {
-        console.log("Error");
-        res.send("Error");
-    }
-
+adRouter.post('/editad/view', isLoggedIn,isSeller,(req, res) => {
+    Ads.find({
+        _id: sanitize(req.body.adid),
+        'user._id': String(req.user._id)
+    }, (err, ad) => {
+        console.log(req.body.adid);
+        if (ad) {
+            res.render('editad', {
+                ad: ad,
+                user: req.user
+            });
+        } else {
+            res.send("Error");
+        }
+    });
 });
 
 
@@ -415,42 +397,178 @@ adRouter.post('/editad/view', isLoggedIn, (req, res) => {
 //EXTERNAL API FOR THAT
 //HOW TO UPDATE IMAGES HERE??
 adRouter.post('/editad', (req, res) => {
-    // const cover_photo = req.files[0];
-    // let remaining_images = [];
-    // for (let i = 1; i < req.files.length; i++) {
-    //   // remaining_images[i - 1] = req.files[i];
-    //   remaining_images.push(req.files[i]);
-    // }
-    if (req.user.isSeller) {
-        Ads.findOneAndUpdate({
-            _id: sanitize(req.body.adid),
-            'user._id': req.user._id
-        }, {
-            '$set': {
-                'title': req.body.title,
-                'category': req.body.category,
-                'sub_category': req.body.subcategory,
-                'model': req.body.model,
-                'brand': req.body.brand,
-                'price': req.body.price,
-                'user': req.user,
-                'address': req.body.address,
-                'contact_number': req.body.contact,
-                'description': req.body.description,
-                'approved': false,
+    multerMid(req, res,(err) => {
+        if(err){
+            console.log(err)
+            res.send("Error")
+        }
+        Ads.findOne({_id:sanitize(req.body.adid)},function (err,ad){
+            if(req.body.featured && !ad.featured){
+                User.findById({_id:String(req.user._id)},function (err,user){
+                    if(user.noOfFeaturedAds>0){
+                        user.noOfFeaturedAds = user.noOfFeaturedAds-1;
+                        if(ad.isPaid===1){
+                            user.noOfPaidAds = user.noOfPaidAds+1
+                        }
+                        else{
+                            user.noOfFreeAds = user.noOfFreeAds+1
+                        }
+                        ad.save()
+                        user.save()
+                        req.user = user
+                        editAd(req,res,2,true)
+                    }
+                    else {
+                        res.send("No Featured Ads Available")
+                    }
+                })
             }
-        }, function(err) {
-            // Updated at most one doc, `res.modifiedCount` contains the number
-            // of docs that MongoDB updated
-            if (err) {
-                console.log(err);
+            else if(req.body.featured === undefined && ad.featured){
+                User.findById({_id:String(req.user._id)},function (err,user){
+                    if(user.noOfPaidAds>0 || user.noOfFreeAds>0){
+                        let isPaid;
+                        if(user.noOfFreeAds>0){
+                            user.noOfFreeAds = user.noOfFreeAds-1
+                            isPaid=0
+                        }
+                        else {
+                            user.noOfPaidAds = user.noOfPaidAds-1
+                            isPaid=1
+                        }
+                        user.noOfFeaturedAds = user.noOfFeaturedAds+1;
+                        user.save()
+                        req.user = user;
+                        editAd(req,res,isPaid,false)
+                    }
+                    else {
+                        res.send("No Free or Paid Ads Available")
+                    }
+                })
             }
-        });
-        res.redirect('/sell');
-    } else {
-        res.send("Error");
-    }
+            else {
+                editAd(req,res,ad.isPaid,ad.featured)
+            }
+        })
+
+    })
 });
+
+function editAd(req,res,isPaid,featured){
+    if(req.body.updateImages){
+        let cover_photo = '';
+        let remaining_images = [];
+        async.forEachOf(req.files, function (file, i, callback) {
+            console.log(i);
+            const bucket = storage.bucket('bechdaal_bucket');
+            const {
+                originalname,
+                buffer
+            } = file;
+            const fileName = originalname + '-' + Date.now();
+            const blob = bucket.file('ad_images/' + fileName.replace(/ /g, "_"));
+
+            const blobStream = blob.createWriteStream({
+                resumable: false
+            });
+            blobStream.on('finish', () => {
+                if (i === 0) {
+                    cover_photo = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+                } else {
+                    remaining_images.push(`https://storage.googleapis.com/${bucket.name}/${blob.name}`);
+                }
+                callback(null);
+            }).on('error', (err) => {
+                callback(err)
+            }).end(buffer);
+        },function (err) {
+            if(err){
+                res.send("Error While Uploading Images")
+            }
+            else {
+                Ads.findOneAndUpdate({_id:sanitize(req.body.adid)}, {
+                    '$set': {
+                        'title': req.body.title,
+                        'category': req.body.category,
+                        'sub_category': req.body.subcategory,
+                        'model': req.body.model,
+                        'brand': req.body.brand,
+                        'price': req.body.price,
+                        'user': req.user,
+                        'cover_photo':cover_photo,
+                        'images':remaining_images,
+                        'description': req.body.description,
+                        'approved': false,
+                        'featured':featured,
+                        'isPaid':isPaid
+                    }
+                },function (err,docs) {
+                    if(err){
+                        res.send("Error While Updating Ad")
+                    }
+                    if(docs){
+                        res.render('afterPostAds.ejs')
+                    }
+                    else {
+                        res.send("Not Found")
+                    }
+                })
+            }
+        })
+    }
+    else {
+        Ads.findOne({_id:sanitize(req.body.adid)},function (err,ad){
+            let change=0
+            if(ad.title !== req.body.title){
+                ad.title = req.body.title;
+                change=1
+            }
+            if(ad.category !== req.body.category){
+                ad.category = req.body.category;
+                change=1
+            }
+            if(ad.sub_category !== req.body.sub_category){
+                ad.sub_category = req.body.sub_category;
+                change=1
+            }
+            if(ad.model !== req.body.model){
+                ad.model = req.body.model;
+                change=1
+            }
+            if(ad.brand !== req.body.brand){
+                ad.brand = req.body.brand;
+                change=1
+            }
+            if(ad.price !== req.body.price){
+                ad.price = req.body.price;
+                change=1
+            }
+            if(ad.description !== req.body.description){
+                ad.description = req.body.description;
+                change=1
+            }
+            let isActive= false
+            if(req.body.isActive){
+
+            }
+            if(change==1){
+                ad.approved=false
+                ad.isPaid = isPaid
+                ad.featured = featured
+                ad.isActive = isActive
+            }
+            else {
+                ad.isPaid = isPaid
+                ad.featured = featured
+                ad.isActive = isActive
+            }
+            ad.save()
+
+        })
+
+    }
+
+}
+
 
 /* docs */
 // here you will just add the id of the ad in the url itself, and will get that single ad

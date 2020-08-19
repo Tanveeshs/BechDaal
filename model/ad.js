@@ -29,21 +29,14 @@ const adSchema = new Schema({
     type: Number
   },
   user: user_schema_body,
-  address: {
-    type: String
-  },
+
   //Check if user has contact default value set to that
-  contact_number: {
-    type: Number
-  },
   //change to type string
   cover_photo: {
     type: String
   },
   //change to string
-  images: [{
-    type: Object
-  }],
+  images: [String],
   description: {
     type: String
   },
