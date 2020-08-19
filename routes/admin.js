@@ -53,8 +53,6 @@ const authenticateJWT = (req, res, next) => {
         res.redirect('/admin/login');
     }
 };
-const offers = require('../model/offer')
-const async = require('async')
 
 //Admin Login
 Router.get('/login',(req,res)=>{
@@ -65,7 +63,6 @@ Router.post('/login', (req, res) => {
     const user = users.find(u => { return u.username === username && u.password === password });
 
     if (user) {
-
         req.session.token = jwt.sign({ username: user.username,  role: user.role }, secret);
         res.redirect('home')
     } else {
@@ -117,6 +114,18 @@ Router.post('/ads/reject/:id',authenticateJWT,(req,res)=> {
             })
         }
         res.redirect('/admin/ads')
+    })
+})
+
+Router.get("/ads/details",authenticateJWT,function (req,res){
+    res.render("admin/adminAdDetails.ejs")
+})
+Router.post("/ads/details",authenticateJWT,(req,res)=>{
+    ad.findById(req.body.adId,function (err,doc){
+        if(err){
+            console.log(err)
+        }
+        res.send(doc)
     })
 })
 
@@ -205,113 +214,6 @@ Router.route('/category/edit/:id')
         })
     })
 
-//View Active Offers
-Router.route('/offers/:search')
-    .get(authenticateJWT,(req,res)=> {
-        if(req.params.search !== 'all'){
-            offers.find({date_expired: {$gte: Date.now()},status:req.params.search}, function (err, results) {
-                let userIds = []
-                let adIds = []
-                let userDict = {}
-                let adDict = {}
-                results.forEach(offer => {
-                    userIds.push(offer.buyer)
-                    userIds.push(offer.seller)
-                    adIds.push(offer.ad)
-                })
-                async.parallel([
-                    function (callback){
-                        User.find({_id: {$in: userIds}}, function (err, users) {
-                            users.forEach(user => {
-                                userDict[user._id] = user;
-                            })
-                            callback(null,'Done')
-                        })
-                    },
-                    function (callback){
-                        ad.find({_id: {$in: adIds}}, function (err, users) {
-                            users.forEach(user => {
-                                adDict[user._id] = user;
-                            })
-                            callback(null,'Done')
-                        })
-                    }
-                ],function (err){
-                    if(err){
-                        console.log("Error:",err)
-
-                    }
-                    let currentOffers=[]
-                    results.forEach(offer=>{
-                        let off = {
-                            ad:adDict[offer.ad].title,
-                            buyer:userDict[offer.buyer].local.username,
-                            seller:userDict[offer.seller].local.username,
-                            status:offer.status,
-                            date_expired:offer.date_expired,
-                            offer_price:offer.offer_price
-                        }
-                        currentOffers.push(off)
-                    })
-                    res.render('admin/adminOffers.ejs',{
-                        'offers':currentOffers
-                    })
-                })
-
-
-            })
-        }
-        else {
-            offers.find({date_expired: {$gte: Date.now()}}, function (err, results) {
-                let userIds = []
-                let adIds = []
-                let userDict = {}
-                let adDict = {}
-                results.forEach(offer => {
-                    userIds.push(offer.buyer)
-                    userIds.push(offer.seller)
-                    adIds.push(offer.ad)
-                })
-                async.parallel([
-                    function (callback){
-                        User.find({_id: {$in: userIds}}, function (err, users) {
-                            users.forEach(user => {
-                                userDict[user._id] = user;
-                            })
-                            callback(null,'Done')
-                        })
-                    },
-                    function (callback){
-                        ad.find({_id: {$in: adIds}}, function (err, users) {
-                            users.forEach(user => {
-                                adDict[user._id] = user;
-                            })
-                            callback(null,'Done')
-                        })
-                    }
-                ],function (err){
-                    if(err){
-                        console.log("Error",err)
-                    }
-                    let currentOffers=[]
-                    results.forEach(offer=>{
-                        let off = {
-                            ad:adDict[offer.ad].title,
-                            buyer:userDict[offer.buyer].local.username,
-                            seller:userDict[offer.seller].local.username,
-                            status:offer.status,
-                            date_expired:offer.date_expired,
-                            offer_price:offer.offer_price
-                        }
-                        currentOffers.push(off)
-                    })
-                    res.render('admin/adminOffers.ejs',{
-                        'offers':currentOffers
-                    })
-                })
-            })
-        }
-    })
 
 Router.route('/sellers')
     .get(authenticateJWT,(req,res)=>{
@@ -346,4 +248,116 @@ Router.get('/sellers/reject/:id',authenticateJWT,(req,res)=> {
 })
 
 
+
+
 module.exports = Router
+
+
+
+//View Active Offers
+// Router.route('/offers/:search')
+//     .get(authenticateJWT,(req,res)=> {
+//         if(req.params.search !== 'all'){
+//             offers.find({date_expired: {$gte: Date.now()},status:req.params.search}, function (err, results) {
+//                 let userIds = []
+//                 let adIds = []
+//                 let userDict = {}
+//                 let adDict = {}
+//                 results.forEach(offer => {
+//                     userIds.push(offer.buyer)
+//                     userIds.push(offer.seller)
+//                     adIds.push(offer.ad)
+//                 })
+//                 async.parallel([
+//                     function (callback){
+//                         User.find({_id: {$in: userIds}}, function (err, users) {
+//                             users.forEach(user => {
+//                                 userDict[user._id] = user;
+//                             })
+//                             callback(null,'Done')
+//                         })
+//                     },
+//                     function (callback){
+//                         ad.find({_id: {$in: adIds}}, function (err, users) {
+//                             users.forEach(user => {
+//                                 adDict[user._id] = user;
+//                             })
+//                             callback(null,'Done')
+//                         })
+//                     }
+//                 ],function (err){
+//                     if(err){
+//                         console.log("Error:",err)
+//
+//                     }
+//                     let currentOffers=[]
+//                     results.forEach(offer=>{
+//                         let off = {
+//                             ad:adDict[offer.ad].title,
+//                             buyer:userDict[offer.buyer].local.username,
+//                             seller:userDict[offer.seller].local.username,
+//                             status:offer.status,
+//                             date_expired:offer.date_expired,
+//                             offer_price:offer.offer_price
+//                         }
+//                         currentOffers.push(off)
+//                     })
+//                     res.render('admin/adminOffers.ejs',{
+//                         'offers':currentOffers
+//                     })
+//                 })
+//
+//
+//             })
+//         }
+//         else {
+//             offers.find({date_expired: {$gte: Date.now()}}, function (err, results) {
+//                 let userIds = []
+//                 let adIds = []
+//                 let userDict = {}
+//                 let adDict = {}
+//                 results.forEach(offer => {
+//                     userIds.push(offer.buyer)
+//                     userIds.push(offer.seller)
+//                     adIds.push(offer.ad)
+//                 })
+//                 async.parallel([
+//                     function (callback){
+//                         User.find({_id: {$in: userIds}}, function (err, users) {
+//                             users.forEach(user => {
+//                                 userDict[user._id] = user;
+//                             })
+//                             callback(null,'Done')
+//                         })
+//                     },
+//                     function (callback){
+//                         ad.find({_id: {$in: adIds}}, function (err, users) {
+//                             users.forEach(user => {
+//                                 adDict[user._id] = user;
+//                             })
+//                             callback(null,'Done')
+//                         })
+//                     }
+//                 ],function (err){
+//                     if(err){
+//                         console.log("Error",err)
+//                     }
+//                     let currentOffers=[]
+//                     results.forEach(offer=>{
+//                         let off = {
+//                             ad:adDict[offer.ad].title,
+//                             buyer:userDict[offer.buyer].local.username,
+//                             seller:userDict[offer.seller].local.username,
+//                             status:offer.status,
+//                             date_expired:offer.date_expired,
+//                             offer_price:offer.offer_price
+//                         }
+//                         currentOffers.push(off)
+//                     })
+//                     res.render('admin/adminOffers.ejs',{
+//                         'offers':currentOffers
+//                     })
+//                 })
+//             })
+//         }
+//     })

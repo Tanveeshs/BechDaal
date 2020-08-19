@@ -90,6 +90,12 @@ const adSchema = new Schema({
   //1 if Paid
   //2 if featured
   isPaid:Number,
+  //To determine whether ad is active
+  //If true only then show
+  isActive:{
+    type:Boolean,
+    default:true
+  },
 
   reviews:[{
     Comment:String,
