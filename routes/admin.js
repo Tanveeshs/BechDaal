@@ -93,21 +93,21 @@ Router.post('/ads/reject/:id',authenticateJWT,(req,res)=> {
             console.log("Error Occurred")
         }
         if(result.isPaid===0) {
-            User.findOneAndUpdate({_id: String(result.user._id)}, {$inc: {noOfFreeAds: 1}}, function (err) {
+            User.findOneAndUpdate({_id: String(result.user._id)}, {$inc: {noOfFreeAds: 1}},{new:true}, function (err,user) {
                 if (err) {
                     console.log(err)
                 }
             })
         }
         if(result.isPaid===1){
-            User.findOneAndUpdate({_id:String(result.user._id)},{$inc:{noOfPaidAds: 1}},function (err){
+            User.findOneAndUpdate({_id:String(result.user._id)},{$inc:{noOfPaidAds: 1}},{new:true},function (err){
                     if(err){
                         console.log(err)
                     }
             })
         }
         if(result.isPaid===2){
-            User.findOneAndUpdate({_id:String(result.user._id)},{$inc:{noOfFeaturedAds: 1}},function (err){
+            User.findOneAndUpdate({_id:String(result.user._id)},{$inc:{noOfFeaturedAds: 1}},{new:true},function (err){
                     if(err){
                         console.log(err)
                     }
