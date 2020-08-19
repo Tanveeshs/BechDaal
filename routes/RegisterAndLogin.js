@@ -4,35 +4,57 @@ var {
 } = require('../model/user');
 const Category = require('../model/category').CategoryModel;
 const ad = require('../model/ad')
+const async = require('async')
+
 
 module.exports = function(app, passport) {
   app.get('/', function(req, res) {
-    Category.find({}, function(err, result) {
-      ad.find({}, (err, ads) => {
+    async.parallel({
+      getCategories: function (callback) {
+        Category.find({},{name:1,image:1},function (err, result) {
+          if (err) {
+            callback(err, null)
+          }
+          callback(null, result)
+        })
+      },
+      getAds: function (callback) {
+        ad.find({}, (err, ads) => {
+          if (err) {
+            callback(err, null)
+          }
+          callback(null, ads)
+        })
+      }
+    }, function (err, results) {
+      if (err) {
+        console.log(err)
+        console.log("Error Reported")
+        res.send("error")
+      } else {
         res.render('index.ejs', {
           user: req.user,
-          categries: result,
-          ads: ads
+          categries: results.getCategories,
+          ads: results.getAds
         });
-      })
-    });
-  });
+      }
+    })
+  })
 
-  app.get('/login', function(req, res) {
-
+  app.get('/login',isNotLoggedIn,function(req, res) {
     // render the page and pass in any flash data if it exists
     res.render('login.ejs', {
       message: req.flash('loginMessage')
     });
   });
 
-  app.post('/login', passport.authenticate('local-login', {
+  app.post('/login',isNotLoggedIn, passport.authenticate('local-login', {
     successRedirect: '/verify', // redirect to the secure profile section
     failureRedirect: '/login', // redirect back to the signup page if there is an error
     failureFlash: true // allow flash messages
   }));
 
-  app.get('/signup', function(req, res) {
+  app.get('/signup',isNotLoggedIn,function(req, res) {
 
     // render the page and pass in any flash data if it exists
     res.render('signup.ejs', {
@@ -75,12 +97,12 @@ module.exports = function(app, passport) {
   });
 
   app.get('/auth/facebook', passport.authenticate('facebook', {
-      scope: ['email']
+    scope: ['email']
   }));
   app.get('/auth/facebook/callback',
       passport.authenticate('facebook', {
-          successRedirect: '/',
-          failureRedirect: '/login'
+        successRedirect: '/',
+        failureRedirect: '/login'
       }));
 
   app.get('/auth/google', passport.authenticate('google', {
@@ -89,20 +111,30 @@ module.exports = function(app, passport) {
 
   // the callback after google has authenticated the user
   app.get('/auth/google/callback',
-    passport.authenticate('google', {
-      successRedirect: '/',
-      failureRedirect: '/login'
-    }));
+      passport.authenticate('google', {
+        successRedirect: '/',
+        failureRedirect: '/login'
+      }));
 };
 
 function isLoggedIn(req, res, next) {
   try {
     if (req.isAuthenticated()) {
-      req.isLogged = true;
       return next();
     }
     res.redirect('/login');
   } catch (e) {
     console.log(e);
+  }
+}
+
+function isNotLoggedIn(req,res,next){
+  try {
+    if (!req.isAuthenticated()) {
+      return next();
+    }
+    res.redirect('/');
+  }catch (e){
+    console.log(e)
   }
 }
