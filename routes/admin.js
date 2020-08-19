@@ -89,11 +89,33 @@ Router.post('/ads/approve/:id', authenticateJWT,(req,res)=>{
 })
 Router.post('/ads/reject/:id',authenticateJWT,(req,res)=> {
     const adId = req.params.id;
-    ad.findOne({_id: adId}, function (err, result) {
-        result.rejected.val = true;
-        result.rejected.reason = req.body.reason
-        console.log(req.body)
-        result.save()
+    ad.findOneAndUpdate({_id: adId},
+        {$set:{'rejected.val':true,'rejected.reason':req.body.reason}},{new:true},
+        function (err, result) {
+        if(err){
+            console.log("Error Occurred")
+        }
+        if(result.isPaid===0) {
+            User.findOneAndUpdate({_id: String(result.user._id)}, {$inc: {noOfFreeAds: 1}}, function (err) {
+                if (err) {
+                    console.log(err)
+                }
+            })
+        }
+        if(result.isPaid===1){
+            User.findOneAndUpdate({_id:String(result.user._id)},{$inc:{noOfPaidAds: 1}},function (err){
+                    if(err){
+                        console.log(err)
+                    }
+            })
+        }
+        if(result.isPaid===2){
+            User.findOneAndUpdate({_id:String(result.user._id)},{$inc:{noOfFeaturedAds: 1}},function (err){
+                    if(err){
+                        console.log(err)
+                    }
+            })
+        }
         res.redirect('/admin/ads')
     })
 })

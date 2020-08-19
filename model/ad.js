@@ -86,13 +86,11 @@ const adSchema = new Schema({
     },
     reason:String,
   },
-  payment:{
-    order_id:String,
-    payment_id:String,
-  },
-  //Would be set to true if Paid or free ad
-  //Would be set to false if Unpaid
-  isPaid:Boolean,
+  //0 if free
+  //1 if Paid
+  //2 if featured
+  isPaid:Number,
+
   reviews:[{
     Comment:String,
     by:String,

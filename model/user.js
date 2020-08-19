@@ -18,7 +18,15 @@ const userSchema = new mongoose.Schema({
   },
   noOfFreeAds: {
     type: Number,
-    default: 0
+    default: 3
+  },
+  noOfPaidAds:{
+    type:Number,
+    default:0
+  },
+  noOfFeaturedAds:{
+    type:Number,
+    default:0
   },
   facebook: {
     id: String,

@@ -12,7 +12,6 @@ const fs = require('fs')
 const bodyParser = require('body-parser')
 const http = require("http");
 const cors = require('cors');
-var schedule = require('node-schedule');
 dotenv.config();
 const configDB = require('./config/database');
 mongoose.connect(configDB.url, {

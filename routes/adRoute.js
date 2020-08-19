@@ -93,23 +93,20 @@ adRouter.get('/ad/ad/:adid', isLoggedIn, (req, res) => {
 //MAKE AN ERROR PAGE
 //Think yahaan pe If I dont have postable ads I still posted the ad
 adRouter.post('/', (req, res) => {
-  User.findById(req.user._id)
-    .then((user) => {
-      if (user.noOfFreeAds >= 3) res.render('payment.ejs');
-      else {
-
-        multerMid(req, res, async (err) => {
-          if (err) {
-            console.log('Error: ', err);
-            res.statusCode = 400;
-            res.setHeader('Content-Type', 'application/json');
-            res.json({
-              msg: 'error'
-            });
-          } else {
-            let cover_photo = '';
-            let remaining_images = [];
-            async.forEachOf(req.files, function(file, i, callback) {
+  if (req.body.featured) {
+    if (req.user.noOfFeaturedAds > 0) {
+      multerMid(req, res, async (err) => {
+        if (err) {
+          console.log('Error: ', err);
+          res.statusCode = 400;
+          res.setHeader('Content-Type', 'application/json');
+          res.json({
+            msg: 'error'
+          });
+        } else {
+          let cover_photo = '';
+          let remaining_images = [];
+          async.forEachOf(req.files, function (file, i, callback) {
                 console.log(i);
                 const bucket = storage.bucket('bechdaal_bucket');
                 const {
@@ -133,40 +130,264 @@ adRouter.post('/', (req, res) => {
                   callback(err)
                 }).end(buffer);
               },
-              function(err) {
+              function (err) {
                 if (err) {
                   console.log(err);
                   res.send('ERROR');
                 } else {
                   console.log('Images Uploaded');
-                  const new_ad = new Ads({
-                    title: req.body.title,
-                    category: req.body.category,
-                    sub_category: req.body.subcategory,
-                    model: req.body.model,
-                    brand: req.body.brand,
-                    cover_photo: cover_photo,
-                    price: req.body.price,
-                    user: req.user,
-                    address: req.body.address,
-                    contact_number: req.body.contact,
-                    featured: req.body.featured,
-                    images: remaining_images,
-                    description: req.body.description,
-                    date_posted: new Date(),
-                    // date_sold: req.body.date_sold
-                  });
-                  new_ad.save()
-                    .then((ad) => res.render('afterPostAd.ejs'))
-                    .catch((err) => console.log(err));
+                  async.parallel({
+                    adUpload: function (callback) {
+                      const new_ad = new Ads({
+                        title: req.body.title,
+                        category: req.body.category,
+                        sub_category: req.body.subcategory,
+                        model: req.body.model,
+                        brand: req.body.brand,
+                        cover_photo: cover_photo,
+                        price: req.body.price,
+                        user: req.user,
+                        address: req.body.address,
+                        contact_number: req.body.contact,
+                        featured:true,
+                        isPaid:2,
+                        images: remaining_images,
+                        description: req.body.description,
+                        date_posted: new Date(),
+                        // date_sold: req.body.date_sold
+                      });
+                      new_ad.save()
+                          .then((ad) => {
+                            callback(null, ad)
+                          })
+                          .catch((err) => callback(err, null))
+                    },
+                    userUpdate: function (callback) {
+                      User.findOneAndUpdate({_id: String(req.user._id)}, {$inc: {noOfFeaturedAds: -1}},
+                          {new: true}, function (err, user) {
+                            if (err) {
+                              callback(err, null)
+                            } else {
+                              let result = {
+                                user: user
+                              }
+                              callback(null, result)
+                            }
+                          })
+                    }
+                  }, function (err, results) {
+                    if (err) {
+                      console.log("Error While Posting Ads")
+                    } else {
+                      console.log(results.userUpdate.user)
+                      req.user = results.userUpdate.user
+                      res.render("afterPostAd.ejs")
+                    }
+                  })
                 }
               });
-          }
-        });
-      }
-    });
-});
+        }
+      })
+    } else {
+      res.send("You Dont have Featured Ads Buy More")
+    }
+  }
+  else {
+    if(req.user.noOfFreeAds>0){
+      multerMid(req, res, async (err) => {
+        if (err) {
+          console.log('Error: ', err);
+          res.statusCode = 400;
+          res.setHeader('Content-Type', 'application/json');
+          res.json({
+            msg: 'error'
+          });
+        } else {
+          let cover_photo = '';
+          let remaining_images = [];
+          async.forEachOf(req.files, function (file, i, callback) {
+                console.log(i);
+                const bucket = storage.bucket('bechdaal_bucket');
+                const {
+                  originalname,
+                  buffer
+                } = file;
+                const fileName = originalname + '-' + Date.now();
+                const blob = bucket.file('ad_images/' + fileName.replace(/ /g, "_"));
 
+                const blobStream = blob.createWriteStream({
+                  resumable: false
+                });
+                blobStream.on('finish', () => {
+                  if (i === 0) {
+                    cover_photo = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+                  } else {
+                    remaining_images.push(`https://storage.googleapis.com/${bucket.name}/${blob.name}`);
+                  }
+                  callback(null);
+                }).on('error', (err) => {
+                  callback(err)
+                }).end(buffer);
+              },
+              function (err) {
+                if (err) {
+                  console.log(err);
+                  res.send('ERROR');
+                } else {
+                  console.log('Images Uploaded');
+                  async.parallel({
+                    adUpload: function (callback) {
+                      const new_ad = new Ads({
+                        title: req.body.title,
+                        category: req.body.category,
+                        sub_category: req.body.subcategory,
+                        model: req.body.model,
+                        brand: req.body.brand,
+                        cover_photo: cover_photo,
+                        price: req.body.price,
+                        user: req.user,
+                        address: req.body.address,
+                        contact_number: req.body.contact,
+                        featured: false,
+                        images: remaining_images,
+                        isPaid:0,
+                        description: req.body.description,
+                        date_posted: new Date(),
+                        // date_sold: req.body.date_sold
+                      });
+                      new_ad.save()
+                          .then((ad) => {
+                            callback(null, ad)
+                          })
+                          .catch((err) => callback(err, null))
+                    },
+                    userUpdate: function (callback) {
+                      User.findOneAndUpdate({_id: String(req.user._id)}, {$inc: {noOfFreeAds: -1}},
+                          {new: true}, function (err, user) {
+                            if (err) {
+                              callback(err, null)
+                            } else {
+                              let result = {
+                                user: user
+                              }
+                              callback(null, result)
+                            }
+                          })
+                    }
+                  }, function (err, results) {
+                    if (err) {
+                      console.log("Error While Posting Ads")
+                    } else {
+                      console.log(results.userUpdate.user)
+                      req.user = results.userUpdate.user
+                      res.render("afterPostAd.ejs")
+                    }
+                  })
+                }
+              });
+        }
+      })
+    }
+    else if(req.user.noOfPaidAds>0){
+      multerMid(req, res, async (err) => {
+        if (err) {
+          console.log('Error: ', err);
+          res.statusCode = 400;
+          res.setHeader('Content-Type', 'application/json');
+          res.json({
+            msg: 'error'
+          });
+        } else {
+          let cover_photo = '';
+          let remaining_images = [];
+          async.forEachOf(req.files, function (file, i, callback) {
+                console.log(i);
+                const bucket = storage.bucket('bechdaal_bucket');
+                const {
+                  originalname,
+                  buffer
+                } = file;
+                const fileName = originalname + '-' + Date.now();
+                const blob = bucket.file('ad_images/' + fileName.replace(/ /g, "_"));
+
+                const blobStream = blob.createWriteStream({
+                  resumable: false
+                });
+                blobStream.on('finish', () => {
+                  if (i === 0) {
+                    cover_photo = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+                  } else {
+                    remaining_images.push(`https://storage.googleapis.com/${bucket.name}/${blob.name}`);
+                  }
+                  callback(null);
+                }).on('error', (err) => {
+                  callback(err)
+                }).end(buffer);
+              },
+              function (err) {
+                if (err) {
+                  console.log(err);
+                  res.send('ERROR');
+                } else {
+                  console.log('Images Uploaded');
+                  async.parallel({
+                    adUpload: function (callback) {
+                      const new_ad = new Ads({
+                        title: req.body.title,
+                        category: req.body.category,
+                        sub_category: req.body.subcategory,
+                        model: req.body.model,
+                        brand: req.body.brand,
+                        cover_photo: cover_photo,
+                        price: req.body.price,
+                        user: req.user,
+                        address: req.body.address,
+                        contact_number: req.body.contact,
+                        featured: false,
+                        isPaid:1,
+                        images: remaining_images,
+                        description: req.body.description,
+                        date_posted: new Date(),
+                        // date_sold: req.body.date_sold
+                      });
+                      new_ad.save()
+                          .then((ad) => {
+                            callback(null, ad)
+                          })
+                          .catch((err) => callback(err, null))
+                    },
+                    userUpdate: function (callback) {
+                      User.findOneAndUpdate({_id: String(req.user._id)}, {$inc: {noOfPaidAds: -1}},
+                          {new: true}, function (err, user) {
+                            if (err) {
+                              callback(err, null)
+                            } else {
+                              let result = {
+                                user: user
+                              }
+                              callback(null, result)
+                            }
+                          })
+                    }
+                  }, function (err, results) {
+                    if (err) {
+                      console.log("Error While Posting Ads")
+                    } else {
+                      console.log(results.userUpdate.user)
+                      req.user = results.userUpdate.user
+                      res.render("afterPostAd.ejs")
+                    }
+                  })
+                }
+              });
+        }
+      })
+    }
+    else {
+      res.send("You Dont have Ads Buy More")
+    }
+  }
+})
 
 //DONE
 //ERROR PAGE LEFT
