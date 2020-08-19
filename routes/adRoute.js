@@ -33,7 +33,6 @@ const {
 adRouter.use(bodyParser.json());
 
 
-// for now, the images data is storing the array of whole file objects, not just the url of the pic
 
 
 /* docs */
@@ -84,11 +83,17 @@ adRouter.get('/ad/ad/:adid', isLoggedIn, (req, res) => {
 });
 
 
+
+//The get route of PostAd Page
+adRouter.get('/ads/post', isLoggedIn,isSeller,function(req, res) {
+    res.render('postAd.ejs', {
+        user: req.user
+    });
+});
 //DONE
 //MAKE AN ERROR PAGE
 adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
     multerMid(req, res,(err) => {
-        console.log(req.body)
         if (req.body.featured) {
             if (req.user.noOfFeaturedAds > 0) {
                 if (err) {
@@ -373,6 +378,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
         }
     })
 })
+
 //DONE
 //ERROR PAGE LEFT
 adRouter.post('/editad/view', isLoggedIn,isSeller,(req, res) => {
@@ -393,17 +399,18 @@ adRouter.post('/editad/view', isLoggedIn,isSeller,(req, res) => {
 });
 
 
-//CANNOT SET FEATURED YAHAN SE
-//EXTERNAL API FOR THAT
-//HOW TO UPDATE IMAGES HERE??
+
+//Files Nai aari is request mein Check karo
 adRouter.post('/editad', (req, res) => {
     multerMid(req, res,(err) => {
         if(err){
             console.log(err)
             res.send("Error")
         }
+        console.log(req.files)
         Ads.findOne({_id:sanitize(req.body.adid)},function (err,ad){
-            if(req.body.featured && !ad.featured){
+            let featured = ad.featured
+            if(req.body.featured && !featured){
                 User.findById({_id:String(req.user._id)},function (err,user){
                     if(user.noOfFeaturedAds>0){
                         user.noOfFeaturedAds = user.noOfFeaturedAds-1;
@@ -452,11 +459,12 @@ adRouter.post('/editad', (req, res) => {
 
     })
 });
-
 function editAd(req,res,isPaid,featured){
+
     if(req.body.updateImages){
         let cover_photo = '';
         let remaining_images = [];
+        console.log(req.files)
         async.forEachOf(req.files, function (file, i, callback) {
             console.log(i);
             const bucket = storage.bucket('bechdaal_bucket');
@@ -506,7 +514,7 @@ function editAd(req,res,isPaid,featured){
                         res.send("Error While Updating Ad")
                     }
                     if(docs){
-                        res.render('afterPostAds.ejs')
+                        res.render('afterPostAds')
                     }
                     else {
                         res.send("Not Found")
@@ -519,27 +527,27 @@ function editAd(req,res,isPaid,featured){
         Ads.findOne({_id:sanitize(req.body.adid)},function (err,ad){
             let change=0
             if(ad.title !== req.body.title){
+                console.log("Title Changed")
                 ad.title = req.body.title;
                 change=1
             }
             if(ad.category !== req.body.category){
+                console.log("Category Changed")
                 ad.category = req.body.category;
                 change=1
             }
-            if(ad.sub_category !== req.body.sub_category){
-                ad.sub_category = req.body.sub_category;
+            if(ad.sub_category !== req.body.subcategory){
+                console.log("SubCategory Changed")
+                ad.sub_category = req.body.subcategory;
                 change=1
             }
             if(ad.model !== req.body.model){
+                console.log("Model Changed")
                 ad.model = req.body.model;
                 change=1
             }
             if(ad.brand !== req.body.brand){
                 ad.brand = req.body.brand;
-                change=1
-            }
-            if(ad.price !== req.body.price){
-                ad.price = req.body.price;
                 change=1
             }
             if(ad.description !== req.body.description){
@@ -548,21 +556,25 @@ function editAd(req,res,isPaid,featured){
             }
             let isActive= false
             if(req.body.isActive){
-
+                isActive=true
             }
-            if(change==1){
+            if(change===1){
                 ad.approved=false
                 ad.isPaid = isPaid
                 ad.featured = featured
                 ad.isActive = isActive
+                ad.price = req.body.price
+                ad.save()
+                res.render("afterPostAd.ejs")
             }
             else {
                 ad.isPaid = isPaid
                 ad.featured = featured
+                ad.price = req.body.price
                 ad.isActive = isActive
-            }
-            ad.save()
+                res.redirect("/sell")
 
+            }
         })
 
     }
@@ -612,12 +624,6 @@ adRouter.post('/show', (req, res) => {
 
 
 
-
-adRouter.get('/ads/post', isLoggedIn,isSeller,function(req, res) {
-    res.render('postAd.ejs', {
-        user: req.user
-    });
-});
 
 function isLoggedIn(req, res, next) {
     try {
