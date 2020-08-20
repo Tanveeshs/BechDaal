@@ -46,7 +46,6 @@ const adSchema = new Schema({
     default: false
   },
   //decide for pincode
-  serviceable_area:[String],
   date_posted: {
     type: Date
   },

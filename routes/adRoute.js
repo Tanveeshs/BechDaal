@@ -114,7 +114,11 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                 originalname,
                                 buffer
                             } = file;
-                            const fileName = originalname + '-' + Date.now();
+
+                            let re = /(?:\.([^.]+))?$/;
+                            let ext = re.exec(originalname)[1]
+                            const fileName = Date.now()+'.'+ext;
+                            console.log(fileName)
                             const blob = bucket.file('ad_images/' + fileName.replace(/ /g, "_"));
 
                             const blobStream = blob.createWriteStream({
@@ -208,7 +212,10 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                 originalname,
                                 buffer
                             } = file;
-                            const fileName = originalname + '-' + Date.now();
+                            let re = /(?:\.([^.]+))?$/;
+                            let ext = re.exec(originalname)[1]
+                            const fileName = Date.now()+'.'+ext;
+                            console.log(fileName)
                             const blob = bucket.file('ad_images/' + fileName.replace(/ /g, "_"));
 
                             const blobStream = blob.createWriteStream({
@@ -299,7 +306,10 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                 originalname,
                                 buffer
                             } = file;
-                            const fileName = originalname + '-' + Date.now();
+                            let re = /(?:\.([^.]+))?$/;
+                            let ext = re.exec(originalname)[1]
+                            const fileName = Date.now()+'.'+ext;
+                            console.log(fileName)
                             const blob = bucket.file('ad_images/' + fileName.replace(/ /g, "_"));
 
                             const blobStream = blob.createWriteStream({
@@ -472,7 +482,10 @@ function editAd(req,res,isPaid,featured){
                 originalname,
                 buffer
             } = file;
-            const fileName = originalname + '-' + Date.now();
+            let re = /(?:\.([^.]+))?$/;
+            let ext = re.exec(originalname)[1]
+            const fileName = Date.now()+'.'+ext;
+            console.log(fileName)
             const blob = bucket.file('ad_images/' + fileName.replace(/ /g, "_"));
 
             const blobStream = blob.createWriteStream({
@@ -587,7 +600,7 @@ function editAd(req,res,isPaid,featured){
 //WHAT DOES PUT Route do here??
 adRouter.route('/:adId')
     .get((req, res) => {
-        Ads.findById(sanitize(req.params.adId))
+        Ads.findById(String(req.params.adId))
             .then((ad) => {
                 // console.log(ad);
                 res.render('show_ad', {
@@ -662,11 +675,11 @@ adRouter.route('/grid_ads/a')
 
 
         Ads.find({$and: [
-            { approved: true },
-            { rejected: false },
-            { isActive: true }
-        ]})
-        .sort({date_posted: -1})
+                { approved: true },
+                { rejected: false },
+                { isActive: true }
+            ]})
+            .sort({date_posted: -1})
             .then((ads) => {
                 const featuredAds = ads.filter((item, index) => item.featured);
                 const ordinaryAds = ads.filter((item, index) => !item.featured);
@@ -694,38 +707,68 @@ adRouter.route('/grid_ads/a')
             });
     });
 
+//Send Params adId
+//Increments adType in user
+//Removes Images From GoogleCloud
 adRouter.route('/delete')
-.post(isLoggedIn, isSeller, (req, res, next) => {
-  multerMid(req, res, (err) => {
+    .post(isLoggedIn, isSeller, (req, res)=> {
+        Ads.findOne({_id:req.body.adid,'user._id':req.user._id},{_id:1,images:1,isPaid:1,cover_photo:1},
+            function (err,ad) {
+                //logic to delete the photos from cloud storage
+                let cover_photo = ad.cover_photo
+                let images = []
+                images[0] = cover_photo.replace('https://storage.googleapis.com/bechdaal_bucket/','')
+                let imgURL;
+                if(ad.images.length>0){
+                    for (let i = 0; i < ad.images.length; i++) {
+                        imgURL = ad.images[i]
+                        imgURL = imgURL.replace('https://storage.googleapis.com/bechdaal_bucket/','')
+                        images.push(imgURL)
+                    }
+                    images.forEach(im=>{
+                        storage.bucket('bechdaal_bucket').file(im).delete()
+                            .then(()=>{
+                                console.log("File Deleted")
+                            })
+                    })
+                }
 
-    const bucket = storage.bucket('bechdaal_bucket');
-    Ads.findById(req.body.adId)
-    .then((ad) => {
-        let cover_photo = ad.cover_photo
-        cover_photo = cover_photo.replace('https://storage.googleapis.com/bechdaal_bucket/','')
-        let images = []
-        let imgURL;
-        if(ad.images.length>0){
-            for (let i = 0; i < ad.images.length; i++) {
-                imgURL = ad.images[i]
-                imgURL = imgURL.replace('https://storage.googleapis.com/bechdaal_bucket/','')
-                images.push(imgURL)
-            }
-        }
-        /*
-      deleting the images of this ad from the cloud storage
-      before deleting the ad from db -- REMAINING
-      */
-  
-      ad.deleteOne()
-      .then((ad) => {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json({msg: 'ad deleted'});
-      })
-      .catch((err) => console.log(err))
+                if(ad.isPaid===0){
+                    User.findOneAndUpdate({_id:String(req.user._id)},{$inc:{noOfFreeAds:1}},{new: true},
+                        function(err,user){
+                            if(err){
+                                return res.send(err)
+                            }
+                            req.user = user
+                        } )
+                }
+                else if(ad.isPaid===1) {
+                    User.findOneAndUpdate({_id:String(req.user._id)},{$inc:{noOfPaidAds:1}},{new: true},
+                        function(err,user){
+                            if(err){
+                                return res.send(err)
+                            }
+                            req.user = user
+                        } )
+                }
+                else if(ad.isPaid===2){
+                    User.findOneAndUpdate({_id:String(req.user._id)},{$inc:{noOfFeaturedAds:1}},{new: true},
+                        function(err,user){
+                            if(err){
+                                return res.send(err)
+                            }
+                            req.user = user
+                        } )
+                }
+
+                ad.deleteOne()
+                    .then((ad) => {
+                        res.statusCode = 200;
+                        res.setHeader('Content-Type', 'application/json');
+                        res.json({msg: 'ad deleted'});
+                    })
+                    .catch((err) => console.log(err))
+            })
     })
-  })
-})
 
 module.exports = adRouter;
