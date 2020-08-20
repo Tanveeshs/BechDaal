@@ -661,17 +661,27 @@ adRouter.route('/grid_ads/a')
         const ordinaryEndIndex = page * ordinaryLimit;
 
 
-        Ads.find({})
+        Ads.find({$and: [
+            { approved: true },
+            { rejected: false },
+            { isActive: true }
+        ]})
+        .sort({date_posted: -1})
             .then((ads) => {
-                const featuredAds = ads.filter((item, index) => item.price > 5000);
-                const ordinaryAds = ads.filter((item, index) => item.price < 5000);
+                const featuredAds = ads.filter((item, index) => item.featured);
+                const ordinaryAds = ads.filter((item, index) => !item.featured);
+
+                const isFeaturedShort = 3 - (featuredEndIndex - featuredStartIndex);
 
                 const paginatedFeaturedAds = featuredAds.slice(featuredStartIndex, featuredEndIndex);
-                const paginatedOrdinaryAds = ordinaryAds.slice(ordinaryStartIndex, ordinaryEndIndex);
+                const paginatedOrdinaryAds = ordinaryAds.slice(ordinaryStartIndex, ordinaryEndIndex + isFeaturedShort);
+
+                const finalAdsArray = Array.prototype.push.apply(paginatedFeaturedAds, paginatedOrdinaryAds);
 
                 let results = {
-                    featured: paginatedFeaturedAds,
-                    ordinary: paginatedOrdinaryAds,
+                    // featured: paginatedFeaturedAds,
+                    // ordinary: paginatedOrdinaryAds,
+                    ads: finalAdsArray
                 };
 
                 if (featuredEndIndex < featuredAds.length || ordinaryEndIndex < ordinaryAds.length) results.nextPage = page + 1;
@@ -683,5 +693,29 @@ adRouter.route('/grid_ads/a')
                 res.json(results);
             });
     });
+
+adRouter.route('/delete')
+.post(isLoggedIn, isSeller, (req, res, next) => {
+  multerMid(req, res, (err) => {
+
+    const bucket = storage.bucket('bechdaal_bucket');
+    Ads.findById(req.body.adId)
+    .then((ad) => {
+  
+      /*
+      deleting the images of this ad from the cloud storage
+      before deleting the ad from db -- REMAINING
+      */
+  
+      ad.deleteOne()
+      .then((ad) => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json({msg: 'ad deleted'});
+      })
+      .catch((err) => console.log(err))
+    })
+  })
+})
 
 module.exports = adRouter;

@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const searchRouter = express.Router();
 const Ads = require('../model/ad');
 searchRouter.use(bodyParser.json());
-
+const Category = require('../model/category')
 
 //Sanitize Pehle
 //Use async parallel
@@ -210,6 +210,7 @@ searchRouter.post('/search/:q', function(req, res, next) {
     next(e)
   }
 
+
   //for searching in sub-category
   // if (flag == 0) {
   //   Ads.find({
@@ -251,4 +252,15 @@ searchRouter.post('/search/:q', function(req, res, next) {
 
 
 });
+
+
+searchRouter.post('/searchByCat',(req,res)=>{
+  const categoryId = req.body.categoryId;
+  Category.CategoryModel.findOne({_id:categoryId},{_id:0,name:1,subcategory:0,image:0},function (err,cat){
+    Ads.find({category:cat.name,approved:true,rejected:false,isActive:true},function (err,ads){
+      res.send(ads)
+    })
+  })
+})
+
 module.exports = searchRouter;
