@@ -78,7 +78,7 @@ app.use('/category', categoryRoute);
 app.use('/search', searchRoute);
 app.use('/myprofile', myprofile);
 app.use('/wish', wishlist);
-app.use('/offers', offers);
+// app.use('/offers', offers);
 app.use('/admin',adminRouter)
 app.use('/payment',payment)
 app.use('/reviews',ratingsAndReviews)

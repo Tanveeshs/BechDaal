@@ -701,8 +701,18 @@ adRouter.route('/delete')
     const bucket = storage.bucket('bechdaal_bucket');
     Ads.findById(req.body.adId)
     .then((ad) => {
-  
-      /*
+        let cover_photo = ad.cover_photo
+        cover_photo = cover_photo.replace('https://storage.googleapis.com/bechdaal_bucket/','')
+        let images = []
+        let imgURL;
+        if(ad.images.length>0){
+            for (let i = 0; i < ad.images.length; i++) {
+                imgURL = ad.images[i]
+                imgURL = imgURL.replace('https://storage.googleapis.com/bechdaal_bucket/','')
+                images.push(imgURL)
+            }
+        }
+        /*
       deleting the images of this ad from the cloud storage
       before deleting the ad from db -- REMAINING
       */
