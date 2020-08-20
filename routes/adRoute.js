@@ -694,12 +694,12 @@ adRouter.route('/grid_ads/a')
             });
     });
 
-adRouter.route('/delete/:adId')
+adRouter.route('/delete')
 .post(isLoggedIn, isSeller, (req, res, next) => {
   multerMid(req, res, (err) => {
 
     const bucket = storage.bucket('bechdaal_bucket');
-    Ads.findById(req.params.adId)
+    Ads.findById(req.body.adId)
     .then((ad) => {
   
       /*
