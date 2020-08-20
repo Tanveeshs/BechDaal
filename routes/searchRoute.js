@@ -5,8 +5,8 @@ const bodyParser = require('body-parser');
 const searchRouter = express.Router();
 const Ads = require('../model/ad');
 searchRouter.use(bodyParser.json());
-
-
+const Category = require('../model/category')
+const async = require('async')
 //Sanitize Pehle
 //Use async parallel
 
@@ -44,7 +44,6 @@ searchRouter.post('/main', function(req, res, next) {
 
     var myPromise = () => {
       return new Promise((resolve, reject) => {
-//find in subcat
         Ads.find({
           sub_category: {
             $in: [regexp1, regexp2]
@@ -81,7 +80,7 @@ searchRouter.post('/main', function(req, res, next) {
                 });
               }
             });
-            
+
     //find in category
     Ads.find({
       category: {
@@ -134,121 +133,180 @@ searchRouter.post('/main', function(req, res, next) {
   }
 });
 
-searchRouter.post('/search/:q', function(req, res, next) {
+searchRouter.post('/search/:q',(req,res)=>{
   var q = req.params.q;
   const regexp1 = new RegExp(`^${q}`, 'i'); // for finding it as beginning of the first word
   const regexp2 = new RegExp(`\\s${q}`, 'i'); // for finding as beginning of a middle word
-  flag = 0;
-  let res1 = {};
-
-  try {
-    //Step 1: declare promise
-
-    var myPromise = () => {
-      return new Promise((resolve, reject) => {
-        flag = 0;
-        if (flag == 0) {
-          Ads.find({
-            sub_category: {
-              $in: [regexp1, regexp2]
-            }
-          }, function(err, data) {
-            if (data.length != 0) {
-              res1 = {
-                Route: 1,
-                data: data
-              };
-
-              flag = 1;
-
-            }
-            err
-              ?
-              reject(err) :
-              resolve(res1);
-          }).limit(5);
+  async.parallel({
+    getSubcategory:function (callback){
+      Ads.find({
+          sub_category: {$in: [regexp1, regexp2]}
+      },
+        {_id:0,sub_category:1},function (err,cat){
+        if(err){
+          callback(err,null)
         }
-        if (flag != 1) {
-          flag = 0;
-          Ads.find({
-            brand: {
-              $in: [regexp1, regexp2]
-            }
-          }, function(err, data) {
-            if (data.length != 0) {
-              res1 = {
-                Route: 2,
-                data: data
-              };
-            }
-            err
-              ?
-              reject(err) :
-              resolve(res1);
-          }).limit(5);
+        let arr=[]
+        cat.forEach(category=>{
+          arr.push(category.sub_category)
+        })
+        callback(null,arr)
+      })
+    },
+    getTitle:function (callback) {
+      Ads.find({title: {$in: [regexp1, regexp2]}},{_id:0,title:1},function (err,cat){
+        if(err){
+          callback(err,null)
         }
+        let arr=[]
+        cat.forEach(category=>{
+          arr.push(category.title)
+        })
+        callback(null,arr)
+      })
+    }
+  },function (err,results){
+    if(err){
+      console.log(err)
+      return res.send(err)
+    }
+    let result= []
+    result.push(...results.getSubcategory)
+    result.push(...results.getTitle)
+    let uniq = [...new Set(result)]
+    uniq = uniq.slice(0,5)
+    res.send(uniq)
+  })
 
 
-      });
-    };
+})
 
-    //Step 2: async promise handler
-    var callMyPromise = async () => {
+// searchRouter.post('/search/:q', function(req, res, next) {
+//   var q = req.params.q;
+//   const regexp1 = new RegExp(`^${q}`, 'i'); // for finding it as beginning of the first word
+//   const regexp2 = new RegExp(`\\s${q}`, 'i'); // for finding as beginning of a middle word
+//   flag = 0;
+//   let res1 = [];
+//
+//   try {
+//     //Step 1: declare promise
+//
+//     var myPromise = () => {
+//       return new Promise((resolve, reject) => {
+//         flag = 0;
+//         if (flag == 0) {
+//           Ads.find({
+//             sub_category: {
+//               $in: [regexp1, regexp2]
+//             }
+//           }, function(err, data) {
+//             if (data.length != 0) {
+//               for(var i =0 ; i<data.length;i++){
+//                 res1.push(data.sub_category);
+//               }
+//
+//               flag = 1;
+//
+//             }
+//             err
+//               ?
+//               reject(err) :
+//               resolve(res1);
+//           }).limit(10);
+//         }
+//         // if (flag != 1) {
+//         //   flag = 0;
+//         //   Ads.find({
+//         //     brand: {
+//         //       $in: [regexp1, regexp2]
+//         //     }
+//         //   }, function(err, data) {
+//         //     if (data.length != 0) {
+//         //       res1 = {
+//         //         Route: 2,
+//         //         data: data
+//         //       };
+//         //     }
+//         //     err
+//         //       ?
+//         //       reject(err) :
+//         //       resolve(res1);
+//         //   }).limit(5);
+//         // }
+//
+//
+//       });
+//     };
+//
+//     //Step 2: async promise handler
+//     var callMyPromise = async () => {
+//
+//       var result = await (myPromise());
+//       //anything here is executed after result is resolved
+//       return result;
+//     };
+//
+//     //Step 3: make the call
+//     callMyPromise().then(function(result) {
+//       console.log(result)
+//       res.send(result);
+//     });
+//
+//   } catch (e) {
+//     next(e)
+//   }
+//
+//
+//   //for searching in sub-category
+//   // if (flag == 0) {
+//   //   Ads.find({
+//   //     sub_category: {
+//   //       $in: [regexp1, regexp2]
+//   //     }
+//   //   }, function(err, data) {
+//   //     if (data.length != 0) {
+//   //       res1 = {
+//   //         Route: 1,
+//   //         data: data
+//   //       };
+//   //
+//   //       flag = 1;
+//   //
+//   //       res.json(res1);
+//   //     }
+//   //   }).limit(5);
+//   // }
+//   // if (flag != 1) {
+//   //   Ads.find({
+//   //     brand: {
+//   //       $in: [regexp1, regexp2]
+//   //     }
+//   //   }, function(err, data) {
+//   //     if (data.length != 0) {
+//   //       res1 = {
+//   //         Route: 2,
+//   //         data: data
+//   //       };
+//   //       flag = 2;
+//   //       res.json(res1);
+//   //     }
+//   //   }).limit(5);
+//   // }
+//   // if (flag != 1 && flag != 2) {
+//   //
+//   // }
+//
+//
+// });
 
-      var result = await (myPromise());
-      //anything here is executed after result is resolved
-      return result;
-    };
 
-    //Step 3: make the call
-    callMyPromise().then(function(result) {
-      console.log(result)
-      res.json(result);
-    });
+searchRouter.post('/searchByCat',(req,res)=>{
+  const categoryId = req.body.categoryId;
+  Category.CategoryModel.findOne({_id:categoryId},{_id:0,name:1,subcategory:0,image:0},function (err,cat){
+    Ads.find({category:cat.name,approved:true,rejected:false,isActive:true},function (err,ads){
+      res.send(ads)
+    })
+  })
+})
 
-  } catch (e) {
-    next(e)
-  }
-
-  //for searching in sub-category
-  // if (flag == 0) {
-  //   Ads.find({
-  //     sub_category: {
-  //       $in: [regexp1, regexp2]
-  //     }
-  //   }, function(err, data) {
-  //     if (data.length != 0) {
-  //       res1 = {
-  //         Route: 1,
-  //         data: data
-  //       };
-  //
-  //       flag = 1;
-  //
-  //       res.json(res1);
-  //     }
-  //   }).limit(5);
-  // }
-  // if (flag != 1) {
-  //   Ads.find({
-  //     brand: {
-  //       $in: [regexp1, regexp2]
-  //     }
-  //   }, function(err, data) {
-  //     if (data.length != 0) {
-  //       res1 = {
-  //         Route: 2,
-  //         data: data
-  //       };
-  //       flag = 2;
-  //       res.json(res1);
-  //     }
-  //   }).limit(5);
-  // }
-  // if (flag != 1 && flag != 2) {
-  //
-  // }
-
-
-});
 module.exports = searchRouter;

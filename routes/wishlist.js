@@ -25,7 +25,7 @@ wishlistRouter.get('/', isLoggedIn, (req, res, next) => {
 });
 
 wishlistRouter.get('/:adId', isLoggedIn, (req, res, next) => {
-  const _id = sanitize(sanitize(req.params.adId));
+  const _id = sanitize(req.params.adId);
   Ads.findById(_id)
     .then((ad) => {
       if (ad != null) {
@@ -70,18 +70,5 @@ function isLoggedIn(req, res, next) {
     console.log(e);
   }
 }
-function isSellerAndAuthenticated(req, res, next) {
-    try {
-        if (req.isAuthenticated()) {
-            if(req.user.isSeller){
-                return next();
-            }
-        }
-        res.redirect('/login');
-    } catch (e) {
-        console.log(e);
-    }
-}
-
 
 module.exports = wishlistRouter;

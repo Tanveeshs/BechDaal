@@ -4,7 +4,7 @@ $(document).ready(() => {
   var adid = $("#adid").val();
   var ads = {};
   $.ajax({
-    url: "http://localhost:3001/sell/ad/ad/" + adid,
+    url: "http://localhost:3000/sell/ad/ad/" + adid,
     method: "GET"
   }).done(function(ad) {
     ads.value = ad;
@@ -70,7 +70,7 @@ $(document).ready(() => {
   });
 });
 
-var URL = "http://localhost:3001/category";
+var URL = "http://localhost:3000/category";
 var selectedcategory;
 $('#category').on('change', function() {
   selectedcategory = $('#category').find(":selected").text();

@@ -72,8 +72,6 @@ router.post('/reject',(req,res)=>{
   })
 })
 
-
-
 //Uncomment In production version
 
 //Cron Job for removing neither accepted nor rejected orders
@@ -98,8 +96,6 @@ router.post('/reject',(req,res)=>{
 //   scheduled:true,
 //   timezone:"Asia/Kolkata"
 // });
-
-
 
 // Wouldnt be required now
 // router.post('/:adId', function(req, res) {

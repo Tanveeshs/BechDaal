@@ -8,11 +8,9 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
-const fs = require('fs')
 const bodyParser = require('body-parser')
 const http = require("http");
 const cors = require('cors');
-var schedule = require('node-schedule');
 dotenv.config();
 const configDB = require('./config/database');
 mongoose.connect(configDB.url, {
@@ -80,7 +78,7 @@ app.use('/category', categoryRoute);
 app.use('/search', searchRoute);
 app.use('/myprofile', myprofile);
 app.use('/wish', wishlist);
-app.use('/offers', offers);
+// app.use('/offers', offers);
 app.use('/admin',adminRouter)
 app.use('/payment',payment)
 app.use('/reviews',ratingsAndReviews)
@@ -88,7 +86,9 @@ app.use('/docs',docsRouter)
 app.use('/sitemap',sitemapRouter)
 
 
+app.get('/test',(req,res)=>{
 
+})
 
 //for app engine
 // app.listen(PORT, () => {
