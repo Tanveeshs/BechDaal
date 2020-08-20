@@ -82,8 +82,6 @@ adRouter.get('/ad/ad/:adid', isLoggedIn, (req, res) => {
     });
 });
 
-
-
 //The get route of PostAd Page
 adRouter.get('/ads/post', isLoggedIn,isSeller,function(req, res) {
     res.render('postAd.ejs', {
@@ -408,8 +406,6 @@ adRouter.post('/editad/view', isLoggedIn,isSeller,(req, res) => {
     });
 });
 
-
-
 //Files Nai aari is request mein Check karo
 adRouter.post('/editad', (req, res) => {
     multerMid(req, res,(err) => {
@@ -594,7 +590,6 @@ function editAd(req,res,isPaid,featured){
 
 }
 
-
 /* docs */
 // here you will just add the id of the ad in the url itself, and will get that single ad
 //WHAT DOES PUT Route do here??
@@ -609,18 +604,6 @@ adRouter.route('/:adId')
                 });
             }).catch((err) => console.log(err));
     });
-// .put((req, res) => {
-//   Ads.findByIdAndUpdate(req.params.adId, {
-//     $set: req.body
-//   }, {
-//     new: true
-//   })
-//     .then((ad) => {
-//       res.statusCode = 200;
-//       res.setHeader('Content-Type', 'application/json');
-//       res.json(ad);
-//     }).catch((err) => console.log(err));
-// });
 
 
 //Thinking to use this to display the ad
@@ -634,31 +617,6 @@ adRouter.post('/show', (req, res) => {
             });
         }).catch((err) => console.log(err));
 });
-
-
-
-
-function isLoggedIn(req, res, next) {
-    try {
-        if (req.isAuthenticated()) {
-            return next();
-        }
-        res.redirect('/login');
-    } catch (e) {
-        console.log(e);
-    }
-}
-function isSeller(req,res,next){
-    try {
-        if (req.user.isSeller) {
-            return next();
-        }
-        res.send("Not a seller");
-    } catch (e) {
-        console.log(e);
-    }
-}
-
 
 adRouter.route('/grid_ads/a')
     .get((req, res, next) => {
@@ -770,5 +728,27 @@ adRouter.route('/delete')
                     .catch((err) => console.log(err))
             })
     })
+
+
+function isLoggedIn(req, res, next) {
+    try {
+        if (req.isAuthenticated()) {
+            return next();
+        }
+        res.redirect('/login');
+    } catch (e) {
+        console.log(e);
+    }
+}
+function isSeller(req,res,next){
+    try {
+        if (req.user.isSeller) {
+            return next();
+        }
+        res.send("Not a seller");
+    } catch (e) {
+        console.log(e);
+    }
+}
 
 module.exports = adRouter;
