@@ -712,7 +712,6 @@ adRouter.route('/delete')
                 images.push(imgURL)
             }
         }
-
         /*
       deleting the images of this ad from the cloud storage
       before deleting the ad from db -- REMAINING
