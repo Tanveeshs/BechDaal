@@ -1,5 +1,5 @@
 //jshint esversion:6
-var {
+const {
   User
 } = require('../model/user');
 const Category = require('../model/category').CategoryModel;
@@ -7,6 +7,8 @@ const ad = require('../model/ad')
 const async = require('async')
 
 
+//Discuss whether get ads is required here??
+//Or get ads ke liye ajax route
 module.exports = function(app, passport) {
   app.get('/', function(req, res) {
     async.parallel({
