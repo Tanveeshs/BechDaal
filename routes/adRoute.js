@@ -684,4 +684,28 @@ adRouter.route('/grid_ads/a')
             });
     });
 
+adRouter.route('/delete/:adId')
+.post(isLoggedIn, isSeller, (req, res, next) => {
+  multerMid(req, res, (err) => {
+
+    const bucket = storage.bucket('bechdaal_bucket');
+    Ads.findById(req.params.adId)
+    .then((ad) => {
+  
+      /*
+      deleting the images of this ad from the cloud storage
+      before deleting the ad from db -- REMAINING
+      */
+  
+      ad.deleteOne()
+      .then((ad) => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json({msg: 'ad deleted'});
+      })
+      .catch((err) => console.log(err))
+    })
+  })
+})
+
 module.exports = adRouter;
