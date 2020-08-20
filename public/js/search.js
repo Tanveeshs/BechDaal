@@ -30,11 +30,12 @@ var showResults = debounce(function(arg) {
       $("#search-results").html("");
     })
     .done(function(data) {
-      if (data.Route === 1) {
-        data.data.forEach(x => {
-          $("#search-results").append('<a href="#"><p class="m-2 lead">' + x.sub_category + '</p></a>');
-        });
-      } else if (data.Route === 2) {
+      var array1 = data;
+        // data.forEach(x => {
+        //   // $("#search-results").append('<a href="#"><p class="m-2 lead">' + x.sub_category + '</p></a>');
+        //   array1.push(x)
+        // });
+      else if (data.Route === 2) {
         data.data.forEach(x => {
           $("#search-results").append('<a href="#"><p class="m-2 lead">' + x.brand + '<p>' + x.sub_category + '</p></p></a>');
         });

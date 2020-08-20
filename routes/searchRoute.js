@@ -81,7 +81,7 @@ searchRouter.post('/main', function(req, res, next) {
                 });
               }
             });
-            
+
     //find in category
     Ads.find({
       category: {
@@ -139,7 +139,7 @@ searchRouter.post('/search/:q', function(req, res, next) {
   const regexp1 = new RegExp(`^${q}`, 'i'); // for finding it as beginning of the first word
   const regexp2 = new RegExp(`\\s${q}`, 'i'); // for finding as beginning of a middle word
   flag = 0;
-  let res1 = {};
+  let res1 = [];
 
   try {
     //Step 1: declare promise
@@ -154,10 +154,9 @@ searchRouter.post('/search/:q', function(req, res, next) {
             }
           }, function(err, data) {
             if (data.length != 0) {
-              res1 = {
-                Route: 1,
-                data: data
-              };
+              for(var i =0 ; i<data.length;i++){
+                res1.push(data.sub_category);
+              }
 
               flag = 1;
 
@@ -166,27 +165,27 @@ searchRouter.post('/search/:q', function(req, res, next) {
               ?
               reject(err) :
               resolve(res1);
-          }).limit(5);
+          }).limit(10);
         }
-        if (flag != 1) {
-          flag = 0;
-          Ads.find({
-            brand: {
-              $in: [regexp1, regexp2]
-            }
-          }, function(err, data) {
-            if (data.length != 0) {
-              res1 = {
-                Route: 2,
-                data: data
-              };
-            }
-            err
-              ?
-              reject(err) :
-              resolve(res1);
-          }).limit(5);
-        }
+        // if (flag != 1) {
+        //   flag = 0;
+        //   Ads.find({
+        //     brand: {
+        //       $in: [regexp1, regexp2]
+        //     }
+        //   }, function(err, data) {
+        //     if (data.length != 0) {
+        //       res1 = {
+        //         Route: 2,
+        //         data: data
+        //       };
+        //     }
+        //     err
+        //       ?
+        //       reject(err) :
+        //       resolve(res1);
+        //   }).limit(5);
+        // }
 
 
       });
@@ -203,7 +202,7 @@ searchRouter.post('/search/:q', function(req, res, next) {
     //Step 3: make the call
     callMyPromise().then(function(result) {
       console.log(result)
-      res.json(result);
+      res.send(result);
     });
 
   } catch (e) {
