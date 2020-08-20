@@ -7,6 +7,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Bech Daal</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
     integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
     crossorigin="anonymous"></script>
@@ -23,8 +25,9 @@
 
       <h3 style="color: DodgerBlue; text-align:center">Browse Categories</h3>
 
-      <div class="flex-container">
-        <%categries.forEach(category=>{%>
+      <div class="flex-container" id="cont">
+
+        <!-- <%categries.forEach(category=>{%>
         <div id='<%=category._id%>' class="one">
           <img class='Img' src='<%=category.image%>'><br>
           <%=category.name%></div>
@@ -33,25 +36,7 @@
         <div class="one">6</div>
         <div class="one">7</div>
         <div class="one">8</div>
-      </div>
-      <hr style="height:1px;background-color:black;margin: 10px 15%;">
-      <div class="flex-container">
-        <div class="paginatedContent">
-          <!-- paginated ads go here -->
-        </div>
-        <!-- <%ads.forEach(ad=>{%>
-        <div class="two">
-          <%if (typeof(ad.cover_photo)==='undefined'){%>
-            <img class="images" src='images/1.jpg'><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
-          <%} else {%>
-            <img class="images" src='<%= ad.cover_photo %>'><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
-          <%}%>
-          <p class="para">₹ <%=ad.price%></p>
-          <p class="para"><%=ad.title%></p>
-          <k><%=ad.date_posted%></k>
-        </div>
-        <%})%> -->
-
+      </div> -->
       </div>
       <ul class="pagination">
         <li class="page-item">
@@ -68,68 +53,70 @@
           </a>
         </li>
       </ul>
+      <hr style="height:1px;background-color:black;margin: 10px 15%;">
+      <div class="flex-container">
+        <!-- <div class="paginatedContent">
+          <!-- paginated ads go here -->
+        <!-- </div> -->
+        <%ads.forEach(ad=>{%>
+        <div class="two">
+          <%if (typeof(ad.cover_photo)==='undefined'){%>
+          <img class="images" src='images/1.jpg'><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
+          <%} else {%>
+          <img class="images" src='<%= ad.cover_photo %>'><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
+          <%}%>
+          <p class="para">₹ <%=ad.price%></p>
+          <p class="para"><%=ad.title%></p>
+          <k><%=ad.date_posted%></k>
+        </div>
+        <%})%>
+
+      </div>
+
     </div>
     <div class="col-md-2" style="background-color:blue">
       <h2 style="text-align:center;">Ads</h2>
     </div>
   </div>
   <script>
-    let data;
+    let arr = []
+  </script>
+  <% categries.forEach(val => {%>
+  <script>
+    var obj1 = {}
+    obj1.name = "<%=val.name%>"
+    obj1.img = "<%=val.image%>"
+    obj1.id = "<%=val._id%>"
+    arr.push(obj1)
+  </script>
+  <%}) %>
+  <script>
+    console.log(arr)
     let page = 0;
-    $.ajax({
-      type: 'GET',
-      url: '/',
-      success: function (res) {
-        data = [...res];
-        console.log(data)
-        let s = data.slice(0, 2);
-        for (let i = 0; i < 2; i++) {
-          $(".paginationContent").append(
-
-            "<div class='" + two + "'>\
-          '<%if (typeof(ad.cover_photo)==='" + undefined + "'){%>'\
-            <img class="images" src='images/1.jpg'><i class='fa fa-heart icondisplay" aria - hidden="true" ></i >
-          '<%} else {%>'
-          < img class= "images" src = '<%= ad.cover_photo %>' > <i class="fa fa-heart icondisplay" aria-hidden="true"></i>
-          <%}%>
-            <p class="para">₹ <%=ad.price%></p>
-            <p class="para"><%=ad.title%></p>
-            <k><%=ad.date_posted%></k>
-        </div >
-          ")
-      }
-    },
-      error: function (err) {
-        console.log(err);
+    const main = document.querySelector(".mainContent");
+    $(document).ready(function () {
+      for (var i = 0; i < 3; i++) {
+        $("#cont").append("<div id='" + arr[i].id + "' class='one'>\
+            <img class='Img' src = '"+ arr[i].img + "'> <br>\
+              "+ arr[i].name + "</div>")
       }
     })
-    const main = document.querySelector("#main")
     const first = document.querySelector("#first");
     const previous = document.querySelector("#previous");
     const next = document.querySelector("#next");
-
-
     next.addEventListener('click', () => {
       first.textContent = ""
       page += 1;
-      if ((data.length / 2) + 1 >= (page + 1)) {
+      if ((arr.length / 3) + 1 > (page + 1)) {
         var ctr = page + 1;
         first.textContent = ctr
-        let s = data.slice(2 * page, 2 * page + 2)
-        $(".mainContent").empty();
-        for (let i = 0; i < 2; i++) {
-          $(".mainContent").append(
-            "<div id='" + s[i]._id + "' onclick='editad(this)' class='col-md-4 col-sm-12 paddings'>\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> <img class='Img mx-auto' style='text-align: center;' src='/" + s[i].cover_photo.filename + " %>' />\
-                    <br />\
-                    <label for='title' class='text'>Title</label>\
-                    <label for='' class='label-text'>"+ s[i].title + "\
-                    </label>\
-                    <br />\
-                    <label for='title'>Date posted</label>\
-                    <label for='' class='label-text'>"+ s[i].date_posted + "</label>\
-                  </div>\
-                </div>\
-              </div>")
+        let s = arr.slice(3 * page, 3 * page + 3)
+        $("#cont").empty();
+        for (let i = 0; i < 3; i++) {
+          $("#cont").append(
+            "<div id='" + s[i].id + "' class='one'>\
+            <img class='Img' src = '"+ s[i].img + "'> <br>\
+              "+ s[i].name + "</div>")
         }
       } else {
         page -= 1;
@@ -139,31 +126,24 @@
     previous.addEventListener('click', () => {
       first.textContent = ""
       page -= 1;
-      if ((data.length / 2) + 1 >= (page + 1)) {
+      console.log(page)
+      if (page >= 0) {
         var ctr = page + 1;
         first.textContent = ctr
-        let s = data.slice(2 * page, 2 * page + 2)
-        $(".mainContent").empty();
-        for (let i = 0; i < 2; i++) {
-          $(".mainContent").append(
-            "<div id='" + s[i]._id + "' onclick='editad(this)' class='col-md-4 col-sm-12 paddings'>\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> <img class='Img mx-auto' style='text-align: center;' src='/" + s[i].cover_photo.filename + " %>' />\
-                    <br />\
-                    <label for='title' class='text'>Title</label>\
-                    <label for='' class='label-text'>"+ s[i].title + "\
-                    </label>\
-                    <br />\
-                    <label for='title'>Date posted</label>\
-                    <label for='' class='label-text'>"+ s[i].date_posted + "</label>\
-                  </div>\
-                </div>\
-              </div>")
+        let s = arr.slice(3 * ctr - 3, 3 * ctr)
+
+        $("#cont").empty();
+        for (let i = 0; i < 3; i++) {
+          $("#cont").append(
+            "<div id='" + s[i].id + "' class='one'>\
+            <img class='Img' src = '"+ s[i].img + "'> <br>\
+              "+ s[i].name + "</div>")
         }
       } else {
         page += 1;
         first.textContent = "First"
       }
     })
-
   </script>
 </body>
 
