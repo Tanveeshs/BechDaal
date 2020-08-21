@@ -7,7 +7,7 @@ steps:
     args: ["run", "create-env"]
     env:
       - 'SECRETTEST=${_SECRETTEST}'
-      - 'SECRET_KEY=${_SECRET}'
+      - 'SECRET=${_SECRET}'
   - name: "gcr.io/cloud-builders/gcloud"
     args: ["app", "deploy"]
 timeout: "1600s"
