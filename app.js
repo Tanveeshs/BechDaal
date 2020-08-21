@@ -34,7 +34,7 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 // noinspection JSCheckFunctionSignatures
 app.use(session({
-    secret: process.env._SECRET,
+    secret: process.env.SECRET,
     resave:true,
     saveUninitialized:false
 }));
@@ -89,7 +89,7 @@ app.use('/sitemap',sitemapRouter)
 
 
 app.get('/test',(req,res)=>{
-    res.send(process.env._SECRETTEST)
+    res.send(process.env.SECRETTEST)
 })
 
 //for app engine
