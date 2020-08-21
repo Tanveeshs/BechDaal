@@ -34,7 +34,9 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 // noinspection JSCheckFunctionSignatures
 app.use(session({
-    secret: 'BechDaal'
+    secret: process.env._SECRET,
+    resave:true,
+    saveUninitialized:false
 }));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -87,13 +89,13 @@ app.use('/sitemap',sitemapRouter)
 
 
 app.get('/test',(req,res)=>{
-
+    res.send(process.env._SECRETTEST)
 })
 
 //for app engine
-// app.listen(PORT, () => {
-//     console.log(`Server listening on port ${PORT}...`);
-// });
+app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}...`);
+});
 
 
 //for compute engine
@@ -109,6 +111,6 @@ app.get('/test',(req,res)=>{
 
 //local test
 
-var http_server = http.createServer(app).listen(3000, function(err){
-    console.log("Node.js Express HTTPS Server Listening on Port 300to app0");
-});
+// var http_server = http.createServer(app).listen(3000, function(err){
+//     console.log("Node.js Express HTTPS Server Listening on Port 300to app0");
+// });
