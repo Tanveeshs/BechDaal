@@ -4,6 +4,7 @@ const axios = require('axios');
 const express = require('express');
 const router = express.Router();
 
+const cron = require("node-cron");
 let offers = require('../model/offer');
 
 
@@ -28,7 +29,7 @@ router.get('/', isLoggedIn, (req, res) => {
       }
     })
     res.render('myoffers.ejs',{
-      seller:(req.user.isSeller===true),
+      user:req.user,
       paid_orders:paid_orders,
       seller_accepted_orders:seller_accepted_orders,
       received_orders:received_orders
@@ -51,7 +52,7 @@ router.post('/accept',(req,res)=>{
 })
 //Reject An Offer Initiate a refund
 //params OfferId
-router.post('/rejected',(req,res)=>{
+router.post('/reject',(req,res)=>{
   const offerId = req.body.offerId;
   offers.findOneAndUpdate({_id:offerId},{$set:{status:'S_Rejected'}},{new:true},function (err,offer){
     if(err){
@@ -71,8 +72,30 @@ router.post('/rejected',(req,res)=>{
   })
 })
 
+//Uncomment In production version
 
-
+//Cron Job for removing neither accepted nor rejected orders
+//And initiating refunds
+//Currently cron job will hit at every 1 hour between 8:30 to 20:30
+// cron.schedule("30 8-20 * * *", function() {
+//   offers.find({status:'B_Paid',date_expired:{$lte:Date.now()}},{payment:1,status:1},function (err,offers){
+//
+//     offers.forEach(offer=>{
+//       offer.status = 'Time_Expired'
+//       const url = `https://${process.env.razorpay_key}:${process.env.razorpay_secret}@api.razorpay.com/v1/payments/`+offer.payment.payment_id+'/refund';
+//       axios.post(url).then(r => {
+//         offer.payment.refundInitiated = true;
+//         offer.save()
+//       }).catch(err=>{
+//         console.log("Error in initiating refund")
+//         })
+//     })
+//
+//   })
+// },{
+//   scheduled:true,
+//   timezone:"Asia/Kolkata"
+// });
 
 // Wouldnt be required now
 // router.post('/:adId', function(req, res) {

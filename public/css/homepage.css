@@ -9,12 +9,15 @@
   margin: 20px 40px;
   text-align: center;
   line-height: 75px;
-  font-size: 30px;
+  font-size: 20px;
+  font-weight: bold;
   border: 1px solid black;
   padding-top: 20px;
   padding-left: 10px;
   padding-bottom: 10px;
   padding-right: 10px;
+  box-shadow: 5px 5px 5px lightgray;
+  border-radius: 20px;
 }
 
 .two {
@@ -58,4 +61,29 @@ k{
     width:75px;
     height: 75px;
     border-radius: 35px;
+}
+.pagination{
+  margin-left: 80%;
+}
+#cont{
+  justify-content: center;
+}
+#previous{
+  border-top-left-radius: 20px;
+  border-bottom-left-radius:20px ;
+  border:1px solid rgba(0, 0, 0, 0.815);
+  color:black;
+  font-size: 18px;
+}
+#first{
+  border:1px solid rgba(0, 0, 0, 0.815);
+  color:black;
+  font-size: 18px;
+}
+#Next{
+  border-top-right-radius: 20px;
+  border-bottom-right-radius:20px ;
+  border:1px solid rgba(0, 0, 0, 0.815);
+  color:black;
+  font-size: 18px;
 }

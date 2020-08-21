@@ -16,49 +16,49 @@ const userSchema = new mongoose.Schema({
       default: false
     }
   },
-  //Discuss not required
-  offers: [{
-    type: mongoose.Types.ObjectId,
-    ref: 'Offers'
-  }],
-
   noOfFreeAds: {
     type: Number,
-    default: 0
+    default: 3
   },
-
-  //Got domain can work on facebook
-
+  noOfPaidAds:{
+    type:Number,
+    default:0
+  },
+  noOfFeaturedAds:{
+    type:Number,
+    default:0
+  },
   facebook: {
     id: String,
     token: String,
     name: String,
     email: String
   },
-
   google: {
     id: String,
     token: String,
     email: String,
     name: String
   },
+
   //true if seller
   isSeller:{type:Boolean},
-
-  //if rejected wont be shown
+  //rejected=true user wont be shown
   rejected:{type:Boolean,default:false},
 
-  //why is it there
   LoginTime: {
     type: Date,
     default: Date.now()
   },
+  //Only if seller
   rzpId:String,
+
   wishlist: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Ads'
   }],
   //Extra Field
+  Address:String,
   ContactNumber: Number,
   IsActive: Boolean,
   Ratings:{type:

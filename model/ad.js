@@ -29,21 +29,14 @@ const adSchema = new Schema({
     type: Number
   },
   user: user_schema_body,
-  address: {
-    type: String
-  },
+
   //Check if user has contact default value set to that
-  contact_number: {
-    type: Number
-  },
   //change to type string
   cover_photo: {
     type: String
   },
   //change to string
-  images: [{
-    type: Object
-  }],
+  images: [String],
   description: {
     type: String
   },
@@ -53,7 +46,6 @@ const adSchema = new Schema({
     default: false
   },
   //decide for pincode
-  serviceable_area:[String],
   date_posted: {
     type: Date
   },
@@ -86,13 +78,17 @@ const adSchema = new Schema({
     },
     reason:String,
   },
-  payment:{
-    order_id:String,
-    payment_id:String,
+  //0 if free
+  //1 if Paid
+  //2 if featured
+  isPaid:Number,
+  //To determine whether ad is active
+  //If true only then show
+  isActive:{
+    type:Boolean,
+    default:true
   },
-  //Would be set to true if Paid or free ad
-  //Would be set to false if Unpaid
-  isPaid:Boolean,
+
   reviews:[{
     Comment:String,
     by:String,

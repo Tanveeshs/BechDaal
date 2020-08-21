@@ -17,26 +17,27 @@
       <div class="userIcon" style="margin-left:45%; margin-top: 10%;">
         <i style="font-size:95px;font-weight: bold; " class="fa fa-user-circle-o" aria-hidden="true"></i>
         <br>
-        <!-- <p style="color:#994d00; font-size: 2rem;"> <%= user.local.username %></p> -->
-        <label for="username1">Username:</label>
+        <label for="username1" style="font-weight: bold;font-size: 20px;">Username</label>
         <br>
         <input type="text" name='username1' style=" border: none;
             border-bottom: 1px solid gray;margin-left:-15%;
-            width: 250px;padding:3px;font-size: 1.1rem; text-align: center;" value="<%= user.local.username %>" placeholder="<%= user.local.username %>">
+            width: 200px;padding:3px;font-size: 1.1rem; text-align: center;" value="<%= user.local.username %>"
+          placeholder="<%= user.local.username %>">
+        <span><i style="font-size: 22px;" class="fas fa-edit" aria-hidden="true"></i></span>
       </div>
       <br>
       <br>
       <p class="email">
-        <span style="color:#994d00;"> Email-id:</span>
-        <span><%= user.local.email %></span>
-        <!-- <span> <button class="verify_btn">Verify</button> </span> -->
+        <span style="color:#994d00;font-size: 18px;font-weight: bold;"> Email-id:</span>
+        <span class="emailValue"><%= user.local.email %></span>
       </p>
       <p class="contact">
-        <span style="color:#994d00; font-size: 1.5rem; "> Contact No:</span>
-        <br>
+        <span style="color:#994d00; font-size: 1.1rem;font-weight: bold; "> Contact No:</span>
         <input type="text" name='contact1' style=" border: none;
-                border-bottom: 1px solid gray;margin-left:-15%;
-                width: 250px;padding:3px;font-size: 1.1rem; text-align: center;" value="<%= user.ContactNumber %>" placeholder="<%= user.ContactNumber %>">
+                border-bottom: 2px solid gray;margin-left:5%;
+                width: 150px;padding:3px;font-size: 1.1rem;" value="<%= user.ContactNumber %>"
+          placeholder="<%= user.ContactNumber %>">
+        <span><i style="font-size: 20px;" class="fas fa-edit" aria-hidden="true"></i></span>
       </p>
 
       <% var addresses1 = user.local.address; %>
@@ -47,46 +48,28 @@
 
         <input id="add1" type="text" name='address<%= i+1 %>' style=" border: none;
                 border-bottom: 1px solid gray;margin-left:-15%;
-                width: 500px;padding:3px;font-size: 1.1rem; text-align: center;" onchange=address(this) value="<%= user.local.address[i]%>" placeholder="<%= user.local.address %>">
-        <button type="button" value="<%= user.local.address[i]%>" onclick="edadd(<%= i %>, this.value, '<%= addresses1 %>')">Set</button>
+                width: 500px;padding:3px;font-size: 1.1rem; text-align: center;" onchange=address(this)
+          value="<%= user.local.address[i]%>" placeholder="<%= user.local.address %>">
+        <button type="button" value="<%= user.local.address[i]%>"
+          onclick="edadd(<%= i %>, this.value, '<%= addresses1 %>')">Set</button>
       </p>
       <% } %>
-      <input type="text" id='abcde' name="ivalue" type="hidden" style="visibility:hidden;" value="<%= user.local.address%>">
-      <!-- <p class="address" style="display:flex;flex-direction: row;">
-                <p style="color:#994d00;font-size: 1.5rem; float: left; margin-right: 30px;"> :</p>
-                <div style="display: flex;flex-direction: column; margin-top: 60px;">
-                    <input type="text" class="address_input">
-                    <input type="text" class="address_input">
-                    <input type="text" class="address_input">
-                    <input type="text" class="address_input">
-                    <input type="text" class="address_input">
-                </div>
-            </p>
-            <br> -->
-            <div id = "addAdd" class="addAddress">
-                <p>Add address <i class="fa fa-plus"></i></p>
-            </div>
+      <input type="text" id='abcde' name="ivalue" type="hidden" style="visibility:hidden;"
+        value="<%= user.local.address%>">
+
+      <div id="addAdd" class="addAddress">
+        <p>Edit address <i class="fa fa-plus"></i></p>
+      </div>
       <!-- when you click on Add Address text, it should toggle the form below, uska toggling daal dena, -->
       <!-- initial toggle false hi rakhna, sirf add address ka text dikhna chaiye. baaki chote cheeze dekh lena -->
-      <div id = "newAdd" class="newAddress" style="display: flex;flex-direction: column;">
-                <input type="text" name="newAdd" class="address_input" placeholder="New Address">
-                <button type="button" value="" onclick="edadd(100,100,'<%= addresses1 %>')">Set</button>
-                <!-- <input type="text" class="address_input" placeholder="Pincode">
-                <input type="text" class="address_input" placeholder="City">
-                <input type="text" class="address_input" placeholder="Street/Road">
-                <input type="text" class="address_input" placeholder="House/Flat No.">
-                <input type="text" class="address_input" placeholder="Landmark"> -->
-                <!-- <div style="display: flex;flex-direction: row;margin-top: 5%;">
-                    <p style="font-size: 25px;margin-right: 10%; margin-top: 0px;">Save as</p>
-                    <input type="radio" id="saveAsAddress" value="30">
-                    <label for="home" class="saveAs">Home</label><br>
-                    <input type="radio" id="saveAsAddress" value="60">
-                    <label for="office" class="saveAs">Office</label><br>
-                    <input type="radio" id="saveAsAddress" value="100">
-                    <label for="other" class="saveAs">Other</label><br><br>
-                </div> -->
-            </div>
-      <span> <button type="submit" class="verify_btn">Save</button> </span>
+      <div id="newAdd" class="newAddress" style="display: flex;flex-direction: column;">
+        <input type="text" name="newAdd_line1" class="address_input" placeholder="Address Line 1">
+        <input type="text" name="newAdd_line2" class="address_input" placeholder="Address Line 1">
+        <input type="text" name="newAdd_line3" class="address_input" placeholder="Address Line 1">
+        <button class="set_button" type="button" value="" onclick="edadd(100,100,'<%= addresses1 %>')">
+          Set</button>
+      </div>
+      <span> <button type="submit" class="verify_btn">Save Changes</button> </span>
     </form>
   </div>
 </body>
@@ -95,16 +78,16 @@
 <script>
   function edadd(i, value, addresses) {
     addresses = addresses.split(',');
-    if(i==100){
+    if (i == 100) {
       addresses.push($("input[name=newAdd]").val());
     }
-    else{
+    else {
       addresses.splice(i, 1, $("input[name=address" + (i + 1) + "]").val());
       addresses1 = addresses
     }
 
     $('#abcde')
-      .attr('value',addresses);
+      .attr('value', addresses);
   }
 
 </script>

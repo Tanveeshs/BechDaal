@@ -1,6 +1,6 @@
 //jshint esversion:6
 
-// const dotenv = require('dotenv');
+const dotenv = require('dotenv');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -11,8 +11,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser')
 const http = require("http");
 const cors = require('cors');
-
-// dotenv.config();
+dotenv.config();
 const configDB = require('./config/database');
 mongoose.connect(configDB.url, {
     useNewUrlParser: true,
@@ -79,7 +78,7 @@ app.use('/category', categoryRoute);
 app.use('/search', searchRoute);
 app.use('/myprofile', myprofile);
 app.use('/wish', wishlist);
-app.use('/offers', offers);
+// app.use('/offers', offers);
 app.use('/admin',adminRouter)
 app.use('/payment',payment)
 app.use('/reviews',ratingsAndReviews)
@@ -87,10 +86,14 @@ app.use('/docs',docsRouter)
 app.use('/sitemap',sitemapRouter)
 
 
+app.get('/test',(req,res)=>{
+
+})
+
 //for app engine
-app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}...`);
-});
+// app.listen(PORT, () => {
+//     console.log(`Server listening on port ${PORT}...`);
+// });
 
 
 //for compute engine
@@ -106,6 +109,6 @@ app.listen(PORT, () => {
 
 //local test
 
-// var http_server = http.createServer(app).listen(3000, function(err){
-//     console.log("Node.js Express HTTPS Server Listening on Port 300to app0");
-// });
+var http_server = http.createServer(app).listen(3000, function(err){
+    console.log("Node.js Express HTTPS Server Listening on Port 300to app0");
+});
