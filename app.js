@@ -87,11 +87,6 @@ app.use('/reviews',ratingsAndReviews)
 app.use('/docs',docsRouter)
 app.use('/sitemap',sitemapRouter)
 
-
-app.get('/test',(req,res)=>{
-    res.send(process.env.SECRETTEST)
-})
-
 //for app engine
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}...`);
