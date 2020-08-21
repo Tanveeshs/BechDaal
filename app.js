@@ -15,7 +15,8 @@ dotenv.config();
 const configDB = require('./config/database');
 mongoose.connect(configDB.url, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify:false
 });
 const PORT = process.env.PORT || 8080;
 // Not required for now HTTPS CERT
@@ -70,7 +71,7 @@ const sitemapRouter = require('./routes/sitemap')
 // view engine setup
 require('./routes/RegisterAndLogin')(app, passport);
 
-app.use('/user', forgotPass);
+app.use('/forgot', forgotPass);
 app.use('/verify', verifymail);
 app.use('/sell', adRoute);
 app.use('/category', categoryRoute);
