@@ -1,6 +1,5 @@
 //jshint esversion:8
 
-//DONE
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -634,13 +633,13 @@ adRouter.route('/grid_ads/a')
 
         Ads.find({$and: [
                 { approved: true },
-                { rejected: false },
+                { 'rejected.val': false },
                 { isActive: true }
             ]})
             .sort({date_posted: -1})
             .then((ads) => {
-                const featuredAds = ads.filter((item, index) => item.featured);
-                const ordinaryAds = ads.filter((item, index) => !item.featured);
+                const featuredAds = ads.filter((item, index) => (item.isPaid===2));
+                const ordinaryAds = ads.filter((item, index) => !(item.isPaid===2));
 
                 const isFeaturedShort = 3 - (featuredEndIndex - featuredStartIndex);
 

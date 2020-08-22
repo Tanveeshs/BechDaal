@@ -8,13 +8,14 @@ const transporter = nodemailer.createTransport({
     pass: 'oherodyprkvomjwo'
   }
 });
-module.exports = function(email, content) {
+module.exports = function(email,subject,content) {
   let mail = {
-    from: 'indentinternship@gmail.com',
+    from: 'bechdaal1@gmail.com',
     to: email,
-    subject: 'Test Mail',
-    text: content
+    subject:subject,
+    html: content
   };
+
   transporter.sendMail(mail, function(err, data) {
     if (err) {
       console.log(err);

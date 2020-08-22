@@ -303,8 +303,8 @@ searchRouter.post('/search/:q',(req,res)=>{
 searchRouter.post('/searchByCat',(req,res)=>{
   const categoryId = req.body.categoryId;
   Category.CategoryModel.findOne({_id:categoryId},{_id:0,name:1,subcategory:0,image:0},function (err,cat){
-    Ads.find({category:cat.name,approved:true,rejected:false,isActive:true},function (err,ads){
-      res.send(ads)
+    Ads.find({category:cat.name,approved:true,'rejected.val':false,isActive:true},function (err,ads){
+      res.render('category.ejs',{ads:ads})
     })
   })
 })

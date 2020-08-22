@@ -29,21 +29,12 @@ const adSchema = new Schema({
     type: Number
   },
   user: user_schema_body,
-
-  //Check if user has contact default value set to that
-  //change to type string
   cover_photo: {
     type: String
   },
-  //change to string
   images: [String],
   description: {
     type: String
-  },
-  //true if paid extra
-  featured: {
-    type: Boolean,
-    default: false
   },
   //decide for pincode
   date_posted: {
@@ -52,21 +43,6 @@ const adSchema = new Schema({
   deliverableAreas: [{
     type: String
   }],
-  deliveryTimes:[{
-    From:String,
-    To:String
-  }],
-  // Not required
-
-  // date_sold: {
-  //   type: Date
-  // },
-  //
-  // offers: [{
-  //   type: mongoose.Types.ObjectId,
-  //   ref: 'Offers'
-  // }],
-
   approved:{
     type:Boolean,
     default: false
@@ -88,7 +64,6 @@ const adSchema = new Schema({
     type:Boolean,
     default:true
   },
-
   reviews:[{
     Comment:String,
     by:String,
