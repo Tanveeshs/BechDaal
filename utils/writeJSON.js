@@ -5,7 +5,7 @@ let code = {
     type: "service_account",
     "project_id": process.env.project_id,
     "private_key_id": process.env.project_key,
-    "private_key": process.env.private_key,
+    // "private_key": process.env.private_key,
     "client_email": "bd1-789@stoked-courier-276420.iam.gserviceaccount.com",
     "client_id": "116842258893352446372",
     "auth_uri": "https://accounts.google.com/o/oauth2/auth",
