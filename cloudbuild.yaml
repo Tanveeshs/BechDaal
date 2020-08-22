@@ -11,8 +11,8 @@ steps:
       - 'project_key=${_PROJECTKEY}'
       - 'private_key=${_PRIVATEKEY}'
   - name: node:10.15.1
-      entrypoint: npm
-      args: ["run", "createJSON"]
+    entrypoint: npm
+    args: ["run", "createJSON"]
   - name: "gcr.io/cloud-builders/gcloud"
     args: ["app", "deploy"]
 timeout: "1600s"
