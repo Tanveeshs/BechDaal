@@ -66,8 +66,8 @@
         padding: 0;
         width: 200px;
         background-color: #f1f1f1;
-        position: fixed;
-        height: 100%;
+        position: absolute;
+        height: 70%;
         overflow: auto;
         box-shadow: 4px 4px 4px lightgray;
         padding-top: 2%;
@@ -168,6 +168,17 @@
         <a href="#">Category4</a>
     </div>
     <div class="flex-container" id="content">
+        <div class="filter" style="margin-left:60%;">
+            <label for="filter">Filter By</label>
+            <select name="filter_by">
+                <option value="high_low">By Price</option>
+                <option value="low_high">By Popularity</option>
+            </select>
+            <select name="jasdf">
+                <option value="high_low">Higher to lower</option>
+                <option value="low_high">Lower to Higher</option>
+            </select>
+        </div>
         <div class="two">
             <img></img><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
             <p>₹ 1000</p>
