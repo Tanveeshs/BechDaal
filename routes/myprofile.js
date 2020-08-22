@@ -29,15 +29,18 @@ router.get('/edit', isLoggedIn, function(req, res) {
 
 router.post('/editprofile', function(req, res) {
 
-  let a = req.body.ivalue;
-  a = a.split(',');
+  // let a = req.body.ivalue;
+  // a = a.split(',');
   User.findOneAndUpdate({
     _id: req.user._id
   }, {
     "$set": {
       'local.username': req.body.username1,
       'ContactNumber': req.body.contact1,
-       Address: a
+       'Address.line1' : req.body.line1,
+       'Address.line2' : req.body.line2,
+       'Address.line3' : req.body.line3,
+       'Address.line4' : req.body.line4,
     }
   }, function(err) {
     // Updated at most one doc, `res.modifiedCount` contains the number
