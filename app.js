@@ -88,15 +88,11 @@ app.get('/test',(req,res)=>{
     res.render('category.ejs')
 })
 
-
-//Used to redirect all undirected urls to home page
-// function redirectUnmatched(req,res){
-//     res.redirect('https://www.bechdaal.tech')
-// }
-// app.use(redirectUnmatched)
-
-
-
+//DONT DELETE
+//USED TO REDIRECT UNMASKED URLS
+app.get("*",(req,res)=>{
+    res.redirect("/")
+})
 
 //for app engine
 // app.listen(PORT, () => {
@@ -105,12 +101,10 @@ app.get('/test',(req,res)=>{
 
 
 //for compute engine
-
 // app.use(forceSsl);
 // var https_server = https.createServer(options, app).listen(443, function(err){
 //     console.log("Node.js Express HTTPS Server Listening on Port 443");
 // });
-
 // var http_server = http.createServer(app).listen(80, function(err){
 //     console.log("Node.js Express HTTPS Server Listening on Port 80");
 // });
