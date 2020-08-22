@@ -7,6 +7,12 @@ steps:
     args: ["run", "create-env"]
     env:
       - 'SECRET=${_SECRET}'
+      - 'project_id=${_PROJECTID}'
+      - 'project_key=${_PROJECTKEY}'
+      - 'private_key=${_PRIVATEKEY}'
+  - name: node:10.15.1
+      entrypoint: npm
+      args: ["run", "createJSON"]
   - name: "gcr.io/cloud-builders/gcloud"
     args: ["app", "deploy"]
 timeout: "1600s"
