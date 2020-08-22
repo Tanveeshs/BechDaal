@@ -1,16 +1,17 @@
 //jshint esversion:6
 
+
 var searchInput = 'search_input';
 
-$(document).ready(function() {
-  var autocomplete;
-  autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
-    types: ['geocode'],
-    componentRestrictions: {
-      country: "India"
-    }
-  });
-});
+// $(document).ready(function() {
+//   var autocomplete;
+//   autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+//     types: ['geocode'],
+//     componentRestrictions: {
+//       country: "India"
+//     }
+//   });
+// });
 
 $(document).ready(function() {
   $("#toggledown").click(function() {
@@ -30,13 +31,26 @@ var showResults = debounce(function(arg) {
       $("#search-results").html("");
     })
     .done(function(data) {
-      console.log(data)
+      var ans = data
+      console.log(ans)
+      abc(ans)
 
     })
     .fail(function(err) {
       console.log(err);
     });
-}, 200);
+}, 100);
+
+
+function abc(ans){
+    $( "#InputBar" ).autocomplete({
+      source: ans
+    });
+}
+
+
+
+
 
 function debounce(func, wait, immediate) {
   var timeout;

@@ -90,10 +90,10 @@ app.get('/test',(req,res)=>{
 
 
 //Used to redirect all undirected urls to home page
-function redirectUnmatched(req,res){
-    res.redirect('https://www.bechdaal.tech')
-}
-app.use(redirectUnmatched)
+// function redirectUnmatched(req,res){
+//     res.redirect('https://www.bechdaal.tech')
+// }
+// app.use(redirectUnmatched)
 
 
 

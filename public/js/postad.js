@@ -68,7 +68,43 @@ $('.fa-times').click(function() {
 });
 
 // var URL = "http://localhost:3000/category";
-const URL = "https://bechdaal.tech/category"
+const URL = "https://bechdaal.tech/category";
+
+// var selectedcategory;
+// $('#category').on('change', function() {
+//   selectedcategory = $('#category').find(":selected").text();
+//   $('#subcategory option').remove();
+//   if ($('#category').find(":selected").val() === 'none') {
+//     $('#subcategory').append("<option value='none'>-------------</option>");
+//   } else {
+//     $.ajax({
+//       url: URL,
+//       method: "GET"
+//     }).done(catagories => {
+//       catagories.forEach(category => {
+//         if (category.name === selectedcategory) {
+//           category.subcategory.forEach(subcategory => {
+//             $('#subcategory').append('<option value="' + subcategory + '">' + subcategory + '</option>');
+//           });
+//         }
+//       });
+//     }).fail(function() {
+//       alert('FAIL!!');
+//     });
+//   }
+// });
+$.ajax({
+  url: URL,
+  method: "GET"
+}).done(function(catagories) {
+  window.categoryarray = catagories;
+  // console.log(categoryarray)
+  catagories.forEach(category => {
+    $('#category').append('<option value="' + category.name + '">' + category.name + '</option>');
+  });
+}).fail(function() {
+  alert('FAIL!!');
+});
 
 var selectedcategory;
 $('#category').on('change', function() {
@@ -77,29 +113,12 @@ $('#category').on('change', function() {
   if ($('#category').find(":selected").val() === 'none') {
     $('#subcategory').append("<option value='none'>-------------</option>");
   } else {
-    $.ajax({
-      url: URL,
-      method: "GET"
-    }).done(catagories => {
-      catagories.forEach(category => {
-        if (category.name === selectedcategory) {
-          category.subcategory.forEach(subcategory => {
-            $('#subcategory').append('<option value="' + subcategory + '">' + subcategory + '</option>');
-          });
-        }
-      });
-    }).fail(function() {
-      alert('FAIL!!');
+    categoryarray.forEach(category => {
+      if (category.name === selectedcategory) {
+        category.subcategory.forEach(subcategory => {
+          $('#subcategory').append('<option value="' + subcategory + '">' + subcategory + '</option>');
+        });
+      }
     });
   }
-});
-$.ajax({
-  url: URL,
-  method: "GET"
-}).done(function(catagories) {
-  catagories.forEach(category => {
-    $('#category').append('<option value="' + category.name + '">' + category.name + '</option>');
-  });
-}).fail(function() {
-  alert('FAIL!!');
 });

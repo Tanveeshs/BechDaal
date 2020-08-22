@@ -91,6 +91,7 @@ adRouter.get('/ads/post', isLoggedIn,isSeller,function(req, res) {
 //MAKE AN ERROR PAGE
 adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
     multerMid(req, res,(err) => {
+        console.log(req.files)
         if (req.body.featured) {
             if (req.user.noOfFeaturedAds > 0) {
                 if (err) {
@@ -413,6 +414,7 @@ adRouter.post('/editad', (req, res) => {
             res.send("Error")
         }
         console.log(req.files)
+        console.log(req.body)
         Ads.findOne({_id:sanitize(req.body.adid)},function (err,ad){
             let featured = ad.featured
             if(req.body.featured && !featured){
@@ -522,7 +524,7 @@ function editAd(req,res,isPaid,featured){
                         res.send("Error While Updating Ad")
                     }
                     if(docs){
-                        res.render('afterPostAds')
+                        res.render('afterPostAd')
                     }
                     else {
                         res.send("Not Found")
@@ -592,35 +594,40 @@ function editAd(req,res,isPaid,featured){
 /* docs */
 // here you will just add the id of the ad in the url itself, and will get that single ad
 //WHAT DOES PUT Route do here??
-adRouter.route('/:adId')
-    .get((req, res) => {
-        Ads.findById(String(req.params.adId))
-            .then((ad) => {
-                // console.log(ad);
-                res.render('show_ad', {
-                    ad: ad,
-                    user: req.user
-                });
-            }).catch((err) => console.log(err));
-    });
-
-
-//Thinking to use this to display the ad
-adRouter.post('/show', (req, res) => {
-    Ads.findById(sanitize(req.body.adId))
-        .then((ad) => {
-            // console.log(ad);
+adRouter.route('/show')
+    .post((req, res) => {
+        const adId = req.body.adId
+        console.log(adId)
+        Ads.findOne({_id:adId},function (err,ad){
+            if(err){
+                console.log(err)
+            }
             res.render('show_ad', {
                 ad: ad,
                 user: req.user
             });
-        }).catch((err) => console.log(err));
-});
+
+        })
+    });
+
+
+//Thinking to use this to display the ad
+// adRouter.post('/show', (req, res) => {
+//     Ads.findById(sanitize(req.body.adId))
+//         .then((ad) => {
+//             // console.log(ad);
+//             res.render('show_ad', {
+//                 ad: ad,
+//                 user: req.user
+//             });
+//         }).catch((err) => console.log(err));
+// });
 
 adRouter.route('/grid_ads/a')
-    .get((req, res, next) => {
+    .post((req, res, next) => {
 
-        const page = parseInt(req.query.page);
+        const page = parseInt(req.body.page);
+        console.log(page)
         const featuredLimit = 3;
         const ordinaryLimit = 6;
 
@@ -629,39 +636,42 @@ adRouter.route('/grid_ads/a')
 
         const featuredEndIndex = page * featuredLimit;
         const ordinaryEndIndex = page * ordinaryLimit;
+        Ads.find({},function (err,cb){
+            console.log(cb)
+            res.send(cb)
+        }).limit(9).sort({date_posted:-1})
 
-
-        Ads.find({$and: [
-                { approved: true },
-                { 'rejected.val': false },
-                { isActive: true }
-            ]})
-            .sort({date_posted: -1})
-            .then((ads) => {
-                const featuredAds = ads.filter((item, index) => (item.isPaid===2));
-                const ordinaryAds = ads.filter((item, index) => !(item.isPaid===2));
-
-                const isFeaturedShort = 3 - (featuredEndIndex - featuredStartIndex);
-
-                const paginatedFeaturedAds = featuredAds.slice(featuredStartIndex, featuredEndIndex);
-                const paginatedOrdinaryAds = ordinaryAds.slice(ordinaryStartIndex, ordinaryEndIndex + isFeaturedShort);
-
-                const finalAdsArray = Array.prototype.push.apply(paginatedFeaturedAds, paginatedOrdinaryAds);
-
-                let results = {
-                    // featured: paginatedFeaturedAds,
-                    // ordinary: paginatedOrdinaryAds,
-                    ads: finalAdsArray
-                };
-
-                if (featuredEndIndex < featuredAds.length || ordinaryEndIndex < ordinaryAds.length) results.nextPage = page + 1;
-
-                if (featuredStartIndex > 0) results.previousPage = page - 1;
-
-                res.statusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
-                res.json(results);
-            });
+        // Ads.find({$and: [
+        //         { approved: true },
+        //         { 'rejected.val': false },
+        //         { isActive: true }
+        //     ]})
+        //     .sort({date_posted: -1})
+        //     .then((ads) => {
+        //         const featuredAds = ads.filter((item, index) => (item.isPaid===2));
+        //         const ordinaryAds = ads.filter((item, index) => !(item.isPaid===2));
+        //
+        //         const isFeaturedShort = 3 - (featuredEndIndex - featuredStartIndex);
+        //
+        //         const paginatedFeaturedAds = featuredAds.slice(featuredStartIndex, featuredEndIndex);
+        //         const paginatedOrdinaryAds = ordinaryAds.slice(ordinaryStartIndex, ordinaryEndIndex + isFeaturedShort);
+        //
+        //         const finalAdsArray = Array.prototype.push.apply(paginatedFeaturedAds, paginatedOrdinaryAds);
+        //
+        //         let results = {
+        //             // featured: paginatedFeaturedAds,
+        //             // ordinary: paginatedOrdinaryAds,
+        //             ads: finalAdsArray
+        //         };
+        //
+        //         if (featuredEndIndex < featuredAds.length || ordinaryEndIndex < ordinaryAds.length) results.nextPage = page + 1;
+        //
+        //         if (featuredStartIndex > 0) results.previousPage = page - 1;
+        //
+        //         res.statusCode = 200;
+        //         res.setHeader('Content-Type', 'application/json');
+        //         res.json(results);
+        //     });
     });
 
 //Send Params adId
