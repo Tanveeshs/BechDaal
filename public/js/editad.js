@@ -30,6 +30,7 @@ $(document).ready(() => {
     url: "http://localhost:3000/category",
     method: "GET"
   }).done(function(catagories) {
+    window.categoryarray = catagories;
     ad = ads.value;
     catagories.forEach(category => {
       if (category.name == ad[0].category) {
@@ -38,14 +39,6 @@ $(document).ready(() => {
       $('#category').append('<option value="' + category.name + '">' + category.name + '</option>');
       }
     });
-  }).fail(function() {
-    alert('FAIL!!');
-  });
-
-  $.ajax({
-    url: "http://localhost:3000/category",
-    method: "GET"
-  }).done(catagories => {
     ad = ads.value;
     var selectedcategory;
     selectedcategory = $('#category').find(":selected").text();
@@ -69,8 +62,41 @@ $(document).ready(() => {
     alert('FAIL!!');
   });
 });
+//   $.ajax({
+//     url: "http://localhost:3000/category",
+//     method: "GET"
+//   }).done(catagories => {
+//
+//   }).fail(function() {
+//     alert('FAIL!!');
+//   });
+// });
 
 var URL = "http://localhost:3000/category";
+// var selectedcategory;
+// $('#category').on('change', function() {
+//   selectedcategory = $('#category').find(":selected").text();
+//   $('#subcategory option').remove();
+//   if ($('#category').find(":selected").val() === 'none') {
+//     $('#subcategory').append("<option value='none'>-------------</option>");
+//   } else {
+//     $.ajax({
+//       url: URL,
+//       method: "GET"
+//     }).done(catagories => {
+//       catagories.forEach(category => {
+//         if (category.name === selectedcategory) {
+//           category.subcategory.forEach(subcategory => {
+//             $('#subcategory').append('<option value="' + subcategory + '">' + subcategory + '</option>');
+//           });
+//         }
+//       });
+//     }).fail(function() {
+//       alert('FAIL!!');
+//     });
+//   }
+// });
+
 var selectedcategory;
 $('#category').on('change', function() {
   selectedcategory = $('#category').find(":selected").text();
@@ -78,19 +104,12 @@ $('#category').on('change', function() {
   if ($('#category').find(":selected").val() === 'none') {
     $('#subcategory').append("<option value='none'>-------------</option>");
   } else {
-    $.ajax({
-      url: URL,
-      method: "GET"
-    }).done(catagories => {
-      catagories.forEach(category => {
-        if (category.name === selectedcategory) {
-          category.subcategory.forEach(subcategory => {
-            $('#subcategory').append('<option value="' + subcategory + '">' + subcategory + '</option>');
-          });
-        }
-      });
-    }).fail(function() {
-      alert('FAIL!!');
+    categoryarray.forEach(category => {
+      if (category.name === selectedcategory) {
+        category.subcategory.forEach(subcategory => {
+          $('#subcategory').append('<option value="' + subcategory + '">' + subcategory + '</option>');
+        });
+      }
     });
   }
 });
