@@ -35,9 +35,9 @@ router.post('/editprofile', function(req, res) {
     _id: req.user._id
   }, {
     "$set": {
-      'local.username': sanitize(req.body.username1),
-      'ContactNumber': sanitize(req.body.contact1),
-      'local.address': a
+      'local.username': req.body.username1,
+      'ContactNumber': req.body.contact1,
+       Address: a
     }
   }, function(err) {
     // Updated at most one doc, `res.modifiedCount` contains the number

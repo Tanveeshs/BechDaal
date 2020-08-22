@@ -18,12 +18,9 @@ mongoose.connect(configDB.url, {
     useUnifiedTopology: true,
     useFindAndModify:false
 });
+
+
 const PORT = process.env.PORT || 8080;
-// Not required for now HTTPS CERT
-// var options = {
-//     key: fs.readFileSync('private.key'),
-//     cert: fs.readFileSync('certificate.crt')
-// };
 require('./config/passport')(passport);
 let app = express();
 app.use(express.json());
@@ -88,8 +85,18 @@ app.use('/sitemap',sitemapRouter)
 
 
 app.get('/test',(req,res)=>{
-
+    res.render('category.ejs')
 })
+
+
+//Used to redirect all undirected urls to home page
+function redirectUnmatched(req,res){
+    res.redirect('https://www.bechdaal.tech')
+}
+app.use(redirectUnmatched)
+
+
+
 
 //for app engine
 // app.listen(PORT, () => {
