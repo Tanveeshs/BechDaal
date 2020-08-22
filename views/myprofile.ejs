@@ -33,18 +33,26 @@
             <p class="contact">
                 <span style="color:#994d00; font-size: 20px;font-weight: bold; "> Contact No:</span>
                 <%if(user.ContactNumber){%>
-                <span style="margin-left: 2%;font-size: 20px;"><%= user.local.contact %></span>
+                <span style="margin-left: 2%;font-size: 20px;"><%= user.ContactNumber %></span>
                 <%}else {%>
                 <span style="font-size: 20px;">Please Enter Your Contact Number</span>
                 <%}%>
             </p>
-            <% for (var i = 0; i < user.local.address.length; i++) {%>
+
             <p class="address">
                 <span style="color:#994d00; font-size: 20px;font-weight: bold; "> Address:</span>
-                <span style="margin-left: 2%;font-size: 20px;"><%= user.local.address[i] %></span>
+                <span style="margin-left: 2%;font-size: 20px;"><%= user.Address.line1 %></span>
+                <br>
+                <span style="margin-left: 2%;font-size: 20px;"><%= user.Address.line2 %></span>
+                <br>
+                <span style="margin-left: 2%;font-size: 20px;"><%= user.Address.line3 %></span>
+                <br>
+                <span style="margin-left: 2%;font-size: 20px;"><%= user.Address.line4 %></span>
+
+                <br>
             </p>
-            <% } %>
-            <!-- <p class="address" style="display:flex;flex-direction: row;">
+
+          <%# <p class="address" style="display:flex;flex-direction: row;">
                 <p style="color:#994d00;font-size: 1.5rem; float: left; margin-right: 30px;"> Address:</p>
                 <div style="display: flex;flex-direction: column; margin-top: 60px;">
                     <input type="text" class="address_input">
@@ -53,29 +61,20 @@
                     <input type="text" class="address_input">
                     <input type="text" class="address_input">
                 </div>
-            </p>
-            <br>
-            <div id = "addAdd" class="addAddress">
+            </p> %>
+
+            <%# <div id = "addAdd" class="addAddress">
                 <p>Add address <i class="fa fa-plus"></i></p>
-            </div> -->
+            </div> %>
             <!-- when you click on Add Address text, it should toggle the form below, uska toggling daal dena, -->
             <!-- initial toggle false hi rakhna, sirf add address ka text dikhna chaiye. baaki chote cheeze dekh lena -->
-            <!-- <div id = "newAdd" class="newAddress" style="display: flex;flex-direction: column;">
+            <%# <div id = "newAdd" class="newAddress" style="display: flex;flex-direction: column;">
+                <input type="text" class="address_input" placeholder="House/Flat No.">
+                <input type="text" class="address_input" placeholder="Street/Road">
                 <input type="text" class="address_input" placeholder="Pincode">
                 <input type="text" class="address_input" placeholder="City">
-                <input type="text" class="address_input" placeholder="Street/Road">
-                <input type="text" class="address_input" placeholder="House/Flat No.">
-                <input type="text" class="address_input" placeholder="Landmark">
-                <div style="display: flex;flex-direction: row;margin-top: 5%;">
-                    <p style="font-size: 25px;margin-right: 10%; margin-top: 0px;">Save as</p>
-                    <input type="radio" id="saveAsAddress" value="30">
-                    <label for="home" class="saveAs">Home</label><br>
-                    <input type="radio" id="saveAsAddress" value="60">
-                    <label for="office" class="saveAs">Office</label><br>
-                    <input type="radio" id="saveAsAddress" value="100">
-                    <label for="other" class="saveAs">Other</label><br><br>
-                </div>
-            </div> -->
+            </div> %>
+            <br>
             <span> <button type="submit" class="verify_btn">Edit</button> </span>
         </form>
     </div>
