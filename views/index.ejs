@@ -27,16 +27,6 @@
 
       <div class="flex-container" id="cont">
 
-        <!-- <%categries.forEach(category=>{%>
-        <div id='<%=category._id%>' class="one">
-          <img class='Img' src='<%=category.image%>'><br>
-          <%=category.name%></div>
-        <%})%>
-        <div class="one">5</div>
-        <div class="one">6</div>
-        <div class="one">7</div>
-        <div class="one">8</div>
-      </div> -->
       </div>
       <ul class="pagination">
         <li class="page-item">
@@ -55,9 +45,6 @@
       </ul>
       <hr style="height:1px;background-color:black;margin: 10px 15%;">
       <div class="flex-container">
-        <!-- <div class="paginatedContent">
-          <!-- paginated ads go here -->
-        <!-- </div> -->
         <%ads.forEach(ad=>{%>
         <div class="two">
           <%if (typeof(ad.cover_photo)==='undefined'){%>
