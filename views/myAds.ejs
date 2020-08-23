@@ -16,6 +16,7 @@
 
 <body>
 <div class="container" style="margin-left: 15%; z-index: 5;">
+  <h6 style="margin-left: 20px; text-align: right">No.of Free Ads <%= user.noOfFreeAds %>, No.of Paid Ads <%= user.noOfPaidAds %>, No. of Featured Ads <%= user.noOfFeaturedAds %></h6>
   <div class="row" id="main">
 
     <%if (ads.length==0){%>
@@ -184,7 +185,7 @@
     var form = document.getElementById("form"+input.id);
     console.log("Hit")
     form.submit()
-    }
+  }
   let data;
   let page =0;
   $.ajax({
@@ -234,7 +235,7 @@
       $(".mainContent").empty();
       for (let i = 0; i < 2; i++) {
         $(".mainContent").append(
-                "<div id='"+s[i]._id+"' onclick='editad(this)' class='col-md-4 col-sm-12 paddings'>\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> <img class='Img mx-auto' style='text-align: center;' src='/"+s[i].cover_photo.filename+" %>' />\
+                "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-md-4 col-sm-12 paddings'>\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> <img class='Img mx-auto' style='text-align: center;' src='"+s[i].cover_photo+" %>' />\
                     <br />\
                     <label for='title' class='text'>Title</label>\
                     <label for='' class='label-text'>"+s[i].title+"\
@@ -242,9 +243,13 @@
                     <br />\
                     <label for='title'>Date posted</label>\
                     <label for='' class='label-text'>"+s[i].date_posted+"</label>\
+                    <form method='POST' id='form"+s[i]._id+"' action='/sell/editad/view'>\
+                    <input type='hidden' name='adid' value='"+s[i]._id+"'>\
+                    </form>\
                   </div>\
                 </div>\
-              </div>")
+              </div>\
+              ")
       }
     }else{
       page -=1;
@@ -261,7 +266,7 @@
       $(".mainContent").empty();
       for (let i = 0; i < 2; i++) {
         $(".mainContent").append(
-                "<div id='"+s[i]._id+"' onclick='editad(this)' class='col-md-4 col-sm-12 paddings'>\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> <img class='Img mx-auto' style='text-align: center;' src='/"+s[i].cover_photo.filename+" %>' />\
+                "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-md-4 col-sm-12 paddings'>\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> <img class='Img mx-auto' style='text-align: center;' src='"+s[i].cover_photo+" %>' />\
                     <br />\
                     <label for='title' class='text'>Title</label>\
                     <label for='' class='label-text'>"+s[i].title+"\
@@ -269,9 +274,13 @@
                     <br />\
                     <label for='title'>Date posted</label>\
                     <label for='' class='label-text'>"+s[i].date_posted+"</label>\
+                    <form method='POST' id='form"+s[i]._id+"' action='/sell/editad/view'>\
+                    <input type='hidden' name='adid' value='"+s[i]._id+"'>\
+                    </form>\
                   </div>\
                 </div>\
-              </div>")
+              </div>\
+              ")
       }
     }else{
       page+=1;

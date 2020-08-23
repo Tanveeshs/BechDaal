@@ -1,3 +1,5 @@
+<%- include("partials/header")-%>
+
 <head>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css"
         integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
@@ -168,17 +170,6 @@
         <a href="#">Category4</a>
     </div>
     <div class="flex-container" id="content">
-        <div class="filter" style="margin-left:60%;">
-            <label for="filter">Filter By</label>
-            <select name="filter_by">
-                <option value="high_low">By Price</option>
-                <option value="low_high">By Popularity</option>
-            </select>
-            <select name="jasdf">
-                <option value="high_low">Higher to lower</option>
-                <option value="low_high">Lower to Higher</option>
-            </select>
-        </div>
         <div class="two">
             <img></img><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
             <p>₹ 1000</p>
@@ -245,3 +236,5 @@
         }
     </script>
 </body>
+
+<%-include("partials/footer")-%>

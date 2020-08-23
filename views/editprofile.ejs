@@ -40,20 +40,7 @@
         <span><i style="font-size: 20px;" class="fas fa-edit" aria-hidden="true"></i></span>
       </p>
 
-      <% var addresses1 = user.local.address; %>
-      <% for (var i = 0; i < user.local.address.length; i++) {%>
-      <p class="address">
-        <span style="color:#994d00; font-size: 1.5rem; "> Address <%= i+1 %>:</span>
-        <br>
 
-        <input id="add1" type="text" name='address<%= i+1 %>' style=" border: none;
-                border-bottom: 1px solid gray;margin-left:-15%;
-                width: 500px;padding:3px;font-size: 1.1rem; text-align: center;" onchange=address(this)
-          value="<%= user.local.address[i]%>" placeholder="<%= user.local.address %>">
-        <button type="button" value="<%= user.local.address[i]%>"
-          onclick="edadd(<%= i %>, this.value, '<%= addresses1 %>')">Set</button>
-      </p>
-      <% } %>
       <input type="text" id='abcde' name="ivalue" type="hidden" style="visibility:hidden;"
         value="<%= user.local.address%>">
 
@@ -63,11 +50,12 @@
       <!-- when you click on Add Address text, it should toggle the form below, uska toggling daal dena, -->
       <!-- initial toggle false hi rakhna, sirf add address ka text dikhna chaiye. baaki chote cheeze dekh lena -->
       <div id="newAdd" class="newAddress" style="display: flex;flex-direction: column;">
-        <input type="text" name="newAdd_line1" class="address_input" placeholder="Address Line 1">
-        <input type="text" name="newAdd_line2" class="address_input" placeholder="Address Line 1">
-        <input type="text" name="newAdd_line3" class="address_input" placeholder="Address Line 1">
-        <button class="set_button" type="button" value="" onclick="edadd(100,100,'<%= addresses1 %>')">
-          Set</button>
+        <input type="text" name="line1" class="address_input" value="<%= user.Address.line1 %>">
+        <input type="text" name="line2" class="address_input" value="<%= user.Address.line2 %>">
+        <input type="text" name="line3" class="address_input" value="<%= user.Address.line3 %>">
+        <input type="text" name="line4" class="address_input" value="<%= user.Address.line4 %>">
+        <%# <button class="set_button" type="button" value="" onclick="edadd(100,100)">
+          Set</button> %>
       </div>
       <span> <button type="submit" class="verify_btn">Save Changes</button> </span>
     </form>

@@ -11,18 +11,17 @@ const session = require('express-session');
 const bodyParser = require('body-parser')
 const http = require("http");
 const cors = require('cors');
+const cron = require("node-cron");
 dotenv.config();
 const configDB = require('./config/database');
 mongoose.connect(configDB.url, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify:false
 });
+
+
 const PORT = process.env.PORT || 8080;
-// Not required for now HTTPS CERT
-// var options = {
-//     key: fs.readFileSync('private.key'),
-//     cert: fs.readFileSync('certificate.crt')
-// };
 require('./config/passport')(passport);
 let app = express();
 app.use(express.json());
@@ -34,9 +33,7 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 // noinspection JSCheckFunctionSignatures
 app.use(session({
-    secret: process.env.SECRET,
-    resave:true,
-    saveUninitialized:false
+    secret: 'BechDaal'
 }));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -72,7 +69,7 @@ const sitemapRouter = require('./routes/sitemap')
 // view engine setup
 require('./routes/RegisterAndLogin')(app, passport);
 
-app.use('/user', forgotPass);
+app.use('/forgot', forgotPass);
 app.use('/verify', verifymail);
 app.use('/sell', adRoute);
 app.use('/category', categoryRoute);
@@ -87,25 +84,41 @@ app.use('/reviews',ratingsAndReviews)
 app.use('/docs',docsRouter)
 app.use('/sitemap',sitemapRouter)
 
+
+app.get('/test',(req,res)=>{
+    res.render('category.ejs')
+})
+
+//DONT DELETE
+//USED TO REDIRECT UNMASKED URLS
+app.get("*",(req,res)=>{
+    res.redirect("/")
+})
+
+
+let redis = require('./config/redisConfig').redis
+cron.schedule("0 0 * * *", function() {
+  redis.set("DailyCount",0)
+
+})
+
 //for app engine
-app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}...`);
-});
+// app.listen(PORT, () => {
+//     console.log(`Server listening on port ${PORT}...`);
+// });
 
 
 //for compute engine
-
 // app.use(forceSsl);
 // var https_server = https.createServer(options, app).listen(443, function(err){
 //     console.log("Node.js Express HTTPS Server Listening on Port 443");
 // });
-
 // var http_server = http.createServer(app).listen(80, function(err){
 //     console.log("Node.js Express HTTPS Server Listening on Port 80");
 // });
 
 //local test
 
-// var http_server = http.createServer(app).listen(3000, function(err){
-//     console.log("Node.js Express HTTPS Server Listening on Port 300to app0");
-// });
+var http_server = http.createServer(app).listen(3000, function(err){
+    console.log("Node.js Express HTTPS Server Listening on Port 300to app0");
+});

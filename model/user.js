@@ -9,8 +9,6 @@ const userSchema = new mongoose.Schema({
     username: String,
     email: String,
     password: String,
-    contact : Number,
-    address: [String],
     isVerified: {
       type: Boolean,
       default: false
@@ -50,15 +48,17 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now()
   },
-  //Only if seller
-  rzpId:String,
-
   wishlist: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Ads'
   }],
   //Extra Field
-  Address:String,
+  Address: {
+    line1:String,
+    line2:String,
+    line3:String,
+    line4:String
+  },
   ContactNumber: Number,
   IsActive: Boolean,
   Ratings:{type:
@@ -78,9 +78,15 @@ userSchema.methods.validPassword = function(password) {
   return bcrypt.compareSync(password, this.local.password);
 };
 
+function hashing(password) {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+
+
 const User = mongoose.model('User', userSchema);
 
 module.exports = {
   User: User,
-  user_schema_body: userSchema
+  user_schema_body: userSchema,
+  genPassword:hashing
 };

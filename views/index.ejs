@@ -27,16 +27,6 @@
 
       <div class="flex-container" id="cont">
 
-        <!-- <%categries.forEach(category=>{%>
-        <div id='<%=category._id%>' class="one">
-          <img class='Img' src='<%=category.image%>'><br>
-          <%=category.name%></div>
-        <%})%>
-        <div class="one">5</div>
-        <div class="one">6</div>
-        <div class="one">7</div>
-        <div class="one">8</div>
-      </div> -->
       </div>
       <ul class="pagination">
         <li class="page-item">
@@ -54,23 +44,13 @@
         </li>
       </ul>
       <hr style="height:1px;background-color:black;margin: 10px 15%;">
-      <div class="flex-container">
-        <!-- <div class="paginatedContent">
-          <!-- paginated ads go here -->
-        <!-- </div> -->
-        <%ads.forEach(ad=>{%>
-        <div class="two">
-          <%if (typeof(ad.cover_photo)==='undefined'){%>
-          <img class="images" src='images/1.jpg'><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
-          <%} else {%>
-          <img class="images" src='<%= ad.cover_photo %>'><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
-          <%}%>
-          <p class="para">₹ <%=ad.price%></p>
-          <p class="para"><%=ad.title%></p>
-          <k><%=ad.date_posted%></k>
-        </div>
-        <%})%>
+      <div class="flex-container" id="locAds">
 
+
+      </div>
+      <div>
+
+        <button onclick="getNewAds()">Show More</button>
       </div>
 
     </div>
@@ -148,6 +128,65 @@
         first.textContent = "First"
       }
     })
+    let page1=1;
+    $.ajax({
+      url: "http://localhost:3000/sell/grid_ads/a",
+      method: "POST",
+      data:{
+        page:page1
+      }
+    }).done(function(ads) {
+      ads.forEach(ad=>{
+        let date = new Date(ad.date_posted).toDateString()
+        $("#locAds").append("<div class='two' onclick='editad1(this)' id='"+ad._id+"'>" +
+                "<form action='/sell/show' method='post' id='form"+ad._id+"'>" +
+                "<input type='hidden' name='adId' value='"+ad._id+"'>" +
+                "<img class='images' src='"+ad.cover_photo+"'><i class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10' onclick='check()'></i>"+
+                "<p class='para'>₹"+ad.price+"</p>" +
+                "<p class='para'>"+ad.title+"</p>" +
+                "<k>"+date+"</k>" +
+                "</form>" +
+                "</div>")
+      })
+      // console.log(categoryarray)
+    }).fail(function() {
+      alert('FAIL!!');
+    });
+
+    function editad1(input){
+      console.log(input)
+      var form = document.getElementById("form"+input.id);
+      console.log("Hit")
+      form.submit()
+    }
+    function getNewAds() {
+      console.log("hit")
+      page1 = page1+1;
+      $.ajax({
+        url: "http://localhost:3000/sell/grid_ads/a",
+        method: "POST",
+        data:{
+          page:page1
+        }
+      }).done(function(ads) {
+        ads.forEach(ad=>{
+          let date = new Date(ad.date_posted).toDateString()
+          $("#locAds").append("<div class='two' onclick='editad1(this)' id='"+ad._id+"'>" +
+                  "<form action='/sell/show' method='post' id='form"+ad._id+"'>" +
+                  "<input type='hidden' name='adId' value='"+ad._id+"'>" +
+                  "<img class='images' src='"+ad.cover_photo+"'><i class='fa fa-heart icondisplay' aria-hidden='true'></i>"+
+                  "<p class='para'>₹"+ad.price+"</p>" +
+                  "<p class='para'>"+ad.title+"</p>" +
+                  "<k>"+date+"</k>" +
+                  "</form>" +
+                  "</div>")
+        })
+        // console.log(categoryarray)
+      }).fail(function() {
+        alert('FAIL!!');
+      });
+    }
+
   </script>
 </body>
 

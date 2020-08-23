@@ -174,7 +174,12 @@ searchRouter.post('/search/:q',(req,res)=>{
     result.push(...results.getSubcategory)
     result.push(...results.getTitle)
     let uniq = [...new Set(result)]
-    uniq = uniq.slice(0,5)
+    if(uniq.length<10){
+      uniq = uniq.slice(0,uniq.length)
+    }
+    else {
+      uniq = uniq.slice(0,10)
+    }
     res.send(uniq)
   })
 
@@ -303,8 +308,8 @@ searchRouter.post('/search/:q',(req,res)=>{
 searchRouter.post('/searchByCat',(req,res)=>{
   const categoryId = req.body.categoryId;
   Category.CategoryModel.findOne({_id:categoryId},{_id:0,name:1,subcategory:0,image:0},function (err,cat){
-    Ads.find({category:cat.name,approved:true,rejected:false,isActive:true},function (err,ads){
-      res.send(ads)
+    Ads.find({category:cat.name,approved:true,'rejected.val':false,isActive:true},function (err,ads){
+      res.render('category.ejs',{ads:ads})
     })
   })
 })

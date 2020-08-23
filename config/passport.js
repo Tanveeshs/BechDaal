@@ -30,7 +30,7 @@ module.exports = function(passport) {
       process.nextTick(function() {
         const username = req.body.username;
         User.findOne({
-          'local.email': email
+          'local.email': String.prototype.toLowerCase.apply(email)
         }, function(err, user) {
           if (err)
             return done(err);
@@ -38,7 +38,7 @@ module.exports = function(passport) {
             return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
           } else {
             var newUser = new User();
-            newUser.local.email = email;
+            newUser.local.email = String.prototype.toLowerCase.apply(email);
             newUser.local.username = username;
             newUser.local.password = newUser.generateHash(password);
             if(req.body.Person==="Seller"){
@@ -65,7 +65,7 @@ module.exports = function(passport) {
     },
     function(req, email, password, done) {
       User.findOne({
-        'local.email': email
+        'local.email': String.prototype.toLowerCase.apply(email)
       }, function(err, user) {
         if (err)
           return done(err);
