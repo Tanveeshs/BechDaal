@@ -3,11 +3,14 @@
 const express = require('express')
 const Router = express.Router();
 const jwt = require('jsonwebtoken')
+const redis = require('../config/redisConfig').redis
+
 const ad = require('../model/ad')
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const Category = require('../model/category').CategoryModel
 const User = require('../model/user').User;
+const async = require('async')
 const Storage = require('../config/cloudStorage')
 const users = [
     {
@@ -130,7 +133,34 @@ Router.post("/ads/details",authenticateJWT,(req,res)=>{
 
 //Admin HomePage
 Router.get('/home', authenticateJWT, (req, res) => {
-    res.render('admin/adminPage.ejs')
+    async.parallel({
+        getTotalViews:function (callback){
+            redis.get("Count",(err,reply)=>{
+                if(err){
+                    console.log("error in getting data from redis",err)
+                    callback(err,null)
+                }
+                callback(null,reply)
+            })
+        },
+        getDailyViews:function (callback){
+            redis.get("DailyCount",(err,reply)=>{
+                if(err){
+                    console.log("error in getting data from redis",err)
+                    callback(err,null)
+                }
+                callback(null,reply)
+            })
+        }
+    },function (err,cb){
+        res.render("admin/adminPage.ejs",{
+            pageViews:cb.getTotalViews,
+            DailyPageViews:cb.getDailyViews
+        })
+    })
+
+
+
 });
 
 //To add Category

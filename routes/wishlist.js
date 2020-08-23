@@ -16,22 +16,25 @@ wishlistRouter.get('/', isLoggedIn, (req, res, next) => {
     User.findById(sanitize(req.user._id))
         .populate(
             {path:'wishlist',
-                match:{$and:{approved:true,'rejected.val':false,isActive:true}}
+                match:{approved:true,'rejected.val':false,isActive:true}
             })
         .exec((err,wishlist) => {
             if(err){
+                console.log(err)
                 return returnErr(res, "Error", "Our server ran into an error please try again")
             }
+            console.log(err)
+            console.log(wishlist.wishlist)
             res.render('mywishlist.ejs', {
                 user: req.user,
-                array:wishlist
+                array:wishlist.wishlist
             });
         })
 });
 
 wishlistRouter.get('/:adId', isLoggedIn, (req, res, next) => {
     const _id = sanitize(req.params.adId);
-    Ads.findOne({_id:_id,approved:true,rejected:false,isActive:true})
+    Ads.findOne({_id:_id,approved:true,"rejected.val":false,isActive:true})
         .then((ad) => {
             if (ad != null) {
                 User.findById(sanitize(req.user._id))
@@ -44,8 +47,6 @@ wishlistRouter.get('/:adId', isLoggedIn, (req, res, next) => {
                         user.save()
                             .then((user) => {
                                 req.user = user
-                                res.statusCode = 200;
-                                res.setHeader('Content-Type', 'application/json');
                                 return res.render('mywishlist', {
                                     user: req.user,
                                     array: ad

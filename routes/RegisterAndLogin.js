@@ -1,47 +1,27 @@
 //jshint esversion:6
+//Done
 const {
   User
 } = require('../model/user');
 const Category = require('../model/category').CategoryModel;
-const ad = require('../model/ad')
-const async = require('async')
+
+let pageCounter = require('../utils/pageCounter')
 
 
-//Discuss whether get ads is required here??
-//Or get ads ke liye ajax route
 module.exports = function(app, passport) {
   app.get('/', function(req, res) {
-    async.parallel({
-      getCategories: function (callback) {
-        Category.find({},{name:1,image:1},function (err, result) {
-          if (err) {
-            callback(err, null)
-          }
-          callback(null, result)
-        })
-      },
-      getAds: function (callback) {
-        ad.find({}, (err, ads) => {
-          if (err) {
-            callback(err, null)
-          }
-          callback(null, ads)
-        })
-      }
-    }, function (err, results) {
+    pageCounter.incrementPageCount()
+    Category.find({},{name:1,image:1},function (err, result) {
       if (err) {
-        console.log(err)
-        console.log("Error Reported")
-        res.send("error")
-      } else {
-        res.render('index.ejs', {
-          user: req.user,
-          categries: results.getCategories,
-          ads: results.getAds
-        });
+        console.log(err);
+        return returnErr(res, "Error", "Our server ran into an error please try again")
       }
-    })
-  })
+      res.render('index.ejs', {
+        user: req.user,
+        categries:result,
+      });
+    });
+  });
 
   app.get('/login',isNotLoggedIn,function(req, res) {
     // render the page and pass in any flash data if it exists
@@ -72,10 +52,10 @@ module.exports = function(app, passport) {
 
 
   //Use projections
-  app.get('/verify', function(req, res) {
+  app.get('/verify',isLoggedIn, function(req, res) {
     User.findOne({
       'local.email': req.user.local.email
-    }, function(err, user) {
+    },{'local.email':1,'local.isVerified':1}, function(err, user) {
       if (user.local.isVerified) {
         res.redirect('/');
       } else {
@@ -85,19 +65,10 @@ module.exports = function(app, passport) {
       }
     });
   });
-
-  app.get('/profile', isLoggedIn, function(req, res) {
-    res.render('profile.ejs', {
-      user: req.user // get the user out of session and pass to template
-    });
-    console.log(req);
-  });
-
   app.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
   });
-
   app.get('/auth/facebook', passport.authenticate('facebook', {
     scope: ['email']
   }));
@@ -106,11 +77,9 @@ module.exports = function(app, passport) {
         successRedirect: '/',
         failureRedirect: '/login'
       }));
-
   app.get('/auth/google', passport.authenticate('google', {
     scope: ['profile', 'email']
   }));
-
   // the callback after google has authenticated the user
   app.get('/auth/google/callback',
       passport.authenticate('google', {
@@ -139,4 +108,10 @@ function isNotLoggedIn(req,res,next){
   }catch (e){
     console.log(e)
   }
+}
+function returnErr(res,message,err){
+  res.render('error.ejs',{
+    message:message,
+    error:err
+  })
 }

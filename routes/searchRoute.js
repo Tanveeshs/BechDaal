@@ -174,7 +174,12 @@ searchRouter.post('/search/:q',(req,res)=>{
     result.push(...results.getSubcategory)
     result.push(...results.getTitle)
     let uniq = [...new Set(result)]
-    uniq = uniq.slice(0,5)
+    if(uniq.length<10){
+      uniq = uniq.slice(0,uniq.length)
+    }
+    else {
+      uniq = uniq.slice(0,10)
+    }
     res.send(uniq)
   })
 

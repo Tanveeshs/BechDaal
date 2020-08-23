@@ -1,10 +1,10 @@
 const express = require('express')
 const Router = express.Router()
 const Razorpay = require('razorpay')
-// const instance = new Razorpay({
-//     key_id:process.env.razorpay_key,
-//     key_secret:process.env.razorpay_secret
-// })
+const instance = new Razorpay({
+    key_id:process.env.razorpay_key,
+    key_secret:process.env.razorpay_secret
+})
 const uuid = require('uuid')
 const crypto = require('crypto')
 const User = require('../model/user').User
@@ -23,7 +23,7 @@ Router.post('/ad',function (req,res){
         amount = 10*Number(quantity)*100
     }
     let options = {
-        amount: amount,  // amount in the smallest currency unit
+        amount: amount,
         currency: "INR",
         receipt: uuid.v4(),
         payment_capture: '1',
@@ -63,13 +63,12 @@ Router.post('/ad',function (req,res){
 })
 
 //If payment successful we are setting incrementing noOfFeaturedAds and noOfNormalAds
-//Add Error Page
 //Add Success Page
 //At success page show order_id in case of any issues
 Router.post('/callback',function (req,res){
-    var hash = crypto.createHmac('SHA256',process.env.razorpay_secret).update(req.body.razorpay_order_id + "|" + req.body.razorpay_payment_id)
+    var hash = crypto.createHmac('SHA256',process.env.razorpay_secret)
+        .update(req.body.razorpay_order_id + "|" + req.body.razorpay_payment_id)
         .digest('hex')
-    console.log(hash)
     if(hash === req.body.razorpay_signature) {
         instance.orders.fetch(req.body.razorpay_order_id)
             .then(r=>{
@@ -78,30 +77,44 @@ Router.post('/callback',function (req,res){
                         {$inc:{noOfFeaturedAds:Number(r.notes.quantity)}},
                         {new:true},
                         function (err,user){
-                        req.user = user;
+                            if(err){
+                                console.log(err);
+                                return returnErr(res, "Error", "Our server ran into an error please try again")
+                            }
+                            req.user = user;
+                            res.send('Your Payment Has Been accepted The Ads have Been added to your account' +
+                                'If you still face any troubles please contact support');
                         })
                 }
                 else {
                     User.findOneAndUpdate({_id:String(req.user._id)},
-                            {$inc:{noOfPaidAds:Number(r.notes.quantity)}},
-                            {new:true},
-                            function (err,user){
-                                req.user = user;
-                            })
+                        {$inc:{noOfPaidAds:Number(r.notes.quantity)}},
+                        {new:true},
+                        function (err,user){
+                            if(err){
+                                console.log(err);
+                                return returnErr(res, "Error", "Our server ran into an error please try again")
+                            }
+                            req.user = user;
+                            res.send('Your Payment Has Been accepted The Ads have Been added to your account' +
+                                'If you still face any troubles please contact support');
+                        })
+
                 }
-                res.render('Your Payment Has Been accepted The Ads have Been added to your account' +
-                    'If you still face any troubles please contact support')
-
             })
-
-
-
     }
     else {
-        res.render('error.ejs')
+        return returnErr(res, "Invalid Payment",
+            "Your payment hasnt been confirmed by the payment provider,Please contact support")
     }
 })
 
+function returnErr(res,message,err){
+    res.render('error.ejs',{
+        message:message,
+        error:err
+    })
+}
 
 //payment for offer
 //Params adId,quantity,specialMentions,DeliveryTime

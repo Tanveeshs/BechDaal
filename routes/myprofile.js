@@ -1,6 +1,5 @@
 //jshint esversion:6
-//DONE
-//ADDRESS WAALA ISSUE SORT KARNA HAI
+//ISLOGGEDIN KA VERIFY WAALA PART
 
 
 const express = require('express');
@@ -28,9 +27,6 @@ router.get('/edit', isLoggedIn, function(req, res) {
 
 
 router.post('/editprofile', function(req, res) {
-
-  // let a = req.body.ivalue;
-  // a = a.split(',');
   User.findOneAndUpdate({
     _id: req.user._id
   }, {
@@ -42,13 +38,12 @@ router.post('/editprofile', function(req, res) {
        'Address.line3' : req.body.line3,
        'Address.line4' : req.body.line4,
     }
-  }, function(err) {
-    // Updated at most one doc, `res.modifiedCount` contains the number
-    // of docs that MongoDB updated
+  },{new:true},function(err,doc) {
     if (err) {
       console.log(err);
+      return returnErr(res, "Error", "Our server ran into an error please try again")
     }
-
+    req.user = doc;
   });
   res.redirect('/myprofile');
 });
@@ -83,5 +78,10 @@ function isLoggedIn(req, res, next) {
   }
 }
 
-
+function returnErr(res,message,err){
+  res.render('error.ejs',{
+    message:message,
+    error:err
+  })
+}
 module.exports = router;
