@@ -28,25 +28,25 @@
         </div>
       </center>
       <%} else {%>
-      <%array.forEach(wish=>{%>
-      <div class="col-md-4 col-sm-12 paddings" style="margin-left: 5%;">
-        <div class="card text-white car mx-auto">
-          <div class="card-body">
-            <img class="Img mx-auto" style="text-align: center;" src="/<%= wish.cover_photo.filename %>"
-              alt="/<%= wish.cover_photo.filename %>">
-            <br>
-            <label for="title" class="text">Title</label>
-            <label for="" class="label-text"><%=wish.title%></label>
-            <br>
-            <label for="title">Date posted</label>
-            <label for="" class="label-text"><%=wish.date_posted%></label>
+        <%array.forEach(wish=>{%>
+          <div class="col-md-4 col-sm-12 paddings" style="margin-left: 5%;">
+            <div class="card text-white car mx-auto">
+              <div class="card-body">
+                <img class="Img mx-auto" style="text-align: center;" src="<%= wish.cover_photo %>"
+                     alt="<%= wish.cover_photo %>">
+                <br>
+                <label for="title" class="text">Title</label>
+                <label for="" class="label-text"><%=wish.title%></label>
+                <br>
+                <label for="title">Date posted</label>
+                <label for="" class="label-text"><%=wish.date_posted%></label>
+              </div>
+            </div>
+            <label id='<%=wish._id%>' onclick='deletewish(this)' class="remove">Remove <i style="padding:0 5px;"
+                                                                                          class="fas fa-times"></i></label>
+            <div class="rem-left"></div>
           </div>
-        </div>
-        <label id='<%=wish._id%>' onclick='deletewish(this)' class="remove">Remove <i style="padding:0 5px;"
-            class="fas fa-times"></i></label>
-        <div class="rem-left"></div>
-      </div>
-      <%})%>
+        <%})%>
       <%}%>
         </div>
     </div>
