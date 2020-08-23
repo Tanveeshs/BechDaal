@@ -99,13 +99,12 @@ app.get("*",(req,res)=>{
 let redis = require('./config/redisConfig').redis
 cron.schedule("0 0 * * *", function() {
   redis.set("DailyCount",0)
-
 })
 
 //for app engine
-// app.listen(PORT, () => {
-//     console.log(`Server listening on port ${PORT}...`);
-// });
+app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}...`);
+});
 
 
 //for compute engine
@@ -119,6 +118,6 @@ cron.schedule("0 0 * * *", function() {
 
 //local test
 
-var http_server = http.createServer(app).listen(3000, function(err){
-    console.log("Node.js Express HTTPS Server Listening on Port 300to app0");
-});
+// var http_server = http.createServer(app).listen(3000, function(err){
+//     console.log("Node.js Express HTTPS Server Listening on Port 300to app0");
+// });

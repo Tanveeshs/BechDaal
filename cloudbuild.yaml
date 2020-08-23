@@ -10,6 +10,12 @@ steps:
       - 'project_id=${_PROJECTID}'
       - 'project_key=${_PROJECTKEY}'
       - 'private_key=${_PRIVATEKEY}'
+      - 'email=${_EMAIL}'
+      - 'pass=${_PASS}'
+      - 'redis_host=${_REDIS_HOST}'
+      - 'redis_pass=${_REDIS_PASS}'
+      - 'razorpay_key=${_RAZORPAY_KEY}'
+      - 'razorpay_secret=${_RAZORPAY_SECRET}'
 #  - name: node:10.15.1
 #    entrypoint: npm
 #    args: ["run", "createJSON"]
