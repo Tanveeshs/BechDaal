@@ -31,6 +31,13 @@
   font-size: 30px;
   border: 1px solid black;
 }
+.two:hover {
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border: 7px inset #00b28f;
+}
+
 
 .images{
     height:90px;

@@ -12,7 +12,7 @@ function incrementPageCount(){
             return
         }
         reply = Number(reply)+1
-        redis.set("Count",reply)
+        let a = redis.set("Count",reply)
     })
     redis.get("DailyCount",function (err,reply){
         if(err){
@@ -25,7 +25,7 @@ function incrementPageCount(){
         }
 
         reply = Number(reply)+1
-        redis.set("DailyCount",reply)
+        let a  = redis.set("DailyCount",reply)
     })
 }
 
