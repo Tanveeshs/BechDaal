@@ -637,7 +637,7 @@ adRouter.route('/grid_ads/a')
         const featuredEndIndex = page * featuredLimit;
         const ordinaryEndIndex = page * ordinaryLimit;
         Ads.find({},function (err,cb){
-            console.log(cb)
+            // console.log(cb)
             res.send(cb)
         }).limit(9).sort({date_posted:-1})
 

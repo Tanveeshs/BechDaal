@@ -11,6 +11,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser')
 const http = require("http");
 const cors = require('cors');
+const cron = require("node-cron");
 dotenv.config();
 const configDB = require('./config/database');
 mongoose.connect(configDB.url, {
@@ -92,6 +93,13 @@ app.get('/test',(req,res)=>{
 //USED TO REDIRECT UNMASKED URLS
 app.get("*",(req,res)=>{
     res.redirect("/")
+})
+
+
+let redis = require('./config/redisConfig').redis
+cron.schedule("0 0 * * *", function() {
+  redis.set("DailyCount",0)
+
 })
 
 //for app engine
