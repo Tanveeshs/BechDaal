@@ -12,6 +12,8 @@
     background-color: #9FC66A;
     font-family: 'PT Sans', sans-serif;
     font-size: 14.78px;
+    margin-left: 10px;
+    margin-bottom: 10px;
 }
 
 .locationsubmit:hover {
@@ -109,12 +111,14 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
     font-size: 18px;
+    margin-top: 5px;
 }
 
 .input1 {
     font-family: 'PT Sans', sans-serif;
     font-size: 15px;
-    margin-top: 5px;
+    /* margin-top: 5px; */
+    margin-bottom: 1rem;
     background-color: #4AACD1;
 
 }
@@ -123,6 +127,7 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
     font-size: 14px;
+    margin: 0 5px 10px 10px;
 }
 
 .input2 {
