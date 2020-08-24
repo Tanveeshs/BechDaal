@@ -146,6 +146,130 @@
         float: right;
         padding-right: 8px;
     }
+    select {
+  width: 60%;
+  height: 40px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 0;
+  background-color: #366cbd;
+  border: none;
+  color: white;
+  padding: 10px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 10px;
+  border-radius: 100px;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: Arial, "Hiragino Kaku Gothic Pro W3", Meiryo, sans-serif;
+
+  text-align: center;
+}
+body a, body a:visited {
+  color: #ccc;
+  text-decoration: none;
+}
+body a:hover {
+  color: #aaa;
+}
+
+.button-area .button {
+  display: inline-block;
+  padding: 10px;
+  margin: 10px 5px;
+  background-color: rgba(255, 255, 255, 0);
+  cursor: pointer;
+  transition: all .3s ease;
+  border: 2px solid #f16022;
+}
+.button-area .button:hover {
+  background-color: #f16022;
+}
+.button-area .button.active {
+  background-color: #f16022;
+}
+.button-area input[type=checkbox] {
+  display: none;
+}
+
+#mnsry_container {
+  position: relative;
+}
+#mnsry_container:hover img {
+  opacity: 0.28;
+}
+#mnsry_container .item {
+  width: 33.3%;
+  min-height: 200px;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0;
+}
+#mnsry_container .item h1 {
+  position: absolute;
+  top: 46%;
+  left: 0;
+  width: 100%;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  transition: all 1.2s;
+  z-index: 1;
+}
+#mnsry_container .item img {
+  display: block;
+  width: 100%;
+  opacity: 0.25;
+  transition: all .8s;
+}
+#mnsry_container .item:hover h1 {
+  transform: translate3d(0, 18px, 0) scale(1.2, 0.4);
+  opacity: 0;
+}
+#mnsry_container .item:hover img {
+  opacity: 1;
+  transform: scale(1.04);
+}
+
+#loading_msg {
+  position: fixed;
+  top: 48%;
+  width: 100%;
+  z-index: -1;
+}
+
+@media (max-width: 860px) {
+  #mnsry_container .item {
+    width: 50%;
+    min-height: 150px;
+  }
+}
+@media (max-width: 667px) {
+  #mnsry_container .item {
+    width: 100%;
+    min-height: 220px;
+  }
+}
+.dropdown-btn:hover{
+    cursor: pointer;
+    color: rgb(81, 124, 241);
+    font-weight: bold;
+}
+.dropdown-btn:active{
+    color: rgb(81, 124, 241);
+    font-weight: bold;
+
+}
+
+
 </style>
 
 <body>
@@ -153,10 +277,15 @@
         <p style="margin-left: 6%;font-weight: bold;font-size:22px;margin-bottom: 4%;">
             CATEGORIES
         </p>
-        <hr style="color:gray;width:90%;box-shadow: 0.3px 0.3px 0.3px lightgray;">
-        <a class="active" style="margin-top:20%;" href="#">Category1</a>
-        <a href="#">Category2</a>
-        <button class="dropdown-btn">Dropdown
+        <hr style="color:gray;width:100%;box-shadow: 0.3px 0.3px 0.3px lightgray;">
+        <button class="dropdown-btn">Automobile
+            <i class="fa fa-caret-down" style="margin-left: 20px;"></i>
+        </button>
+        <div class="dropdown-container">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+        </div><button class="dropdown-btn">Electronics
             <i class="fa fa-caret-down" style="margin-left: 20px;"></i>
         </button>
         <div class="dropdown-container">
@@ -164,12 +293,53 @@
             <a href="#">Link 2</a>
             <a href="#">Link 3</a>
         </div>
-        <a href="#">Category3</a>
-        <a href="#">Category4</a>
-    </div>
-    <div class="flex-container" id="content">
-        <div class="filter" style="margin-left:60%;">
+        <button class="dropdown-btn">Real Estate
+            <i class="fa fa-caret-down" style="margin-left: 20px;"></i>
+        </button>
+        <div class="dropdown-container">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+        </div>
+        <button class="dropdown-btn">Office/Work
+            <i class="fa fa-caret-down" style="margin-left: 20px;"></i>
+        </button>
+        <div class="dropdown-container">
+            <a href="#">Table</a>
+            <a href="#">Chair</a>
+            <a href="#">Light</a>
+        </div>
+        <button class="dropdown-btn">Fashion
+            <i class="fa fa-caret-down" style="margin-left: 20px;"></i>
+        </button>
+        <div class="dropdown-container">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+        </div>
+        <br>
+        <br>
+        <div class="button-area filters">
+            <i class="fas fa-2x fa-filter"></i>Filter By<br>
+            <label class="button">
+              <input type="checkbox" value="group1" />Price
+            </label>
+            <label class="button">
+              <input type="checkbox" value="group2" />Brand
+            </label>
+            <label class="button">
+              <input type="checkbox" value="group3" />Usage
+            </label>
+            <label class="button">
+              <input type="checkbox" value="group4" />Model
+            </label>
+          </div>
+      <!--
+        <div class="filter" style="margin-left:10%;">
+            
             <label for="filter">Filter By</label>
+            <br>
+            <br>
             <select name="filter_by">
                 <option value="high_low">By Price</option>
                 <option value="low_high">By Popularity</option>
@@ -179,6 +349,10 @@
                 <option value="low_high">Lower to Higher</option>
             </select>
         </div>
+        -->
+    </div>
+    <div class="flex-container" id="content">
+        
         <div class="two">
             <img></img><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
             <p>₹ 1000</p>
