@@ -38,8 +38,13 @@ searchRouter.post('/main', function(req, res, next) {
   var res1 = {
     data: [],
   };
-
+console.log(req.body);
   Ads.find({
+    // db.inventory.find( { tags: "red" } )
+    $and: [{
+      deliverableAreas: req.body.locality
+    },
+      {
     $or: [{
         sub_category: {
           $in: [regexp1, regexp2]
@@ -66,6 +71,8 @@ searchRouter.post('/main', function(req, res, next) {
         }
       }
     ]
+  }
+]
   }, function(err, data) {
     if(err){
       console.log(err);
