@@ -35,6 +35,10 @@ searchRouter.post('/main', function(req, res, next) {
   var q = req.body.searchInput;
   const regexp1 = new RegExp(`^${q}`, 'i'); // for finding it as beginning of the first word
   const regexp2 = new RegExp(`\\s${q}`, 'i'); // for finding as beginning of a middle word
+  var query = {}
+  query.$and = []
+  query.$and.push({approved:true})
+  query.$and.push({isPaid:true})
 
 
   if(typeof(req.body.locality)=='undefined'){

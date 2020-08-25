@@ -21,15 +21,14 @@ const adSchema = new Schema({
     type: String,
     required:true
   },
-  //Think if is required
+  //Changed to Quantity par renamed as model only
   model: {
-    type: String
-  },
-  brand: {
-    type: String
+    type: String,
+    required:true
   },
   price: {
-    type: Number
+    type: Number,
+    required:true
   },
   user: user_schema_body,
   cover_photo: {
