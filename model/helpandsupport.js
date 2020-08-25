@@ -19,7 +19,7 @@ const helpSchema = new Schema({
     type: Date,
     default:Date.now()
   },
-  status:{type:String},
+  status:{type:String,required:true},
   reg_user:{type:user_schema_body},
   non_reg_user:{
     name:{type:String},

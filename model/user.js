@@ -16,15 +16,18 @@ const userSchema = new mongoose.Schema({
   },
   noOfFreeAds: {
     type: Number,
-    default: 3
+    default: 3,
+    required:true
   },
   noOfPaidAds:{
     type:Number,
-    default:0
+    default:0,
+    required:true
   },
   noOfFeaturedAds:{
     type:Number,
-    default:0
+    default:0,
+    required:true
   },
   facebook: {
     id: String,
@@ -60,7 +63,7 @@ const userSchema = new mongoose.Schema({
     line4:String
   },
   ContactNumber: Number,
-  IsActive: Boolean,
+  IsActive: {Boolean},
   Ratings:{type:
         [{
           rating:Number,

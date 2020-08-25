@@ -4,9 +4,18 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-node');
 
 const categorySchema = new mongoose.Schema({
-  name: String,
-  subcategory: [String],
-  image:String
+  name: {
+    type:String,
+    required:true
+  },
+  subcategory:{
+    type:[String],
+    required:true
+  } ,
+  image:{
+    type:String,
+    required:true
+  }
 });
 
 module.exports.CategoryModel = mongoose.model("Category", categorySchema);
