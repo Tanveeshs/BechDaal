@@ -138,44 +138,10 @@
         first.textContent = "First"
       }
     })
-    let page1 = 0;
-    $.ajax({
-      url: "http://localhost:3000/sell/grid_ads/c/" + page1,
-      method: "GET",
-    }).done(function(ads) {
-      ads.forEach(ad => {
-        let date = new Date(ad.date_posted).toDateString()
-        if (ad.isPaid === 2) {
-          $("#locAds").append("<div class='two' onclick='editad1(this)' id='" + ad._id + "'>" +
-                  "<form action='/sell/show' method='post' id='form" + ad._id + "'>" +
-                  "<input type='hidden' name='adId' value='" + ad._id + "'>" +
-                  "<span style='background-color:yellow;font-size:15px;margin-right:40px'>Featured</span>" +
-                  "<img class='images' src='" + ad.cover_photo + "'><span id='icon"+ad._id+"'><i  class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10' onclick='check()'></i></span>" +
-                  "<p class='para'>₹" + ad.price + "</p>" +
-                  "<p class='para'>" + ad.title + "</p>" +
-                  "<k>" + date + "</k>" +
-                  "</form>" +
-                  "</div>")
-        } else {
-          $("#locAds").append("<div class='two' onclick='editad1(this)' id='" + ad._id + "'>" +
-                  "<form action='/sell/show' method='post' id='form" + ad._id + "'>" +
-                  "<input type='hidden' name='adId' value='" + ad._id + "'>" +
-                  "<img class='images' src='" + ad.cover_photo + "'><span id='icon"+ad._id+"'><i  class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10' onclick='check()'></i></span>" +
-                  "<p class='para'>₹" + ad.price + "</p>" +
-                  "<p class='para'>" + ad.title + "</p>" +
-                  "<k>" + date + "</k>" +
-                  "</form>" +
-                  "</div>")
-        }
-      })
-      wishlist.forEach(wish=>{
-        if ($('#icon'+wish).length){
-          $('#icon'+wish).empty();
-          $('#icon'+wish).append("<i id='icon"+wish+"' class='fa fa-500px icondisplay' aria-hidden='true' style='z-index: 10' onclick='check()'></i>")
-        }
-      })
-    })
-
+    let page1 = -1;
+    $(function(){
+      getNewAds()
+    });
     function editad1(input) {
       console.log(input)
       var form = document.getElementById("form" + input.id);
@@ -187,7 +153,7 @@
       console.log("hit")
       page1 = page1 + 1;
       $.ajax({
-        url: "http://localhost:3000/sell/grid_ads/c/" + page1,
+        url: "https://bechdaal.tech/sell/grid_ads/c/" + page1,
         method: "GET",
       }).done(function(ads) {
         ads.forEach(ad => {
