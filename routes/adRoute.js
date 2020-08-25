@@ -623,6 +623,49 @@ adRouter.route('/show')
 //         }).catch((err) => console.log(err));
 // });
 
+
+adRouter.route('/grid_ads/b')
+.post((req, res, next) => {
+    Ads.count({featured: true})
+    .then((value) => req.session.featuredCount = value)
+    .catch((err) => console.log(err))
+
+    const page = req.params.page;
+    const count = req.featuredCount;
+    const maxPages = Math.ceil(count / 3);
+    const extraOrdinary = maxPages * 3 - count;
+    const featuredAds = [];
+    const ordinaryAds = [];
+
+    if (page <= maxPages) {
+        
+        async.parallel({
+            featured: (callback) => {
+                Ads.find({featured: true}).limit(3).skip((page-1)*3)
+                .then((ads) => featuredAds = ads)
+                .catch((err) => console.log(err));
+            },
+            ordinary: (callback) => {
+                Ads.find({featured: true}).limit(6+extraOrdinary).skip((page-1)*6)
+                .then((ads) => ordinaryAds = ads)
+                .catch((err) => console.log(err))
+            }
+        })
+    } else {
+        Ads.find({featured: false}).limit(9).skip(maxPages*6 + extraOrdinary + (page-maxPages-1)*9)
+        .then((ads) => ordinaryAds = ads)
+        .catch((err) => console.log(err))
+    }
+
+
+    const final9Ads = Array.prototype.push.apply(featuredAds, ordinaryAds);
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.json({ads: final9Ads});
+
+
+})
+
 adRouter.route('/grid_ads/a')
     .post((req, res, next) => {
 
