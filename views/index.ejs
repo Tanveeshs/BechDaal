@@ -7,15 +7,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Bech Daal</title>
-  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/homepage.css">
+  <style media="screen">
 
+  </style>
 </head>
 
 <body>
@@ -58,7 +56,17 @@
       <h2 style="text-align:center;">Ads</h2>
     </div>
   </div>
-
+  <script>
+    let wishlist = []
+  </script>
+  <% user.wishlist.forEach(val=>{ %>
+    <script>
+      wishlist.push("<%=val %>")
+    </script>
+<%}) %>
+<script>
+  console.log(wishlist)
+</script>
 
   <script>
     let arr = []
@@ -78,11 +86,11 @@
     let data;
     let page = 0;
     const main = document.querySelector(".mainContent");
-    $(document).ready(function () {
+    $(document).ready(function() {
       for (var i = 0; i < 3; i++) {
         $("#cont").append("<div id='" + arr[i].id + "' class='one'>\
-            <img class='Img' src = '"+ arr[i].img + "'> <br>\
-              "+ arr[i].name + "</div>")
+            <img class='Img' src = '" + arr[i].img + "'> <br>\
+              " + arr[i].name + "</div>")
       }
     })
     const first = document.querySelector("#first");
@@ -99,8 +107,8 @@
         for (let i = 0; i < 3; i++) {
           $("#cont").append(
             "<div id='" + s[i].id + "' class='one'>\
-            <img class='Img' src = '"+ s[i].img + "'> <br>\
-              "+ s[i].name + "</div>")
+            <img class='Img' src = '" + s[i].img + "'> <br>\
+              " + s[i].name + "</div>")
         }
       } else {
         page -= 1;
@@ -120,83 +128,68 @@
         for (let i = 0; i < 3; i++) {
           $("#cont").append(
             "<div id='" + s[i].id + "' class='one'>\
-            <img class='Img' src = '"+ s[i].img + "'> <br>\
-              "+ s[i].name + "</div>")
+            <img class='Img' src = '" + s[i].img + "'> <br>\
+              " + s[i].name + "</div>")
         }
       } else {
         page += 1;
         first.textContent = "First"
       }
     })
-    let page1=0;
-    $.ajax({
-      url: "https://bechdaal.tech/sell/grid_ads/c/"+page1,
-      method: "GET",
-    }).done(function(ads) {
-      ads.forEach(ad=>{
-        let date = new Date(ad.date_posted).toDateString()
-        $("#locAds").append("<div class='two' onclick='editad1(this)' id='"+ad._id+"'>" +
-                "<form action='/sell/show' method='post' id='form"+ad._id+"'>" +
-                "<input type='hidden' name='adId' value='"+ad._id+"'>" +
-                "<img class='images' src='"+ad.cover_photo+"'><i class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10' onclick='check()'></i>"+
-                "<p class='para'>₹"+ad.price+"</p>" +
-                "<p class='para'>"+ad.title+"</p>" +
-                "<k>"+date+"</k>" +
-                "</form>" +
-                "</div>")
-      })
-      // console.log(categoryarray)
-    }).fail(function() {
-      alert('FAIL!!');
+    let page1 = -1;
+    $(function(){
+      getNewAds()
     });
 
-    function editad1(input){
+    function editad1(input) {
       console.log(input)
-      var form = document.getElementById("form"+input.id);
+      var form = document.getElementById("form" + input.id);
       console.log("Hit")
       form.submit()
     }
+
     function getNewAds() {
       console.log("hit")
-      page1 = page1+1;
+      page1 = page1 + 1;
       $.ajax({
-        url: "https://bechdaal.tech/sell/grid_ads/c/"+page1,
+        url: "https://bechdaal.tech/sell/grid_ads/c/" + page1,
         method: "GET",
       }).done(function(ads) {
-        ads.forEach(ad=>{
+        ads.forEach(ad => {
           let date = new Date(ad.date_posted).toDateString()
-
-          if(ad.isPaid !==2){
-            $("#locAds").append("<div class='two' onclick='editad1(this)' id='"+ad._id+"'>" +
-                    "<form action='/sell/show' method='post' id='form"+ad._id+"'>" +
-                    "<input type='hidden' name='adId' value='"+ad._id+"'>" +
-                    "<img class='images' src='"+ad.cover_photo+"'><i class='fa fa-heart icondisplay' aria-hidden='true'></i>"+
-                    "<p class='para'>₹"+ad.price+"</p>" +
-                    "<p class='para'>"+ad.title+"</p>"+
-                    "<k>"+date+"</k>" +
-                    "</form>" +
-                    "</div>")
+          if (ad.isPaid === 2) {
+              $("#locAds").append("<div class='two' onclick='editad1(this)' id='" + ad._id + "'>" +
+                "<form action='/sell/show' method='post' id='form" + ad._id + "'>" +
+                "<input type='hidden' name='adId' value='" + ad._id + "'>" +
+                "<span style='background-color:yellow;font-size:15px;margin-right:40px'>Featured</span>" +
+                "<img class='images' src='" + ad.cover_photo + "'><span id='icon"+ad._id+"'><i  class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10' onclick='check()'></i></span>" +
+                "<p class='para'>₹" + ad.price + "</p>" +
+                "<p class='para'>" + ad.title + "</p>" +
+                "<k>" + date + "</k>" +
+                "</form>" +
+                "</div>")
+          } else {
+              $("#locAds").append("<div class='two' onclick='editad1(this)' id='" + ad._id + "'>" +
+                "<form action='/sell/show' method='post' id='form" + ad._id + "'>" +
+                "<input type='hidden' name='adId' value='" + ad._id + "'>" +
+                "<img class='images' src='" + ad.cover_photo + "'><span id='icon"+ad._id+"'><i  class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10' onclick='check()'></i></span>" +
+                "<p class='para'>₹" + ad.price + "</p>" +
+                "<p class='para'>" + ad.title + "</p>" +
+                "<k>" + date + "</k>" +
+                "</form>" +
+                "</div>")
           }
-          else {
-            $("#locAds").append("<div class='two' onclick='editad1(this)' id='"+ad._id+"'>" +
-                    "<form action='/sell/show' method='post' id='form"+ad._id+"'>" +
-                    "<input type='hidden' name='adId' value='"+ad._id+"'>" +
-                    "<img class='images' src='"+ad.cover_photo+"'><i class='fa fa-heart icondisplay' aria-hidden='true'></i>"+
-                    "<p class='para'>₹"+ad.price+"</p>" +
-                    "<p class='para'>"+ad.title+"</p>" +
-                    "<p>Featured</p>"+
-                    "<k>"+date+"</k>" +
-                    "</form>" +
-                    "</div>")
-          }
-
         })
-        // console.log(categoryarray)
+        wishlist.forEach(wish=>{
+          if ($('#icon'+wish).length){
+            $('#icon'+wish).empty();
+            $('#icon'+wish).append("<i id='icon"+wish+"' class='fa fa-500px icondisplay' aria-hidden='true' style='z-index: 10' onclick='check()'></i>")
+          }
+        })
       }).fail(function() {
         alert('FAIL!!');
       });
     }
-
   </script>
 </body>
 
