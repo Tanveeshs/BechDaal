@@ -128,13 +128,10 @@
         first.textContent = "First"
       }
     })
-    let page1=1;
+    let page1=0;
     $.ajax({
-      url: "https://bechdaal.tech/sell/grid_ads/a",
-      method: "POST",
-      data:{
-        page:page1
-      }
+      url: "https://bechdaal.tech/sell/grid_ads/c/"+page1,
+      method: "GET",
     }).done(function(ads) {
       ads.forEach(ad=>{
         let date = new Date(ad.date_posted).toDateString()
@@ -163,23 +160,36 @@
       console.log("hit")
       page1 = page1+1;
       $.ajax({
-        url: "https://bechdaal.tech/sell/grid_ads/a",
-        method: "POST",
-        data:{
-          page:page1
-        }
+        url: "https://bechdaal.tech/sell/grid_ads/c/"+page1,
+        method: "GET",
       }).done(function(ads) {
         ads.forEach(ad=>{
           let date = new Date(ad.date_posted).toDateString()
-          $("#locAds").append("<div class='two' onclick='editad1(this)' id='"+ad._id+"'>" +
-                  "<form action='/sell/show' method='post' id='form"+ad._id+"'>" +
-                  "<input type='hidden' name='adId' value='"+ad._id+"'>" +
-                  "<img class='images' src='"+ad.cover_photo+"'><i class='fa fa-heart icondisplay' aria-hidden='true'></i>"+
-                  "<p class='para'>₹"+ad.price+"</p>" +
-                  "<p class='para'>"+ad.title+"</p>" +
-                  "<k>"+date+"</k>" +
-                  "</form>" +
-                  "</div>")
+
+          if(ad.isPaid !==2){
+            $("#locAds").append("<div class='two' onclick='editad1(this)' id='"+ad._id+"'>" +
+                    "<form action='/sell/show' method='post' id='form"+ad._id+"'>" +
+                    "<input type='hidden' name='adId' value='"+ad._id+"'>" +
+                    "<img class='images' src='"+ad.cover_photo+"'><i class='fa fa-heart icondisplay' aria-hidden='true'></i>"+
+                    "<p class='para'>₹"+ad.price+"</p>" +
+                    "<p class='para'>"+ad.title+"</p>"+
+                    "<k>"+date+"</k>" +
+                    "</form>" +
+                    "</div>")
+          }
+          else {
+            $("#locAds").append("<div class='two' onclick='editad1(this)' id='"+ad._id+"'>" +
+                    "<form action='/sell/show' method='post' id='form"+ad._id+"'>" +
+                    "<input type='hidden' name='adId' value='"+ad._id+"'>" +
+                    "<img class='images' src='"+ad.cover_photo+"'><i class='fa fa-heart icondisplay' aria-hidden='true'></i>"+
+                    "<p class='para'>₹"+ad.price+"</p>" +
+                    "<p class='para'>"+ad.title+"</p>" +
+                    "<p>Featured</p>"+
+                    "<k>"+date+"</k>" +
+                    "</form>" +
+                    "</div>")
+          }
+
         })
         // console.log(categoryarray)
       }).fail(function() {

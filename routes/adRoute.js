@@ -623,6 +623,104 @@ adRouter.route('/show')
 //         }).catch((err) => console.log(err));
 // });
 
+adRouter.get('/grid_ads/c/:page',(req,res)=>{
+    const page = req.params.page;
+        Ads.find({isPaid:2, approved: true, isActive: true, 'rejected.val': false},function (err,docs){
+            if(err){
+                returnErr(res, "Error", err)
+            }
+            let count = docs.length
+            console.log(count)
+            async.parallel({
+                featured:function (callback) {
+                    // count=5
+                    if((page+1)*3<count+3){
+                        if((count-page*3)<3){
+                            Ads.find({isPaid:2, approved: true, isActive: true, 'rejected.val': false},{user:0,images:0,brand:0,model:0},
+                                function (err,ads) {
+                                    if(err){
+                                        callback(err,null)
+                                    }
+                                    else {
+                                        callback(null,ads)
+                                    }
+                                }).limit((count-page*3)).skip(page*3)
+                        }else {
+                            Ads.find({isPaid:2, approved: true, isActive: true, 'rejected.val': false},{user:0,images:0,brand:0,model:0},
+                                function (err,ads) {
+                                    if(err){
+                                        callback(err,null)
+                                    }
+                                    else {
+                                        callback(null,ads)
+                                    }
+                                }).limit(3).skip(page*3)
+                        }
+                    }
+                    else {
+                        callback(null,null)
+                    }
+                },
+                normal:function (callback){
+                    if((page+1)*3<count+3){
+                        if((count-page*3)<3){
+                            Ads.find({$or:[{isPaid:0,isPaid:1}], approved: true, isActive: true, 'rejected.val': false},{user:0,images:0,brand:0,model:0},
+                                function (err,ads) {
+                                    if(err){
+                                        callback(err,null)
+                                    }
+                                    else {
+                                        callback(null,ads)
+                                    }
+                                }).limit(9-(count-page*3)).skip(page*6)
+                        }else {
+                            Ads.find({$or:[{isPaid:0,isPaid:1}], approved: true, isActive: true, 'rejected.val': false},{user:0,images:0,brand:0,model:0},
+                                function (err,ads) {
+                                    if(err){
+                                        callback(err,null)
+                                    }
+                                    else {
+                                        callback(null,ads)
+                                    }
+                                }).limit(6).skip(page*6)
+                        }
+                    }else {
+                        let page2 = page - Math.ceil(count/3)
+                        Ads.find({$or:[{isPaid:0,isPaid:1}], approved: true, isActive: true, 'rejected.val': false},{user:0,images:0,brand:0,model:0},
+                            function (err,ads) {
+                                if(err){
+                                    callback(err,null)
+                                }
+                                else {
+                                    callback(null,ads)
+                                }
+                            }).limit(9).skip(page*6+(page*3-count)+page2*9)
+                    }
+                }
+            },function (err,results){
+                if(err){
+                    returnErr(res, "error", "Error")
+                }
+
+                let arr=[]
+                if(results.featured===null && results.normal===null){
+                    arr = []
+                }
+                else if(results.featured===null){
+                    arr = [...results.normal]
+                }
+                else if(results.normal===null){
+                    arr = [...results.featured]
+                }
+                else {
+                    arr = [...results.featured,...results.normal]
+                }
+                res.json(arr)
+            })
+        })
+    })
+
+
 adRouter.route('/grid_ads/a')
     .post((req, res, next) => {
 
@@ -759,5 +857,13 @@ function isSeller(req,res,next){
         console.log(e);
     }
 }
+
+
+function returnErr(res,message,err){
+    res.render('error.ejs',{
+      message:message,
+      error:err
+    })
+  }
 
 module.exports = adRouter;
