@@ -624,12 +624,13 @@ adRouter.route('/show')
 // });
 
 adRouter.get('/grid_ads/c/:page',(req,res)=>{
-    const page = req.params.page;
+    const page = parseInt(req.params.page);
+    console.log(page)
         Ads.find({isPaid:2, approved: true, isActive: true, 'rejected.val': false},function (err,docs){
             if(err){
                 returnErr(res, "Error", err)
             }
-            let count = docs.length
+            let count = docs.length;
             console.log(count)
             async.parallel({
                 featured:function (callback) {
@@ -664,7 +665,7 @@ adRouter.get('/grid_ads/c/:page',(req,res)=>{
                 normal:function (callback){
                     if((page+1)*3<count+3){
                         if((count-page*3)<3){
-                            Ads.find({$or:[{isPaid:0,isPaid:1}], approved: true, isActive: true, 'rejected.val': false},{user:0,images:0,brand:0,model:0},
+                            Ads.find({$or:[{isPaid:0},{isPaid:1}], approved: true, isActive: true, 'rejected.val': false},{user:0,images:0,brand:0,model:0},
                                 function (err,ads) {
                                     if(err){
                                         callback(err,null)
@@ -674,7 +675,7 @@ adRouter.get('/grid_ads/c/:page',(req,res)=>{
                                     }
                                 }).limit(9-(count-page*3)).skip(page*6)
                         }else {
-                            Ads.find({$or:[{isPaid:0,isPaid:1}], approved: true, isActive: true, 'rejected.val': false},{user:0,images:0,brand:0,model:0},
+                            Ads.find({$or:[{isPaid:0},{isPaid:1}], approved: true, isActive: true, 'rejected.val': false},{user:0,images:0,brand:0,model:0},
                                 function (err,ads) {
                                     if(err){
                                         callback(err,null)
@@ -685,8 +686,9 @@ adRouter.get('/grid_ads/c/:page',(req,res)=>{
                                 }).limit(6).skip(page*6)
                         }
                     }else {
-                        let page2 = page - Math.ceil(count/3)
-                        Ads.find({$or:[{isPaid:0,isPaid:1}], approved: true, isActive: true, 'rejected.val': false},{user:0,images:0,brand:0,model:0},
+                        let page2 = page - Math.floor(count/3)
+                        Ads.find({$or:[{isPaid:0},{isPaid:1}], approved: true, isActive: true, 'rejected.val': false},{user:0,images:0,brand:0,model:0},
+
                             function (err,ads) {
                                 if(err){
                                     callback(err,null)
@@ -699,11 +701,13 @@ adRouter.get('/grid_ads/c/:page',(req,res)=>{
                 }
             },function (err,results){
                 if(err){
-                    returnErr(res, "error", "Error")
+                    console.log(err)
+                    return returnErr(res, "error", "Error")
                 }
 
                 let arr=[]
-                if(results.featured===null && results.normal===null){
+                console.log(results.featured)
+                if(results.featured===undefined && results.normal===undefined){
                     arr = []
                 }
                 else if(results.featured===null){
@@ -715,10 +719,8 @@ adRouter.get('/grid_ads/c/:page',(req,res)=>{
                 else {
                     arr = [...results.featured,...results.normal]
                 }
-                console.log(results.featured)
-                console.log(results.normal)
                 console.log(arr)
-                res.json(arr)
+                res.send(arr)
             })
         })
     })
