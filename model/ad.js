@@ -10,13 +10,16 @@ const {
 
 const adSchema = new Schema({
   title: {
-    type: String
+    type: String,
+    required:true
   },
   category: {
-    type: String
+    type: String,
+    required:true
   },
   sub_category: {
-    type: String
+    type: String,
+    required:true
   },
   //Think if is required
   model: {
