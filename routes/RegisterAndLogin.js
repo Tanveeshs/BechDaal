@@ -19,7 +19,6 @@ module.exports = function(app, passport) {
       res.render('index.ejs', {
         user: req.user,
         categries:result,
-        wishlist:req.user.wishlist
       });
     });
   });
