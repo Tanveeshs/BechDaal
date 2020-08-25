@@ -7,9 +7,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Bech Daal</title>
-  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/homepage.css">
   <style media="screen">
 
@@ -26,8 +30,8 @@
       <div class="flex-container" id="cont">
 
       </div>
-      <ul class="pagination">
-        <li class="page-item">
+      <div>
+        <!-- <li class="page-item">
           <a class="page-link" href="#" id="previous" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
             <span class="sr-only">Previous</span>
@@ -39,8 +43,11 @@
             <span aria-hidden="true">&raquo;</span>
             <span class="sr-only">Next</span>
           </a>
-        </li>
-      </ul>
+        </li> -->
+        <span class="unactiveDot" id="first"></span>
+        <span class="unactiveDot" id="second"></span>
+        <span class="unactiveDot" id="third"></span>
+      </div>
       <hr style="height:1px;background-color:black;margin: 10px 15%;">
       <div class="flex-container" id="locAds">
 
@@ -88,7 +95,10 @@
     let data;
     let page = 0;
     const main = document.querySelector(".mainContent");
-    $(document).ready(function() {
+    $(document).ready(function () {
+      $("#first").addClass('.activeDot')
+      $("#second").addClass('.unactiveDot')
+      $("#third").addClass('.unactiveDot')
       for (var i = 0; i < 3; i++) {
         $("#cont").append("<div id='" + arr[i].id + "' class='one'>\
             <img class='Img' src = '" + arr[i].img + "'> <br>\
@@ -96,9 +106,112 @@
       }
     })
     const first = document.querySelector("#first");
-    const previous = document.querySelector("#previous");
-    const next = document.querySelector("#next");
-    next.addEventListener('click', () => {
+    const second = document.querySelector("#second");
+    const third = document.querySelector("#third");
+    first.addEventListener('click', () => {
+      $("#second").addClass('.unactiveDot')
+      $("#third").addClass('.unactiveDot')
+      let s = arr.slice(0, 3)
+      $("#cont").empty();
+      for (let i = 0; i < 3; i++) {
+        $("#cont").append(
+          "<div id='" + s[i].id + "' class='one'>\
+            <img class='Img' src = '" + s[i].img + "'> <br>\
+              " + s[i].name + "</div>")
+      }
+
+    })
+    second.addEventListener('click', () => {
+      $("#first").addClass('.unactiveDot')
+      $("#second").addClass('.activeDot')
+      $("#third").addClass('.unactiveDot')
+      let s = arr.slice(3, 6)
+      $("#cont").empty();
+      for (let i = 0; i < 3; i++) {
+        $("#cont").append(
+          "<div id='" + s[i].id + "' class='one'>\
+            <img class='Img' src = '" + s[i].img + "'> <br>\
+              " + s[i].name + "</div>")
+      }
+
+    })
+    third.addEventListener('click', () => {
+      $("#first").addClass('.unactiveDot')
+      $("#second").addClass('.unactiveDot')
+      $("#third").addClass('.activeDot')
+      let s = arr.slice(6, 9)
+      $("#cont").empty();
+      for (let i = 0; i < 3; i++) {
+        $("#cont").append(
+          "<div id='" + s[i].id + "' class='one'>\
+            <img class='Img' src = '" + s[i].img + "'> <br>\
+              " + s[i].name + "</div>")
+      }
+
+    })
+    let page1 = -1;
+    $(function () {
+      getNewAds()
+    });
+
+    function editad1(input) {
+      console.log(input)
+      var form = document.getElementById("form" + input.id);
+      console.log("Hit")
+      form.submit()
+    }
+
+    function getNewAds() {
+      console.log("hit")
+      page1 = page1 + 1;
+      $.ajax({
+        url: "https://bechdaal.tech/sell/grid_ads/c/" + page1,
+        method: "GET",
+      }).done(function (ads) {
+        ads.forEach(ad => {
+          let date = new Date(ad.date_posted).toDateString()
+          if (ad.isPaid === 2) {
+            $("#locAds").append("<div class='two' onclick='editad1(this)' id='" + ad._id + "'>" +
+              "<form action='/sell/show' method='post' id='form" + ad._id + "'>" +
+              "<input type='hidden' name='adId' value='" + ad._id + "'>" +
+              "<span style='background-color:yellow;font-size:15px;margin-right:40px'>Featured</span>" +
+              "<img class='images' src='" + ad.cover_photo + "'><span id='icon" + ad._id + "'><i  class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10' onclick='check()'></i></span>" +
+              "<p class='para'>₹" + ad.price + "</p>" +
+              "<p class='para'>" + ad.title + "</p>" +
+              "<k>" + date + "</k>" +
+              "</form>" +
+              "</div>")
+          } else {
+            $("#locAds").append("<div class='two' onclick='editad1(this)' id='" + ad._id + "'>" +
+              "<form action='/sell/show' method='post' id='form" + ad._id + "'>" +
+              "<input type='hidden' name='adId' value='" + ad._id + "'>" +
+              "<img class='images' src='" + ad.cover_photo + "'><span id='icon" + ad._id + "'><i  class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10' onclick='check()'></i></span>" +
+              "<p class='para'>₹" + ad.price + "</p>" +
+              "<p class='para'>" + ad.title + "</p>" +
+              "<k>" + date + "</k>" +
+              "</form>" +
+              "</div>")
+          }
+        })
+        wishlist.forEach(wish => {
+          if ($('#icon' + wish).length) {
+            $('#icon' + wish).empty();
+            $('#icon' + wish).append("<i id='icon" + wish + "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10;color:red  ' onclick='check()'></i>")
+          }
+        })
+      }).fail(function () {
+        alert('FAIL!!');
+      });
+    }
+  </script>
+</body>
+
+<%-include("partials/footer")-%>
+<!-- 
+const first = document.querySelector("#first");
+    const second = document.querySelector("#second");
+    const third = document.querySelector("#third");
+    first.addEventListener('click', () => {
       first.textContent = ""
       page += 1;
       if ((arr.length / 3) + 1 > (page + 1)) {
@@ -137,62 +250,4 @@
         page += 1;
         first.textContent = "First"
       }
-    })
-    let page1 = -1;
-    $(function() {
-      getNewAds()
-    });
-
-    function editad1(input) {
-      console.log(input)
-      var form = document.getElementById("form" + input.id);
-      console.log("Hit")
-      form.submit()
-    }
-
-    function getNewAds() {
-      console.log("hit")
-      page1 = page1 + 1;
-      $.ajax({
-        url: "https://bechdaal.tech/sell/grid_ads/c/" + page1,
-        method: "GET",
-      }).done(function(ads) {
-        ads.forEach(ad => {
-          let date = new Date(ad.date_posted).toDateString()
-          if (ad.isPaid === 2) {
-            $("#locAds").append("<div class='two' onclick='editad1(this)' id='" + ad._id + "'>" +
-              "<form action='/sell/show' method='post' id='form" + ad._id + "'>" +
-              "<input type='hidden' name='adId' value='" + ad._id + "'>" +
-              "<span style='background-color:yellow;font-size:15px;margin-right:40px'>Featured</span>" +
-              "<img class='images' src='" + ad.cover_photo + "'><span id='icon" + ad._id + "'><i  class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10' onclick='check()'></i></span>" +
-              "<p class='para'>₹" + ad.price + "</p>" +
-              "<p class='para'>" + ad.title + "</p>" +
-              "<k>" + date + "</k>" +
-              "</form>" +
-              "</div>")
-          } else {
-            $("#locAds").append("<div class='two' onclick='editad1(this)' id='" + ad._id + "'>" +
-              "<form action='/sell/show' method='post' id='form" + ad._id + "'>" +
-              "<input type='hidden' name='adId' value='" + ad._id + "'>" +
-              "<img class='images' src='" + ad.cover_photo + "'><span id='icon" + ad._id + "'><i  class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10' onclick='check()'></i></span>" +
-              "<p class='para'>₹" + ad.price + "</p>" +
-              "<p class='para'>" + ad.title + "</p>" +
-              "<k>" + date + "</k>" +
-              "</form>" +
-              "</div>")
-          }
-        })
-        wishlist.forEach(wish => {
-          if ($('#icon' + wish).length) {
-            $('#icon' + wish).empty();
-            $('#icon' + wish).append("<i id='icon" + wish + "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10;color:red  ' onclick='check()'></i>")
-          }
-        })
-      }).fail(function() {
-        alert('FAIL!!');
-      });
-    }
-  </script>
-</body>
-
-<%-include("partials/footer")-%>
+    }) -->
