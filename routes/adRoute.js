@@ -715,6 +715,9 @@ adRouter.get('/grid_ads/c/:page',(req,res)=>{
                 else {
                     arr = [...results.featured,...results.normal]
                 }
+                console.log(results.featured)
+                console.log(results.normal)
+                console.log(arr)
                 res.json(arr)
             })
         })

@@ -59,11 +59,13 @@
   <script>
     let wishlist = []
   </script>
+  <%if (user){%>
   <% user.wishlist.forEach(val=>{ %>
     <script>
       wishlist.push("<%=val %>")
     </script>
 <%}) %>
+    <%}%>
 <script>
   console.log(wishlist)
 </script>

@@ -83,7 +83,7 @@ userSchema.methods.validPassword = function(password) {
 
 function hashing(password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-};
+}
 
 
 const User = mongoose.model('User', userSchema);
