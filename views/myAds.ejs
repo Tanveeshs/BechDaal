@@ -1,6 +1,5 @@
 <%-include('partials/miniheader')-%>
 <%-include("partials/sidebar")-%>
-
 <head>
   <meta charset="utf-8">
   <title></title>
@@ -15,8 +14,31 @@
 </head>
 
 <body>
-<div class="container" style="margin-left: 15%; z-index: 5;">
-  <h6 style="margin-left: 20px; text-align: right">No.of Free Ads <%= user.noOfFreeAds %>, No.of Paid Ads <%= user.noOfPaidAds %>, No. of Featured Ads <%= user.noOfFeaturedAds %></h6>
+<div class="container" style="margin-left: 17%; z-index: 5;">
+    <div class="spacing">
+    <table class="table-striped" >
+      <thead>
+        <tr>
+          <th scope="col" style="text-align: right">Ads left</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Free</td>
+          <td><%= user.noOfFreeAds %></td>
+        </tr>
+        <tr>
+          <td>Paid</td>
+          <td><%= user.noOfPaidAds %></td>
+        </tr>
+        <tr>
+          <td>Featured</td>
+          <td><%= user.noOfFeaturedAds %></td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+
   <div class="row" id="main">
 
     <%if (ads.length==0){%>
@@ -48,108 +70,7 @@
       <!--      </div>-->
       <!--      <!%})%!>-->
     <%}%>
-    <!-- <div class="col-md-4 col-sm-12 paddings">
-      <div class="card bg-danger text-white car mx-auto">
-        <div class="card-body">
-          <img
-            class="Img mx-auto"
-            style="text-align: center;"
-            src="/images/Imagehere.jpg"
-            alt=""
-          />
-          <br />
-          <label for="title" class="text">Title</label>
-                                  <label for="" class="text title" style="background-color: white;">Sample text here abcd</label
-          >
-          <br />
-          <label for="title">Date posted</label>
-                                  <label for="" class="title" style="background-color: white;">No text here</label
-          >
-        </div>
-      </div>
-    </div>
 
-    <div class="col-md-4 col-sm-12 paddings">
-      <div class="card bg-danger text-white car mx-auto">
-        <div class="card-body">
-          <img
-            class="Img mx-auto"
-            style="text-align: center;"
-            src="/images/Imagehere.jpg"
-            alt=""
-          />
-          <br />
-          <label for="title" class="text">Title</label>
-                                  <label for="" class="text title" style="background-color: white;">Sample text here abcd</label
-          >
-          <br />
-          <label for="title">Date posted</label>
-                                  <label for="" class="title" style="background-color: white;">No text here</label
-          >
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-4 col-sm-12 paddings">
-      <div class="card bg-danger text-white car mx-auto">
-        <div class="card-body">
-          <img
-            class="Img mx-auto"
-            style="text-align: center;"
-            src="/images/Imagehere.jpg"
-            alt=""
-          />
-          <br />
-          <label for="title" class="text">Title</label>
-                                  <label for="" class="text title" style="background-color: white;">Sample text here abcd</label
-          >
-          <br />
-          <label for="title">Date posted</label>
-                                  <label for="" class="title" style="background-color: white;">No text here</label
-          >
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 col-sm-12 paddings">
-      <div class="card bg-danger text-white car mx-auto">
-        <div class="card-body">
-          <img
-            class="Img mx-auto"
-            style="text-align: center;"
-            src="/images/Imagehere.jpg"
-            alt=""
-          />
-          <br />
-          <label for="title" class="text">Title</label>
-                                  <label for="" class="text title" style="background-color: white;">Sample text here abcd</label
-          >
-          <br />
-          <label for="title">Date posted</label>
-                                  <label for="" class="title" style="background-color: white;">No text here</label
-          >
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 col-sm-12 paddings">
-      <div class="card bg-danger text-white car mx-auto">
-        <div class="card-body">
-          <img
-  // onclick='editad(this)'          class="Img mx-auto"
-            style="text-align: center;"
-            src="/images/Imagehere.jpg"
-            alt=""
-          />
-          <br />
-  // onclick='editad(this)'        <label for="title" class="text">Title</label>
-                                  <label for="" class="text title" style="background-color: white;">Sample text here abcd</label
-          >
-          <br />
-          <label for="title">Date posted</label>
-                                  <label for="" class="title" style="background-color: white;">No text here</label
-          >
-        </div>
-      </div>
-    </div> -->
   </div>
   <ul class="pagination">
     <li class="page-item">

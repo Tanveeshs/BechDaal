@@ -10,35 +10,44 @@ const {
 
 const adSchema = new Schema({
   title: {
-    type: String
+    type: String,
+    required:true
   },
   category: {
-    type: String
+    type: String,
+    required:true
   },
   sub_category: {
-    type: String
+    type: String,
+    required:true
   },
-  //Think if is required
+  //Changed to Quantity par renamed as model only
   model: {
-    type: String
-  },
-  brand: {
-    type: String
+    type: String,
+    required:true
   },
   price: {
-    type: Number
+    type: Number,
+    required:true
   },
-  user: user_schema_body,
+  user: {
+    type:user_schema_body,
+    required:true
+  },
   cover_photo: {
-    type: String
+    type: String,
+    required:true
   },
   images: [String],
   description: {
-    type: String
+    type: String,
+    required:true
   },
   //decide for pincode
   date_posted: {
-    type: Date
+    type: Date,
+    required:true,
+    default:Date.now()
   },
   deliverableAreas: [{
     type: String
@@ -57,7 +66,10 @@ const adSchema = new Schema({
   //0 if free
   //1 if Paid
   //2 if featured
-  isPaid:Number,
+  isPaid:{
+    type:Number,
+    required:true
+  },
   //To determine whether ad is active
   //If true only then show
   isActive:{
@@ -74,7 +86,6 @@ const adSchema = new Schema({
   //Number of Users That rated
   NumRated:{type:Number,default:0}
 });
-
 
 const Ads = mongoose.model('Ads', adSchema);
 module.exports = Ads;

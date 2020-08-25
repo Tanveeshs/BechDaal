@@ -48,3 +48,16 @@
 .mainContent{
   margin-left: 5%;
 }
+
+/* Table css */
+.spacing{
+    width: 5%;
+    text-align: right;
+}
+td, th{
+    padding:2px 5px;
+    text-align: center;
+}
+table{
+    margin-left: 1700%;
+}
