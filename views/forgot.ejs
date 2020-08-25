@@ -1,7 +1,14 @@
-<br>
-<br>
-<form action="passwordreset" method="POST">
-  <input type="email" name="email" value="" placeholder="Enter your email address..." /><br>
-  <br>
-  <input type="submit" value="Reset Password" /><br>
-</form>
+<%-include partials/header.ejs%>
+<link rel="stylesheet" type="text/css" href="/css/forgotPass.css">
+<div class="col-md-12">
+    <div class="card spacing mx-auto">
+        <h5 class="card-header">Forgot Password</h5>
+        <div class="card-body">
+            <p class="card-text">Enter the email you used to create the account, and we'll send you a link.</p>
+            <input type="email" class="form-control" name="email" placeholder="Email">
+            <br>
+            <button class="btn btn-info btn-block" type="submit" value="Reset Password">Submit</button>
+        </div>
+    </div>
+</div>
+<%-include('partials/footer')-%>
