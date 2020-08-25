@@ -36,97 +36,57 @@ searchRouter.post('/main', function(req, res, next) {
   const regexp1 = new RegExp(`^${q}`, 'i'); // for finding it as beginning of the first word
   const regexp2 = new RegExp(`\\s${q}`, 'i'); // for finding as beginning of a middle word
   var query = {}
-  query.$and = []
-  query.$and.push({approved:true})
-  query.$and.push({isPaid:true})
-
-
-  if(typeof(req.body.locality)=='undefined'){
-    Ads.find({
-
-      $or: [{
-          sub_category: {
-            $in: [regexp1, regexp2]
-          }
-        },
-        {
-          title: {
-            $in: [regexp1, regexp2]
-          }
-        },
-        {
-          brand: {
-            $in: [regexp1, regexp2]
-          }
-        },
-        {
-          category: {
-            $in: [regexp1, regexp2]
-          }
-        },
-        {
-          description: {
-            $in: [regexp1, regexp2]
-          }
-        }
-      ]
-
-
-    }, function(err, data) {
-      if(err){
-        console.log(err);
-      }
-      else{
-        res.json(data);
-      }
-    });
+  // query.$and = []
+  // query.$and.push({approved:true})
+  // query.$and.push({isPaid:true})
+  if(typeof(req.body.searchInput)!='undefined'){
+    if(typeof(req.body.locality)=='undefined'){
+      query.$or = []
+      query.$or.push({sub_category: {
+        $in: [regexp1, regexp2]
+      }});
+      query.$or.push({title: {
+        $in: [regexp1, regexp2]
+      }});
+      query.$or.push({brand: {
+        $in: [regexp1, regexp2]
+      }});
+      query.$or.push({category: {
+        $in: [regexp1, regexp2]
+      }});
+      query.$or.push({description: {
+        $in: [regexp1, regexp2]
+      }});
+    }
+    else if(typeof(req.body.locality)!='undefined'){
+      query.$and = [];
+      query.$and.push({deliverableAreas: req.body.locality});
+      $or = []
+      $or.push({sub_category: {
+        $in: [regexp1, regexp2]
+      }});
+      $or.push({title: {
+        $in: [regexp1, regexp2]
+      }});
+      $or.push({brand: {
+        $in: [regexp1, regexp2]
+      }});
+      $or.push({category: {
+        $in: [regexp1, regexp2]
+      }});
+      $or.push({description: {
+        $in: [regexp1, regexp2]
+      }});
+      query.$and.push({$or})
+    }
   }
-  else{
-  Ads.find({
-    
-    $and: [
-      {
-      deliverableAreas: req.body.locality
-    },
-      {
-    $or: [{
-        sub_category: {
-          $in: [regexp1, regexp2]
-        }
-      },
-      {
-        title: {
-          $in: [regexp1, regexp2]
-        }
-      },
-      {
-        brand: {
-          $in: [regexp1, regexp2]
-        }
-      },
-      {
-        category: {
-          $in: [regexp1, regexp2]
-        }
-      },
-      {
-        description: {
-          $in: [regexp1, regexp2]
-        }
-      }
-    ]
-  }
-]
-  }, function(err, data) {
+  Ads.find(query, function(err,result){
     if(err){
       console.log(err);
+    }else {
+      res.json(result);
     }
-    else{
-      res.json(data);
-    }
-  });
-}
-
+  })
 });
 
 searchRouter.post('/search/:q', (req, res) => {
