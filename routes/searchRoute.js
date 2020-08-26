@@ -71,15 +71,59 @@ searchRouter.post('/main', function(req, res, next) {
   if(typeof(req.body.upper_price) !== 'undefined') {
     query.$and.push({price:{$lte:parseFloat(req.body.upper_price)}})
   }
-  // query.$and.push({approved:true})
-  // query.$and.push({isPaid:true})
-  Ads.find(query, function(err,result){
-    if(err){
-      console.log(err);
-    }else {
-      res.json(result);
-    }
-  })
+  query.$and.push({approved:true})
+  query.$and.push({isActive:true})
+  query.$and.push({'rejected.val':false})
+  //Low to high
+  let page = 0 || req.body.page;
+  if(req.body.sorting === 1){
+
+    Ads.find(query, function(err,result){
+      if(err){
+        console.log(err);
+      }else {
+        if(typeof(req.body.isAjax) !== 'undefined'){
+          //Render the page
+          res.json(result);
+        }
+        else {
+          res.json(result);
+        }
+      }
+    }).sort({price:1}).limit(9).skip(9*page)
+  }
+  //High To low
+  if(req.body.sorting === 2){
+    Ads.find(query, function(err,result){
+      if(err){
+        console.log(err);
+      }else {
+        if(typeof(req.body.isAjax) !== 'undefined'){
+          //Render the page
+          res.json(result);
+        }
+        else {
+          res.json(result);
+        }
+      }
+    }).sort({price:-1}).limit(9).skip(9*page)
+  }
+  //Most Recent
+  if(req.body.sorting === 3){
+    Ads.find(query, function(err,result){
+      if(err){
+        console.log(err);
+      }else {
+        if(typeof(req.body.isAjax) !== 'undefined'){
+          //Render the page
+          res.json(result);
+        }
+        else {
+          res.json(result);
+        }
+      }
+    }).sort({date_posted:-1}).limit(9).skip(9*page)
+  }
 });
 
 searchRouter.post('/search/:q', (req, res) => {
