@@ -207,7 +207,10 @@
       });
     }
 
-    function check(input) {
+</script>
+  <%if (user){%>
+<script>
+  function check(input) {
       let val = input.id.split('-')
       console.log(val)
       $.ajax({
@@ -224,6 +227,7 @@
       })
     }
   </script>
+<%}%>
 </body>
 
 <%-include("partials/footer")-%>
