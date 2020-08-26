@@ -30,7 +30,7 @@ const async = require('async')
 //     res.json(data);
 //   }).limit(5);
 // });
-searchRouter.post('/main', function(req, res, next) {
+searchRouter.post('/main/:filter', function(req, res, next) {
 
   var q = req.body.searchInput;
   const regexp1 = new RegExp(`^${q}`, 'i'); // for finding it as beginning of the first word
@@ -57,6 +57,50 @@ searchRouter.post('/main', function(req, res, next) {
       query.$or.push({description: {
         $in: [regexp1, regexp2]
       }});
+      if(req.params.filter == "category"){
+        console.log("HIIIIIIIIII");
+        query = {}
+        query.$and = [];
+        query.$and.push({category: req.body.category});
+        $or = []
+        $or.push({sub_category: {
+          $in: [regexp1, regexp2]
+        }});
+        $or.push({title: {
+          $in: [regexp1, regexp2]
+        }});
+        $or.push({brand: {
+          $in: [regexp1, regexp2]
+        }});
+        // $or.push({category: {
+        //   $in: [regexp1, regexp2]
+        // }});
+        $or.push({description: {
+          $in: [regexp1, regexp2]
+        }});
+        query.$and.push({$or})
+      }
+      if(req.params.filter == "sub_category"){
+        query.$and = [];
+        query.$and.push({sub_category: req.body.sub_category});
+        $or = []
+        $or.push({sub_category: {
+          $in: [regexp1, regexp2]
+        }});
+        $or.push({title: {
+          $in: [regexp1, regexp2]
+        }});
+        $or.push({brand: {
+          $in: [regexp1, regexp2]
+        }});
+        $or.push({category: {
+          $in: [regexp1, regexp2]
+        }});
+        $or.push({description: {
+          $in: [regexp1, regexp2]
+        }});
+        query.$and.push({$or})
+      }
     }
     else if(typeof(req.body.locality)!='undefined'){
       query.$and = [];
@@ -84,6 +128,7 @@ searchRouter.post('/main', function(req, res, next) {
     if(err){
       console.log(err);
     }else {
+      //res.render("category.ejs");
       res.json(result);
     }
   })
