@@ -68,6 +68,8 @@ wishlistRouter.get('/:adId', isLoggedIn, (req, res, next) => {
                                     user: req.user,
                                     array: ad
                                 });
+                                res.status(200)
+                                res.send("Done")
                                 // res.redirect('/wish')
                             });
                     });

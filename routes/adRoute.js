@@ -706,7 +706,6 @@ adRouter.get('/grid_ads/c/:page',(req,res)=>{
                 }
 
                 let arr=[]
-                console.log(results.featured)
                 if(results.featured===undefined && results.normal===undefined){
                     arr = []
                 }
@@ -719,7 +718,6 @@ adRouter.get('/grid_ads/c/:page',(req,res)=>{
                 else {
                     arr = [...results.featured,...results.normal]
                 }
-                console.log(arr)
                 res.send(arr)
             })
         })

@@ -53,18 +53,19 @@
 <script src="/js/mywishlist.js" charset="utf-8"></script>
 <script type="text/javascript">
   function deletewish(input) {
+    event.stopPropagation();
     var wish = input.id
-    console.log(wish)
     $.ajax({
       type: 'GET',
       url: '/wish/' + wish,
       success: function () {
-        window.location.href = 'http://localhost:3001/wish/' + wish
+        window.location.href = 'http://localhost:3000/wish/' + wish
       },
       error: function () {
         console.log('fail')
       }
     });
+
   }
   let data = [];
   let page = 0;
@@ -73,13 +74,12 @@
     url: '/wish/test',
     success: function (res) {
       data = [...res];
-      console.log(data)
       let s = data.slice(0, 2);
-      console.log(s)
       for (let i = 0; i < 2; i++) {
         $(".mainContent").append(
-
-          "<div class='col-md-4 col-sm-12 paddings' style='margin-left: 5%;'>\
+          "<div class='col-md-4 col-sm-12 paddings' style='margin-left: 5%;' onclick='openAd(this)' id='"+s[i]._id+"'>\
+                <form action='/sell/show' method='post' id='form"+s[i]._id+"'>\
+                <input type='hidden' value='"+s[i]._id+"' name='adId'>\
                 <div class='card text-white car mx-auto'>\
                   <div class='card-body'>\
                     <img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'>\
@@ -91,6 +91,7 @@
                     <label for='' class='label-text'>" + s[i].date_posted + "</label>\
                   </div>\
                 </div>\
+                </form>\
                 <label id='" + s[i]._id + "' onclick='deletewish(this)' class='remove'>Remove <i style='padding:0 5px;' class='fas fa-times'></i></label>\
                 <div class='rem-left'></div>\
               </div>\
@@ -117,7 +118,9 @@
       $(".mainContent").empty();
       for (let i = 0; i < 2; i++) {
         $(".mainContent").append(
-          "<div class='col-md-4 col-sm-12 paddings' style='margin-left: 5%;'>\
+          "<div class='col-md-4 col-sm-12 paddings' style='margin-left: 5%;' onclick='openAd(this)' id='"+s[i]._id+"'>\
+              <form action='/sell/show' method='post' id='form"+s[i]._id+"'>\
+              <input type='hidden' value='"+s[i]._id+"' name='adId'>\
                 <div class='card text-white car mx-auto'>\
                   <div class='card-body'>\
                     <img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'>\
@@ -128,6 +131,7 @@
                     <label for='title'>Date posted</label>\
                     <label for='' class='label-text'>" + s[i].date_posted + "</label>\
                   </div>\
+                  </form>\
                 </div>\
                 <label id='" + s[i]._id + "' onclick='deletewish(this)' class='remove'>Remove <i style='padding:0 5px;' class='fas fa-times'></i></label>\
                 <div class='rem-left'></div>\
@@ -149,7 +153,9 @@
       $(".mainContent").empty();
       for (let i = 0; i < 2; i++) {
         $(".mainContent").append(
-          "<div class='col-md-4 col-sm-12 paddings' style='margin-left: 5%;'>\
+          "<div class='col-md-4 col-sm-12 paddings' style='margin-left: 5%;' onclick='openAd(this)' id='"+s[i]._id+"'>\
+          <form action='/sell/show' method='post' id='form"+s[i]._id+"'>\
+              <input type='hidden' value='"+s[i]._id+"' name='adId'>\
                   <div class='card text-white car mx-auto'>\
                     <div class='card-body'>\
                       <img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'>\
@@ -160,6 +166,7 @@
                       <label for='title'>Date posted</label>\
                       <label for='' class='label-text'>" + s[i].date_posted + "</label>\
                     </div>\
+                    </form>\
                   </div>\
                   <label id='" + s[i]._id + "' onclick='deletewish(this)' class='remove'>Remove <i style='padding:0 5px;' class='fas fa-times'></i></label>\
                   <div class='rem-left'></div>\
@@ -171,26 +178,32 @@
       first.textContent = "First"
     }
   })
+  function openAd(input) {
+    var form = document.getElementById("form" + input.id);
+    console.log("Hit")
+    form.submit()
+
+  }
 </script>
 
 <%-include('partials/footer')%>
 
-      <!-- <%array.forEach(wish=>{%>
+      <!-- <%#array.forEach(wish=>{%>
   <div class="col-md-4 col-sm-12 paddings" style="margin-left: 5%;">
     <div class="card text-white car mx-auto">
       <div class="card-body">
-        <img class="Img mx-auto" style="text-align: center;" src="<%= wish.cover_photo %>"
-             alt="<%= wish.cover_photo %>">
+        <img class="Img mx-auto" style="text-align: center;" src="<%#= wish.cover_photo %>"
+             alt="<%#= wish.cover_photo %>">
         <br>
         <label for="title" class="text">Title</label>
-        <label for="" class="label-text"><%=wish.title%></label>
+        <label for="" class="label-text"><%#=wish.title%></label>
         <br>
         <label for="title">Date posted</label>
-        <label for="" class="label-text"><%=wish.date_posted%></label>
+        <label for="" class="label-text"><%#=wish.date_posted%></label>
       </div>
     </div>
-    <label id='<%=wish._id%>' onclick='deletewish(this)' class="remove">Remove <i style="padding:0 5px;"
+    <label id='<%#=wish._id%>' onclick='deletewish(this)' class="remove">Remove <i style="padding:0 5px;"
                                                                                   class="fas fa-times"></i></label>
     <div class="rem-left"></div>
   </div>
-<%})%> -->
+<%#})%> -->
