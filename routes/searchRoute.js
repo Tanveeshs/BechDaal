@@ -30,105 +30,53 @@ const async = require('async')
 //     res.json(data);
 //   }).limit(5);
 // });
-searchRouter.post('/main/:filter', function(req, res, next) {
-
+searchRouter.post('/main', function(req, res, next) {
   var q = req.body.searchInput;
   const regexp1 = new RegExp(`^${q}`, 'i'); // for finding it as beginning of the first word
   const regexp2 = new RegExp(`\\s${q}`, 'i'); // for finding as beginning of a middle word
   var query = {}
-  // query.$and = []
+  query.$and = []
+  if(typeof(req.body.searchInput)!='undefined') {
+    let orArray = [];
+    orArray.push({sub_category: {
+        $in: [regexp1, regexp2]
+      }})
+    orArray.push({title: {
+        $in: [regexp1, regexp2]
+      }});
+    orArray.push({brand: {
+        $in: [regexp1, regexp2]
+      }});
+    orArray.push({category: {
+        $in: [regexp1, regexp2]
+      }});
+    orArray.push({description: {
+        $in: [regexp1, regexp2]
+      }});
+    query.$and.push({$or:orArray})
+  }
+  if(typeof(req.body.locality)!=='undefined') {
+    query.$and.push({deliverableAreas: req.body.locality})
+  }
+  if(typeof(req.body.category)!=='undefined') {
+    query.$and.push({category: req.body.category})
+  }
+  if(typeof(req.body.sub_category) !== 'undefined') {
+    query.$and.push({category: req.body.sub_category})
+
+  }
+  if(typeof(req.body.lower_price) !== 'undefined') {
+    query.$and.push({price:{$gte:parseFloat(req.body.lower_price)}})
+  }
+  if(typeof(req.body.upper_price) !== 'undefined') {
+    query.$and.push({price:{$lte:parseFloat(req.body.upper_price)}})
+  }
   // query.$and.push({approved:true})
   // query.$and.push({isPaid:true})
-  if(typeof(req.body.searchInput)!='undefined'){
-    if(typeof(req.body.locality)=='undefined'){
-      query.$or = []
-      query.$or.push({sub_category: {
-        $in: [regexp1, regexp2]
-      }});
-      query.$or.push({title: {
-        $in: [regexp1, regexp2]
-      }});
-      query.$or.push({brand: {
-        $in: [regexp1, regexp2]
-      }});
-      query.$or.push({category: {
-        $in: [regexp1, regexp2]
-      }});
-      query.$or.push({description: {
-        $in: [regexp1, regexp2]
-      }});
-      if(req.params.filter == "category"){
-        console.log("HIIIIIIIIII");
-        query = {}
-        query.$and = [];
-        query.$and.push({category: req.body.category});
-        $or = []
-        $or.push({sub_category: {
-          $in: [regexp1, regexp2]
-        }});
-        $or.push({title: {
-          $in: [regexp1, regexp2]
-        }});
-        $or.push({brand: {
-          $in: [regexp1, regexp2]
-        }});
-        // $or.push({category: {
-        //   $in: [regexp1, regexp2]
-        // }});
-        $or.push({description: {
-          $in: [regexp1, regexp2]
-        }});
-        query.$and.push({$or})
-      }
-      if(req.params.filter == "sub_category"){
-        query.$and = [];
-        query.$and.push({sub_category: req.body.sub_category});
-        $or = []
-        $or.push({sub_category: {
-          $in: [regexp1, regexp2]
-        }});
-        $or.push({title: {
-          $in: [regexp1, regexp2]
-        }});
-        $or.push({brand: {
-          $in: [regexp1, regexp2]
-        }});
-        $or.push({category: {
-          $in: [regexp1, regexp2]
-        }});
-        $or.push({description: {
-          $in: [regexp1, regexp2]
-        }});
-        query.$and.push({$or})
-      }
-    }
-    else if(typeof(req.body.locality)!='undefined'){
-      query.$and = [];
-      query.$and.push({deliverableAreas: req.body.locality});
-      $or = []
-      $or.push({sub_category: {
-        $in: [regexp1, regexp2]
-      }});
-      $or.push({title: {
-        $in: [regexp1, regexp2]
-      }});
-      $or.push({brand: {
-        $in: [regexp1, regexp2]
-      }});
-      $or.push({category: {
-        $in: [regexp1, regexp2]
-      }});
-      $or.push({description: {
-        $in: [regexp1, regexp2]
-      }});
-      query.$and.push({$or})
-    }
-  }
   Ads.find(query, function(err,result){
     if(err){
       console.log(err);
     }else {
-      //res.render("category.ejs");
       res.json(result);
     }
   })
