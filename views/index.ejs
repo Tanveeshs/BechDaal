@@ -25,7 +25,7 @@
     <div class="col-md-10" style="padding-right:0">
       <br>
 
-      <h3 style="color: DodgerBlue; text-align:center">Browse Categories</h3>
+      <h3 style="color: Black;font-weight:bold; text-align:center">Browse Categories</h3>
 
       <div class="flex-container" id="cont">
 
@@ -44,9 +44,11 @@
             <span class="sr-only">Next</span>
           </a>
         </li> -->
+        <center>
         <span class="unactiveDot" id="first"></span>
         <span class="unactiveDot" id="second"></span>
         <span class="unactiveDot" id="third"></span>
+      </center>
       </div>
       <hr style="height:1px;background-color:black;margin: 10px 15%;">
       <div class="flex-container" id="locAds">
@@ -54,8 +56,10 @@
 
       </div>
       <div>
+        <center>
 
-        <button onclick="getNewAds()">Show More</button>
+        <button class="btn btn-primary " onclick="getNewAds()">Show More</button><br><br>
+      </center>
       </div>
 
     </div>
@@ -171,11 +175,11 @@
         ads.forEach(ad => {
           let date = new Date(ad.date_posted).toDateString()
           if (ad.isPaid === 2) {
-            $("#locAds").append("<div class='two' onclick='editad1(this)' id='" + ad._id + "'>" +
+            $("#locAds").append("<div class='two2' onclick='editad1(this)' id='" + ad._id + "'>" +
               "<form action='/sell/show' method='post' id='form" + ad._id + "'>" +
               "<input type='hidden' name='adId' value='" + ad._id + "'>" +
-              "<span style='background-color:yellow;font-size:15px;margin-right:40px'>Featured</span>" +
-              "<img class='images' src='" + ad.cover_photo + "'><span id='icon" + ad._id + "'><i  class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10' onclick='check()'></i></span>" +
+              "<span class='featured' >FEATURED</span>" +
+              "<img class='images2' src='" + ad.cover_photo + "'><span id='icon" + ad._id + "'><i  class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10' onclick='check()'></i></span>" +
               "<p class='para'>₹" + ad.price + "</p>" +
               "<p class='para'>" + ad.title + "</p>" +
               "<k>" + date + "</k>" +
