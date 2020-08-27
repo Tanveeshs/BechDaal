@@ -34,8 +34,19 @@ router.post('/verifyMail', function(req, res) {
           endDate: date
         };
         var token = jwt.encode(payload, secret);
-        let content = 'https://bechdaal.tech/verify/verifyMail/' + payload.id + '/' + token;
-        mail(emailAddress, content);
+        let url = 'https://bechdaal.tech/verify/verifyMail/' + payload.id + '/' + token;
+        let content = `<p>Hey User,</p>
+                        <p><br></p>
+                        <p>You are just one step away from the best Homemade Food Platform.</p>
+                        <p><br></p>
+                        <p><span style="color: rgb(44, 130, 201);"><a href="${url}">Click here</a></span> to Verify your mail and unleash happiness.</p>
+                        <p><br></p>
+                        <p>If the above link doesn&#39;t work manually paste this link in your browser</p>
+                        <p><span style="font-size: 12px;">${url}</span></p>
+                        <p><br></p>
+                        <p>-Team Bech Daal</p>`
+
+        mail(emailAddress,'Verify your E-Mail Address', content);
         res.send('Mail Sent Successfully');
         val = true;
       }
