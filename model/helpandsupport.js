@@ -20,11 +20,11 @@ const helpSchema = new Schema({
     default:Date.now()
   },
   status:{type:String,required:true},
-  reg_user:{type:user_schema_body},
-  non_reg_user:{
+  user:{
     name:{type:String},
     email:{type:String}
-  }
+  },
+  resolution:{type:String,default:undefined}
 });
 
 const Help = mongoose.model('Help', helpSchema);
