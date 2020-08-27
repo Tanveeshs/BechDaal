@@ -41,12 +41,8 @@ const userSchema = new mongoose.Schema({
     email: String,
     name: String
   },
-
   //true if seller
   isSeller:{type:Boolean},
-  //rejected=true user wont be shown
-  rejected:{type:Boolean,default:false},
-
   LoginTime: {
     type: Date,
     default: Date.now()
@@ -63,7 +59,6 @@ const userSchema = new mongoose.Schema({
     line4:String
   },
   ContactNumber: Number,
-  IsActive: {Boolean},
   Ratings:{type:
         [{
           rating:Number,

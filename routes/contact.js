@@ -13,21 +13,12 @@ Router.post('/',(req,res)=>{
     const category = req.body.category;
     const message = req.body.message;
     let obj = {}
-    if(req.user){
-        obj.category = category;
-        obj.message = message;
-        obj.status = "Open";
-        obj.reg_user = req.user;
-    }
-    else {
-        obj.category = category;
-        obj.message = message;
-        obj.status = "Open";
-        obj.non_reg_user = {};
-        obj.non_reg_user.name = name;
-        obj.non_reg_user.email = email;
-    }
-
+    obj.category = category;
+    obj.message = message;
+    obj.status = "Open";
+    obj.user = {};
+    obj.user.name = name;
+    obj.user.email = email;
     let helpObj = new helpAndSupport(obj)
     console.log(helpObj)
     helpObj.save((err)=>{
