@@ -16,15 +16,18 @@ const userSchema = new mongoose.Schema({
   },
   noOfFreeAds: {
     type: Number,
-    default: 3
+    default: 3,
+    required:true
   },
   noOfPaidAds:{
     type:Number,
-    default:0
+    default:0,
+    required:true
   },
   noOfFeaturedAds:{
     type:Number,
-    default:0
+    default:0,
+    required:true
   },
   facebook: {
     id: String,
@@ -38,12 +41,8 @@ const userSchema = new mongoose.Schema({
     email: String,
     name: String
   },
-
   //true if seller
   isSeller:{type:Boolean},
-  //rejected=true user wont be shown
-  rejected:{type:Boolean,default:false},
-
   LoginTime: {
     type: Date,
     default: Date.now()
@@ -60,7 +59,6 @@ const userSchema = new mongoose.Schema({
     line4:String
   },
   ContactNumber: Number,
-  IsActive: Boolean,
   Ratings:{type:
         [{
           rating:Number,
@@ -80,7 +78,7 @@ userSchema.methods.validPassword = function(password) {
 
 function hashing(password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-};
+}
 
 
 const User = mongoose.model('User', userSchema);

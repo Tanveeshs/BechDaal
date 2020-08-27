@@ -155,3 +155,9 @@ img {
   font-weight: bold;
   font-size: 22px;
 }
+
+/* Size of images in carousel */
+.Size{
+    width:400px;
+    height:300px
+}

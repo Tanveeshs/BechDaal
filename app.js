@@ -59,6 +59,7 @@ const ratingsAndReviews = require('./routes/RatingsAndReviews')
 const payment = require('./routes/payment')
 const docsRouter = require('./routes/docs')
 const sitemapRouter = require('./routes/sitemap')
+const contactRouter = require('./routes/contact')
 // const test = require('./routes/test');
 // const smsverify = require('./routes/sms');
 // const xg = require('./routes/searchRoute');
@@ -83,10 +84,14 @@ app.use('/payment',payment)
 app.use('/reviews',ratingsAndReviews)
 app.use('/docs',docsRouter)
 app.use('/sitemap',sitemapRouter)
+app.use('/contact',contactRouter)
 
 
 app.get('/test',(req,res)=>{
     res.render('category.ejs')
+})
+app.get('/test2',(req,res)=>{
+    res.render('contactus.ejs')
 })
 
 //DONT DELETE

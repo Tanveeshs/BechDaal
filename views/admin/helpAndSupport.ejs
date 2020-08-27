@@ -1,0 +1,28 @@
+<html>
+<body>
+<h1>Help And Support</h1>
+<hr>
+<%if(queries.length >0){%>
+<%queries.forEach(query=>{%>
+<h4>Message:<%=query.message%></h4>
+<h4>Category:<%=query.category%></h4>
+<h4>Date Posted:<%=query.date_posted%></h4>
+<h4>Status:<%=query.status%></h4>
+<h4>Name:<%=query.user.name%></h4>
+<h4>Email:Rs.<%=query.user.email%></h4>
+<form action="" method="post">
+    <input type="hidden" value="<%=query._id%>" name="complaintId">
+    <input type="text" name="resolution">
+    <input type="submit" value="Close Complaint">
+</form>
+
+<hr>
+<%})%>
+
+
+
+<%}else {%>
+    <h2>No active offers found</h2>
+<%}%>
+</body>
+</html>

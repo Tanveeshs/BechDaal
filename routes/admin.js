@@ -11,6 +11,7 @@ const multer = require('multer');
 const Category = require('../model/category').CategoryModel
 const User = require('../model/user').User;
 const async = require('async')
+const helpAndSupport = require('../model/helpandsupport')
 const Storage = require('../config/cloudStorage')
 const users = [
     {
@@ -81,9 +82,10 @@ Router.get('/ads',authenticateJWT,(req,res)=>{
 })
 Router.post('/ads/approve/:id', authenticateJWT,(req,res)=>{
     const adId = req.params.id;
-    ad.findOne({_id:adId},function (err,result) {
-        result.approved = true;
-        result.save()
+    ad.findOneAndUpdate({_id:adId},{approved:true},function (err) {
+        if(err){
+            console.log(err)
+        }
         res.redirect('/admin/ads')
     })
 })
@@ -244,40 +246,25 @@ Router.route('/category/edit/:id')
         })
     })
 
-
-Router.route('/sellers')
-    .get(authenticateJWT,(req,res)=>{
-
-        User.find({isSeller:true, IsActive:false,rejected:false},function (err,results){
-            if (err){
-                console.log(err)
-                throw err;
-            }
-            res.render('admin/viewSellers.ejs',{users:results})
-        })
-    })
-
-Router.get('/sellers/approve/:id', authenticateJWT,(req,res)=>{
-    const adId = req.params.id;
-    User.findOneAndUpdate({_id:adId},{$set:{IsActive:true}},function (err) {
+Router.get('/support',authenticateJWT,(req,res)=>{
+    helpAndSupport.find({status:"Open"},function (err,results){
         if(err){
-            throw err;
+            return res.send("Some error occurred")
         }
-        res.redirect('/admin/sellers')
-    })
-})
-Router.get('/sellers/reject/:id',authenticateJWT,(req,res)=> {
-    const adId = req.params.id;
-    User.findOneAndUpdate({_id: adId},{$set:{rejected:true}}, function (err,) {
-        if(err){
-            console.log(err)
-            throw err
-        }
-        res.redirect('/admin/sellers')
+        res.render('admin/helpAndSupport.ejs',{
+            queries:results
+        });
     })
 })
 
-
+Router.post('/support',authenticateJWT,(req,res)=>{
+    helpAndSupport.findOneAndUpdate({_id:req.body.complaintId},{$set:{status:"Closed",resolution:req.body.resolution}},function (err,results){
+        if(err){
+            return res.send("Some error occurred")
+        }
+        res.redirect('/admin/support')
+    })
+})
 
 
 module.exports = Router

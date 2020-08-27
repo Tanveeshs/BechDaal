@@ -33,12 +33,8 @@
       <br />
       <div class="w3-row-padding">
         <div class="w3-half">
-          <label for="brand">Brand</label>
-          <input value="<%=ad[0].brand%>" type="text" class="w3-input w3-border" type="text" name="brand" />
-        </div>
-        <div class="w3-half">
-          <label for="model">Model</label>
-          <input value="<%=ad[0].model%>" type="text" class="w3-input w3-border" name="model" />
+          <label for="model">Quantity</label>
+          <input value="<%=ad[0].brand%>" type="text" class="w3-input w3-border" type="text" name="model" placeholder="500gms,1kg,1piece" />
         </div>
       </div>
       <br />
@@ -46,7 +42,7 @@
       <div class="w3-row-padding">
         <div class="w3-half">
           <label for="price">Price</label>
-          <input value="<%=ad[0].price%>" class="w3-input w3-border" type="text" name="price" />
+          <input value="<%=ad[0].price%>" class="w3-input w3-border form-control" type="text" name="price" />
         </div>
       </div>
       <br />
@@ -208,20 +204,6 @@
   <br>
 
   <!-- uploading images here  -->
-  <div class="w3-row-padding">
-    <div class="w3-half">
-      <label for="contact">Contact No</label>
-      <input value="<%=ad[0].contact_number%>" class="w3-input w3-border" type="text" name="contact" />
-    </div>
-  </div>
-  <br />
-  <br>
-  <div class="w3-row-padding">
-    <div class="w3-half">
-      <label for="address">Address</label>
-      <textarea class="w3-input w3-border" name="address"><%=ad[0].address%></textarea>
-    </div>
-  </div>
   <div class="w3-row-padding" style="padding:2% 0px ">
     <div class="w3-half">
       <button type="submit">Submit</button>

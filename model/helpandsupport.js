@@ -8,21 +8,23 @@ const {user_schema_body} = require('./user')
 const helpSchema = new Schema({
 
   category: {
-    type: String
-  },
-  title: {
     type: String,
     required: true
   },
-  description: {
+  message: {
     type: String,
     required: true
-},
-date_posted :{
-  type: Date,
-  required:true
-},
-user: user_schema_body,
+  },
+  date_posted :{
+    type: Date,
+    default:Date.now()
+  },
+  status:{type:String,required:true},
+  user:{
+    name:{type:String},
+    email:{type:String}
+  },
+  resolution:{type:String,default:undefined}
 });
 
 const Help = mongoose.model('Help', helpSchema);

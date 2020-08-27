@@ -32,6 +32,23 @@ wishlistRouter.get('/', isLoggedIn, (req, res, next) => {
         })
 });
 
+wishlistRouter.get('/test', isLoggedIn, (req, res, next) => {
+    User.findById(sanitize(req.user._id))
+        .populate(
+            {path:'wishlist',
+                match:{approved:true,'rejected.val':false,isActive:true}
+            })
+        .exec((err,wishlist) => {
+            if(err){
+                console.log(err)
+                return returnErr(res, "Error", "Our server ran into an error please try again")
+            }
+            console.log(err)
+            console.log(wishlist.wishlist)
+            res.send(wishlist.wishlist);
+        })
+});
+
 wishlistRouter.get('/:adId', isLoggedIn, (req, res, next) => {
     const _id = sanitize(req.params.adId);
     Ads.findOne({_id:_id,approved:true,"rejected.val":false,isActive:true})
@@ -51,6 +68,8 @@ wishlistRouter.get('/:adId', isLoggedIn, (req, res, next) => {
                                     user: req.user,
                                     array: ad
                                 });
+                                res.status(200)
+                                res.send("Done")
                                 // res.redirect('/wish')
                             });
                     });
