@@ -1,9 +1,9 @@
-.title {
+/* .title {
   font-size: 45px;
-  color: rgb(233, 57, 57);
+  color: rgb(105, 68, 68);
   font-family: Piedra;
   /* margin-top: 100px; */
-}
+} */
 
 .iconavg {
   width: 55px;
@@ -114,8 +114,8 @@ input:focus::-webkit-input-placeholder {
 
 .iconbig {
   position: relative;
-  height: 80%;
-  width: 80%;
+  height: 70%;
+  width: 70%;
   margin: 10% auto;
   display: block;
   /* padding: 100px; */

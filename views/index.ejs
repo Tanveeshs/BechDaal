@@ -176,7 +176,7 @@
               "<input type='hidden' name='adId' value='" + ad._id + "'>" +
               "<span class='featured' >FEATURED</span>" +
               "<img class='images2' src='" + ad.cover_photo + "'><span id='icon" + ad._id + "'><i id='black-" + ad._id +
-              "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10' onclick='event.stopPropagation();check(this)'></i></span>" +
+              "' class='fa fa-heart icondisplay  sharethis-inline-share-buttons' aria-hidden='true' style='z-index: 10' onclick='event.stopPropagation();check(this)'></i></span>" +
               "<p class='para'>₹" + ad.price + "</p>" +
               "<p class='para'>" + ad.title + "</p>" +
               "<k>" + date + "</k>" +
@@ -187,7 +187,7 @@
               "<form action='/sell/show' method='post' id='form" + ad._id + "'>" +
               "<input type='hidden' name='adId' value='" + ad._id + "'>" +
               "<img class='images' src='" + ad.cover_photo + "'><span id='icon" + ad._id + "'><i id='black-" + ad._id +
-              "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10' onclick='event.stopPropagation();check(this)'></i></span>" +
+              "' class='fa fa-heart icondisplay  sharethis-inline-share-buttons' aria-hidden='true' style='z-index: 10' onclick='event.stopPropagation();check(this)'></i></span>" +
               "<p class='para'>₹" + ad.price + "</p>" +
               "<p class='para'>" + ad.title + "</p>" +
               "<k>" + date + "</k>" +
@@ -227,69 +227,6 @@
       })
     }
   </script>
-<%}%>
-<!-- Appy Chatbot widget, Paste the code in the <body> section -->
-<script id="appyWidgetInit" src="https://chatbot.appypie.com/widget/loadbuild.js?cid=ke8tkyxl-AGENT1598291651290-BOTID1598291651290&name=mixBuild"></script> -->
-<!-- /. End Appy chatbot widget code -->
-
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-  (function(){
-  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-  s1.async=true;
-  s1.src='https://embed.tawk.to/5f4416b3cc6a6a5947ae66a8/default';
-  s1.charset='UTF-8';
-  s1.setAttribute('crossorigin','*');
-  s0.parentNode.insertBefore(s1,s0);
-  })();
-  </script>
-  <!--End of Tawk.to Script-->
-  
 </body>
 
 <%-include("partials/footer")-%>
-<!--
-const first = document.querySelector("#first");
-    const second = document.querySelector("#second");
-    const third = document.querySelector("#third");
-    first.addEventListener('click', () => {
-      first.textContent = ""
-      page += 1;
-      if ((arr.length / 3) + 1 > (page + 1)) {
-        var ctr = page + 1;
-        first.textContent = ctr
-        let s = arr.slice(3 * page, 3 * page + 3)
-        $("#cont").empty();
-        for (let i = 0; i < 3; i++) {
-          $("#cont").append(
-            "<div id='" + s[i].id + "' class='one'>\
-            <img class='Img' src = '" + s[i].img + "'> <br>\
-              " + s[i].name + "</div>")
-        }
-      } else {
-        page -= 1;
-        first.textContent = "Last"
-      }
-    })
-    previous.addEventListener('click', () => {
-      first.textContent = ""
-      page -= 1;
-      console.log(page)
-      if (page >= 0) {
-        var ctr = page + 1;
-        first.textContent = ctr
-        let s = arr.slice(3 * ctr - 3, 3 * ctr)
-
-        $("#cont").empty();
-        for (let i = 0; i < 3; i++) {
-          $("#cont").append(
-            "<div id='" + s[i].id + "' class='one'>\
-            <img class='Img' src = '" + s[i].img + "'> <br>\
-              " + s[i].name + "</div>")
-        }
-      } else {
-        page += 1;
-        first.textContent = "First"
-      }
-    }) -->
