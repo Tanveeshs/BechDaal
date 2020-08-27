@@ -82,9 +82,10 @@ Router.get('/ads',authenticateJWT,(req,res)=>{
 })
 Router.post('/ads/approve/:id', authenticateJWT,(req,res)=>{
     const adId = req.params.id;
-    ad.findOne({_id:adId},function (err,result) {
-        result.approved = true;
-        result.save()
+    ad.findOneAndUpdate({_id:adId},{approved:true},function (err) {
+        if(err){
+            console.log(err)
+        }
         res.redirect('/admin/ads')
     })
 })
