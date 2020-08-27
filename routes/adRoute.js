@@ -146,7 +146,6 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                             category: req.body.category,
                                             sub_category: req.body.subcategory,
                                             model: req.body.model,
-                                            brand: req.body.brand,
                                             cover_photo: cover_photo,
                                             price: req.body.price,
                                             user: req.user,
@@ -178,7 +177,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                     }
                                 }, function (err, results) {
                                     if (err) {
-                                        console.log("Error While Posting Ads")
+                                        console.log("Error While Posting Ads",err)
                                     } else {
                                         console.log(results.userUpdate.user)
                                         req.user = results.userUpdate.user
@@ -243,7 +242,6 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                             category: req.body.category,
                                             sub_category: req.body.subcategory,
                                             model: req.body.model,
-                                            brand: req.body.brand,
                                             cover_photo: cover_photo,
                                             price: req.body.price,
                                             user: req.user,
@@ -275,7 +273,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                     }
                                 }, function (err, results) {
                                     if (err) {
-                                        console.log("Error While Posting Ads")
+                                        console.log("Error While Posting Ads",err)
                                     } else {
                                         console.log(results.userUpdate.user)
                                         req.user = results.userUpdate.user
@@ -337,7 +335,6 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                             category: req.body.category,
                                             sub_category: req.body.subcategory,
                                             model: req.body.model,
-                                            brand: req.body.brand,
                                             cover_photo: cover_photo,
                                             price: req.body.price,
                                             user: req.user,
@@ -369,7 +366,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                     }
                                 }, function (err, results) {
                                     if (err) {
-                                        console.log("Error While Posting Ads")
+                                        console.log("Error While Posting Ads",err)
                                     } else {
                                         console.log(results.userUpdate.user)
                                         req.user = results.userUpdate.user
@@ -509,7 +506,6 @@ function editAd(req,res,isPaid,featured){
                         'category': req.body.category,
                         'sub_category': req.body.subcategory,
                         'model': req.body.model,
-                        'brand': req.body.brand,
                         'price': req.body.price,
                         'user': req.user,
                         'cover_photo':cover_photo,
