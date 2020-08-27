@@ -13,7 +13,7 @@
 
 
 <body style="width:20%;">
-  <div class="parent">
+  <div class="parent" style="padding-top: 20px">
     <div class="userCard">
       <span>
         <img src="/images/user.png" alt="user" class="userImg">
@@ -25,41 +25,18 @@
     <% if (user.isSeller==true){%>
         <a href="/sell/" id="ads">My Ads <span><i style="margin-left: 32%;" id="icon"
               class="fa fa-newspaper-o"></i></span></a>
-        <a href="/sell/" id="ads">Buy Ads<span><i style="margin-left: 32%;" id="icon"
+        <a href="#" id="ads">Buy Ads<span><i style="margin-left: 32%;" id="icon"
             class="fas fa-dollar-sign"></i></span></a>
     <%}%>
     <a href="/myprofile/" id="profile">My Profile <span><i style="margin-left: 18%;" id="icon"
           class="fa fa-user"></i></span></a>
-    <!-- <hr style="width:300px;float:right;"> -->
-
-    <!-- <hr style="width:300px;float:right;"> -->
     <a href="/wish" id="wishlist">My Wishlist <span><i style="margin-left: 10%;" id="icon"
           class="fa fa-heart"></i></span></a>
-
-    <!-- <hr style="width:300px;float:right;"> -->
-
-
-    <!-- <hr style="width:300px;float:right;"> -->
-
-    <!-- <i class="fas fa-dollar-sign"></i> -->
   </div>
   <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
     crossorigin="anonymous"></script>
-  <script type="text/javascript">
-    $(function () {
-      // this will get the full URL at the address bar
-      var url = window.location.href;
+  <script type="text/javascript" src="/js/sidebar.js">
 
-      // passes on every "a" tag
-      $(".sidenav a").each(function () {
-        // checks if its the same on the address bar
-        if (url == (this.href)) {
-          $(this).closest("a").addClass("activeLink");
-          $("hr").removeClass("activeLink");
-          //for making parent of submenu active
-        }
-      });
-    });
   </script>
 </body>
 
