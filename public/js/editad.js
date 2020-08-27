@@ -97,15 +97,30 @@ $.ajax({
   url: URL,
   method: "GET"
 }).done(function(catagories) {
+  console.log(catagories)
   window.categoryarray = catagories;
   // console.log(categoryarray)
+  $('#category option').remove();
   catagories.forEach(category => {
-    $('#category').append('<option value="' + category.name + '">' + category.name + '</option>');
+    if(category.name===PrevCategory) {
+      $('#category').append('<option value="' + category.name + '" selected>' + category.name + '</option>');
+      $('#subcategory option').remove();
+      category.subcategory.forEach(subCat=>{
+        if(PrevSubCategory===subCat){
+          $('#subcategory').append('<option value="' + subCat + '" selected>' + subCat + '</option>');
+        }
+        else {
+          $('#subcategory').append('<option value="' + subCat + '">' + subCat + '</option>');
+        }
+      })
+    }
+    else {
+      $('#category').append('<option value="'+ category.name +'">' + category.name + '</option>');
+    }
   });
 }).fail(function() {
   alert('FAIL!!');
 });
-
 var selectedcategory;
 $('#category').on('change', function() {
   selectedcategory = $('#category').find(":selected").text();
