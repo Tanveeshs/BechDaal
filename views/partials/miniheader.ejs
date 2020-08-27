@@ -9,9 +9,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Cantora+One&family=Gothic+A1&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Montserrat:wght@700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href="/css/headerStyles.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
-  <link rel='stylesheet' href='/css/style.css' />
+  <link rel='stylesheet' href='https://storage.googleapis.com/bechdaal_bucket/assets/css/style.css' />
+  <link href="https://storage.googleapis.com/bechdaal_bucket/assets/css/header.css" rel="stylesheet" />
+
 </head>
 
 <body style="font-family: 'Montserrat', sans-serif;">
@@ -19,10 +20,9 @@
     <!-- <a class="navbar-brand" href="/" style="color:black">
       <span><img src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" alt="logo" style="width:70px;height:50px;"></span>
       BechDaal</a> -->
-    <a class="navbar-brand" href="/" style="color: rgb(233, 57, 57);font-family: Piedra; font-size: 45px;">
-      <!-- <span><img src="https://cdn.discordapp.com/attachments/717445413426167820/724984739814965378/BECH_DAAL_LOGO1.png" alt="logo" style="width:70px;height:50px;"></span> -->
-        <span><img src="images/Bech Daal Logo.png" alt="logo" style="width:70px;height:70px;"></span>
-        BechDaal</a>
+    <a class="navbar-brand" href="/">
+      <span><img src="https://storage.googleapis.com/bechdaal_bucket/assets/images/Bech%20Daal%20Logo.png" alt="logo" style="width:33px;height:50px;"></span>
+      <span style="color:black;font-size: 33px;vertical-align: bottom;font-family: 'Lato', sans-serif;">BechDaal</span></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -35,9 +35,12 @@
             <span style="font-weight:bold;">Hello</span> <%=user.local.username%>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/sell" style="font-weight: bold;">Manage my Ads</a>
-            <a class="dropdown-item" href="#">Messages</a>
-            <a class="dropdown-item" href="#">Favorites</a>
+            <%if (user.isSeller===true){%>
+              <a class="dropdown-item" href="/sell" style="font-weight: bold;">Manage my Ads</a>
+              <!--              HREF DENA HAI-->
+              <a href="Buy Ads"  class="dropdown-item" style="font-weight: bold;">Buy Ads</a>
+            <%}%>
+            <a class="dropdown-item" href="/wish">My Wishlist</a>
             <a class="dropdown-item" href="/myprofile">My Details</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item text-muted" href="/logout"><strong>Log Out</strong></a>
@@ -48,15 +51,6 @@
           <a class="nav-link look" style="color:black;font-size: 18px;text-transform: uppercase;" href="/login">Login/<span>SignUp</span></a>
         </li>
         <% } %>
-        <div class="nav-item dropdown">
-          <a class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="hellouser">
-            <i class="fas languageicon fa-language"></i>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Hindi</a>
-            <a class="dropdown-item" href="#">English</a>
-          </div>
-        </div>
         <li class="nav-item active" style="display: flex; cursor:pointer;" id="sellOption">
           <a><i class="fas sellicon fa-hand-holding-usd"></i></a>
           <a href="/sell/ads/post" class="nav-link look" style="color:black; font-size: 18px;text-transform: uppercase;">Sell</a>
