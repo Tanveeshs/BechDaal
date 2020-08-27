@@ -16,6 +16,7 @@ steps:
       - 'redis_pass=${_REDIS_PASS}'
       - 'razorpay_key=${_RAZORPAY_KEY}'
       - 'razorpay_secret=${_RAZORPAY_SECRET}'
+      - 'mongo_url=${_MONGO_URL}
 #  - name: node:10.15.1
 #    entrypoint: npm
 #    args: ["run", "createJSON"]
