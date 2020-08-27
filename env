@@ -1,0 +1,7 @@
+razorpay_key='rzp_test_sS7YnDbmLW67DA'
+razorpay_secret='Yf8QZlyLV8DXoY1nceZjD913'
+email='admin@bechdaal.tech'
+pass='xX*QRjN9'
+redis_pass='zYlboDcbCq8zU7F533XhhegD9FLMlTSO'
+redis_host='redis-15546.c1.us-east1-2.gce.cloud.redislabs.com'
+mongo_url='mongodb+srv://bechdaalAdmin:cw6oxLm9uEgeCGpj@cluster0-pavbm.mongodb.net/Bechdaal?retryWrites=true&w=majority'

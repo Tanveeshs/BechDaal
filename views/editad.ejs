@@ -22,6 +22,11 @@
             <option value="none">-------------</option>
           </select>
         </div>
+        <script>
+          let PrevCategory = '<%=ad[0].category%>'
+          let PrevSubCategory = '<%=ad[0].sub_category%>'
+        </script>
+
         <div class="w3-half">
           <label>Subcategory</label>
           <select class="w3-input w3-border" style="text-align:center" name="subcategory" id="subcategory">

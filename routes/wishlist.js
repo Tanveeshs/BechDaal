@@ -51,6 +51,7 @@ wishlistRouter.get('/test', isLoggedIn, (req, res, next) => {
 
 wishlistRouter.get('/:adId', isLoggedIn, (req, res, next) => {
     const _id = sanitize(req.params.adId);
+    console.log(_id)
     Ads.findOne({_id:_id,approved:true,"rejected.val":false,isActive:true})
         .then((ad) => {
             if (ad != null) {
