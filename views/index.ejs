@@ -175,7 +175,7 @@
               "<form action='/sell/show' method='post' id='form" + ad._id + "'>" +
               "<input type='hidden' name='adId' value='" + ad._id + "'>" +
               "<span class='featured' >FEATURED</span>" +
-              "<img class='images2' src='" + ad.cover_photo + "'><span id='icon" + ad._id + "'><i id='blackg" + ad._id +
+              "<img class='images2' src='" + ad.cover_photo + "'><span id='icon" + ad._id + "'><i id='black-" + ad._id +
               "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10' onclick='event.stopPropagation();check(this)'></i></span>" +
               "<p class='para'>₹" + ad.price + "</p>" +
               "<p class='para'>" + ad.title + "</p>" +
@@ -186,7 +186,7 @@
             $("#locAds").append("<div class='two' onclick='editad1(this)' id='" + ad._id + "'>" +
               "<form action='/sell/show' method='post' id='form" + ad._id + "'>" +
               "<input type='hidden' name='adId' value='" + ad._id + "'>" +
-              "<img class='images' src='" + ad.cover_photo + "'><span id='icon" + ad._id + "'><i id='blackg" + ad._id +
+              "<img class='images' src='" + ad.cover_photo + "'><span id='icon" + ad._id + "'><i id='black-" + ad._id +
               "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10' onclick='event.stopPropagation();check(this)'></i></span>" +
               "<p class='para'>₹" + ad.price + "</p>" +
               "<p class='para'>" + ad.title + "</p>" +
@@ -198,7 +198,7 @@
         wishlist.forEach((wish, i) => {
           if ($('#icon' + wish).length) {
             $('#icon' + wish).empty();
-            $('#icon' + wish).append("<i id='redg" + wish + "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10;color:red  ' onclick='event.stopPropagation();check(this)'></i>")
+            $('#icon' + wish).append("<i id='red-" + wish + "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10;color:red  ' onclick='event.stopPropagation();check(this)'></i>")
             delete wishlist[i]
           }
         })
@@ -207,8 +207,11 @@
       });
     }
 
-    function check(input) {
-      let val = input.id.split('g')
+</script>
+  <%if (user){%>
+<script>
+  function check(input) {
+      let val = input.id.split('-')
       console.log(val)
       $.ajax({
         url: "https://bechdaal.tech/wish/" + val[1],
@@ -216,14 +219,15 @@
       }).done(function(wish) {
         if (val[0] == 'black') {
           $('#icon' + val[1]).empty();
-          $('#icon' + val[1]).append("<i id='redg" + val[1] + "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10;color:red  ' onclick='event.stopPropagation();check(this)'></i>")
+          $('#icon' + val[1]).append("<i id='red-" + val[1] + "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10;color:red  ' onclick='event.stopPropagation();check(this)'></i>")
         } else if (val[0] == 'red') {
           $('#icon' + val[1]).empty();
-          $('#icon' + val[1]).append("<i id='blackg" + val[1] + "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10;' onclick='event.stopPropagation();check(this)'></i>")
+          $('#icon' + val[1]).append("<i id='black-" + val[1] + "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10;' onclick='event.stopPropagation();check(this)'></i>")
         }
       })
     }
   </script>
+<%}%>
 </body>
 
 <%-include("partials/footer")-%>

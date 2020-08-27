@@ -32,18 +32,16 @@
       </div>
       <%}%>
         </div>
-        <ul class="pagination">
+        <ul class="pagination" style="float:right;margin-bottom:10px;">
           <li class="page-item">
             <a class="page-link" href="#" id = "previous" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-              <span class="sr-only">Previous</span>
+              <i class="fa fa-angle-left"></i>
             </a>
           </li>
           <li class="page-item"><a id="first"class="page-link" href="#">1</a></li>
           <li id="next" class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-              <span class="sr-only">Next</span>
+            <a class="page-link" href="#" id = "Next" >
+              <i class="fa fa-angle-right"></i>
             </a>
           </li>
         </ul>
@@ -77,9 +75,9 @@
       let s = data.slice(0, 2);
       for (let i = 0; i < 2; i++) {
         $(".mainContent").append(
-          "<div class='col-md-4 col-sm-12 paddings' style='margin-left: 5%;' onclick='openAd(this)' id='"+s[i]._id+"'>\
-                <form action='/sell/show' method='post' id='form"+s[i]._id+"'>\
-                <input type='hidden' value='"+s[i]._id+"' name='adId'>\
+          "<div class='col-md-4 col-sm-12 paddings' style='margin-left: 5%;' onclick='openAd(this)' id='" + s[i]._id + "'>\
+                <form action='/sell/show' method='post' id='form"+ s[i]._id + "'>\
+                <input type='hidden' value='"+ s[i]._id + "' name='adId'>\
                 <div class='card text-white car mx-auto'>\
                   <div class='card-body'>\
                     <img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'>\
@@ -118,9 +116,9 @@
       $(".mainContent").empty();
       for (let i = 0; i < 2; i++) {
         $(".mainContent").append(
-          "<div class='col-md-4 col-sm-12 paddings' style='margin-left: 5%;' onclick='openAd(this)' id='"+s[i]._id+"'>\
-              <form action='/sell/show' method='post' id='form"+s[i]._id+"'>\
-              <input type='hidden' value='"+s[i]._id+"' name='adId'>\
+          "<div class='col-md-4 col-sm-12 paddings' style='margin-left: 5%;' onclick='openAd(this)' id='" + s[i]._id + "'>\
+              <form action='/sell/show' method='post' id='form"+ s[i]._id + "'>\
+              <input type='hidden' value='"+ s[i]._id + "' name='adId'>\
                 <div class='card text-white car mx-auto'>\
                   <div class='card-body'>\
                     <img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'>\
@@ -153,9 +151,9 @@
       $(".mainContent").empty();
       for (let i = 0; i < 2; i++) {
         $(".mainContent").append(
-          "<div class='col-md-4 col-sm-12 paddings' style='margin-left: 5%;' onclick='openAd(this)' id='"+s[i]._id+"'>\
-          <form action='/sell/show' method='post' id='form"+s[i]._id+"'>\
-              <input type='hidden' value='"+s[i]._id+"' name='adId'>\
+          "<div class='col-md-4 col-sm-12 paddings' style='margin-left: 5%;' onclick='openAd(this)' id='" + s[i]._id + "'>\
+          <form action='/sell/show' method='post' id='form"+ s[i]._id + "'>\
+              <input type='hidden' value='"+ s[i]._id + "' name='adId'>\
                   <div class='card text-white car mx-auto'>\
                     <div class='card-body'>\
                       <img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'>\
