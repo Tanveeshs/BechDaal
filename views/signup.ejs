@@ -258,6 +258,8 @@
           visibility: hidden;
           font-size: 0px;
         }
+
+        
         
 
         /* .a{
@@ -306,6 +308,15 @@
 } */
 
       }
+
+      .mobile{
+          visibility: hidden;
+          
+        }
+
+        .mobileshow{
+          visibility: none;
+        }
     </style>
   </head>
 
@@ -329,6 +340,21 @@
           <div class="alert alert-danger"><%= message %></div>
           <% } %>
           <form action="/signup" method="post" class="signupForm">
+            <div class="card">
+                
+              <div class="inputContainer" style="width:70%">
+                <label class="text-muted">You are a ?</label>
+                <br />
+                <div style="padding-left: 20px; ">
+                  <input  type="radio" id="Seller" name="Person" value="Seller">
+                  <label for="Seller" >Seller</label><br>
+                  <input type="radio" id="User" name="Person" value="User" checked>
+                  <label for="User">User</label><br>                
+                </div>
+              </div>
+            </div>
+
+            
             <div class="card">
               <div class="iconContainer">
                 <p><i class="fa fa-user" aria-hidden="true"></i></p>
@@ -387,7 +413,7 @@
                 <li>One Special symbol</li>
               </ul>
 
-              <div class="card">           
+              <div id='mobile' class="card mobile" >           
                 <div class="iconContainer">
                   <p> <i class="fa fa-2x fa-mobile" style="color: black;" aria-hidden="true"></i>
                   </p>
@@ -398,20 +424,7 @@
                   <input type="tel" id="phone" name="phone" >
                 </div>
               </div>
-              <div class="card">
-                
-                <div class="inputContainer" style="width:70%">
-                  <label class="text-muted">You are a ?</label>
-                  <br />
-                  <div style="padding-left: 20px; ">
-                    <input  type="radio" id="Seller" name="Person" value="Seller">
-                    <label for="Seller" >Seller</label><br>
-                    <input type="radio" id="User" name="Person" value="User" checked>
-                    <label for="User">User</label><br>                
-                  </div>
-                </div>
-              </div>
-
+              
             </div>
             <div class="card2">
               <a id="haveAccount" href="/login">Already have an account</a>
@@ -423,6 +436,7 @@
         </div>
       </div>
     </div>
+
     <!-- <script>
       const signupForm = document.querySelector('.signupForm')
       const username = document.getElementById('username_ipt');
@@ -453,6 +467,19 @@
     </script> -->
   </body>
 
-  <script src="/js/login-signup.js" charset="utf-8"></script>
+  <script src="/js/login-signup.js" charset="utf-8">
+  </script>
+  <script>
+    $(document).ready(function(){
+      $("#Seller").click(function(){
+        $("#mobile").removeClass("mobile");
+        
+      });
+      $("#User").click(function(){
+        $("#mobile").addClass("mobile");
+        
+      });
+    });
+    </script>
 
   <%-include("partials/footer")-%>
