@@ -819,7 +819,7 @@ adRouter.route('/delete')
 
 function isLoggedIn(req, res, next) {
     try {
-        if (req.isAuthenticated() && req.user.isVerified ) {
+        if (req.isAuthenticated()) {
             return next();
         }
         res.redirect('/login');
