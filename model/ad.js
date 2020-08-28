@@ -88,6 +88,7 @@ const adSchema = new Schema({
 });
 
 adSchema.index({date_posted:1})
+
 const Ads = mongoose.model('Ads', adSchema);
 module.exports = Ads;
 module.exports.AdSchema = adSchema

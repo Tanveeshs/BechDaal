@@ -179,7 +179,7 @@
               "' class='fa fa-heart icondisplay  sharethis-inline-share-buttons' aria-hidden='true' style='z-index: 10' onclick='event.stopPropagation();check(this)'></i></span>" +
               "<p class='para'>₹" + ad.price + "</p>" +
               "<p class='para'>" + ad.title + "</p>" +
-              "<k>" + date + "</k>" +
+              "<k style='font-size:large'>" + date + "</k>" +
               "</form>" +
               "</div>")
           } else {
@@ -190,7 +190,7 @@
               "' class='fa fa-heart icondisplay  sharethis-inline-share-buttons' aria-hidden='true' style='z-index: 10' onclick='event.stopPropagation();check(this)'></i></span>" +
               "<p class='para'>₹" + ad.price + "</p>" +
               "<p class='para'>" + ad.title + "</p>" +
-              "<k>" + date + "</k>" +
+              "<k style='font-size: large'>" + date + "</k>" +
               "</form>" +
               "</div>")
           }
@@ -198,7 +198,7 @@
         wishlist.forEach((wish, i) => {
           if ($('#icon' + wish).length) {
             $('#icon' + wish).empty();
-            $('#icon' + wish).append("<i id='red-" + wish + "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10;color:red  ' onclick='event.stopPropagation();check(this)'></i>")
+            $('#icon' + wish).append("<i id='red-" + wish + "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10;color:orangered  ' onclick='event.stopPropagation();check(this)'></i>")
             delete wishlist[i]
           }
         })
@@ -219,7 +219,7 @@
       }).done(function(wish) {
         if (val[0] == 'black') {
           $('#icon' + val[1]).empty();
-          $('#icon' + val[1]).append("<i id='red-" + val[1] + "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10;color:red  ' onclick='event.stopPropagation();check(this)'></i>")
+          $('#icon' + val[1]).append("<i id='red-" + val[1] + "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10;color:orangered  ' onclick='event.stopPropagation();check(this)'></i>")
         } else if (val[0] == 'red') {
           $('#icon' + val[1]).empty();
           $('#icon' + val[1]).append("<i id='black-" + val[1] + "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10;' onclick='event.stopPropagation();check(this)'></i>")

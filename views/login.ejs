@@ -1,37 +1,21 @@
 <%-include('partials/miniheader')-%>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <!-- CSS only -->
-  <%# <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> %>
-  <%# <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> %>
-  <link rel="stylesheet" type="text/css" href="/css/loginStyles.css">
-  <%# FontAwesome  %>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Piedra">
+  <link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/bechdaal_bucket/assets/css/login.css">
 
 </head>
 
 <body>
-  <%# <div style="padding:3%;">
-        <div class="card" style="border-radius: 40px">
-            <div class="card-body" style="height: 42rem;"> %>
   <div class="row">
     <div class="col-sm-12 col-md-5 footer-details">
       <!-- show any messages that come back with authentication -->
       <% if (message.length > 0) { %>
       <div class="alert alert-danger"><%= message %></div>
       <% } %>
-      <%# <div class="">
-        <img class="iconavg" src="images/Bech Daal Logo.png" class="iconavg" alt="">
-        <span class="title">BECH DAAL</span>
-      </div> %>
       <div style="padding-top:100px">
 
       </div>
       <div style="padding-left:2.5rem;">
+        <h1 class="text-left p-2 text-muted">LOGIN</h1>
         <form action="/login" method="POST">
           <div id="card-left" style="width: 372px;">
             <div class="iconContainer">
@@ -63,8 +47,6 @@
           </div>
       </div>
       <div style="display:inline-flex">
-        <%# <input class="checkbox" type="checkbox" style="margin-left:3rem;margin-top:1.2rem"> %>
-        <%# <p style="font-size:15px;padding-left:1rem;margin-top:1rem">Remember Me</p> %>
         <a href="/forgot/forgotpassword">
           <p style="font-size:15px;padding-left:16rem;margin-top:1rem">Forgot Password?</p>
         </a>
@@ -88,27 +70,9 @@
           </div>
         </div>
       </div>
-      <%# <button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button> %>
-
-    </div>
+      </div>
     <div class="col-sm-12 col-md-7 footer-details">
-
-      <!-- <div class="row no-gutters Navbar">
-              <div class="col-3">
-                <a href="#" style="color: grey">HOME</a>
-              </div>
-              <div class="col-3">
-                <a href="#" style="color: grey">OUR TEAM</a>
-              </div>
-              <div class="col-3">
-                <a href="#" style="color: grey">ABOUT US</a>
-              </div>
-              <div class="col-3">
-                <a href="#" style="color: grey">CONTACT</a>
-              </div>
-            </div> -->
-
-      <img class="iconbig" src="/images/Group 737.png" style="" alt="">
+<img class="iconbig" src="/images/Group 737.png" style="" alt="">
 
     </div>
   </div>
@@ -116,10 +80,6 @@
 
 
 
-<!-- JS, Popper.js, and jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
-<script src="/js/login-signup.js" charset="utf-8"></script>
+<script src="https://storage.googleapis.com/bechdaal_bucket/assets/js/login-signup.js" charset="utf-8"></script>
 <%-include('partials/footer')-%>
