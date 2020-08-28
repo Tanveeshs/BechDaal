@@ -92,6 +92,7 @@ adRouter.get('/ads/post', isLoggedIn,isSeller,function(req, res) {
 adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
     multerMid(req, res,(err) => {
         console.log(req.files)
+        console.log(req.body)
         if (req.body.featured) {
             if (req.user.noOfFeaturedAds > 0) {
                 if (err) {
@@ -149,6 +150,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                             cover_photo: cover_photo,
                                             price: req.body.price,
                                             user: req.user,
+                                            deliverableAreas:req.body.delivery,
                                             featured:true,
                                             isPaid:2,
                                             images: remaining_images,
@@ -181,7 +183,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                     } else {
                                         console.log(results.userUpdate.user)
                                         req.user = results.userUpdate.user
-                                        res.render("afterPostAd.ejs")
+                                        res.render("afterPostAd.ejs",{user:req.user})
                                     }
                                 })
                             }
@@ -244,6 +246,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                             model: req.body.model,
                                             cover_photo: cover_photo,
                                             price: req.body.price,
+                                            deliverableAreas:req.body.delivery,
                                             user: req.user,
                                             featured: false,
                                             images: remaining_images,
@@ -277,7 +280,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                     } else {
                                         console.log(results.userUpdate.user)
                                         req.user = results.userUpdate.user
-                                        res.render("afterPostAd.ejs")
+                                        res.render("afterPostAd.ejs",{user:req.user})
                                     }
                                 })
                             }
@@ -336,6 +339,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                             sub_category: req.body.subcategory,
                                             model: req.body.model,
                                             cover_photo: cover_photo,
+                                            deliverableAreas:req.body.delivery,
                                             price: req.body.price,
                                             user: req.user,
                                             featured: false,
@@ -370,7 +374,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                     } else {
                                         console.log(results.userUpdate.user)
                                         req.user = results.userUpdate.user
-                                        res.render("afterPostAd.ejs")
+                                        res.render("afterPostAd.ejs",{user:req.user})
                                     }
                                 })
                             }
@@ -622,69 +626,20 @@ adRouter.route('/show')
 adRouter.get('/grid_ads/c/:page',(req,res)=>{
     const page = parseInt(req.params.page);
     console.log(page)
-        Ads.find({isPaid:2, approved: true, isActive: true, 'rejected.val': false},function (err,docs){
-            if(err){
-                returnErr(res, "Error", err)
-            }
-            let count = docs.length;
-            console.log(count)
-            async.parallel({
-                featured:function (callback) {
-                    // count=5
-                    if((page+1)*3<count+3){
-                        if((count-page*3)<3){
-                            Ads.find({isPaid:2, approved: true, isActive: true, 'rejected.val': false},{user:0,images:0,brand:0,model:0},
-                                function (err,ads) {
-                                    if(err){
-                                        callback(err,null)
-                                    }
-                                    else {
-                                        callback(null,ads)
-                                    }
-                                }).limit((count-page*3)).skip(page*3)
-                        }else {
-                            Ads.find({isPaid:2, approved: true, isActive: true, 'rejected.val': false},{user:0,images:0,brand:0,model:0},
-                                function (err,ads) {
-                                    if(err){
-                                        callback(err,null)
-                                    }
-                                    else {
-                                        callback(null,ads)
-                                    }
-                                }).limit(3).skip(page*3)
-                        }
-                    }
-                    else {
-                        callback(null,null)
-                    }
-                },
-                normal:function (callback){
-                    if((page+1)*3<count+3){
-                        if((count-page*3)<3){
-                            Ads.find({$or:[{isPaid:0},{isPaid:1}], approved: true, isActive: true, 'rejected.val': false},{user:0,images:0,brand:0,model:0},
-                                function (err,ads) {
-                                    if(err){
-                                        callback(err,null)
-                                    }
-                                    else {
-                                        callback(null,ads)
-                                    }
-                                }).limit(9-(count-page*3)).skip(page*6)
-                        }else {
-                            Ads.find({$or:[{isPaid:0},{isPaid:1}], approved: true, isActive: true, 'rejected.val': false},{user:0,images:0,brand:0,model:0},
-                                function (err,ads) {
-                                    if(err){
-                                        callback(err,null)
-                                    }
-                                    else {
-                                        callback(null,ads)
-                                    }
-                                }).limit(6).skip(page*6)
-                        }
-                    }else {
-                        let page2 = page - Math.floor(count/3)
-                        Ads.find({$or:[{isPaid:0},{isPaid:1}], approved: true, isActive: true, 'rejected.val': false},{user:0,images:0,brand:0,model:0},
-
+    console.time("TotalQuery")
+    Ads.find({isPaid:2, approved: true, isActive: true, 'rejected.val': false},function (err,docs){
+        if(err){
+            returnErr(res, "Error", err)
+        }
+        let count = docs.length;
+        console.log(count)
+        async.parallel({
+            featured:function (callback) {
+                // count=5
+                if((page+1)*3<count+3){
+                    if((count-page*3)<3){
+                        Ads.find({isPaid:2, approved: true, isActive: true, 'rejected.val': false},{user:0,images:0,brand:0,model:0},
+                            {sort:{date_posted:-1}},
                             function (err,ads) {
                                 if(err){
                                     callback(err,null)
@@ -692,85 +647,87 @@ adRouter.get('/grid_ads/c/:page',(req,res)=>{
                                 else {
                                     callback(null,ads)
                                 }
-                            }).limit(9).skip(page*6+(page*3-count)+page2*9)
+                            }).limit((count-page*3)).skip(page*3)
+                    }else {
+                        Ads.find({isPaid:2, approved: true, isActive: true, 'rejected.val': false},{user:0,images:0,brand:0,model:0},
+                            {sort:{date_posted:-1}},
+                            function (err,ads) {
+                                if(err){
+                                    callback(err,null)
+                                }
+                                else {
+                                    callback(null,ads)
+                                }
+                            }).limit(3).skip(page*3)
                     }
                 }
-            },function (err,results){
-                if(err){
-                    console.log(err)
-                    return returnErr(res, "error", "Error")
-                }
-
-                let arr=[]
-                if(results.featured===undefined && results.normal===undefined){
-                    arr = []
-                }
-                else if(results.featured===null){
-                    arr = [...results.normal]
-                }
-                else if(results.normal===null){
-                    arr = [...results.featured]
-                }
                 else {
-                    arr = [...results.featured,...results.normal]
+                    callback(null,null)
                 }
-                res.send(arr)
-            })
+            },
+            normal:function (callback){
+                if((page+1)*3<count+3){
+                    if((count-page*3)<3){
+                        Ads.find({$or:[{isPaid:0},{isPaid:1}], approved: true, isActive: true, 'rejected.val': false},{user:0,images:0,brand:0,model:0},
+                            {sort:{date_posted:-1}},
+                            function (err,ads) {
+                                if(err){
+                                    callback(err,null)
+                                }
+                                else {
+                                    callback(null,ads)
+                                }
+                            }).limit(9-(count-page*3)).skip(page*6)
+                    }else {
+                        Ads.find({$or:[{isPaid:0},{isPaid:1}], approved: true, isActive: true, 'rejected.val': false},{user:0,images:0,brand:0,model:0},
+                            {sort:{date_posted:-1}},
+                            function (err,ads) {
+                                if(err){
+                                    callback(err,null)
+                                }
+                                else {
+                                    callback(null,ads)
+                                }
+                            }).limit(6).skip(page*6)
+                    }
+                }else {
+                    let page2 = page - Math.floor(count/3)
+                    Ads.find({$or:[{isPaid:0},{isPaid:1}], approved: true, isActive: true, 'rejected.val': false},{user:0,images:0,brand:0,model:0},
+                        {sort:{date_posted:-1}},
+                        function (err,ads) {
+                            if(err){
+                                callback(err,null)
+                            }
+                            else {
+                                callback(null,ads)
+                            }
+                        }).limit(9).skip(page*6+(page*3-count)+page2*9)
+                }
+            }
+        },function (err,results){
+            if(err){
+                console.log(err)
+                return returnErr(res, "error", "Error")
+            }
+
+            let arr=[]
+            if(results.featured===undefined && results.normal===undefined){
+                arr = []
+            }
+            else if(results.featured===null){
+                arr = [...results.normal]
+            }
+            else if(results.normal===null){
+                arr = [...results.featured]
+            }
+            else {
+                arr = [...results.featured,...results.normal]
+            }
+            console.timeEnd("TotalQuery")
+            res.send(arr)
         })
     })
-
-
-adRouter.route('/grid_ads/a')
-    .post((req, res, next) => {
-
-        const page = parseInt(req.body.page);
-        console.log(page)
-        const featuredLimit = 3;
-        const ordinaryLimit = 6;
-
-        const featuredStartIndex = (page - 1) * featuredLimit;
-        const ordinaryStartIndex = (page - 1) * ordinaryLimit;
-
-        const featuredEndIndex = page * featuredLimit;
-        const ordinaryEndIndex = page * ordinaryLimit;
-        Ads.find({},function (err,cb){
-            // console.log(cb)
-            res.send(cb)
-        }).limit(9).sort({date_posted:-1})
-
-        // Ads.find({$and: [
-        //         { approved: true },
-        //         { 'rejected.val': false },
-        //         { isActive: true }
-        //     ]})
-        //     .sort({date_posted: -1})
-        //     .then((ads) => {
-        //         const featuredAds = ads.filter((item, index) => (item.isPaid===2));
-        //         const ordinaryAds = ads.filter((item, index) => !(item.isPaid===2));
-        //
-        //         const isFeaturedShort = 3 - (featuredEndIndex - featuredStartIndex);
-        //
-        //         const paginatedFeaturedAds = featuredAds.slice(featuredStartIndex, featuredEndIndex);
-        //         const paginatedOrdinaryAds = ordinaryAds.slice(ordinaryStartIndex, ordinaryEndIndex + isFeaturedShort);
-        //
-        //         const finalAdsArray = Array.prototype.push.apply(paginatedFeaturedAds, paginatedOrdinaryAds);
-        //
-        //         let results = {
-        //             // featured: paginatedFeaturedAds,
-        //             // ordinary: paginatedOrdinaryAds,
-        //             ads: finalAdsArray
-        //         };
-        //
-        //         if (featuredEndIndex < featuredAds.length || ordinaryEndIndex < ordinaryAds.length) results.nextPage = page + 1;
-        //
-        //         if (featuredStartIndex > 0) results.previousPage = page - 1;
-        //
-        //         res.statusCode = 200;
-        //         res.setHeader('Content-Type', 'application/json');
-        //         res.json(results);
-        //     });
-    });
-
+})
 //Send Params adId
 //Increments adType in user
 //Removes Images From GoogleCloud
@@ -860,9 +817,9 @@ function isSeller(req,res,next){
 
 function returnErr(res,message,err){
     res.render('error.ejs',{
-      message:message,
-      error:err
+        message:message,
+        error:err
     })
-  }
+}
 
 module.exports = adRouter;

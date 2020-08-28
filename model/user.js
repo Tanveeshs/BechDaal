@@ -65,7 +65,6 @@ const userSchema = new mongoose.Schema({
           adId:mongoose.Types.ObjectId
         }],
     default:null}
-
 });
 
 userSchema.methods.generateHash = function(password) {
