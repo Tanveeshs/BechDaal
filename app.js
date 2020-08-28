@@ -60,6 +60,7 @@ const payment = require('./routes/payment')
 const docsRouter = require('./routes/docs')
 const sitemapRouter = require('./routes/sitemap')
 const contactRouter = require('./routes/contact')
+
 // const test = require('./routes/test');
 // const smsverify = require('./routes/sms');
 // const xg = require('./routes/searchRoute');

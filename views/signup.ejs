@@ -1,485 +1,108 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+<%-include('partials/miniheader')-%>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Bech Daal</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <link rel='stylesheet' href='/css/style.css' />
-  <title>Navbars</title>
-</head>
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/bechdaal_bucket/assets/css/signupStyles.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Piedra">
+<div id="container">
+  <div class="row">
+    <div class="container" id="subcontainer-1">
+      <img class="iconbig" src="/images/3.png" alt="img1" />
+    </div>
+    <div class="container col text-center" id="subcontainer-2">
+      <h1 class="text-left p-2 text-muted">REGISTER</h1>
+      <% if (message.length > 0) { %>
+        <div class="alert alert-danger"><%= message %></div>
+      <% } %>
+      <form action="/signup" method="post" class="signupForm">
+        <div class="card">
 
-<style>
-  .icons {
-    padding: 0px 30px;
-    font-size: 20px;
-    color: white;
-  }
+          <div class="inputContainer" style="width:70%">
+            <label class="text-muted">You are a ?</label>
+            <br />
+            <div style="padding-left: 20px; ">
+              <input  type="radio" id="Seller" name="Person" value="Seller">
+              <label for="Seller" >Seller</label><br>
+              <input type="radio" id="User" name="Person" value="User" checked>
+              <label for="User">User</label><br>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="iconContainer">
+            <p><i class="fa fa-user" aria-hidden="true"></i></p>
+          </div>
+          <div class="inputContainer" style="width:70%">
+            <label class="text-muted">Enter Username</label>
+            <br />
+            <input class="input i-name" type="text" id="username_ipt" name="username" placeholder="Type Here" minlength="5" required pattern='^[a-zA-Z0-9]+([_-]?[a-zA-Z0-9])*$'
+                   data-toggle="tooltip" data-placement="bottom" data-html="true"  title="Username should contain:
+Minimum 5 characters
+No special characters other than - and _">
+          </div>
+          <div class="checkboxCont">
+            <i class="fas fa-check-circle name-check" style="margin-left: 30px; visibility: hidden"></i>
+          </div>
+        </div>
+        <div class="card">
+          <div class="iconContainer">
+            <p><i class="fa fa-envelope" aria-hidden="true"></i>
+            </p>
+          </div>
+          <div class="inputContainer" style="width:70%">
+            <label class="text-muted">Enter Email</label>
+            <br />
+            <input class="input i-email" id="email_ipt" name="email" placeholder="Type Here" required pattern="^(([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)|\d{10})$">
+          </div>
+          <div class="checkboxCont">
+            <i class="fas fa-check-circle mail-check" style="margin-left: 30px; visibility: hidden"></i>
+          </div>
+        </div>
+        <div class="card">
+          <div class="iconContainer">
+            <p><i class="fa fa-key" aria-hidden="true"></i>
+            </p>
+          </div>
+          <div class="inputContainer" style="width:70%">
+            <label class="text-muted">Set a Password</label>
+            <br />
+            <input class="input" type="password" name="password" id="password" placeholder="Type Here"
+                   data-toggle="tooltip" data-placement="bottom" data-html="true"  title="Password should contain:
+Minimum 6 characters
+One Uppercase Letter
+One Lowercase Letter
+One Digit
+One Special Symbol">
+          </div>
+          <div class="checkboxCont">
+            <i class="fas fa-eye" id="togglePass" style="margin-left: 30px;"></i>
+          </div>
+        </div>
+        <div class="text-muted text-center" style="text-align: left; font-size:12px">
+          <div id='mobile' class="card mobile" >
+            <div class="iconContainer">
+              <p> <i class="fa fa-2x fa-mobile" style="color: black;" aria-hidden="true"></i>
+              </p>
+            </div>
+            <div class="inputContainer" style="width:70%">
+              <label class="text-muted" style="padding-top: 10px;">Mobile Number</label>
+              <br />
+              <input type="tel" id="phone" name="phone" >
+            </div>
+          </div>
 
-  .link {
-    cursor: pointer;
-  }
-</style>
-
-
-<script>
-  $(document).ready(function() {
-    $("#toggledown").click(function() {
-      $("#search").slideToggle(300);
-    });
-  });
+        </div>
+        <div class="card2">
+          <a id="haveAccount" href="/login">Already have an account</a>
+        </div>
+        <div class="card3">
+          <button id="signupBtn" class="signupBtn" type="submit">Sign Up</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script src="https://storage.googleapis.com/bechdaal_bucket/assets/js/login-signup.js" charset="utf-8">
+</script>
+<script src="https://storage.googleapis.com/bechdaal_bucket/assets/js/signup.js">
 </script>
 
-
-<body>
-
-  <nav class="navbar navbar-expand-lg navbar-dark bg-li ">
-    <a class="navbar-brand" href="/" style="color:black">BechDaal</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto" id="ulLinks">
-        <li id="toggledown">
-          <i class="fa fa-search searchicon" aria-hidden="true"></i>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link look" style="color:black;" href="/login">Login/<span>SignUp</span></a>
-        </li>
-        <div class="nav-item dropdown">
-          <a class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="hellouser">
-            <i class="fas languageicon fa-language"></i>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Hindi</a>
-            <a class="dropdown-item" href="#">English</a>
-          </div>
-        </div>
-        <li class="nav-item active" style="display: flex; cursor:pointer;" id="sellOption">
-          <a><i class="fas sellicon fa-hand-holding-usd"></i></a>
-          <a href="#" class="nav-link look" style="color:black; font-weight: bold;">Sell</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-
-  <head>
-    <title>Node Authentication</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <!-- load bootstrap css -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-    <!-- load fontawesome -->
-    <link rel="stylesheet" type="text/css" href="/css/signupStyles.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Piedra">
-    <style>
-      #search #toggledown {
-        visibility: hidden;
-      }
-
-      .icon {
-        height: 50px;
-        width: 50px;
-        padding: 10px;
-      }
-
-      .iconbig {
-        height: 700px;
-        width: 700px;
-        padding: 100px;
-      }
-
-      .iconavg {
-        height: 130px;
-        width: 80px;
-        padding: 10px;
-        margin-bottom: 50px;
-        margin-right: 15px;
-      }
-
-      .title {
-        font-size: 45px;
-        color: rgb(233, 57, 57);
-        font-family: Piedra;
-      }
-
-      nav-item {
-        font-family: Piedra;
-        font-size: 30px;
-        padding: 15px;
-        margin: 15px;
-      }
-
-      .col {
-        margin: 100px;
-        padding: 50px;
-      }
-
-      #signupBtn {
-        margin-left: 100px;
-      }
-
-      @media (max-width: 1028px) {
-        .iconbig {
-          height: 100%;
-          width: 100%;
-          padding: 50px 0px;
-        }
-
-        .iconavg {
-          height: 80px;
-          width: 50px;
-          padding: 10px;
-          margin-right: 15px;
-          margin-bottom: 20px;
-        }
-
-        .title {
-          font-size: 23px;
-          color: rgb(233, 57, 57);
-          font-family: Piedra;
-        }
-
-        .col {
-          margin: 20px;
-          width: 100%;
-        }
-
-        .card {
-          margin: auto;
-        }
-      }
-
-      @media (max-width: 820px) {
-        .footer-details {
-          text-align: center;
-        }
-
-        .map1 {
-          display: none;
-        }
-      }
-
-      .searchbar {
-        background-color: #4AACD1;
-        text-align: center;
-        padding-left: 15%;
-        padding-top: 20px;
-
-      }
-
-      .searchbar-items {
-        display: flex;
-        list-style: none;
-        padding: 0px 50px;
-      }
-
-      .nav-item {
-        padding: 0px 20px;
-      }
-
-      .navbar {
-        padding: 10px 80px;
-        background-color: #77CAEA;
-      }
-
-      .navbar-brand {
-        color: black;
-      }
-
-      .searchicon {
-        padding-top: 10px;
-        font-size: 20px;
-      }
-
-      .languageicon {
-        color: black;
-        font-size: 25px;
-      }
-
-      .sellicon {
-        padding: 10px;
-        font-size: 20px;
-      }
-
-      .locationsubmit {
-        background-color: #9FC66A;
-        font-family: 'PT Sans', sans-serif;
-        font-size: 14.78px;
-      }
-
-      .locationsubmit:hover {
-        background-color: #9FC66A;
-        font-family: 'PT Sans', sans-serif;
-        font-size: 14.78px;
-        cursor: pointer;
-      }
-
-      .a {
-        font-family: 'Montserrat', sans-serif;
-        font-weight: bold;
-        font-size: 18px;
-      }
-
-      .input1 {
-        font-family: 'PT Sans', sans-serif;
-        font-size: 12px;
-        margin-top: 5px;
-        background-color: #4AACD1;
-      }
-
-      .b {
-        font-family: 'Montserrat', sans-serif;
-        font-weight: bold;
-        font-size: 18px;
-      }
-
-      .input2 {
-        font-family: 'PT Sans', sans-serif;
-        font-size: 12px;
-        margin-top: 5px;
-        background-color: #4AACD1;
-      }
-
-      .listpadding {
-        padding: 0px 30px;
-      }
-
-      @media (max-width: 820px) {
-        #ulLinks {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        #search {
-          visibility: hidden;
-          font-size: 0px;
-        }
-
-        
-        
-
-        /* .a{
-
-  font-size: 2px;
-  padding: 0px;
-  margin:0px;
-}
-.input1{
-  font-size: 2px;
-  padding: 0px;
-  margin:0px;
-
-
-}
-.b{
-
-  font-size: 2px;
-  padding: 0px;
-  margin:0px;
-}
-.input2{
-  font-size: 2px;
-  padding: 0px;
-  margin:0px;
-
-}
-.searchbar{
-  padding:0px;
-}
-.searchbar-items{
-  padding:0px;
-}
-
-.listpadding{
-  padding:0px;
-}
-.searchicon {
-  padding-left: 93%;
-}
-.languageicon{
-  padding-left: 93%;
-}
-.sellicon{
-  padding-left: 90%;
-} */
-
-      }
-
-      .mobile{
-          visibility: hidden;
-          
-        }
-
-        .mobileshow{
-          visibility: none;
-        }
-    </style>
-  </head>
-
-  <body>
-    <div id="container">
-      <div class="row">
-        <div class="container" id="subcontainer-1">
-          <%# <nav>
-        <nav-item>Home</nav-item>
-        <nav-item>Our Team</nav-item>
-        <nav-item>About Us</nav-item>
-        <nav-item>Contact</nav-item>
-      </nav> %>
-          <img class="iconbig" src="/images/3.png" alt="img1" />
-        </div>
-        <div class="container col text-center" id="subcontainer-2">
-          <div>
-            <img class="iconavg" src="/images/Bech Daal Logo.png" alt="img1" /> <span class="title">BECH DAAL</span>
-          </div>
-          <% if (message.length > 0) { %>
-          <div class="alert alert-danger"><%= message %></div>
-          <% } %>
-          <form action="/signup" method="post" class="signupForm">
-            <div class="card">
-                
-              <div class="inputContainer" style="width:70%">
-                <label class="text-muted">You are a ?</label>
-                <br />
-                <div style="padding-left: 20px; ">
-                  <input  type="radio" id="Seller" name="Person" value="Seller">
-                  <label for="Seller" >Seller</label><br>
-                  <input type="radio" id="User" name="Person" value="User" checked>
-                  <label for="User">User</label><br>                
-                </div>
-              </div>
-            </div>
-
-            
-            <div class="card">
-              <div class="iconContainer">
-                <p><i class="fa fa-user" aria-hidden="true"></i></p>
-              </div>
-              <div class="inputContainer" style="width:70%">
-                <label class="text-muted">Enter Username</label>
-                <br />
-                <input class="input i-name" type="text" id="username_ipt" name="username" placeholder="Type Here" minlength="5" required pattern='^[a-zA-Z0-9]+([_-]?[a-zA-Z0-9])*$'>
-              </div>
-              <div class="checkboxCont">
-                <i class="fas fa-check-circle name-check" style="margin-left: 30px; visibility: hidden"></i>
-              </div>
-            </div>
-            <div class="text-muted text-center" style="text-align: left; font-size:12px;">
-              Username should contain:
-              <ul style="list-style: none;">
-                <li>Minimum 5 characters</li>
-                <li>No special characters other than - and _ , which should<br /> be again followed by text</li>
-              </ul>
-            </div>
-            <div class="card">
-              <div class="iconContainer">
-                <p><i class="fa fa-envelope" aria-hidden="true"></i>
-                </p>
-              </div>
-              <div class="inputContainer" style="width:70%">
-                <label class="text-muted">Enter Email/Mobile No.</label>
-                <br />
-                <input class="input i-email" id="email_ipt" name="email" placeholder="Type Here" required pattern="^(([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)|\d{10})$">
-              </div>
-              <div class="checkboxCont">
-                <i class="fas fa-check-circle mail-check" style="margin-left: 30px; visibility: hidden"></i>
-              </div>
-            </div>
-            <div class="card">
-              <div class="iconContainer">
-                <p><i class="fa fa-key" aria-hidden="true"></i>
-                </p>
-              </div>
-              <div class="inputContainer" style="width:70%">
-                <label class="text-muted">Set a Password</label>
-                <br />
-                <input class="input" type="password" name="password" id="password" placeholder="Type Here">
-              </div>
-              <div class="checkboxCont">
-                <i class="fas fa-eye" id="togglePass" style="margin-left: 30px;"></i>
-              </div>
-            </div>
-            <div class="text-muted text-center" style="text-align: left; font-size:12px">
-              Password should contain:
-              <ul style="list-style: none;">
-                <li>Minimum 6 characters</li>
-                <li>One Uppercase letter</li>
-                <li>One Lowercase letter</li>
-                <li>One digit</li>
-                <li>One Special symbol</li>
-              </ul>
-
-              <div id='mobile' class="card mobile" >           
-                <div class="iconContainer">
-                  <p> <i class="fa fa-2x fa-mobile" style="color: black;" aria-hidden="true"></i>
-                  </p>
-                </div>
-                <div class="inputContainer" style="width:70%">
-                  <label class="text-muted" style="padding-top: 10px;">Mobile Number</label>
-                  <br />
-                  <input type="tel" id="phone" name="phone" >
-                </div>
-              </div>
-              
-            </div>
-            <div class="card2">
-              <a id="haveAccount" href="/login">Already have an account</a>
-            </div>
-            <div class="card3">
-              <button id="signupBtn" class="signupBtn" type="submit">Sign Up</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <!-- <script>
-      const signupForm = document.querySelector('.signupForm')
-      const username = document.getElementById('username_ipt');
-      const email = document.getElementById('email_ipt');
-      const password = document.getElementById('password_ipt');
-      signupForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        const url = 'http://localhost:3001/signup';
-        var payload = {
-          email: email,
-          password: password,
-          username: username
-        };
-
-
-
-        fetch(url, {
-          method: "post",
-          body: JSON.stringify({
-            payload
-          })
-        })
-          .then(response => response.text())
-          .then(response => console.log(response))
-          .catch(err => console.log(err))
-      })
-    </script> -->
-  </body>
-
-  <script src="/js/login-signup.js" charset="utf-8">
-  </script>
-  <script>
-    $(document).ready(function(){
-      $("#Seller").click(function(){
-        $("#mobile").removeClass("mobile");
-        
-      });
-      $("#User").click(function(){
-        $("#mobile").addClass("mobile");
-        
-      });
-    });
-    </script>
-
-  <%-include("partials/footer")-%>
+<%-include("partials/footer")-%>

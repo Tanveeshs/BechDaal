@@ -1,103 +1,64 @@
 <%-include('partials/miniheader')-%>
 
 <head>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/showad.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <title><%=ad.title%></title>
 </head>
 
-<body>
-  <br>
-  <br>
-  <div style="width: 100%;">
-    <div class="info">
-      <h3>
-        <center>Title: <%=ad.title%></center>
+<br>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-6">
+      <h3 style="text-align: center">
+        <%=ad.title%>
       </h3>
       <hr class="hrtitle">
-      <h4>
-        <center>
+      <h4 style="text-align: center">
           <span style="font-size: 28px;font-weight: bold;"><i>₹</i></span> <span id="priceContainer"><%=ad.price%></span>
-        </center>
       </h4>
       <br>
       <br>
-      <p>Category: <%=ad.category%></p>
-      <p>Sub-Category: <%=ad.sub_category%></p>
-      <p>Model: <%=ad.model%> </p>
-      <p>Brand: <%=ad.brand%></p>
-      <p>Usage Period: </p>
-      <p>Description: <%=ad.description%></p>
+      <p class="betterfont">Category: <%=ad.category%></p>
+      <% if (ad.sub_category){ %>
+      <p class="betterfont">Sub-Category: <%=ad.sub_category%></p>
+      <%   } %>
+      <p class="betterfont">Quantity: <%=ad.model%> </p>
+      <p class="betterfont">Description:</p>
+        <p style="font-size: 1.2rem"><%=ad.description%></p>
+      <p>
+        <% if (typeof user !== "undefined") { %>
+          Contact Number : <%= ad.user.ContactNumber %>
+        <% }  else {  %>
+          <a href="/login">You need to login to view seller contact details</a>
+        <% } %>
+      </p>
     </div>
-    <div class="imgchange ">
-      <div class="container">
-        <div class="mySlides text-center">
-          <div class="numbertext">1 / 6</div>
-          <img src="<%= ad.cover_photo %>" class="Size" alt="<%= ad.cover_photo %>">
-        </div>
-        <%for(i=0;i<ad.images.length;i++){%>
-        <div class="mySlides text-center">
-          <div class="numbertext"><%=i+1%> / 6</div>
-          <img src="<%= ad.images[i] %>" class="Size" alt="<%= ad.images[i]%>">
-        </div>
-        <%}%>
-      <a class="prev" onclick="plusSlides(-1)">❮</a>
-      <a class="next" onclick="plusSlides(1)">❯</a>
-      <div class="row text-center" style="margin-top: 10px;">
-        <div class="column ml-auto">
-          <img class="demo cursor" src="<%= ad.cover_photo %>" style="width:60%" onclick="currentSlide(1)" alt="<%= ad.cover_photo %>">
+    <div class="col-md-6">
+      <div class="mySlides text-center">
+        <img src="<%= ad.cover_photo %>" class="Size" alt="<%= ad.cover_photo %>">
       </div>
       <%for(i=0;i<ad.images.length;i++){%>
-      <div class="column mr-auto">
-        <img class="demo cursor" src="<%=ad.images[i]%>" style="width:60%" onclick="'currentSlide(" +(i+1)+")'" alt="<%=ad.images[i]%>">
+      <div class="mySlides text-center">
+        <div class="numbertext"><%=i+1%> / 6</div>
+        <img src="<%= ad.images[i] %>" class="Size" alt="<%= ad.images[i]%>">
       </div>
       <%}%>
+      <a class="prev" onclick="plusSlides(-1)">❮</a>
+      <a class="next" onclick="plusSlides(1)">❯</a>
+      <div class="row ml-auto" style="margin-top: 10px;">
+        <div class="column">
+          <img class="demo cursor" src="<%= ad.cover_photo %>" style="width:80px;height:80px" onclick="currentSlide(1)" alt="<%= ad.cover_photo %>">
+        </div>
+        <%for(i=0;i<ad.images.length;i++){%>
+        <div class="column mr-auto" style="padding-left: 20px">
+          <img class="demo cursor" src="<%=ad.images[i]%>" style="width:80px;height:80px" onclick="currentSlide(<%=(i+2)%>)" alt="<%=ad.images[i]%>">
+        </div>
+        <%}%>
       </div>
+
     </div>
   </div>
 </div>
-<div class="iconsbottom text-center">
-  <button class="btn btn-info a">
-    Chat with Seller <span style="font-size: 20px;" class="fa fa-wechat"></span>
-  </button>
-  <button type="button" class="btn btn-success a"  data-toggle="modal" data-target="#exampleModalCenter">
-    Make an Offer <span style="font-size: 20px;" class="fa fa-handshake-o"></span>
-  </button>
-</div>
-  <center>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Make an offer</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <%if  (typeof user !='undefined') {%>
-      <form method="POST" action="/offers/<%=ad._id%>">
-        <input type="text" name="adId" value="<%=ad._id%>" style="display:none">
-        <input type="text" name="sellerId" value="<%=ad.user._id%>" style="display:none">
-        Select offer price : <input name='offer_price' type="number" min="<%=ad.price - 0.10*ad.price %>" max="<%=ad.price + 0.10*ad.price  %>">
-    </div>
-    <div class="modal-footer">
-      <button type="submit" class="btn btn-primary">Confirm</button>
-    </div>
-    </form>
-    <%} else {%>
-    <div class="alert alert-danger" role="alert">
-      You need to <a href='/login'>Login</a>.
-    </div>
-  </div>
-  <%}%>
-  </div>
-  </div>
-  </div>
-  </center>
-  <% include partials/footer.ejs%>
-  <script src="/js/showad.js" charset="utf-8"></script>
+<% include partials/footer.ejs%>
+<script src="/js/showad.js" charset="utf-8"></script>

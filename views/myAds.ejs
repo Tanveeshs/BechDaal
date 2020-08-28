@@ -2,46 +2,50 @@
 <%-include("partials/sidebar")-%>
 <head>
   <meta charset="utf-8">
-  <title></title>
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"
-          integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
-          integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd"
-          crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <title>My Ads</title>
   <link rel="stylesheet" href="/css/myads.css">
 </head>
 
+<style>
+  @media (max-width: 640px) {
+    .something1 {
+      margin-left: 0px;
+    }
+  }
+  .something1 {
+    margin-left: 17%;
+  }
+
+</style>
 <body>
-<div class="container" style="margin-left: 17%; z-index: 5;">
-    <div class="spacing">
-    <table class="table-striped" >
-      <thead>
-        <tr>
-          <th scope="col" style="text-align: right">Ads left</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Free</td>
-          <td><%= user.noOfFreeAds %></td>
-        </tr>
-        <tr>
-          <td>Paid</td>
-          <td><%= user.noOfPaidAds %></td>
-        </tr>
-        <tr>
-          <td>Featured</td>
-          <td><%= user.noOfFeaturedAds %></td>
-        </tr>
-      </tbody>
-    </table>
-</div>
+<div style="z-index: 5;">
+
+  <!--  <div class="spacing">-->
+  <!--    <table class="table-striped" >-->
+  <!--      <thead>-->
+  <!--      <tr>-->
+  <!--        <th scope="col" style="text-align: right">Ads left</th>-->
+  <!--      </tr>-->
+  <!--      </thead>-->
+  <!--      <tbody>-->
+  <!--      <tr>-->
+  <!--        <td>Free</td>-->
+  <!--        <td><%= user.noOfFreeAds %></td>-->
+  <!--      </tr>-->
+  <!--      <tr>-->
+  <!--        <td>Paid</td>-->
+  <!--        <td><%= user.noOfPaidAds %></td>-->
+  <!--      </tr>-->
+  <!--      <tr>-->
+  <!--        <td>Featured</td>-->
+  <!--        <td><%= user.noOfFeaturedAds %></td>-->
+  <!--      </tr>-->
+  <!--      </tbody>-->
+  <!--    </table>-->
+  <!--  </div>-->
 
   <div class="row" id="main">
-
-    <%if (ads.length==0){%>
+    <%if (ads.length===0){%>
       <div style="text-align: center;">
         <div class="jumbotron jumbotron-fluid">
           <div class="container">
@@ -51,24 +55,9 @@
         </div>
       </div>
     <%} else {%>
-      <div class="mainContent row">
+      <div class="mainContent row something1 something2">
+
       </div>
-      <!--      <div id='<!%=ad._id%!>' onclick='editad(this)' class="col-md-4 col-sm-12 paddings">-->
-      <!--        <div class="card bg-danger text-white car mx-auto">-->
-      <!--          <div class="card-body">-->
-      <!--            <img class="Img mx-auto" style="text-align: center;" src="/<!%= ad.cover_photo.filename %!>"-->
-      <!--              alt="/<!%= ad.cover_photo.filename %!>" />-->
-      <!--            <br />-->
-      <!--            <label for="title" class="text">Title</label>-->
-      <!--            <label for="" class="label-text"><!%=ad.title%!>-->
-      <!--            </label>-->
-      <!--            <br />-->
-      <!--            <label for="title">Date posted</label>-->
-      <!--            <label for="" class="label-text"><!%=ad.date_posted%!></label>-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <!--      <!%})%!>-->
     <%}%>
 
   </div>
@@ -79,7 +68,7 @@
         <span class="sr-only">Previous</span>
       </a>
     </li>
-    <li class="page-item"><a id="first"class="page-link" href="#">1</a></li>
+    <li class="page-item"><a id="first" class="page-link" href="#">1</a></li>
     <li id="next" class="page-item">
       <a class="page-link" href="#" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
@@ -87,6 +76,8 @@
       </a>
     </li>
   </ul>
+  <br>
+  <br>
 </div>
 <script type="text/javascript">
   function editad(input) {
@@ -117,16 +108,17 @@
       console.log(data)
       let s = data.slice(0,2);
       for(let i=0;i<2;i++){
+        let date = new Date(s[i].date_posted).toDateString()
         $(".mainContent").append(
-
-                "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-md-4 col-sm-12 paddings'>\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> <img class='Img mx-auto' style='text-align: center;' src='"+s[i].cover_photo+" %>' />\
+                "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-md-4 col-sm-12 paddings' style='width:500px;height:500px;' >\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> " +
+                "<center><img class='Img mx-auto' style='' src='"+s[i].cover_photo+" %>' /> </center>\
                     <br />\
                     <label for='title' class='text'>Title</label>\
                     <label for='' class='label-text'>"+s[i].title+"\
                     </label>\
                     <br />\
                     <label for='title'>Date posted</label>\
-                    <label for='' class='label-text'>"+s[i].date_posted+"</label>\
+                    <label for='' class='label-text'>"+date+"</label>\
                     <form method='POST' id='form"+s[i]._id+"' action='/sell/editad/view'>\
                     <input type='hidden' name='adid' value='"+s[i]._id+"'>\
                     </form>\
@@ -155,15 +147,17 @@
       let s = data.slice(2*page,2*page+2)
       $(".mainContent").empty();
       for (let i = 0; i < 2; i++) {
+        let date = new Date(s[i].date_posted).toDateString()
         $(".mainContent").append(
-                "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-md-4 col-sm-12 paddings'>\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> <img class='Img mx-auto' style='text-align: center;' src='"+s[i].cover_photo+" %>' />\
+                "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-md-4 col-sm-12 paddings' style='width:500px;height:500px;' >\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> " +
+                "<center><img class='Img mx-auto' style='' src='"+s[i].cover_photo+" %>' /> </center>\
                     <br />\
                     <label for='title' class='text'>Title</label>\
                     <label for='' class='label-text'>"+s[i].title+"\
                     </label>\
                     <br />\
                     <label for='title'>Date posted</label>\
-                    <label for='' class='label-text'>"+s[i].date_posted+"</label>\
+                    <label for='' class='label-text'>"+date+"</label>\
                     <form method='POST' id='form"+s[i]._id+"' action='/sell/editad/view'>\
                     <input type='hidden' name='adid' value='"+s[i]._id+"'>\
                     </form>\
@@ -186,15 +180,17 @@
       let s = data.slice(2*page,2*page+2)
       $(".mainContent").empty();
       for (let i = 0; i < 2; i++) {
+        let date = new Date(s[i].date_posted).toDateString()
         $(".mainContent").append(
-                "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-md-4 col-sm-12 paddings'>\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> <img class='Img mx-auto' style='text-align: center;' src='"+s[i].cover_photo+" %>' />\
+                "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-md-4 col-sm-12 paddings' style='width:500px;height:500px;' >\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> " +
+                "<center><img class='Img mx-auto' style='' src='"+s[i].cover_photo+" %>' /> </center>\
                     <br />\
                     <label for='title' class='text'>Title</label>\
                     <label for='' class='label-text'>"+s[i].title+"\
                     </label>\
                     <br />\
                     <label for='title'>Date posted</label>\
-                    <label for='' class='label-text'>"+s[i].date_posted+"</label>\
+                    <label for='' class='label-text'>"+date+"</label>\
                     <form method='POST' id='form"+s[i]._id+"' action='/sell/editad/view'>\
                     <input type='hidden' name='adid' value='"+s[i]._id+"'>\
                     </form>\

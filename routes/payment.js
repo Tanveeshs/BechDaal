@@ -10,6 +10,14 @@ const crypto = require('crypto')
 const User = require('../model/user').User
 const sanitize = require("mongo-sanitize");
 
+Router.get('/buyad',function(req, res) {
+    res.render('buyAds.ejs', {
+        user: req.user
+    });
+
+});
+
+
 //Payment Route for Featured Ad and Normal Ad
 //Params: quantity & type
 Router.post('/ad',function (req,res){
