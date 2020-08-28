@@ -76,7 +76,7 @@ searchRouter.post('/main', function(req, res, next) {
   query.$and.push({'rejected.val':false})
   //Low to high
   let page = 0 || req.body.page;
-  if(req.body.sorting === 1){
+  if(parseInt(req.body.sorting) === 1){
 
     Ads.find(query, function(err,result){
       if(err){
@@ -93,7 +93,7 @@ searchRouter.post('/main', function(req, res, next) {
     }).sort({price:1}).limit(9).skip(9*page)
   }
   //High To low
-  if(req.body.sorting === 2){
+  if(parseInt(req.body.sorting) === 2){
     Ads.find(query, function(err,result){
       if(err){
         console.log(err);
@@ -109,7 +109,7 @@ searchRouter.post('/main', function(req, res, next) {
     }).sort({price:-1}).limit(9).skip(9*page)
   }
   //Most Recent
-  if(req.body.sorting === 3){
+  if(parseInt(req.body.sorting) === 3){
     Ads.find(query, function(err,result){
       if(err){
         console.log(err);

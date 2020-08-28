@@ -92,6 +92,7 @@ adRouter.get('/ads/post', isLoggedIn,isSeller,function(req, res) {
 adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
     multerMid(req, res,(err) => {
         console.log(req.files)
+        console.log(req.body)
         if (req.body.featured) {
             if (req.user.noOfFeaturedAds > 0) {
                 if (err) {
@@ -149,6 +150,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                             cover_photo: cover_photo,
                                             price: req.body.price,
                                             user: req.user,
+                                            deliverableAreas:req.body.delivery,
                                             featured:true,
                                             isPaid:2,
                                             images: remaining_images,
@@ -181,7 +183,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                     } else {
                                         console.log(results.userUpdate.user)
                                         req.user = results.userUpdate.user
-                                        res.render("afterPostAd.ejs")
+                                        res.render("afterPostAd.ejs",{user:req.user})
                                     }
                                 })
                             }
@@ -244,6 +246,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                             model: req.body.model,
                                             cover_photo: cover_photo,
                                             price: req.body.price,
+                                            deliverableAreas:req.body.delivery,
                                             user: req.user,
                                             featured: false,
                                             images: remaining_images,
@@ -277,7 +280,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                     } else {
                                         console.log(results.userUpdate.user)
                                         req.user = results.userUpdate.user
-                                        res.render("afterPostAd.ejs")
+                                        res.render("afterPostAd.ejs",{user:req.user})
                                     }
                                 })
                             }
@@ -336,6 +339,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                             sub_category: req.body.subcategory,
                                             model: req.body.model,
                                             cover_photo: cover_photo,
+                                            deliverableAreas:req.body.delivery,
                                             price: req.body.price,
                                             user: req.user,
                                             featured: false,
@@ -370,7 +374,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                     } else {
                                         console.log(results.userUpdate.user)
                                         req.user = results.userUpdate.user
-                                        res.render("afterPostAd.ejs")
+                                        res.render("afterPostAd.ejs",{user:req.user})
                                     }
                                 })
                             }

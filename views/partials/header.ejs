@@ -11,6 +11,8 @@
   <!--JQUERY UI-->
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Montserrat:wght@700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+
   <!--  Font Awesome CDN-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -73,6 +75,7 @@
         <p class="a">Want something?</p>
       </li>
       <form class = "form-inline" action="/search/main" method="POST">
+        <input type="hidden" value="1" name="sorting">
         <input name="searchInput" id="InputBar" class="input1" style="display: inline" onkeyup="showResults(this.value)" type="text" placeholder="Type Here" />
         <p class="b">In?</p>
         <select onchange="print_city('state', this.selectedIndex);" id="sts" name ="stt" class="form-control" style="margin:0 5px 10px 5px"></select>

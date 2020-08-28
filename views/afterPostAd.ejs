@@ -1,15 +1,14 @@
 <%-include('partials/miniheader')-%>
+
 <div class="container">
-    <%# <h2>Your Ad has been Submitted for verification.
-        It will soon be live on our website
-    </h2> %>
-
-
     <div class="jumbotron">
         <h1 class="display-4">Thank You!</h1>
-        <p class="lead">Your Ad has been ubmitted for verification.
+
+        <p class="lead">Your Ad has been submitted for verification.
             It will soon be live on our website.</p>
         <hr class="my-4">
+<!--        This is done just to embed user object for the footer-->
+        <input type="hidden" value="<%=user.LoginTime%>">
     </div>
 </div>
 <%-include("partials/footer")-%>
