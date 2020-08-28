@@ -16,7 +16,25 @@ module.exports = function(app, passport) {
         console.log(err);
         return returnErr(res, "Error", "Our server ran into an error please try again")
       }
-      res.render('index.ejs', {
+      if(req.user){
+
+        if(req.user.local){
+          if(req.user.local.isVerified){
+            return res.render('index.ejs', {
+              user: req.user,
+              categries:result,
+            });
+          }
+          else {
+            return res.render('index.ejs', {
+              user: undefined,
+              categries:result,
+            });
+          }
+        }
+
+      }
+      return res.render('index.ejs', {
         user: req.user,
         categries:result,
       });
@@ -52,18 +70,25 @@ module.exports = function(app, passport) {
 
 
   //Use projections
-  app.get('/verify',isLoggedIn, function(req, res) {
-    User.findOne({
-      'local.email': req.user.local.email
-    },{'local.email':1,'local.isVerified':1}, function(err, user) {
-      if (user.local.isVerified) {
-        res.redirect('/');
-      } else {
-        res.render('verify.ejs', {
-          user: req.user // get the user out of session and pass to template
+  app.get('/verify', function(req, res) {
+    if(req.user){
+      if(req.user.local) {
+        User.findOne({
+          'local.email': req.user.local.email
+        }, {'local.email': 1, 'local.isVerified': 1}, function (err, user) {
+          if (user.local.isVerified) {
+            return res.redirect('/');
+          } else {
+            req.user = null;
+            return res.render('verify.ejs', {
+              email: user.local.email
+            });
+          }
+
         });
       }
-    });
+    }
+    return returnErr(res,'Invalid Link','You have entered an invalid link')
   });
   app.get('/logout', function(req, res) {
     req.logout();
@@ -90,7 +115,7 @@ module.exports = function(app, passport) {
 
 function isLoggedIn(req, res, next) {
   try {
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated() && req.user.local.isVerified) {
       return next();
     }
     res.redirect('/login');
@@ -104,11 +129,18 @@ function isNotLoggedIn(req,res,next){
     if (!req.isAuthenticated()) {
       return next();
     }
+    if(req.user.local){
+      if(!req.user.local.isVerified){
+        return next();
+      }
+    }
     res.redirect('/');
   }catch (e){
     console.log(e)
   }
 }
+
+
 function returnErr(res,message,err){
   res.render('error.ejs',{
     message:message,
