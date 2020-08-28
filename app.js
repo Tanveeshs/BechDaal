@@ -60,6 +60,7 @@ const payment = require('./routes/payment')
 const docsRouter = require('./routes/docs')
 const sitemapRouter = require('./routes/sitemap')
 const contactRouter = require('./routes/contact')
+const buyads = require('./routes/buyads')
 // const test = require('./routes/test');
 // const smsverify = require('./routes/sms');
 // const xg = require('./routes/searchRoute');
@@ -85,6 +86,7 @@ app.use('/reviews',ratingsAndReviews)
 app.use('/docs',docsRouter)
 app.use('/sitemap',sitemapRouter)
 app.use('/contact',contactRouter)
+app.use('/buyads',buyads)
 
 
 app.get('/test',(req,res)=>{
