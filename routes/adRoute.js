@@ -792,10 +792,34 @@ adRouter.route('/delete')
             })
     })
 
+    adRouter.post('/usertoseller', isLoggedIn,function(req, res) {
+      User.findOneAndUpdate({_id:String(req.user._id)},
+          function(err,user){
+              if(err){
+                  return res.send(err)
+              }
+              else{
+              if (!user.isSeller) {
+                  if(typeof(req.body.contactnumber)!='undefined'){
+                    user.ContactNumber = req.body.contactnumber
+                    user.isSeller = true
+                  }
+                  else{
+                    res.send("Enter a valid Contact Number")
+                  }
+              }
+              else{
+                res.send("You are already a seller")
+              }
+
+            }
+              req.user = user
+          } )
+    });
 
 function isLoggedIn(req, res, next) {
     try {
-        if (req.isAuthenticated()) {
+        if (req.isAuthenticated() && req.user.isVerified ) {
             return next();
         }
         res.redirect('/login');
