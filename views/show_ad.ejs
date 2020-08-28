@@ -26,11 +26,18 @@
       <br>
       <br>
       <p>Category: <%=ad.category%></p>
+      <% if (ad.sub_category){ %>
       <p>Sub-Category: <%=ad.sub_category%></p>
-      <p>Model: <%=ad.model%> </p>
-      <p>Brand: <%=ad.brand%></p>
-      <p>Usage Period: </p>
+      <%   } %>
+      <p>Quantity: <%=ad.model%> </p>
       <p>Description: <%=ad.description%></p>
+      <p>
+        <% if (typeof user !== "undefined") { %>
+         Contact Number : <%= ad.user.ContactNumber %> 
+        <% }  else {  %>
+        <a href="/login">You need to login to view seller contact details</a>
+        <% } %>
+      </p>
     </div>
     <div class="imgchange ">
       <div class="container">
@@ -59,45 +66,5 @@
     </div>
   </div>
 </div>
-<div class="iconsbottom text-center">
-  <button class="btn btn-info a">
-    Chat with Seller <span style="font-size: 20px;" class="fa fa-wechat"></span>
-  </button>
-  <button type="button" class="btn btn-success a"  data-toggle="modal" data-target="#exampleModalCenter">
-    Make an Offer <span style="font-size: 20px;" class="fa fa-handshake-o"></span>
-  </button>
-</div>
-  <center>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Make an offer</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <%if  (typeof user !='undefined') {%>
-      <form method="POST" action="/offers/<%=ad._id%>">
-        <input type="text" name="adId" value="<%=ad._id%>" style="display:none">
-        <input type="text" name="sellerId" value="<%=ad.user._id%>" style="display:none">
-        Select offer price : <input name='offer_price' type="number" min="<%=ad.price - 0.10*ad.price %>" max="<%=ad.price + 0.10*ad.price  %>">
-    </div>
-    <div class="modal-footer">
-      <button type="submit" class="btn btn-primary">Confirm</button>
-    </div>
-    </form>
-    <%} else {%>
-    <div class="alert alert-danger" role="alert">
-      You need to <a href='/login'>Login</a>.
-    </div>
-  </div>
-  <%}%>
-  </div>
-  </div>
-  </div>
-  </center>
   <% include partials/footer.ejs%>
   <script src="/js/showad.js" charset="utf-8"></script>
