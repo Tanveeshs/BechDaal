@@ -1,14 +1,38 @@
-body{
-    margin:0;
-    padding:0;
+
+body {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
-form{
-    width:90%;
-    justify-content: center;
-}
-h2{
+
+form {
+    margin: 1% 30%;
+    width: 50%;
     align-self: center;
-
 }
 
+.buyAd_card {
+    padding: 20px;
+    width: 70%;
+    margin-top: 10px;
+    border: 1px solid black;
+    box-shadow: 5px 5px 5px lightgray;
+}
+
+.calculate {
+    padding: 3px;
+    width: 110px;
+    background-color: rgb(29, 142, 207);
+    color: white;
+    border: 1px solid white
+}
+
+.submit {
+    padding: 3px;
+    background-color: rgb(29, 142, 207);
+    color: white;
+    width: 200px;
+    margin-left: 28%;
+    border: 1px solid white;
+    border-radius: 6px;
+}
