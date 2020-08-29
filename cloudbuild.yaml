@@ -21,6 +21,8 @@ steps:
       - 'google_client_secret=${_GOOGLE_CLIENT_SECRET}'
       - 'facebook_client_id=${_FACEBOOK_CLIENT_ID}'
       - 'facebook_client_secret=${_FACEBOOK_CLIENT_SECRET}'
+      - 'forgot_password_secret=${_FORGOT_PASSWORD_SECRET}'
+      - 'verify_mail_secret=${_VERIFY_MAIL_SECRET}'
 #  - name: node:10.15.1
 #    entrypoint: npm
 #    args: ["run", "createJSON"]
