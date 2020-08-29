@@ -16,7 +16,12 @@
 </head>
 <style>
   .something1 {
-    margin-left: 7%;
+    margin-left: 14%;
+  }
+  @media (max-width: 640px) {
+    .something1 {
+      margin-left: -10px;
+    }
   }
 </style>
 
@@ -84,12 +89,12 @@
       s = data.slice(0, 3)
       for (let i = 0; i < 3; i++) {
         $(".mainContent").append(
-          "<div class='col-md-4 col-sm-12 paddings' style='margin-left: 5%;' onclick='openAd(this)' id='" + s[i]._id + "'>\
+          "<div class='col-md-4 col-sm-12 paddings' onclick='openAd(this)' id='" + s[i]._id + "'>\
                 <form action='/sell/show' method='post' id='form"+ s[i]._id + "'>\
                 <input type='hidden' value='"+ s[i]._id + "' name='adId'>\
                 <div class='card text-white car mx-auto'>\
                   <div class='card-body'>\
-                    <img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'>\
+                    <center><img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'></center>\
                     <br>\
                     <label for='title' class='text'>Title</label>\
                     <label for='' class='label-text'>" + s[i].title + "</label>\
@@ -126,12 +131,12 @@
       $(".mainContent").empty();
       for (let i = 0; i < 3; i++) {
         $(".mainContent").append(
-          "<div class='col-md-4 col-sm-12 paddings' style='margin-left: 5%;' onclick='openAd(this)' id='" + s[i]._id + "'>\
+          "<div class='col-md-4 col-sm-12 paddings' onclick='openAd(this)' id='" + s[i]._id + "'>\
               <form action='/sell/show' method='post' id='form"+ s[i]._id + "'>\
               <input type='hidden' value='"+ s[i]._id + "' name='adId'>\
                 <div class='card text-white car mx-auto'>\
                   <div class='card-body'>\
-                    <img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'>\
+                    <center><img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'></center>\
                     <br>\
                     <label for='title' class='text'>Title</label>\
                     <label for='' class='label-text'>" + s[i].title + "</label>\
@@ -161,12 +166,12 @@
       $(".mainContent").empty();
       for (let i = 0; i < 3; i++) {
         $(".mainContent").append(
-          "<div class='col-md-4 col-sm-12 paddings' style='margin-left: 5%;' onclick='openAd(this)' id='" + s[i]._id + "'>\
+          "<div class='col-md-4 col-sm-12 paddings' onclick='openAd(this)' id='" + s[i]._id + "'>\
           <form action='/sell/show' method='post' id='form"+ s[i]._id + "'>\
               <input type='hidden' value='"+ s[i]._id + "' name='adId'>\
                   <div class='card text-white car mx-auto'>\
                     <div class='card-body'>\
-                      <img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'>\
+                      <center><img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'></center>\
                       <br>\
                       <label for='title' class='text'>Title</label>\
                       <label for='' class='label-text'>" + s[i].title + "</label>\

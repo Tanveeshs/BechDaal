@@ -90,29 +90,35 @@
         </center>
       </div>
     </div>
-    <div style="padding-left:3%">
-      Previous Photos
-      <table>
-        <tr>
-          <% ad[0].images.forEach((image,i)=>{%>
-          <td class="vis0">
-            <div style="position:relative">
-              <img id="blah0" class="Img" src="<%=image%>" alt="image" /><br>
-              <span class="fileLabel"></span>
-            </div>
-          </td>
-          <%if (i%3==0){%>
-        </tr>
-        <tr>
-          <%}%>%>
-          <%})%>
-        </tr>
-      </table>
-    </div>
+
 
     <div class="row">
+        <hr>
+        <div class="col-md-6">
+            <br>
+            <div style="padding-left:3%">
+              Previous Photos
+              <br>
+              <table>
+                <tr>
+                  <% ad[0].images.forEach((image,i)=>{%>
+                  <td class="vis0">
+                    <div style="position:relative">
+                      <img id="blah0" class="Img" src="<%=image%>" alt="image" /><br>
+                      <span class="fileLabel"></span>
+                    </div>
+                  </td>
+                  <%if (i%3==0){%>
+                </tr>
+                <tr>
+                  <%}%>%>
+                  <%})%>
+                </tr>
+              </table>
+            </div>
+        </div>
       <div class="col-md-6">
-        <hr />
+
         <br>
         <label style="padding-left:3%;padding-right:20%;" for="images">Upload images of your device (maximum of 9) </label>
         <br>
@@ -227,16 +233,17 @@
         </div>
         <br>
       </div>
-      <div class="col-md-6">
-      </div>
+
     </div>
     <!-- uploading images here  -->
     <div class="row">
-      <div class="col-md-6">
-        <button type="submit">Submit</button>
+      <div class="col-md-12">
+          <center>
+              <button style="width:50%" type="submit">Submit</button>
+          </center>
+
       </div>
-      <div class="col-md-6">
-      </div>
+
     </div>
   </div>
 </form>
