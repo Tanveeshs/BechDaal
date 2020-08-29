@@ -1,7 +1,7 @@
 module.exports = {
   'googleAuth': {
-    'clientID': '934010560730-jefj4ol40kglpgb62f87ob87mivq6ani.apps.googleusercontent.com',
-    'clientSecret': 'kdEGBP_Gay8s_XpK3hqNf9mG',
+    'clientID': process.env.google_client_id,
+    'clientSecret': process.env.google_client_secret,
     'callbackURL': 'https://bechdaal.tech/auth/google/callback'
   },
   'facebookAuth': {

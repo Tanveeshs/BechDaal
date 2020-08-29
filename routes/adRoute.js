@@ -512,6 +512,7 @@ function editAd(req,res,isPaid,featured){
                         'model': req.body.model,
                         'price': req.body.price,
                         'user': req.user,
+                        'deliverableAreas':req.body.delivery,
                         'cover_photo':cover_photo,
                         'images':remaining_images,
                         'description': req.body.description,
@@ -559,6 +560,10 @@ function editAd(req,res,isPaid,featured){
             if(ad.brand !== req.body.brand){
                 ad.brand = req.body.brand;
                 change=1
+            }
+            if(ad.deliverableAreas !== req.body.delivery){
+                ad.deliverableAreas = req.body.delivery;
+                change=1;
             }
             if(ad.description !== req.body.description){
                 ad.description = req.body.description;
