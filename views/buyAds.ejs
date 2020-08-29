@@ -1,35 +1,36 @@
 <%-include('partials/miniheader')%>
 <%-include('partials/sidebar')%>
+
 <head>
     <link rel="stylesheet" href="/css/buyAds.css">
     <title>Buy Ads</title>
 </head>
-<form method="post" action="/payment/ad">
-    <h2>Register for your Ad space on BechDaal</h2>
-    <h4>Your ads can go live on our site, and will be there for your customers to see!</h4>
-        <div class="buyAd_card">
-            <p style="font-size: 18px;align-self: center;">Select your Ad type</p>
-            <input type="radio" id="f" name="type" value="Featured" />
-            <label for=" featured">Featured Ads (Rs 20 per Ad)</label>
-            <br>
-            <input type="radio" id="uf" name="type">
-            <label for="unfeatured">Un-featured (Rs 10 per Ad)</label>
-            <br>
-            <div style="flex-direction: row;">
-                <input type="number" id="qty" placeholder="Number Of Ads" name="quantity"/>
-                <button class="calculate" onclick="calculate(event)">
-                    Calculate
-                </button>
-            </div>
-            <br>
-            <div>
-                <h4 id="price"></h4>
-            </div>
-            <br>
-            <button class="submit">
-                Submit
+<form class="col-md-6" method="post" action="/payment/ad">
+    <h2 class="head1">Register for your Ad space on BechDaal</h2>
+    <h4 class="head2">Your ads can go live on our site, and will be there for your customers to see!</h4>
+    <div id="buyAd_card" style="width:100%;">
+        <p class="head3" style="font-size: 18px;align-self: center;">Select your Ad type</p>
+        <input type="radio" id="f" name="type" value="Featured" />
+        <label for=" featured">Featured Ads (Rs 20 per Ad)</label>
+        <br>
+        <input type="radio" id="uf" name="type">
+        <label for="unfeatured">Un-featured (Rs 10 per Ad)</label>
+        <br>
+        <div id="flex" style="flex-direction: row;">
+            <input type="number" id="qty" placeholder="Number Of Ads" name="quantity" />
+            <button class="calculate" onclick="calculate(event)">
+                Calculate
             </button>
         </div>
+        <br>
+        <div>
+            <h4 id="price"></h4>
+        </div>
+        <br>
+        <button class="submit">
+            Submit
+        </button>
+    </div>
 </form>
 <script type="text/javascript">
     function calculate(e) {
