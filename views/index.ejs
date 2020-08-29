@@ -188,7 +188,7 @@
             $("#locAds").append("<div class='two2' onclick='editad1(this)' id='" + ad._id + "'>" +
               "<form action='/sell/show' method='post' id='form" + ad._id + "'>" +
               "<input type='hidden' name='adId' value='" + ad._id + "'>" +
-              "<span class='featured' >FEATURED</span>" +
+              "<span class='featured' style='float: left' >FEATURED</span>" +
               "<img class='images2' src='" + ad.cover_photo + "'><span id='icon" + ad._id + "'><i id='black-" + ad._id +
               "' class='fa fa-heart icondisplay  sharethis-inline-share-buttons' aria-hidden='true' style='z-index: 10' onclick='event.stopPropagation();check(this)'></i></span>" +
               "<p class='para'>₹" + ad.price + "</p>" +

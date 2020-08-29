@@ -128,13 +128,13 @@ k{
 }
 
 .featured{
-  background-color:yellow;
-  font-size:15px;
-  position:relative;
-  top:-60px;
-  left:70px;
+  color: #ff8400;
+
+    font-size:15px;
+  /*position:relative;*/
+  /*top:-60px;*/
+  /*left:70px;*/
   font-weight: bold;
-  
 }
 
 .Img{
