@@ -129,14 +129,14 @@
     })
     second.addEventListener('click', () => {
       if (arr.length <= 3) {
-
       } else {
         $("#first").removeClass().addClass('unactiveDot')
         $("#second").removeClass().addClass('activeDot')
         $("#third").removeClass().addClass('unactiveDot')
-          ((arr.length < 6) ? (s = arr.slice(3, arr.length)) : (s = arr.slice(3, 6)))
+        let s;
+        ((arr.length < 6) ? (s = [...arr.slice(3, arr.length)]) : (s = [...arr.slice(3, 6)]))
         $("#cont").empty();
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < s.length; i++) {
           $("#cont").append(
             "<div id='" + s[i].id + "' class='one'>\
             <img class='Img' src = '" + s[i].img + "'> <br>\
@@ -151,10 +151,10 @@
         $("#first").removeClass('.activeDot').addClass('.unactiveDot')
         $("#second").removeClass('.activeDot').addClass('.unactiveDot')
         $("#third").removeClass('.unactiveDot').addClass('.activeDot')
-
-          ((arr.length < 9) ? (s = arr.slice(6, arr.length)) : (s = arr.slice(6, 9)))
+        let s;
+        ((arr.length < 9) ? (s = arr.slice(6, arr.length)) : (s = arr.slice(6, 9)))
         $("#cont").empty();
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < s.length; i++) {
           $("#cont").append(
             "<div id='" + s[i].id + "' class='one'>\
             <img class='Img' src = '" + s[i].img + "'> <br>\
@@ -188,7 +188,7 @@
             $("#locAds").append("<div class='two2' onclick='editad1(this)' id='" + ad._id + "'>" +
               "<form action='/sell/show' method='post' id='form" + ad._id + "'>" +
               "<input type='hidden' name='adId' value='" + ad._id + "'>" +
-              "<span class='featured' >FEATURED</span>" +
+              "<span class='featured' style='float: left' >FEATURED</span>" +
               "<img class='images2' src='" + ad.cover_photo + "'><span id='icon" + ad._id + "'><i id='black-" + ad._id +
               "' class='fa fa-heart icondisplay  sharethis-inline-share-buttons' aria-hidden='true' style='z-index: 10' onclick='event.stopPropagation();check(this)'></i></span>" +
               "<p class='para'>₹" + ad.price + "</p>" +

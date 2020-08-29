@@ -40,6 +40,7 @@ module.exports = function(passport) {
             var newUser = new User();
             newUser.local.email = String.prototype.toLowerCase.apply(email);
             newUser.local.username = username;
+            newUser.local.isVerified = false;
             newUser.local.password = newUser.generateHash(password);
             if(req.body.Person==="Seller"){
               newUser.isSeller = true

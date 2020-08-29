@@ -55,10 +55,8 @@
           </a>
           <%if (user.isSeller===true){%>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
             <a class="dropdown-item" href="/sell" style="font-weight: bold;">Manage my Ads</a>
-            <!--              HREF DENA HAI-->
-            <a href="Buy Ads" class="dropdown-item" style="font-weight: bold;">Buy Ads</a>
+            <a href="/payment/buyad" class="dropdown-item" style="font-weight: bold;">Buy Ads</a>
             <a class="dropdown-item" href="/wish">My Wishlist</a>
             <a class="dropdown-item" href="/myprofile">My Details</a>
             <div class="dropdown-divider"></div>
@@ -72,9 +70,8 @@
         <%} else {%>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-          <a class="dropdown-item" href="/sell" style="font-weight: bold;">Manage my Ads</a>
-          <!--              HREF DENA HAI-->
-          <a href="Buy Ads" class="dropdown-item" style="font-weight: bold;">Buy Ads</a>
+          <a class="dropdown-item" href="/wish">My Wishlist</a>
+          <a class="dropdown-item" href="/myprofile">My Details</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item text-muted" href="/logout"><strong>Log Out</strong></a>
         </div>
@@ -100,15 +97,17 @@
                 Mobile
                 Number.</p>
             </div>
+            <form action="/usertoseller" method="post">
             <div class="inputContainer" style="width:70%">
               <label class="text-muted" style="padding-top: 10px;">Mobile Number</label>
-              <input type="tel" id="phone" name="phone">
+              <input type="tel" id="phone" name="phone" required pattern="[6789][0-9]{9}">
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Become a Seller</button>
+            <button type="submit" class="btn btn-primary">Become a Seller</button>
           </div>
+          </form>
         </div>
       </div>
       <% } %>
@@ -134,6 +133,7 @@
           <input type="hidden" value="1" name="sorting">
           <input name="searchInput" id="InputBar" class="input1" style="display: inline"
             onkeyup="showResults(this.value)" type="text" placeholder="Type Here" />
+          <input type="hidden" name="sorting" value="1">
           <p class="b">In?</p>
           <select onchange="print_city('state', this.selectedIndex);" id="sts" name="stt" class="form-control"
             style="margin:0 5px 10px 5px"></select>

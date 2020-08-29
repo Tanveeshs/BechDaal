@@ -11,7 +11,6 @@ const userSchema = new mongoose.Schema({
     password: String,
     isVerified: {
       type: Boolean,
-      default: false
     }
   },
   noOfFreeAds: {
