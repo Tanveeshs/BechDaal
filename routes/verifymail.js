@@ -12,7 +12,7 @@ const {
 
 //After mail sent Page Left
 router.post('/verifyMail', function(req, res) {
-  var secret = 'fe1a1915a379f3be5394b64d14794932';
+  var secret = process.env.verify_mail_secret;
   //checking for existing mail in database
   if (req.body.email !== '') {
     User.findOne({
@@ -58,7 +58,7 @@ router.post('/verifyMail', function(req, res) {
 
 //handling the link clicked on receiving the confirmation mail
 router.get('/verifyMail/:id/:token', function(req, res) {
-  var secret = 'fe1a1915a379f3be5394b64d14794932';
+  var secret = process.env.verify_mail_secret;
   var payload = jwt.decode(req.params.token, secret);
   // user.findOneAndUpdate({_id:payload.id}, { isVerified: true });
   if (payload.endDate < Date.now()) {
