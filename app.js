@@ -101,7 +101,6 @@ app.get("*",(req,res)=>{
     res.redirect("/")
 })
 
-
 let redis = require('./config/redisConfig').redis
 cron.schedule("0 0 * * *", function() {
   redis.set("DailyCount",0)

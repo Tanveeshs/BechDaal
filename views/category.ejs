@@ -4,15 +4,23 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css"
           integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
     <title>Search Categories</title>
 </head>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+        crossorigin="anonymous" ></script>
 
+<link rel="stylesheet" href="/css/homepage.css">
 
 <style>
     body {
         font-family: 'Nunito', sans-serif;
         margin: 0px;
         padding: 0px;
+        height: 600px;
     }
 
     .flex-container {
@@ -21,20 +29,20 @@
         justify-content: center;
     }
 
-    .two {
-        background-color: #ffffff;
-        width: 330px;
-        height: 250px;
-        margin: 20px 20px;
-        text-align: center;
-        line-height: 75px;
-        font-size: 30px;
-        border: 1px solid black;
-        border-radius: 5px;
-        box-shadow: 4px 4px 4px lightgray;
-    }
+    /*.two {*/
+    /*    background-color: #ffffff;*/
+    /*    width: 330px;*/
+    /*    height: 250px;*/
+    /*    margin: 20px 20px;*/
+    /*    text-align: center;*/
+    /*    line-height: 75px;*/
+    /*    font-size: 30px;*/
+    /*    border: 1px solid black;*/
+    /*    border-radius: 5px;*/
+    /*    box-shadow: 4px 4px 4px lightgray;*/
+    /*}*/
 
-    img {
+    .wimg {
         height: 90px;
         width: 90px;
         background-color: black;
@@ -46,22 +54,6 @@
         float: right;
         padding: 5px;
     }
-
-    p {
-        text-align: left;
-        padding-left: 20px;
-        font-size: 25px;
-        margin: 0px;
-        height: 35px;
-    }
-
-    k {
-        float: right;
-        font-size: 13px;
-        padding: 10px;
-
-    }
-
     /* side navigation menu */
     .sidebar {
         margin: 0;
@@ -91,7 +83,10 @@
         font-family: 'Nunito', sans-serif;
         outline: none;
     }
+    .active1 {
+        background: lightblue;
 
+    }
     /* Active/current link */
     .sidebar a.active {
         background-color: #08c6f5;
@@ -148,81 +143,160 @@
         float: right;
         padding-right: 8px;
     }
+    /*.no-js {*/
+    /*    display: none;*/
+    /*}*/
+    /*.onLoad {*/
+    /*    position: fixed;*/
+    /*    left: 0;*/
+    /*    top: 0;*/
+    /*    width: 100%;*/
+    /*    height: 100%;*/
+    /*    z-index: 100;*/
+    /*    background-color: #82e682;*/
+
+    /*}*/
 </style>
 
 <body>
+
 <div class="sidebar">
     <p style="margin-left: 6%;font-weight: bold;font-size:22px;margin-bottom: 4%;">
         CATEGORIES
     </p>
     <hr style="color:gray;width:90%;box-shadow: 0.3px 0.3px 0.3px lightgray;">
-    <a class="active" style="margin-top:20%;" href="#">Category1</a>
-    <a href="#">Category2</a>
-    <button class="dropdown-btn">Dropdown
-        <i class="fa fa-caret-down" style="margin-left: 20px;"></i>
-    </button>
-    <div class="dropdown-container">
-        <a href="#">Link 1</a>
-        <a href="#">Link 2</a>
-        <a href="#">Link 3</a>
+    <div id="catInsert">
     </div>
-    <a href="#">Category3</a>
-    <a href="#">Category4</a>
 </div>
-<div class="flex-container" id="content">
-    <div class="two">
-        <img></img><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
-        <p>₹ 1000</p>
-        <p>Title</p>
-        <k>Aug 10,2020</k>
-    </div>
-    <div class="two">
-        <img></img><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
-        <p>₹ 1000</p>
-        <p>Title</p>
-        <k>Aug 10,2020</k>
-    </div>
-    <div class="two">
-        <img></img><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
-        <p>₹ 1000</p>
-        <p>Title</p>
-        <k>Aug 10,2020</k>
-    </div>
-    <div class="two">
-        <img></img><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
-        <p>₹ 1000</p>
-        <p>Title</p>
-        <k>Aug 10,2020</k>
-    </div>
-    <div class="two">
-        <img></img><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
-        <p>₹ 1000</p>
-        <p>Title</p>
-        <k>Aug 10,2020</k>
-    </div>
-    <div class="two">
-        <img></img><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
-        <p>₹ 1000</p>
-        <p>Title</p>
-        <k>Aug 10,2020</k>
-    </div>
-    <div class="two">
-        <img></img><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
-        <p>₹ 1000</p>
-        <p>Title</p>
-        <k>Aug 10,2020</k>
-    </div>
-    <div class="two">
-        <img></img><i class="fa fa-heart icondisplay" aria-hidden="true"></i>
-        <p>₹ 1000</p>
-        <p>Title</p>
-        <k>Aug 10,2020</k>
-    </div>
+<div style='right: 10px; position: absolute;'>
+    <span>Sort By:</span>
+    <select name="sorting" id="sorting1" onchange="onChangeSort()">
+        <option value="3">Most Recent</option>
+        <option value="1">Lower To Higher</option>
+        <option value="2">Higher To Lower</option>
+    </select>
 </div>
 <script>
+    let wishlist = []
+</script>
+<%if (user){%>
+    <% user.wishlist.forEach(val=>{ %>
+    <script>
+        wishlist.push("<%=val %>")
+    </script>
+    <%}) %>
+<%}%>
+
+<script>
+    let searchInput1;
+    let category;
+    let locality;
+    <%if(typeof body.searchInput !== 'undefined'){%>
+    searchInput1 = '<%=body.searchInput%>'
+    <%}%>
+    <%if(typeof body.category !== 'undefined'){%>
+    category = '<%=body.category%>'
+    <%}%>
+    <%if(typeof body.locality !== 'undefined'){%>
+    locality = '<%=body.locality%>'
+    <%}%>
+</script>
+
+
+
+<div class="flex-container" id="content" >
+</div>
+
+<button onclick="pageInc()">Show More</button>
+<script>
+    // $(window).load(function () {
+    //     $('.onLoad').fadeOut('slow');
+    //     $('#loader').addClass('no-js')
+    // })
+    // document.onreadystatechange=function () {
+    //     console.log(document.readyState)
+    //     if(document.readyState !== "complete"){
+    //         document.querySelector('body').style.visibility='hidden'
+    //         document.querySelector('#loader').style.visibility = 'visible'
+    //     }
+    //     else {
+    //         document.querySelector('body').style.visibility='visible'
+    //         document.querySelector('#loader').style.display = 'none'
+    //     }
+    // }
+
+    let page=0;
+    let sorting=3;
+    $.ajax({
+        url:'https://bechdaal.tech/search/main',
+        method:'POST',
+        data:{
+            isAjax:'1',
+            sorting:sorting,
+            page:0,
+            searchInput:searchInput1,
+            locality:locality,
+            category:category
+        }
+    }).done(function (result) {
+        if (result.length > 0) {
+            $('#content').empty()
+            result.forEach(ad => {
+                let date = new Date(ad.date_posted).toDateString()
+                if (ad.isPaid === 2) {
+                    $("#content").append("<div class='two2' onclick='editad1(this)' id='" + ad._id + "'>" +
+                        "<form action='/sell/show' method='post' id='form" + ad._id + "'>" +
+                        "<input type='hidden' name='adId' value='" + ad._id + "'>" +
+                        "<span class='featured' style='float: left' >FEATURED</span>" +
+                        "<img class='images2' src='" + ad.cover_photo + "'><span id='icon" + ad._id + "'><i id='black-" + ad._id +
+                        "' class='fa fa-heart icondisplay  sharethis-inline-share-buttons' aria-hidden='true' style='z-index: 10' onclick='event.stopPropagation();check(this)'></i></span>" +
+                        "<p class='para'>₹" + ad.price + "</p>" +
+                        "<p class='para'>" + ad.title + "</p>" +
+                        "<k style='font-size:large'>" + date + "</k>" +
+                        "</form>" +
+                        "</div>")
+                } else {
+                    $("#content").append("<div class='two' onclick='editad1(this)' id='" + ad._id + "'>" +
+                        "<form action='/sell/show' method='post' id='form" + ad._id + "'>" +
+                        "<input type='hidden' name='adId' value='" + ad._id + "'>" +
+                        "<img class='images' src='" + ad.cover_photo + "'><span id='icon" + ad._id + "'><i id='black-" + ad._id +
+                        "' class='fa fa-heart icondisplay  sharethis-inline-share-buttons' aria-hidden='true' style='z-index: 10' onclick='event.stopPropagation();check(this)'></i></span>" +
+                        "<p class='para'>₹" + ad.price + "</p>" +
+                        "<p class='para'>" + ad.title + "</p>" +
+                        "<k style='font-size: large'>" + date + "</k>" +
+                        "</form>" +
+                        "</div>")
+                }
+            })
+            wishlist.forEach((wish, i) => {
+                if ($('#icon' + wish).length) {
+                    $('#icon' + wish).empty();
+                    $('#icon' + wish).append("<i id='red-" + wish + "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10;color:orangered  ' onclick='event.stopPropagation();check(this)'></i>")
+                    delete wishlist[i]
+                }
+            })
+        }else {
+            $('#content').empty()
+            $('#content').append(`<div class='jumbotron'>No Ads Available for the filter</div>`)
+        }
+    })
+
+    $.ajax({
+        url: "https://bechdaal.tech/category",
+        method: "GET",
+    }).done(function (resp){
+        let prevCat = category;
+        resp.forEach(category=>{
+            if(category.name==prevCat){
+                $('#catInsert').append(`<a onclick="onClickCat(this)" id='cat${category.name}' class="active1">${category.name} </a>`)
+            }
+            else {
+                $('#catInsert').append(`<a onclick="onClickCat(this)" id='cat${category.name}'>${category.name} </a>`)
+            }
+        })
+    })
     var dropdown = document.getElementsByClassName("dropdown-btn");
     var i;
-
     for (i = 0; i < dropdown.length; i++) {
         dropdown[i].addEventListener("click", function () {
             this.classList.toggle("active");
@@ -234,7 +308,158 @@
             }
         });
     }
+    function editad1(input) {
+        console.log(input)
+        var form = document.getElementById("form" + input.id);
+        form.submit()
+    }
+    function onClickCat(input){
+        $('#cat'+category).removeClass('active1');
+        category = input.id;
+        $('#'+category).addClass('active1');
+        category = category.replace('cat','')
+        changeQuery();
+    }
+    function onChangeSort() {
+        sorting=$('#sorting1').val()
+        console.log()
+        changeQuery();
+    }
+    function pageInc(){
+        page = page+1;
+        fireQuery();
+    }
+    function changeQuery(){
+        page=0;
+        $.ajax({
+            url:'https://bechdaal.tech/search/main',
+            method:'POST',
+            data:{
+                isAjax:'1',
+                sorting:sorting,
+                page:0,
+                searchInput:searchInput1,
+                locality:locality,
+                category:category
+            }
+        }).done(function (result){
+            if(result.length>0) {
+                $('#content').empty()
+                result.forEach(ad => {
+                    let date = new Date(ad.date_posted).toDateString()
+                    if (ad.isPaid === 2) {
+                        $("#content").append("<div class='two2' onclick='editad1(this)' id='" + ad._id + "'>" +
+                            "<form action='/sell/show' method='post' id='form" + ad._id + "'>" +
+                            "<input type='hidden' name='adId' value='" + ad._id + "'>" +
+                            "<span class='featured' style='float: left' >FEATURED</span>" +
+                            "<img class='images2' src='" + ad.cover_photo + "'><span id='icon" + ad._id + "'><i id='black-" + ad._id +
+                            "' class='fa fa-heart icondisplay  sharethis-inline-share-buttons' aria-hidden='true' style='z-index: 10' onclick='event.stopPropagation();check(this)'></i></span>" +
+                            "<p class='para'>₹" + ad.price + "</p>" +
+                            "<p class='para'>" + ad.title + "</p>" +
+                            "<k style='font-size:large'>" + date + "</k>" +
+                            "</form>" +
+                            "</div>")
+                    } else {
+                        $("#content").append("<div class='two' onclick='editad1(this)' id='" + ad._id + "'>" +
+                            "<form action='/sell/show' method='post' id='form" + ad._id + "'>" +
+                            "<input type='hidden' name='adId' value='" + ad._id + "'>" +
+                            "<img class='images' src='" + ad.cover_photo + "'><span id='icon" + ad._id + "'><i id='black-" + ad._id +
+                            "' class='fa fa-heart icondisplay  sharethis-inline-share-buttons' aria-hidden='true' style='z-index: 10' onclick='event.stopPropagation();check(this)'></i></span>" +
+                            "<p class='para'>₹" + ad.price + "</p>" +
+                            "<p class='para'>" + ad.title + "</p>" +
+                            "<k style='font-size: large'>" + date + "</k>" +
+                            "</form>" +
+                            "</div>")
+                    }
+                })
+                wishlist.forEach((wish, i) => {
+                    if ($('#icon' + wish).length) {
+                        $('#icon' + wish).empty();
+                        $('#icon' + wish).append("<i id='red-" + wish + "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10;color:orangered  ' onclick='event.stopPropagation();check(this)'></i>")
+                        delete wishlist[i]
+                    }
+                })
+            }else {
+                $('#content').empty()
+                $('#content').append(`<div class='jumbotron'>No Ads Available for the filter</div>`)
+            }
+        })
+    }
+    function fireQuery(){
+        $.ajax({
+            url:'https://bechdaal.tech/search/main',
+            method:'POST',
+            data:{
+                isAjax:'1',
+                sorting:1,
+                page:page,
+                searchInput:searchInput1,
+                locality:locality,
+                category:category
+            }
+        }).done(function (result){
+            result.forEach(ad => {
+                let date = new Date(ad.date_posted).toDateString()
+                if (ad.isPaid === 2) {
+                    $("#content").append("<div class='two2' onclick='editad1(this)' id='" + ad._id + "'>" +
+                        "<form action='/sell/show' method='post' id='form" + ad._id + "'>" +
+                        "<input type='hidden' name='adId' value='" + ad._id + "'>" +
+                        "<span class='featured' style='float: left' >FEATURED</span>" +
+                        "<img class='images2' src='" + ad.cover_photo + "'><span id='icon" + ad._id + "'><i id='black-" + ad._id +
+                        "' class='fa fa-heart icondisplay  sharethis-inline-share-buttons' aria-hidden='true' style='z-index: 10' onclick='event.stopPropagation();check(this)'></i></span>" +
+                        "<p class='para'>₹" + ad.price + "</p>" +
+                        "<p class='para'>" + ad.title + "</p>" +
+                        "<k style='font-size:large'>" + date + "</k>" +
+                        "</form>" +
+                        "</div>")
+                } else {
+                    $("#content").append("<div class='two' onclick='editad1(this)' id='" + ad._id + "'>" +
+                        "<form action='/sell/show' method='post' id='form" + ad._id + "'>" +
+                        "<input type='hidden' name='adId' value='" + ad._id + "'>" +
+                        "<img class='images' src='" + ad.cover_photo + "'><span id='icon" + ad._id + "'><i id='black-" + ad._id +
+                        "' class='fa fa-heart icondisplay  sharethis-inline-share-buttons' aria-hidden='true' style='z-index: 10' onclick='event.stopPropagation();check(this)'></i></span>" +
+                        "<p class='para'>₹" + ad.price + "</p>" +
+                        "<p class='para'>" + ad.title + "</p>" +
+                        "<k style='font-size: large'>" + date + "</k>" +
+                        "</form>" +
+                        "</div>")
+                }
+            })
+            wishlist.forEach((wish, i) => {
+                if ($('#icon' + wish).length) {
+                    $('#icon' + wish).empty();
+                    $('#icon' + wish).append("<i id='red-" + wish + "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10;color:orangered  ' onclick='event.stopPropagation();check(this)'></i>")
+                    delete wishlist[i]
+                }
+            })
+        })
+    }
+
+
+
 </script>
+
+
+<%if (user){%>
+    <script>
+        function check(input) {
+            let val = input.id.split('-')
+            console.log(val)
+            $.ajax({
+                url: "https://bechdaal.tech/wish/" + val[1],
+                method: "GET",
+            }).done(function (wish) {
+                if (val[0] == 'black') {
+                    $('#icon' + val[1]).empty();
+                    $('#icon' + val[1]).append("<i id='red-" + val[1] + "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10;color:orangered  ' onclick='event.stopPropagation();check(this)'></i>")
+                } else if (val[0] == 'red') {
+                    $('#icon' + val[1]).empty();
+                    $('#icon' + val[1]).append("<i id='black-" + val[1] + "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10;' onclick='event.stopPropagation();check(this)'></i>")
+                }
+            })
+        }
+    </script>
+<%}%>
 </body>
 
 <%-include("partials/footer")-%>

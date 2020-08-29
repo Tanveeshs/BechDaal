@@ -104,7 +104,10 @@
       $("#second").addClass('unactiveDot')
       $("#third").addClass('unactiveDot')
       for (var i = 0; i < 3; i++) {
-        $("#cont").append("<div id='" + arr[i].id + "' class='one'>\
+        $("#cont").append("<div id='" + arr[i].id + "' class='one' onclick='editad1(this)'>\
+        <form action='/search/main' method='post' id='form"+arr[i].id+"'>\
+        <input type='hidden' value='"+arr[i].name+"' name='category'>\
+        </form>\
             <img class='Img' src = '" + arr[i].img + "'> <br>\
               " + arr[i].name + "</div>")
       }
@@ -121,7 +124,10 @@
       $("#cont").empty();
       for (let i = 0; i < 3; i++) {
         $("#cont").append(
-          "<div id='" + s[i].id + "' class='one'>\
+          "<div id='" + s[i].id + "' class='one' onclick='editad1(this)'>\
+          <form action='/search/main' method='post' id='form"+s[i].id+"'>\
+        <input type='hidden' value='"+s[i].name+"' name='category'>\
+        </form>\
             <img class='Img' src = '" + s[i].img + "'> <br>\
               " + s[i].name + "</div>")
       }
@@ -129,16 +135,19 @@
     })
     second.addEventListener('click', () => {
       if (arr.length <= 3) {
-
       } else {
         $("#first").removeClass().addClass('unactiveDot')
         $("#second").removeClass().addClass('activeDot')
         $("#third").removeClass().addClass('unactiveDot')
-          ((arr.length < 6) ? (s = arr.slice(3, arr.length)) : (s = arr.slice(3, 6)))
+        let s;
+        ((arr.length < 6) ? (s = [...arr.slice(3, arr.length)]) : (s = [...arr.slice(3, 6)]))
         $("#cont").empty();
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < s.length; i++) {
           $("#cont").append(
-            "<div id='" + s[i].id + "' class='one'>\
+            "<div id='" + s[i].id + "' class='one' onclick='editad1(this)'>\
+            <form action='/search/main' method='post' id='form"+s[i].id+"'>\
+        <input type='hidden' value='"+s[i].name+"' name='category'>\
+        </form>\
             <img class='Img' src = '" + s[i].img + "'> <br>\
               " + s[i].name + "</div>")
         }
@@ -151,12 +160,15 @@
         $("#first").removeClass('.activeDot').addClass('.unactiveDot')
         $("#second").removeClass('.activeDot').addClass('.unactiveDot')
         $("#third").removeClass('.unactiveDot').addClass('.activeDot')
-
-          ((arr.length < 9) ? (s = arr.slice(6, arr.length)) : (s = arr.slice(6, 9)))
+        let s;
+        ((arr.length < 9) ? (s = arr.slice(6, arr.length)) : (s = arr.slice(6, 9)))
         $("#cont").empty();
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < s.length; i++) {
           $("#cont").append(
-            "<div id='" + s[i].id + "' class='one'>\
+            "<div id='" + s[i].id + "' class='one' onclick='editad1(this)' >\
+            <form action='/search/main' method='post' id='form"+s[i].id+"'>\
+        <input type='hidden' value='"+s[i].name+"' name='category'>\
+        </form>\
             <img class='Img' src = '" + s[i].img + "'> <br>\
               " + s[i].name + "</div>")
         }
@@ -179,7 +191,7 @@
       console.log("hit")
       page1 = page1 + 1;
       $.ajax({
-        url: "https://bechdaal.tech/sell/grid_ads/c/" + page1,
+        url: "http://localhost:3000/sell/grid_ads/c/" + page1,
         method: "GET",
       }).done(function (ads) {
         ads.forEach(ad => {
@@ -188,7 +200,7 @@
             $("#locAds").append("<div class='two2' onclick='editad1(this)' id='" + ad._id + "'>" +
               "<form action='/sell/show' method='post' id='form" + ad._id + "'>" +
               "<input type='hidden' name='adId' value='" + ad._id + "'>" +
-              "<span class='featured' >FEATURED</span>" +
+              "<span class='featured' style='float: left' >FEATURED</span>" +
               "<img class='images2' src='" + ad.cover_photo + "'><span id='icon" + ad._id + "'><i id='black-" + ad._id +
               "' class='fa fa-heart icondisplay  sharethis-inline-share-buttons' aria-hidden='true' style='z-index: 10' onclick='event.stopPropagation();check(this)'></i></span>" +
               "<p class='para'>₹" + ad.price + "</p>" +
