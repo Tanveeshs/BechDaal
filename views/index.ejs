@@ -3,13 +3,17 @@
 
 <head>
   <meta charset="utf-8">
-<!--  <title>BechDaal</title>-->
+  <!--  <title>BechDaal</title>-->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Bech Daal</title>
-  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/homepage.css">
   <style media="screen">
 
@@ -41,9 +45,9 @@
           </a>
         </li> -->
         <center>
-          <span class="unactiveDot" id="first"></span>
-          <span class="unactiveDot" id="second"></span>
-          <span class="unactiveDot" id="third"></span>
+          <span id="first"></span>
+          <span id="second"></span>
+          <span id="third"></span>
         </center>
       </div>
       <hr style="height:1px;background-color:black;margin: 10px 15%;">
@@ -95,10 +99,10 @@
     let data;
     let page = 0;
     const main = document.querySelector(".mainContent");
-    $(document).ready(function() {
-      $("#first").addClass('.activeDot')
-      $("#second").addClass('.unactiveDot')
-      $("#third").addClass('.unactiveDot')
+    $(document).ready(function () {
+      $("#first").addClass('activeDot')
+      $("#second").addClass('unactiveDot')
+      $("#third").addClass('unactiveDot')
       for (var i = 0; i < 3; i++) {
         $("#cont").append("<div id='" + arr[i].id + "' class='one'>\
             <img class='Img' src = '" + arr[i].img + "'> <br>\
@@ -109,9 +113,11 @@
     const second = document.querySelector("#second");
     const third = document.querySelector("#third");
     first.addEventListener('click', () => {
-      $("#second").addClass('.unactiveDot')
-      $("#third").addClass('.unactiveDot')
-      let s = arr.slice(0, 3)
+      $("#first").removeClass().addClass('activeDot')
+      $("#second").removeClass().addClass('unactiveDot')
+      $("#third").removeClass().addClass('unactiveDot')
+      let s = [];
+      ((arr.length < 3) ? (s = arr.slice(0, arr.length)) : (s = arr.slice(0, 3)))
       $("#cont").empty();
       for (let i = 0; i < 3; i++) {
         $("#cont").append(
@@ -122,35 +128,43 @@
 
     })
     second.addEventListener('click', () => {
-      $("#first").addClass('.unactiveDot')
-      $("#second").addClass('.activeDot')
-      $("#third").addClass('.unactiveDot')
-      let s = arr.slice(3, 6)
-      $("#cont").empty();
-      for (let i = 0; i < 3; i++) {
-        $("#cont").append(
-          "<div id='" + s[i].id + "' class='one'>\
+      if (arr.length <= 3) {
+
+      } else {
+        $("#first").removeClass().addClass('unactiveDot')
+        $("#second").removeClass().addClass('activeDot')
+        $("#third").removeClass().addClass('unactiveDot')
+          ((arr.length < 6) ? (s = arr.slice(3, arr.length)) : (s = arr.slice(3, 6)))
+        $("#cont").empty();
+        for (let i = 0; i < 3; i++) {
+          $("#cont").append(
+            "<div id='" + s[i].id + "' class='one'>\
             <img class='Img' src = '" + s[i].img + "'> <br>\
               " + s[i].name + "</div>")
+        }
       }
 
     })
     third.addEventListener('click', () => {
-      $("#first").addClass('.unactiveDot')
-      $("#second").addClass('.unactiveDot')
-      $("#third").addClass('.activeDot')
-      let s = arr.slice(6, 9)
-      $("#cont").empty();
-      for (let i = 0; i < 3; i++) {
-        $("#cont").append(
-          "<div id='" + s[i].id + "' class='one'>\
+      if (arr.length <= 6) {
+      } else {
+        $("#first").removeClass('.activeDot').addClass('.unactiveDot')
+        $("#second").removeClass('.activeDot').addClass('.unactiveDot')
+        $("#third").removeClass('.unactiveDot').addClass('.activeDot')
+
+          ((arr.length < 9) ? (s = arr.slice(6, arr.length)) : (s = arr.slice(6, 9)))
+        $("#cont").empty();
+        for (let i = 0; i < 3; i++) {
+          $("#cont").append(
+            "<div id='" + s[i].id + "' class='one'>\
             <img class='Img' src = '" + s[i].img + "'> <br>\
               " + s[i].name + "</div>")
+        }
       }
 
     })
     let page1 = -1;
-    $(function() {
+    $(function () {
       getNewAds()
     });
 
@@ -167,7 +181,7 @@
       $.ajax({
         url: "https://bechdaal.tech/sell/grid_ads/c/" + page1,
         method: "GET",
-      }).done(function(ads) {
+      }).done(function (ads) {
         ads.forEach(ad => {
           let date = new Date(ad.date_posted).toDateString()
           if (ad.isPaid === 2) {
@@ -202,21 +216,21 @@
             delete wishlist[i]
           }
         })
-      }).fail(function() {
+      }).fail(function () {
         alert('FAIL!!');
       });
     }
 
-</script>
+  </script>
   <%if (user){%>
-<script>
-  function check(input) {
+  <script>
+    function check(input) {
       let val = input.id.split('-')
       console.log(val)
       $.ajax({
         url: "https://bechdaal.tech/wish/" + val[1],
         method: "GET",
-      }).done(function(wish) {
+      }).done(function (wish) {
         if (val[0] == 'black') {
           $('#icon' + val[1]).empty();
           $('#icon' + val[1]).append("<i id='red-" + val[1] + "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10;color:orangered  ' onclick='event.stopPropagation();check(this)'></i>")
@@ -227,7 +241,7 @@
       })
     }
   </script>
-<%}%>
+  <%}%>
 </body>
 
 <%-include("partials/footer")-%>
