@@ -14,36 +14,89 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Document</title>
-</head>
+    <link rel="stylesheet" href="/css/buyAds.css">
 
-<body style="margin:30px;">
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    form {
+        margin: 1% 30%;
+        width: 50%;
+        align-self: center;
+    }
+
+    .buyAd_card {
+        padding: 20px;
+        width: 70%;
+        margin-top: 10px;
+        border: 1px solid black;
+        box-shadow: 5px 5px 5px lightgray;
+    }
+
+    .calculate {
+        padding: 3px;
+        width: 110px;
+        background-color: rgb(29, 142, 207);
+        color: white;
+        border: 1px solid white
+    }
+
+    .submit {
+        padding: 3px;
+        background-color: rgb(29, 142, 207);
+        color: white;
+        width: 200px;
+        margin-left: 28%;
+        border: 1px solid white;
+        border-radius: 6px;
+    }
+</style>
+
+<body>
     <form>
         <h2>Register for your Ad space on BechDaal</h2>
-        <p>Select your Ad type</p>
-        <input type="radio" />
-        <label for="featured">Featured Ads</label>
-        <br>
-        <input type="radio">
-        <label for="unfeatured">Un-featured</label>
-        <br>
-        <label for="quantity">Number of ads</label>
-        <input type="number" id="qty" />
-        <br>
-        <div>
-            <h4>Price per Ad: Rs 10</h4>
-            <h4 id="price"></h4>
-        </div>
-        <button type="submit" onclick="calculate(event)">
-            Submit
-        </button>
+        <h5>Your ads can go live on our site, and will be there for your customers to see!</h4>
+            <div class="buyAd_card">
+                <img src="/images/undraw_business_deal_cpi9.svg" alt="img1" />
+                <p style="font-size: 18px;align-self: center;">Select your Ad type</p>
+                <input type="radio" id="f" name="adtype" />
+                <label for=" featured">Featured Ads (Rs 20 per Ad)</label>
+                <br>
+                <input type="radio" id="uf" name="adtype">
+                <label for="unfeatured">Un-featured (Rs 10 per Ad)</label>
+                <br>
+                <div style="flex-direction: row;">
+                    <input type="number" id="qty" placeholder="Number Of Ads" />
+                    <button class="calculate" onclick="calculate(event)">
+                        Calculate
+                    </button>
+                </div>
+                <br>
+                <div>
+                    <h4 id="price"></h4>
+                </div>
+                <br>
+                <button class="submit">
+                    Submit
+                </button>
+            </div>
     </form>
     <script type="text/javascript">
         function calculate(e) {
             e.preventDefault();
+            var ft = document.getElementById('f')
+            var uft = document.getElementById('uf')
             var qty = document.getElementById('qty').value;
             var priceField = document.getElementById('price');
             console.log(qty)
-            var final = qty * 10
+            console.log(ft.checked, uft.checked)
+            var final;
+            (ft.checked ? (final = qty * 20) : (final = qty * 10));
             priceField.innerText = "Total:- " + final;
         }
 

@@ -80,8 +80,8 @@ One Special Symbol">
             <i class="fas fa-eye" id="togglePass" style="margin-left: 30px;"></i>
           </div>
         </div>
-        <div class="text-muted text-center" style="text-align: left; font-size:12px">
-          <div id='mobile' class="card mobile" >
+        <div class="text-muted text-center" style="text-align: left; font-size:12px" id="MobileNumber">
+          <div id='mobile' class="card" >
             <div class="iconContainer">
               <p> <i class="fa fa-2x fa-mobile" style="color: black;" aria-hidden="true"></i>
               </p>
@@ -89,10 +89,9 @@ One Special Symbol">
             <div class="inputContainer" style="width:70%">
               <label class="text-muted" style="padding-top: 10px;">Mobile Number</label>
               <br />
-              <input type="tel" id="phone" name="phone" >
+              <input type="tel" id="phone" name="phone" required pattern="[6789][0-9]{9}">
             </div>
           </div>
-
         </div>
         <div class="card2">
           <a id="haveAccount" href="/login">Already have an account</a>
@@ -104,6 +103,32 @@ One Special Symbol">
     </div>
   </div>
 </div>
+
+
+<script>
+
+  $(document).ready(function(){
+    $("#Seller").click(function(){
+      $("#MobileNumber").append(`<div id='mobile' class="card mobile" >
+                                       <div class="iconContainer">
+                                         <p> <i class="fa fa-2x fa-mobile" style="color: black;" aria-hidden="true"></i>
+                                         </p>
+                                       </div>
+                                       <div class="inputContainer" style="width:70%">
+                                         <label class="text-muted" style="padding-top: 10px;">Mobile Number</label>
+                                         <br />
+                                         <input type="tel" id="phone" name="phone" required>
+                                       </div>
+                                     </div>
+`);
+
+    });
+    $("#User").click(function(){
+      $("#MobileNumber").empty();
+
+    });
+  });
+</script>
 <script src="https://storage.googleapis.com/bechdaal_bucket/assets/js/login-signup.js" charset="utf-8">
 </script>
 <script src="https://storage.googleapis.com/bechdaal_bucket/assets/js/signup.js">

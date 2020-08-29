@@ -1,5 +1,25 @@
 //jshint esversion:6
 // const url = "http://localhost:3000/category"
+
+
+
+$(function () {
+  $('#mul-select').selectpicker();
+});
+
+var areas ="Andheri(E)|Andheri(W)|Bandra(E)|Bandra(W)|Bhandup|Borivali(E)|Borivali(W)|Breach Candy|Byculla|Colaba|Cuffe Parade|Chembur|Churchgate|Charni Road|Dadar(E)|Dadar(W)|Dahisar|Dharavi|Deonar|Dongri|Elphinstone Road|Flora Fountain|Fort|Girgaum|Grant Road|Goregaon(E)|Goregaon(W)|Ghatkopar(E)|Ghatkopar(W)|Jogeshwari(E)|Jogeshwari(W)|Juhu|Kalbadevi|Kandivali(E)|Kandivali(W)|Khar(E)|Khar(W)|King's Circle|Kurla(E)|Kurla(W)|Lower Parel|Mazgaon|Mahim|Malabar Hill|Matunga|Marine Lines|Malad(E)|Malad(W)|Mulund(E)|Mulund(W)|Nariman Point|Parel|Prabhadevi|Peddar Road|Saki Naka|Santacruz(E)|Santacruz(W)|Sion|Tardeo|Trombay|Versova|Vile Parle(E)|Vile Parle(W)|Vidya Vihar|Vikhroli|Wadala|Worli";
+
+var loc = areas.split("|");
+loc.forEach((element) => {
+  if(deliverableAreas.includes(element)){
+    $('#mul-select').append('<option selected>'+ element +'</option>');
+  }
+  else {
+    $('#mul-select').append('<option>'+ element +'</option>');
+  }
+})
+
+
 const url = "https://bechdaal.tech/category"
 Array.prototype.forEach.call(document.querySelectorAll('.fileButton'), function(button) {
   const hiddenInput = button.parentElement.querySelector('#fileInput');

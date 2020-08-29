@@ -1,65 +1,50 @@
 <%-include('partials/miniheader')%>
-<%-include("partials/sidebar")-%>
-<style>
-    @media (max-width: 640px) {
-        .something1 {
-            margin-left: -10px;
-        }
-    }
-    .something2 {
-        margin-left: 30%;
-    }
-</style>
+<%-include('partials/sidebar')%>
 
-<div class="something2 something1">
-    <form method="post" action="/payment/ad">
-        <h2>Register for your Ad space on BechDaal</h2>
+<head>
+    <link rel="stylesheet" href="/css/buyAds.css">
+    <title>Buy Ads</title>
+</head>
+<form class="col-md-6" method="post" action="/payment/ad">
+    <h2 class="head1">Register for your Ad space on BechDaal</h2>
+    <h4 class="head2">Your ads can go live on our site, and will be there for your customers to see!</h4>
+    <div id="buyAd_card" style="width:100%;">
+        <p class="head3" style="font-size: 18px;align-self: center;">Select your Ad type</p>
+        <input type="radio" id="f" name="type" value="Featured" />
+        <label for=" featured">Featured Ads (Rs 20 per Ad)</label>
         <br>
-        <p>Select your Ad type</p>
-        <div class="form-group">
-            <label for="featured">Featured Ads</label>
-            <input type="radio" id="featured" name="type" onchange="calculate()" value="Featured" />
-            <label for="unfeatured">Un-featured</label>
-            <input type="radio" id="unfeatured" name="type" onchange="calculate()" value="Unfeatured" checked>
+        <input type="radio" id="uf" name="type">
+        <label for="unfeatured">Un-featured (Rs 10 per Ad)</label>
+        <br>
+        <div id="flex" style="flex-direction: row;">
+            <input type="number" id="qty" placeholder="Number Of Ads" name="quantity" />
+            <button class="calculate" onclick="calculate(event)">
+                Calculate
+            </button>
         </div>
-        <div class="form-group">
-            <label for="quantity" id="qty">Number of ads</label>
-            <input type="number" style="width: 20%" onchange="calculate()"  name="quantity" id="quantity" class="form-control" required/>
+        <br>
+        <div>
+            <h4 id="price"></h4>
         </div>
-        <div id="price">
-            <h4>Price per Ad: Rs 20</h4>
-        </div>
-
-        <div id="totalPrice">
-
-        </div>
-        <button type="submit" onclick="calculate()">
+        <br>
+        <button class="submit">
             Submit
         </button>
-    </form>
-    <script type="text/javascript">
-        $('#featured').click(()=>{
-            $('#price').empty()
-            $('#price').append('<h4>Price per Ad: Rs 20</h4>')
-        })
-        $('#unfeatured').click(()=>{
-            $('#price').empty()
-            $('#price').append('<h4>Price per Ad: Rs 10</h4>')
-        })
-        function calculate() {
-            let quant = $('#quantity').val()
-            let price=0;
-            if($('#featured').is(':checked')){
-                price = 20
-            }
-            if($('#unfeatured').is(':checked')){
-                price = 10
-            }
-            var amount = quant*price;
-            $('#totalPrice').empty()
-            $('#totalPrice').append(`<h3>Total Price is ${amount}</h3>`)
-        }
-    </script>
+    </div>
+</form>
+<script type="text/javascript">
+    function calculate(e) {
+        e.preventDefault();
+        var ft = document.getElementById('f')
+        var uft = document.getElementById('uf')
+        var qty = document.getElementById('qty').value;
+        var priceField = document.getElementById('price');
+        console.log(qty)
+        console.log(ft.checked, uft.checked)
+        var final;
+        (ft.checked ? (final = qty * 20) : (final = qty * 10));
+        priceField.innerText = "Total:- " + final;
+    }
+</script>
 
-</div>
 <%-include('partials/footer')%>

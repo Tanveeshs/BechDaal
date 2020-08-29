@@ -22,7 +22,7 @@ router.get('/forgotPassword', function(req, res) {
 
 //Success Page Banao
 router.post('/passwordreset', function(req, res) {
-  var secret = 'fe1a1915a379f3be5394b64d14794932';
+  var secret = process.env.forgot_password_secret;
   if (req.body.email !== '') {
     User.findOne({
       'local.email': sanitize(req.body.email)
@@ -68,7 +68,7 @@ router.post('/passwordreset', function(req, res) {
 });
 
 router.get('/resetpassword/:id/:token', function(req, res) {
-  var secret = 'fe1a1915a379f3be5394b64d14794932';
+  var secret = process.env.forgot_password_secret;
   var payload = jwt.decode(req.params.token, secret);
   if (payload.endDate < Date.now()) {
     return returnErr(res,'Invalid Link',"Your link must have expired please try again")
@@ -81,7 +81,7 @@ router.get('/resetpassword/:id/:token', function(req, res) {
 });
 
 router.post('/resetpassword', function(req, res) {
-  var secret = 'fe1a1915a379f3be5394b64d14794932';
+  var secret = process.env.forgot_password_secret;
   const token = req.body.token
   const payload = jwt.decode(token,secret)
   if(payload.id===req.body.id){
