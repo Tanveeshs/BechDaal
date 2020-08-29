@@ -83,7 +83,7 @@
         font-family: 'Nunito', sans-serif;
         outline: none;
     }
-    .active {
+    .active1 {
         background: lightblue;
 
     }
@@ -143,9 +143,23 @@
         float: right;
         padding-right: 8px;
     }
+    /*.no-js {*/
+    /*    display: none;*/
+    /*}*/
+    /*.onLoad {*/
+    /*    position: fixed;*/
+    /*    left: 0;*/
+    /*    top: 0;*/
+    /*    width: 100%;*/
+    /*    height: 100%;*/
+    /*    z-index: 100;*/
+    /*    background-color: #82e682;*/
+
+    /*}*/
 </style>
 
 <body>
+
 <div class="sidebar">
     <p style="margin-left: 6%;font-weight: bold;font-size:22px;margin-bottom: 4%;">
         CATEGORIES
@@ -195,6 +209,22 @@
 
 <button onclick="pageInc()">Show More</button>
 <script>
+    // $(window).load(function () {
+    //     $('.onLoad').fadeOut('slow');
+    //     $('#loader').addClass('no-js')
+    // })
+    // document.onreadystatechange=function () {
+    //     console.log(document.readyState)
+    //     if(document.readyState !== "complete"){
+    //         document.querySelector('body').style.visibility='hidden'
+    //         document.querySelector('#loader').style.visibility = 'visible'
+    //     }
+    //     else {
+    //         document.querySelector('body').style.visibility='visible'
+    //         document.querySelector('#loader').style.display = 'none'
+    //     }
+    // }
+
     let page=0;
     let sorting=3;
     $.ajax({
@@ -255,8 +285,14 @@
         url: "https://bechdaal.tech/category",
         method: "GET",
     }).done(function (resp){
+        let prevCat = category;
         resp.forEach(category=>{
-            $('#catInsert').append(`<a onclick="onClickCat(this)" id='cat${category.name}'>${category.name} </a>`)
+            if(category.name==prevCat){
+                $('#catInsert').append(`<a onclick="onClickCat(this)" id='cat${category.name}' class="active1">${category.name} </a>`)
+            }
+            else {
+                $('#catInsert').append(`<a onclick="onClickCat(this)" id='cat${category.name}'>${category.name} </a>`)
+            }
         })
     })
     var dropdown = document.getElementsByClassName("dropdown-btn");
@@ -278,9 +314,9 @@
         form.submit()
     }
     function onClickCat(input){
-        $('#cat'+category).removeClass('active');
+        $('#cat'+category).removeClass('active1');
         category = input.id;
-        $('#'+category).addClass('active');
+        $('#'+category).addClass('active1');
         category = category.replace('cat','')
         changeQuery();
     }
@@ -405,24 +441,24 @@
 
 
 <%if (user){%>
-<script>
-function check(input) {
-    let val = input.id.split('-')
-    console.log(val)
-    $.ajax({
-        url: "https://bechdaal.tech/wish/" + val[1],
-        method: "GET",
-    }).done(function (wish) {
-        if (val[0] == 'black') {
-            $('#icon' + val[1]).empty();
-            $('#icon' + val[1]).append("<i id='red-" + val[1] + "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10;color:orangered  ' onclick='event.stopPropagation();check(this)'></i>")
-        } else if (val[0] == 'red') {
-            $('#icon' + val[1]).empty();
-            $('#icon' + val[1]).append("<i id='black-" + val[1] + "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10;' onclick='event.stopPropagation();check(this)'></i>")
+    <script>
+        function check(input) {
+            let val = input.id.split('-')
+            console.log(val)
+            $.ajax({
+                url: "https://bechdaal.tech/wish/" + val[1],
+                method: "GET",
+            }).done(function (wish) {
+                if (val[0] == 'black') {
+                    $('#icon' + val[1]).empty();
+                    $('#icon' + val[1]).append("<i id='red-" + val[1] + "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10;color:orangered  ' onclick='event.stopPropagation();check(this)'></i>")
+                } else if (val[0] == 'red') {
+                    $('#icon' + val[1]).empty();
+                    $('#icon' + val[1]).append("<i id='black-" + val[1] + "' class='fa fa-heart icondisplay' aria-hidden='true' style='z-index: 10;' onclick='event.stopPropagation();check(this)'></i>")
+                }
+            })
         }
-    })
-}
-</script>
+    </script>
 <%}%>
 </body>
 
