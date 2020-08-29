@@ -104,7 +104,10 @@
       $("#second").addClass('unactiveDot')
       $("#third").addClass('unactiveDot')
       for (var i = 0; i < 3; i++) {
-        $("#cont").append("<div id='" + arr[i].id + "' class='one'>\
+        $("#cont").append("<div id='" + arr[i].id + "' class='one' onclick='editad1(this)'>\
+        <form action='/search/main' method='post' id='form"+arr[i].id+"'>\
+        <input type='hidden' value='"+arr[i].name+"' name='category'>\
+        </form>\
             <img class='Img' src = '" + arr[i].img + "'> <br>\
               " + arr[i].name + "</div>")
       }
@@ -121,7 +124,10 @@
       $("#cont").empty();
       for (let i = 0; i < 3; i++) {
         $("#cont").append(
-          "<div id='" + s[i].id + "' class='one'>\
+          "<div id='" + s[i].id + "' class='one' onclick='editad1(this)'>\
+          <form action='/search/main' method='post' id='form"+s[i].id+"'>\
+        <input type='hidden' value='"+s[i].name+"' name='category'>\
+        </form>\
             <img class='Img' src = '" + s[i].img + "'> <br>\
               " + s[i].name + "</div>")
       }
@@ -138,7 +144,10 @@
         $("#cont").empty();
         for (let i = 0; i < s.length; i++) {
           $("#cont").append(
-            "<div id='" + s[i].id + "' class='one'>\
+            "<div id='" + s[i].id + "' class='one' onclick='editad1(this)'>\
+            <form action='/search/main' method='post' id='form"+s[i].id+"'>\
+        <input type='hidden' value='"+s[i].name+"' name='category'>\
+        </form>\
             <img class='Img' src = '" + s[i].img + "'> <br>\
               " + s[i].name + "</div>")
         }
@@ -156,7 +165,10 @@
         $("#cont").empty();
         for (let i = 0; i < s.length; i++) {
           $("#cont").append(
-            "<div id='" + s[i].id + "' class='one'>\
+            "<div id='" + s[i].id + "' class='one' onclick='editad1(this)' >\
+            <form action='/search/main' method='post' id='form"+s[i].id+"'>\
+        <input type='hidden' value='"+s[i].name+"' name='category'>\
+        </form>\
             <img class='Img' src = '" + s[i].img + "'> <br>\
               " + s[i].name + "</div>")
         }
@@ -179,7 +191,7 @@
       console.log("hit")
       page1 = page1 + 1;
       $.ajax({
-        url: "https://bechdaal.tech/sell/grid_ads/c/" + page1,
+        url: "http://localhost:3000/sell/grid_ads/c/" + page1,
         method: "GET",
       }).done(function (ads) {
         ads.forEach(ad => {

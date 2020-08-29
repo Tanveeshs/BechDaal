@@ -154,7 +154,14 @@
     <div id="catInsert">
     </div>
 </div>
-
+<div style='right: 10px; position: absolute;'>
+    <span>Sort By:</span>
+    <select name="sorting" id="sorting1" onchange="onChangeSort()">
+        <option value="3">Most Recent</option>
+        <option value="1">Lower To Higher</option>
+        <option value="2">Higher To Lower</option>
+    </select>
+</div>
 <script>
     let wishlist = []
 </script>
@@ -189,12 +196,13 @@
 <button onclick="pageInc()">Show More</button>
 <script>
     let page=0;
+    let sorting=3;
     $.ajax({
         url:'https://bechdaal.tech/search/main',
         method:'POST',
         data:{
             isAjax:'1',
-            sorting:1,
+            sorting:sorting,
             page:0,
             searchInput:searchInput1,
             locality:locality,
@@ -276,6 +284,11 @@
         category = category.replace('cat','')
         changeQuery();
     }
+    function onChangeSort() {
+        sorting=$('#sorting1').val()
+        console.log()
+        changeQuery();
+    }
     function pageInc(){
         page = page+1;
         fireQuery();
@@ -287,7 +300,7 @@
             method:'POST',
             data:{
                 isAjax:'1',
-                sorting:1,
+                sorting:sorting,
                 page:0,
                 searchInput:searchInput1,
                 locality:locality,

@@ -696,7 +696,7 @@ adRouter.get('/grid_ads/c/:page',(req,res)=>{
                             }).limit(6).skip(page*6)
                     }
                 }else {
-                    let page2 = page - Math.floor(count/3)
+                    let page2 = page - Math.ceil(count/3)
                     Ads.find({$or:[{isPaid:0},{isPaid:1}], approved: true, isActive: true, 'rejected.val': false},{user:0,images:0,brand:0,model:0},
                         {sort:{date_posted:-1}},
                         function (err,ads) {
@@ -714,7 +714,8 @@ adRouter.get('/grid_ads/c/:page',(req,res)=>{
                 console.log(err)
                 return returnErr(res, "error", "Error")
             }
-
+            console.log(results)
+            console.log(req.params.page)
             let arr=[]
             if(results.featured===undefined && results.normal===undefined){
                 arr = []
