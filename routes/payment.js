@@ -14,7 +14,6 @@ Router.get('/buyad',function(req, res) {
     res.render('buyAds.ejs', {
         user: req.user
     });
-
 });
 
 
