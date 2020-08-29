@@ -19,6 +19,8 @@ steps:
       - 'mongo_url=${_MONGO_URL}'
       - 'google_client_id=${_GOOGLE_CLIENT_ID}'
       - 'google_client_secret=${_GOOGLE_CLIENT_SECRET}'
+      - 'facebook_client_id=${_FACEBOOK_CLIENT_ID}'
+      - 'facebook_client_secret=${_FACEBOOK_CLIENT_SECRET}'
 #  - name: node:10.15.1
 #    entrypoint: npm
 #    args: ["run", "createJSON"]
