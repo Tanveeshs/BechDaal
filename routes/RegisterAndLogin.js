@@ -53,19 +53,19 @@ module.exports = function(app, passport) {
 
   //Use projections
   app.get('/verify', function(req, res) {
-      User.findOne({
-          'local.email': req.user.local.email
-        }, {'local.email': 1, 'local.isVerified': 1}, function (err, user) {
-          if (user.local.isVerified) {
-            res.redirect('/');
-          } else {
-            return res.render('verify.ejs', {
-              email: user.local.email
-            });
-          }
-
+    User.findOne({
+      'local.email': req.user.local.email
+    }, {'local.email': 1, 'local.isVerified': 1}, function (err, user) {
+      if (user.local.isVerified) {
+        res.redirect('/');
+      } else {
+        return res.render('verify.ejs', {
+          email: user.local.email
         });
+      }
+
     });
+  });
   app.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
@@ -87,7 +87,23 @@ module.exports = function(app, passport) {
         successRedirect: '/',
         failureRedirect: '/login'
       }));
+
+  app.post('/usertoseller', isLoggedIn,function(req, res) {
+    User.findOneAndUpdate({_id:String(req.user._id)},
+        {$set:{isSeller:true,ContactNumber:req.body.phone}},
+        {new:true},
+        function(err,user) {
+          if (err) {
+            return returnErr(err, "Error", "Our server ran into an error please try again")
+          } else {
+            req.user = user;
+            return res.redirect('/')
+          }
+        })
+  });
+
 };
+
 
 function isLoggedIn(req, res, next) {
   try {
