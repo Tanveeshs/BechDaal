@@ -23,6 +23,7 @@ const userSchema = new mongoose.Schema({
     default:0,
     required:true
   },
+  LoginType:{type:String},
   noOfFeaturedAds:{
     type:Number,
     default:0,

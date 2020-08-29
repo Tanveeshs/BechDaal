@@ -41,6 +41,7 @@ module.exports = function(passport) {
             newUser.local.email = String.prototype.toLowerCase.apply(email);
             newUser.local.username = username;
             newUser.local.isVerified = false;
+            newUser.LoginType = 'Local'
             newUser.local.password = newUser.generateHash(password);
             if(req.body.Person==="Seller"){
               newUser.isSeller = true
@@ -111,6 +112,7 @@ module.exports = function(passport) {
             newUser.facebook.id = profile.id; // set the users facebook id
             newUser.facebook.token = token; // we will save the token that facebook provides to the user
             newUser.facebook.name = profile.displayName; // look at the passport user profile to see how names are returned
+            newUser.LoginType = 'Facebook'
             newUser.IsActive = true;
             // save our user to the database
             newUser.save(function(err) {
@@ -159,6 +161,7 @@ module.exports = function(passport) {
             newUser.google.id = profile.id;
             newUser.google.token = token;
             newUser.google.name = profile.displayName;
+            newUser.LoginType = 'Google'
             newUser.google.email = profile.emails[0].value; // pull the first email
             // newUser.loginType = 'google';
             // newUser.IsActive = true;
