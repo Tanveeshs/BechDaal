@@ -5,12 +5,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<!--  <title>Bech Daal</title>-->
+  <!--  <title>Bech Daal</title>-->
   <!--Bootstrap CDN-->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <!--JQUERY UI-->
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Montserrat:wght@700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Montserrat:wght@700&family=PT+Sans:wght@400;700&display=swap"
+    rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
 
   <!--  Font Awesome CDN-->
@@ -23,72 +26,126 @@
 <body>
 
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-li">
-  <a class="navbar-brand" href="/">
-    <span><img src="https://storage.googleapis.com/bechdaal_bucket/assets/images/Bech%20Daal%20Logo.png" alt="logo" style="width:33px;height:50px;"></span>
-    <span style="color:black;font-size: 33px;vertical-align: bottom;font-family: 'Lato', sans-serif;">BechDaal</span></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto" id="ulLinks">
-      <div style="width:230px;display:flex;flex-direction: row;justify-content: space-between;">
-        <li id="hiddenItem">
-          <input type="text" placeholder="Search" id="menuSearch" />
-        </li>
-        <li id="toggledown">
-          <i class="fa fa-search searchicon" aria-hidden="true"></i>
-        </li>
-      </div>
-      <%if  (typeof user !='undefined') {%>
-      <div class="nav-item dropdown">
-        <a style="font-size:1.05rem;" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="hellouser">
-          <!-- add navbar-toggle in class if u want that triangle -->
-          <span style="font-weight:bold;">Hello</span> <%=user.local.username%>
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-li">
+    <a class="navbar-brand" href="/">
+      <span><img src="https://storage.googleapis.com/bechdaal_bucket/assets/images/Bech%20Daal%20Logo.png" alt="logo"
+          style="width:33px;height:50px;"></span>
+      <span
+        style="color:black;font-size: 33px;vertical-align: bottom;font-family: 'Lato', sans-serif;">BechDaal</span></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto" id="ulLinks">
+        <div style="width:230px;display:flex;flex-direction: row;justify-content: space-between;">
+          <li id="hiddenItem">
+            <input type="text" placeholder="Search" id="menuSearch" />
+          </li>
+          <li id="toggledown">
+            <i class="fa fa-search searchicon" aria-hidden="true"></i>
+          </li>
+        </div>
+        <%if  (typeof user !='undefined') {%>
+        <div class="nav-item dropdown">
+          <a style="font-size:1.05rem;" class="nav-link" href="#" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" id="hellouser">
+            <!-- add navbar-toggle in class if u want that triangle -->
+            <span style="font-weight:bold;">Hello</span> <%=user.local.username%>
+          </a>
           <%if (user.isSeller===true){%>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
             <a class="dropdown-item" href="/sell" style="font-weight: bold;">Manage my Ads</a>
             <!--              HREF DENA HAI-->
-            <a href="Buy Ads"  class="dropdown-item" style="font-weight: bold;">Buy Ads</a>
-          <%}%>
-          <a class="dropdown-item" href="/wish">My Wishlist</a>
-          <a class="dropdown-item" href="/myprofile">My Details</a>
+            <a href="Buy Ads" class="dropdown-item" style="font-weight: bold;">Buy Ads</a>
+            <a class="dropdown-item" href="/wish">My Wishlist</a>
+            <a class="dropdown-item" href="/myprofile">My Details</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item text-muted" href="/logout"><strong>Log Out</strong></a>
+          </div>
+        </div>
+        <li class="nav-item active" style="display: flex; cursor:pointer;" id="sellOption">
+          <a><i class="fas sellicon fa-hand-holding-usd"></i></a>
+          <a href="/sell/ads/post" class="nav-link look" style="color:black; font-weight: bold;">Sell</a>
+        </li>
+        <%} else {%>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+          <a class="dropdown-item" href="/sell" style="font-weight: bold;">Manage my Ads</a>
+          <!--              HREF DENA HAI-->
+          <a href="Buy Ads" class="dropdown-item" style="font-weight: bold;">Buy Ads</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item text-muted" href="/logout"><strong>Log Out</strong></a>
         </div>
+    </div>
+    <li class="nav-item active" style="display: flex; cursor:pointer;" id="sellOption">
+      <a><i class="fas sellicon fa-hand-holding-usd"></i></a>
+      <a data-toggle="modal" role="button" data-target="#exampleModalCenter" class="nav-link look"
+        style="color:black; font-weight: bold;">Sell</a>
+    </li>
+    <div class="modal animated rollIn" id="exampleModalCenter" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="exampleModalLongTitle">Hold that thought!</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div>
+              <p>You can't view/buy ads, because you have to register yourself as a seller, which requires your
+                Mobile
+                Number.</p>
+            </div>
+            <div class="inputContainer" style="width:70%">
+              <label class="text-muted" style="padding-top: 10px;">Mobile Number</label>
+              <input type="tel" id="phone" name="phone">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Become a Seller</button>
+          </div>
+        </div>
       </div>
-      <%} else {%>
-        <li class="nav-item" id="lSignup">
-          <a class="nav-link look" style="color:black;" href="/login">Login/<span>SignUp</span></a>
-        </li>
       <% } %>
+      <%} else {%>
+      <li class="nav-item" id="lSignup">
+        <a class="nav-link look" style="color:black;" href="/login">Login/<span>SignUp</span></a>
+      </li>
       <li class="nav-item active" style="display: flex; cursor:pointer;" id="sellOption">
         <a><i class="fas sellicon fa-hand-holding-usd"></i></a>
         <a href="/sell/ads/post" class="nav-link look" style="color:black; font-weight: bold;">Sell</a>
       </li>
-    </ul>
-  </div>
-</nav>
-<section id="search">
-  <nav class="searchbar">
-    <ul class="searchbar-items">
-      <li style="padding:0px;margin-right:30px;">
-        <p class="a">Want something?</p>
-      </li>
-      <form class = "form-inline" action="/search/main" method="POST">
-        <input type="hidden" value="1" name="sorting">
-        <input name="searchInput" id="InputBar" class="input1" style="display: inline" onkeyup="showResults(this.value)" type="text" placeholder="Type Here" />
-        <p class="b">In?</p>
-        <select onchange="print_city('state', this.selectedIndex);" id="sts" name ="stt" class="form-control" style="margin:0 5px 10px 5px"></select>
-        <select id ="state" name='locality' class="form-control" style="width:210px; margin:0 5px 10px 5px"></select>
-        <button type="submit" class="locationsubmit">GO!</button>
-      </form>
-    </ul>
-    <div style="position:relative; width:100% ; top:-1px">
-      <div class="border" id="search-results">
-      </div>
+      <% } %>
+      </ul>
     </div>
   </nav>
-</section>
-<script src="https://storage.googleapis.com/bechdaal_bucket/assets/js/header.js" type="application/javascript"> </script>
+  <section id="search">
+    <nav class="searchbar">
+      <ul class="searchbar-items">
+        <li style="padding:0px;margin-right:30px;">
+          <p class="a">Want something?</p>
+        </li>
+        <form class="form-inline" action="/search/main" method="POST">
+          <input type="hidden" value="1" name="sorting">
+          <input name="searchInput" id="InputBar" class="input1" style="display: inline"
+            onkeyup="showResults(this.value)" type="text" placeholder="Type Here" />
+          <p class="b">In?</p>
+          <select onchange="print_city('state', this.selectedIndex);" id="sts" name="stt" class="form-control"
+            style="margin:0 5px 10px 5px"></select>
+          <select id="state" name='locality' class="form-control" style="width:210px; margin:0 5px 10px 5px"></select>
+          <button type="submit" class="locationsubmit">GO!</button>
+        </form>
+      </ul>
+      <div style="position:relative; width:100% ; top:-1px">
+        <div class="border" id="search-results">
+        </div>
+      </div>
+    </nav>
+  </section>
+  <script src="https://storage.googleapis.com/bechdaal_bucket/assets/js/header.js"
+    type="application/javascript"> </script>
