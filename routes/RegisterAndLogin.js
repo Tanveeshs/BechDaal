@@ -9,14 +9,14 @@ let pageCounter = require('../utils/pageCounter')
 
 
 module.exports = function(app, passport) {
-  app.get('/', isVerified, function(req, res) {
+  app.get('/', function(req, res) {
     pageCounter.incrementPageCount()
     Category.find({},{name:1,image:1},function (err, result) {
       if (err) {
         console.log(err);
         return returnErr(res, "Error", "Our server ran into an error please try again")
       }
-      return res.render('index.ejs', {
+      res.render('index.ejs', {
         user: req.user,
         categries:result,
       });
@@ -71,7 +71,7 @@ module.exports = function(app, passport) {
     res.redirect('/');
   });
   app.get('/auth/facebook', passport.authenticate('facebook', {
-    scope: ['email']
+    scope: ['email','public_profile']
   }));
   app.get('/auth/facebook/callback',
       passport.authenticate('facebook', {
@@ -107,7 +107,7 @@ module.exports = function(app, passport) {
 
 function isLoggedIn(req, res, next) {
   try {
-    if (req.isAuthenticated() && req.user.local.isVerified) {
+    if (req.isAuthenticated() ) {
       return next();
     }
     res.redirect('/login');
