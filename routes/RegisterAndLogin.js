@@ -9,7 +9,7 @@ let pageCounter = require('../utils/pageCounter')
 
 
 module.exports = function(app, passport) {
-  app.get('/', function(req, res) {
+  app.get('/', isVerified, function(req, res) {
     pageCounter.incrementPageCount()
     Category.find({},{name:1,image:1},function (err, result) {
       if (err) {
@@ -52,7 +52,7 @@ module.exports = function(app, passport) {
 
 
   //Use projections
-  app.get('/verify', function(req, res) {
+  app.get('/verify', isNotLoggedIn, function(req, res) {
     User.findOne({
       'local.email': req.user.local.email
     }, {'local.email': 1, 'local.isVerified': 1}, function (err, user) {
@@ -124,12 +124,24 @@ function isNotLoggedIn(req,res,next){
     if(req.user.local){
       if(!req.user.local.isVerified){
         return next();
+        // console.log('Hi')
+        // res.redirect('/')
       }
     }
     res.redirect('/');
   }catch (e){
     console.log(e)
   }
+}
+function isVerified(req, res, next) {
+  if(typeof(req.user)!='undefined'){
+  if(req.user.local){
+    if(!req.user.local.isVerified){
+    res.redirect('/login');
+  }
+}
+}
+return next();
 }
 
 
