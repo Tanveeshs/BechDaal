@@ -100,3 +100,11 @@ td {
   line-height: 1;
   cursor: pointer;
 }
+
+@media (max-width: 640px) {
+  .centerKarde{
+    display: flex;
+    justify-content: center;
+  }
+
+}
