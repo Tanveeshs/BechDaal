@@ -54,6 +54,7 @@ adRouter.get('/', isLoggedIn,isSeller,(req, res) => {
     Ads.find({
         'user._id': req.user._id
     }, (err, ads) => {
+        console.log(ads.length)
         res.render('myAds', {
             ads: ads,
             user: req.user
@@ -714,7 +715,7 @@ adRouter.get('/grid_ads/c/:page',(req,res)=>{
                 console.log(err)
                 return returnErr(res, "error", "Error")
             }
-            console.log(results)
+            console.log("Normal Length",results.normal.length)
             console.log(req.params.page)
             let arr=[]
             if(results.featured===undefined && results.normal===undefined){
