@@ -58,7 +58,8 @@
       <div>
         <center>
 
-          <button class="btn" style="background-color:#db582d; color: white" onclick="getNewAds()">Show More</button><br><br>
+          <button class="btn" style="background-color:#db582d; color: white" onclick="getNewAds()">Show
+            More</button><br><br>
         </center>
       </div>
 
@@ -201,7 +202,7 @@
               "<form action='/sell/show' method='post' id='form" + ad._id + "'>" +
               "<input type='hidden' name='adId' value='" + ad._id + "'>" +
               "<p class='featured' >FEATURED</p>" +
-              "<img class='images2' src='" + ad.cover_photo + "'><span id='icon" + ad._id + "' style='font-size:10px;'>Add to wishlist<i id='black-" + ad._id +
+              "<img class='images2' src='" + ad.cover_photo + "'><span id='icon" + ad._id + "'><i id='black-" + ad._id +
               "' class='fa fa-heart icondisplay  sharethis-inline-share-buttons' aria-hidden='true' style='z-index: 10' onclick='event.stopPropagation();check(this)'></i></span>" +
               "<p class='para'>₹" + ad.price + "</p>" +
               "<p class='para'>" + ad.title + "</p>" +
