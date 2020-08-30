@@ -84,13 +84,21 @@ Router.get('/ads',authenticateJWT,(req,res)=>{
 })
 Router.post('/ads/approve/:id', authenticateJWT,(req,res)=>{
     const adId = req.params.id;
-    ad.findOneAndUpdate({_id:adId},{approved:true},function (err) {
+    ad.findOneAndUpdate({_id:adId},{approved:true},{new:true},function (newAd,err) {
         if(err){
             console.log(err)
         }
-        res.redirect('/admin/ads')
-    })
-    let content = `<p>Hey there ,</p>
+        let email;
+        if(newAd.user.LoginType==='Local'){
+            email = newAd.user.local.email;
+        }
+        if(newAd.user.LoginType==='Google'){
+            email = newAd.user.google.email;
+        }
+        if(newAd.user.LoginType==='Facebook'){
+            email = newAd.user.facebook.email;
+        }
+        let content = `<p>Hey there ,</p>
     <p>Congratulations ! Your ad is accepted.&nbsp;</p>
     <p>You can have a look of your ad on &nbsp;Bechdaal website and can post more ads there .</p>
     <p>Please do not forward this email to anyone as it contains sensitive information related to your account .</p>
@@ -98,9 +106,10 @@ Router.post('/ads/approve/:id', authenticateJWT,(req,res)=>{
     <p><br></p>
     <p>Sincerely,</p>
     <p>BechDaal Team&nbsp;</p>`
-    // emailAddress= adId.local.user.email;
-    // ad.findOne({_id:adId})
-    mail(emailAddress,'Your Ad is Accepted', content);
+        mail(email,'Your Ad is Accepted', content);
+        res.redirect('/admin/ads')
+    })
+
 })
 
 Router.post('/ads/reject/:id',authenticateJWT,(req,res)=> {
@@ -108,42 +117,53 @@ Router.post('/ads/reject/:id',authenticateJWT,(req,res)=> {
     ad.findOneAndUpdate({_id: adId},
         {$set:{'rejected.val':true,'rejected.reason':req.body.reason}},{new:true},
         function (err, result) {
-        if(err){
-            console.log("Error Occurred")
-        }
-        if(result.isPaid===0) {
-            User.findOneAndUpdate({_id: String(result.user._id)}, {$inc: {noOfFreeAds: 1}},{new:true}, function (err,user) {
-                if (err) {
-                    console.log(err)
-                }
-            })
-        }
-        if(result.isPaid===1){
-            User.findOneAndUpdate({_id:String(result.user._id)},{$inc:{noOfPaidAds: 1}},{new:true},function (err){
-                    if(err){
-                        console.log(err)
-                    }
-            })
-        }
-        if(result.isPaid===2){
-            User.findOneAndUpdate({_id:String(result.user._id)},{$inc:{noOfFeaturedAds: 1}},{new:true},function (err){
-                    if(err){
-                        console.log(err)
-                    }
-            })
-        }
-        res.redirect('/admin/ads')
-      })
-      let content = `<p>Hey there ,</p>
-      <p>Sorry to inform you that your ad on BechDaal Website is rejected.</p>
+            if(err){
+                console.log("Error Occurred")
+            }
+            let email;
+            if(newAd.user.LoginType==='Local'){
+                email = newAd.user.local.email;
+            }
+            if(newAd.user.LoginType==='Google'){
+                email = newAd.user.google.email;
+            }
+            if(newAd.user.LoginType==='Facebook'){
+                email = newAd.user.facebook.email;
+            }
+            let content = `<p>Hey there ,</p>
+      <p>Sorry to inform you that your ad:${result.title} on BechDaal is rejected.</p>
+      <p>Reason for Rejection:${req.body.reason}</p>
       <p>If you have any concerns regarding the Ad Please contact Help and Support Center of BechDaal .</p>
       <p>Please do not forward this email to anyone as it contains sensitive information related to your account .</p>
       <p>Have a wonderful day !</p>
       <p><br></p>
       <p>Sincerely,</p>
       <p>BechDaal Team&nbsp;</p>`
-      emailAddress= adId.locale.user.email;
-      mail(emailAddress,'Your Ad is Rejected', content);
+            mail(email,'Your Ad is Rejected', content)
+            if(result.isPaid===0) {
+                User.findOneAndUpdate({_id: String(result.user._id)}, {$inc: {noOfFreeAds: 1}},{new:true}, function (err,user) {
+                    if (err) {
+                        console.log(err)
+                    }
+                })
+            }
+            if(result.isPaid===1){
+                User.findOneAndUpdate({_id:String(result.user._id)},{$inc:{noOfPaidAds: 1}},{new:true},function (err){
+                    if(err){
+                        console.log(err)
+                    }
+                })
+            }
+            if(result.isPaid===2){
+                User.findOneAndUpdate({_id:String(result.user._id)},{$inc:{noOfFeaturedAds: 1}},{new:true},function (err){
+                    if(err){
+                        console.log(err)
+                    }
+                })
+            }
+            res.redirect('/admin/ads')
+        })
+
 })
 Router.get("/ads/details",authenticateJWT,function (req,res){
     res.render("admin/adminAdDetails.ejs")
@@ -227,13 +247,13 @@ Router.post('/addCategory',authenticateJWT,upload.single('CategoryImage'),(req,r
 //View all Categories
 Router.get('/category',authenticateJWT,
     (req,res)=>{
-    Category.find({},(err,result)=>{
-        if(err)
-            throw err
-        res.render('admin/viewCategory.ejs',
-            {Categories:result})
+        Category.find({},(err,result)=>{
+            if(err)
+                throw err
+            res.render('admin/viewCategory.ejs',
+                {Categories:result})
+        })
     })
-})
 
 //Editing the category
 Router.route('/category/edit/:id')
