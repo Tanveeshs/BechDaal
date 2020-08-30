@@ -102,13 +102,13 @@
               <table>
                 <tr>
                   <% ad[0].images.forEach((image,i)=>{%>
-                  <td class="vis0">
+                  <td>
                     <div style="position:relative">
-                      <img id="blah0" class="Img" src="<%=image%>" alt="image" /><br>
+                      <img class="Img" src="<%=image%>" alt="image" /><br>
                       <span class="fileLabel"></span>
                     </div>
                   </td>
-                  <%if (i%3==0){%>
+                  <%if ((i+1)%3==0){%>
                 </tr>
                 <tr>
                   <%}%>%>

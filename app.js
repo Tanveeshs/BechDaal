@@ -95,6 +95,9 @@ app.get('/test2',(req,res)=>{
     res.render('contactus.ejs')
 })
 
+app.get('/test3',(req,res)=>{
+  res.render('reset.ejs')
+})
 //DONT DELETE
 //USED TO REDIRECT UNMASKED URLS
 app.get("*",(req,res)=>{
