@@ -88,6 +88,7 @@ const adSchema = new Schema({
 });
 
 adSchema.index({date_posted:1})
+adSchema.index({approved:1,isActive:1,'rejected.val':1})
 
 const Ads = mongoose.model('Ads', adSchema);
 module.exports = Ads;

@@ -617,18 +617,6 @@ adRouter.route('/show')
     });
 
 
-//Thinking to use this to display the ad
-// adRouter.post('/show', (req, res) => {
-//     Ads.findById(sanitize(req.body.adId))
-//         .then((ad) => {
-//             // console.log(ad);
-//             res.render('show_ad', {
-//                 ad: ad,
-//                 user: req.user
-//             });
-//         }).catch((err) => console.log(err));
-// });
-
 adRouter.get('/grid_ads/c/:page',(req,res)=>{
     const page = parseInt(req.params.page);
     console.log(page)
@@ -697,7 +685,9 @@ adRouter.get('/grid_ads/c/:page',(req,res)=>{
                             }).limit(6).skip(page*6)
                     }
                 }else {
-                    let page2 = page - Math.ceil(count/3)
+                    let ceil = Math.ceil(count/3)
+                    let page2 = page - ceil
+                    let page3 = (page>ceil)?ceil:page;
                     Ads.find({$or:[{isPaid:0},{isPaid:1}], approved: true, isActive: true, 'rejected.val': false},{user:0,images:0,brand:0,model:0},
                         {sort:{date_posted:-1}},
                         function (err,ads) {
@@ -707,7 +697,7 @@ adRouter.get('/grid_ads/c/:page',(req,res)=>{
                             else {
                                 callback(null,ads)
                             }
-                        }).limit(9).skip(page*6+(page*3-count)+page2*9)
+                        }).limit(9).skip(page3*6+(page3*3-count)+page2*9)
                 }
             }
         },function (err,results){
@@ -715,7 +705,6 @@ adRouter.get('/grid_ads/c/:page',(req,res)=>{
                 console.log(err)
                 return returnErr(res, "error", "Error")
             }
-            console.log("Normal Length",results.normal.length)
             console.log(req.params.page)
             let arr=[]
             if(results.featured===undefined && results.normal===undefined){

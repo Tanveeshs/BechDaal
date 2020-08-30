@@ -101,7 +101,7 @@ function convertTitle(title){
 function getNewAds() {
     page1 = page1 + 1;
     $.ajax({
-        url: "http://localhost:3000/sell/grid_ads/c/" + page1,
+        url: "https://bechdaal.tech/sell/grid_ads/c/" + page1,
         method: "GET",
     }).done(function (ads) {
         ads.forEach(ad => {
