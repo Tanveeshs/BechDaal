@@ -1,16 +1,19 @@
 <%-include('partials/header')-%>
-<div class="container">
-  <div class="col-sm-4 mx-auto">
-    <h1>Change Password</h1>
-  </div>
-  <div class="col-sm-6 col-sm-offset-3 mx-auto">
-    <p class="text-center">Use the form below to change your password. Your password cannot be the same as your username.</p>
+
+
+<link rel="stylesheet" type="text/css" href="/css/forgotPass.css">
+<div class="container card" style="margin-top: 50px ;margin-bottom: 50px ;">
+  <div class="card-header">
+    <h4>Change Password</h4>
+  </div> 
+  <div class="col-sm-6 col-sm-offset-3 mx-auto card-body  " >
+    <h5 class="text-center">Use the form below to change your password. Your password cannot be the same as your username.</h5>
     <form action="/forgot/resetpassword" method="post" id="passwordForm">
-      <input type="hidden" name="id" value="<%= payload.id%>" />
+      <input type="hidden" name="id" value="<%= payload.id%>" /> 
       <input type="hidden" name="token" value="<%=token%>" />
-      <input type="password" class="input-lg form-control" name="password" id="password1" placeholder="New Password" autocomplete="off">
+      <input type="password" class="input-lg form-control" name="password" id="password1" placeholder="New Password" autocomplete="off" style="margin-top: 20px;">
       <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-6" style="margin-bottom: 20px;">
           <span id="8char" class="fas fa-times" style="color:#FF0004;"></span> 8 Characters Long<br>
           <span id="ucase" class="fas fa-times" style="color:#FF0004;"></span> One Uppercase Letter
         </div>
@@ -25,7 +28,7 @@
           <span id="pwmatch" class="fas fa-times" style="color:#FF0004;"></span> Passwords Match
         </div>
       </div>
-      <center><input type="submit" class="col-xs-12 btn btn-primary btn-load btn-lg" data-loading-text="Changing Password..." value="Change Password"></center>
+      <center><input type="submit" class="col-xs-12 btn btn-info btn-load btn-lg" data-loading-text="Changing Password..." value="Change Password" style="margin-top: 20px;"></center>
     </form>
   </div>
 </div>
