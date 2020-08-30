@@ -1,8 +1,4 @@
 //jshint esversion:6
-
-
-var searchInput = 'search_input';
-
 // $(document).ready(function() {
 //   var autocomplete;
 //   autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
@@ -18,6 +14,8 @@ $(document).ready(function() {
     $("#search").slideToggle(300);
   });
 });
+
+
 
 var showResults = debounce(function(arg) {
   var value = arg.trim();
@@ -47,11 +45,6 @@ function abc(ans){
       source: ans
     });
 }
-
-
-
-
-
 function debounce(func, wait, immediate) {
   var timeout;
   return function() {

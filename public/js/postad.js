@@ -82,11 +82,11 @@ $('.fa-times').click(function() {
                     <img id="blah' + currentCross + '" class="Img" src="/images/Imagehere.jpg" alt="" /><br>\
                     <span class="fileLabel"></span></div>');
 });
-
 $.ajax({
-  url: URL,
+  url: url,
   method: "GET"
 }).done(function(catagories) {
+  console.log(catagories)
   window.categoryarray = catagories;
   catagories.forEach(category => {
     $('#category').append('<option value="' + category.name + '">' + category.name + '</option>');
