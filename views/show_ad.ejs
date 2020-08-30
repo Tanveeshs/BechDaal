@@ -15,7 +15,7 @@
       </h3>
       <hr class="hrtitle">
       <h4 style="text-align: center">
-          <span style="font-size: 28px;font-weight: bold;"><i>₹</i></span> <span id="priceContainer"><%=ad.price%></span>
+        <span style="font-size: 28px;font-weight: bold;"><i>₹</i></span> <span id="priceContainer"><%=ad.price%></span>
       </h4>
       <br>
       <br>
@@ -25,11 +25,24 @@
       <%   } %>
       <p class="betterfont">Quantity: <%=ad.model%> </p>
       <p class="betterfont">Description:</p>
-        <p style="font-size: 1.2rem"><%=ad.description%></p>
+      <p style="font-size: 1.2rem"><pre style="font-size: large; font-family: 'Montserrat', sans-serif"><%=ad.description%></pre></p>
       <p>
+        <span class="betterfont">
         <% if (typeof user !== "undefined") { %>
-          Contact Number : <%= ad.user.ContactNumber %>
-        <% }  else {  %>
+        Seller Name:<%if(user.LoginType==='Local'){%>
+        <%=user.local.username%>
+        <%}else if(user.LoginType==='Google'){%>
+         <%=user.google.name%>
+        <%} else if(user.LoginType==='Facebook'){%>
+         <%=user.facebook.name%>
+        <%}%>
+        </span>
+        <br>
+        <br>
+        <span class="betterfont">
+        Contact Number : <a href="tel:+91<%=ad.user.ContactNumber%>"><%= ad.user.ContactNumber %></a>
+        </span>
+          <% }  else {  %>
           <a href="/login">You need to login to view seller contact details</a>
         <% } %>
       </p>

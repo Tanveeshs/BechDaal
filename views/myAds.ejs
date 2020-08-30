@@ -7,9 +7,9 @@
 </head>
 
 <style>
-.something1 {
-  margin-left: 17%;
-}
+  .something1 {
+    margin-left: 17%;
+  }
   @media (max-width: 640px) {
     .something1 {
       margin-left: 2%;
@@ -61,18 +61,16 @@
     <%}%>
 
   </div>
-  <ul class="pagination">
+  <ul class="pagination" style="float:right;margin-bottom:10px;">
     <li class="page-item">
       <a class="page-link" href="#" id = "previous" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-        <span class="sr-only">Previous</span>
+        <i class="fa fa-angle-left"></i>
       </a>
     </li>
-    <li class="page-item"><a id="first" class="page-link" href="#">1</a></li>
+    <li class="page-item"><a id="first"class="page-link" href="#">1</a></li>
     <li id="next" class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-        <span class="sr-only">Next</span>
+      <a class="page-link" href="#" id = "Next" >
+        <i class="fa fa-angle-right"></i>
       </a>
     </li>
   </ul>
@@ -106,15 +104,17 @@
     success: function (res) {
       data = [...res];
       console.log(data)
-      let s = data.slice(0,2);
-      for(let i=0;i<2;i++){
+      let s;
+      (data.length < 3 ? (s = [...data.slice(0, data.length)]) : (s = [...data.slice(0, 3)]))
+      var len = s.length
+      for (let i = 0; i < len; i++) {
         let date = new Date(s[i].date_posted).toDateString()
         $(".mainContent").append(
                 "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-md-4 col-sm-12 paddings' style='width:500px;height:500px;' >\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> " +
                 "<center><img class='Img mx-auto' style='' src='"+s[i].cover_photo+" %>' /> </center>\
                     <br />\
                     <label for='title' class='text'>Title</label>\
-                    <label for='' class='label-text'>"+s[i].title+"\
+                    <label for='' class='label-text'>"+convertTitle(s[i].title)+"\
                     </label>\
                     <br />\
                     <label for='title'>Date posted</label>\
@@ -141,19 +141,25 @@
   next.addEventListener('click', () => {
     first.textContent = ""
     page +=1;
-    if((data.length/2) + 1 >=(page + 1)){
+    if ((data.length) > (page * 3)) {
       var ctr = page + 1;
       first.textContent = ctr
-      let s = data.slice(2*page,2*page+2)
+      let s;
+      (data.length % (3 * (page + 1)) >= 0 ?
+              (s = data.slice(3 * page, 3 * page + 3)) :
+              (s = data.slice(3 * page, data.length)))
+
       $(".mainContent").empty();
-      for (let i = 0; i < 2; i++) {
+
+      for (let i = 0; i < s.length; i++) {
         let date = new Date(s[i].date_posted).toDateString()
-        $(".mainContent").append(
-                "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-md-4 col-sm-12 paddings' style='width:500px;height:500px;' >\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> " +
-                "<center><img class='Img mx-auto' style='' src='"+s[i].cover_photo+" %>' /> </center>\
+        if(s.length===1){
+          $(".mainContent").append(
+                  "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-sm-12 paddings' style='width:500px;height:500px;' >\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> " +
+                  "<center><img class='Img mx-auto' style='' src='"+s[i].cover_photo+" %>' /> </center>\
                     <br />\
                     <label for='title' class='text'>Title</label>\
-                    <label for='' class='label-text'>"+s[i].title+"\
+                    <label for='' class='label-text'>"+convertTitle(s[i].title)+"\
                     </label>\
                     <br />\
                     <label for='title'>Date posted</label>\
@@ -165,7 +171,48 @@
                 </div>\
               </div>\
               ")
+        }
+        if(s.length===2){
+          $(".mainContent").append(
+                  "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-md-6 col-sm-12 paddings' style='width:500px;height:500px;' >\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> " +
+                  "<center><img class='Img mx-auto' style='' src='"+s[i].cover_photo+" %>' /> </center>\
+                    <br />\
+                    <label for='title' class='text'>Title</label>\
+                    <label for='' class='label-text'>"+convertTitle(s[i].title)+"\
+                    </label>\
+                    <br />\
+                    <label for='title'>Date posted</label>\
+                    <label for='' class='label-text'>"+date+"</label>\
+                    <form method='POST' id='form"+s[i]._id+"' action='/sell/editad/view'>\
+                    <input type='hidden' name='adid' value='"+s[i]._id+"'>\
+                    </form>\
+                  </div>\
+                </div>\
+              </div>\
+              ")
+        }
+        if(s.length===3){
+          $(".mainContent").append(
+                  "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-md-4 col-sm-12 paddings' style='width:500px;height:500px;' >\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> " +
+                  "<center><img class='Img mx-auto' style='' src='"+s[i].cover_photo+" %>' /> </center>\
+                    <br />\
+                    <label for='title' class='text'>Title</label>\
+                    <label for='' class='label-text'>"+convertTitle(s[i].title)+"\
+                    </label>\
+                    <br />\
+                    <label for='title'>Date posted</label>\
+                    <label for='' class='label-text'>"+date+"</label>\
+                    <form method='POST' id='form"+s[i]._id+"' action='/sell/editad/view'>\
+                    <input type='hidden' name='adid' value='"+s[i]._id+"'>\
+                    </form>\
+                  </div>\
+                </div>\
+              </div>\
+              ")
+        }
+
       }
+
     }else{
       page -=1;
       first.textContent = "Last"
@@ -174,19 +221,19 @@
   previous.addEventListener('click', () => {
     first.textContent = ""
     page -=1;
-    if((data.length/2) + 1 >=(page + 1)){
+    if (page >= 0) {
       var ctr = page + 1;
       first.textContent = ctr
-      let s = data.slice(2*page,2*page+2)
+      let s = data.slice(3*page,3*page+3)
       $(".mainContent").empty();
-      for (let i = 0; i < 2; i++) {
+      for (let i = 0; i < 3; i++) {
         let date = new Date(s[i].date_posted).toDateString()
         $(".mainContent").append(
                 "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-md-4 col-sm-12 paddings' style='width:500px;height:500px;' >\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> " +
                 "<center><img class='Img mx-auto' style='' src='"+s[i].cover_photo+" %>' /> </center>\
                     <br />\
                     <label for='title' class='text'>Title</label>\
-                    <label for='' class='label-text'>"+s[i].title+"\
+                    <label for='' class='label-text'>"+convertTitle(s[i].title)+"\
                     </label>\
                     <br />\
                     <label for='title'>Date posted</label>\
@@ -204,6 +251,17 @@
       first.textContent = "First"
     }
   })
+  function convertTitle(title){
+    let newTitle;
+    if(title.length>17){
+      newTitle = title.slice(0,17);
+      newTitle = newTitle.concat('...')
+      return newTitle
+    }
+    else{
+      return title
+    }
+  }
 
 </script>
 </body>

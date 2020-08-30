@@ -3,6 +3,16 @@
   flex-wrap: wrap;
 
 }
+.upperForm{
+  width:90%;
+  display:flex;
+  justify-content: space-around;
+  margin:50px auto;
+  border:1px solid black;
+  padding:10px;
+  box-shadow:3px 3px 3px gray;
+  border-radius: 10px;
+}
 
 .one {
   background-color: #f1f1f1;
@@ -147,6 +157,11 @@ k{
   /*top:-60px;*/
   /*left:70px;*/
   text-shadow: 0.5px 0.5px 0.5px gray;
+}
+#upperForm{
+  width:90%;
+  padding:5%;
+  border:1px solid gray;
 }
 
 .Img{

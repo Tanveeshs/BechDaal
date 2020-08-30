@@ -89,8 +89,7 @@ Router.post('/callback',function (req,res){
                                 return returnErr(res, "Error", "Our server ran into an error please try again")
                             }
                             req.user = user;
-                            res.send('Your Payment Has Been accepted The Ads have Been added to your account' +
-                                'If you still face any troubles please contact support');
+                            res.render('afterPayment.ejs');
                         })
                 }
                 else {
@@ -103,8 +102,7 @@ Router.post('/callback',function (req,res){
                                 return returnErr(res, "Error", "Our server ran into an error please try again")
                             }
                             req.user = user;
-                            res.send('Your Payment Has Been accepted The Ads have Been added to your account' +
-                                'If you still face any troubles please contact support');
+                            res.render('afterPayment.ejs');
                         })
 
                 }

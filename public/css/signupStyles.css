@@ -179,13 +179,14 @@ nav-item {
     margin-left: 100px;
 }
 
-@media (max-width: 1028px) {
-    .iconbig {
-        height: 100%;
-        width: 100%;
-        padding: 50px 0px;
-    }
+.desc{
+    text-align:left;
+}
 
+@media (max-width: 640px) {
+    .iconbig {
+        display: none;
+    }
     .iconavg {
         height: 80px;
         width: 50px;
@@ -193,12 +194,16 @@ nav-item {
         margin-right: 15px;
         margin-bottom: 20px;
     }
-
     .title {
         font-size: 23px;
         color: rgb(233, 57, 57);
         font-family: Piedra;
     }
+    .centerKarde{
+        display: flex;
+        justify-content: center;
+    }
+
 
     .col {
         margin: 20px;
@@ -207,6 +212,9 @@ nav-item {
 
     .card {
         margin: auto;
+    }
+    .desc{
+        text-align:center;
     }
 }
 

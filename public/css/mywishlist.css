@@ -104,3 +104,12 @@
     }
 
 }
+.something1 {
+    margin-left: 14%;
+}
+
+@media (max-width: 640px) {
+    .something1 {
+        margin-left: -10px;
+    }
+}

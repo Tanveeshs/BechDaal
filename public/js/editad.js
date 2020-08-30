@@ -84,8 +84,10 @@ $('.fa-times').click(function() {
                     </div>\
                     <i id="plus' + currentCross + '" class="far fa-plus-square fileButton"></i><br>\
                     <img id="blah' + currentCross + '" class="Img" src="/images/Imagehere.jpg" alt="" /><br>\
-                    <span class="fileLabel"></span></div>')
+                    <span class="fileLabel"></span></div>');
 });
+
+const URL = "https://bechdaal.tech/category";
 
 $.ajax({
   url: URL,
