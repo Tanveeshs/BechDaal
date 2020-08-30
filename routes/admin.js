@@ -4,6 +4,7 @@ const express = require('express')
 const Router = express.Router();
 const jwt = require('jsonwebtoken')
 const redis = require('../config/redisConfig').redis
+const mail = require('../utils/mailer');
 
 const ad = require('../model/ad')
 const bodyParser = require('body-parser');
@@ -12,7 +13,8 @@ const Category = require('../model/category').CategoryModel
 const User = require('../model/user').User;
 const async = require('async')
 const helpAndSupport = require('../model/helpandsupport')
-const Storage = require('../config/cloudStorage')
+const Storage = require('../config/cloudStorage');
+const user = require('../model/user');
 const users = [
     {
         username:'admin',
@@ -88,7 +90,19 @@ Router.post('/ads/approve/:id', authenticateJWT,(req,res)=>{
         }
         res.redirect('/admin/ads')
     })
+    let content = `<p>Hey there ,</p>
+    <p>Congratulations ! Your ad is accepted.&nbsp;</p>
+    <p>You can have a look of your ad on &nbsp;Bechdaal website and can post more ads there .</p>
+    <p>Please do not forward this email to anyone as it contains sensitive information related to your account .</p>
+    <p>Have a wonderful day !</p>
+    <p><br></p>
+    <p>Sincerely,</p>
+    <p>BechDaal Team&nbsp;</p>`
+    // emailAddress= adId.local.user.email;
+    // ad.findOne({_id:adId})
+    mail(emailAddress,'Your Ad is Accepted', content);
 })
+
 Router.post('/ads/reject/:id',authenticateJWT,(req,res)=> {
     const adId = req.params.id;
     ad.findOneAndUpdate({_id: adId},
@@ -119,7 +133,17 @@ Router.post('/ads/reject/:id',authenticateJWT,(req,res)=> {
             })
         }
         res.redirect('/admin/ads')
-    })
+      })
+      let content = `<p>Hey there ,</p>
+      <p>Sorry to inform you that your ad on BechDaal Website is rejected.</p>
+      <p>If you have any concerns regarding the Ad Please contact Help and Support Center of BechDaal .</p>
+      <p>Please do not forward this email to anyone as it contains sensitive information related to your account .</p>
+      <p>Have a wonderful day !</p>
+      <p><br></p>
+      <p>Sincerely,</p>
+      <p>BechDaal Team&nbsp;</p>`
+      emailAddress= adId.locale.user.email;
+      mail(emailAddress,'Your Ad is Rejected', content);
 })
 Router.get("/ads/details",authenticateJWT,function (req,res){
     res.render("admin/adminAdDetails.ejs")

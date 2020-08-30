@@ -90,36 +90,42 @@
         </center>
       </div>
     </div>
-    <div style="padding-left:3%">
-      Previous Photos
-      <table>
-        <tr>
-          <% ad[0].images.forEach((image,i)=>{%>
-          <td class="vis0">
-            <div style="position:relative">
-              <img id="blah0" class="Img" src="<%=image%>" alt="image" /><br>
-              <span class="fileLabel"></span>
-            </div>
-          </td>
-          <%if (i%3==0){%>
-        </tr>
-        <tr>
-          <%}%>%>
-          <%})%>
-        </tr>
-      </table>
-    </div>
 
+    <hr>
     <div class="row">
+
+        <div class="col-md-6">
+            <br>
+            <div style="padding-left:3%">
+              Previous Photos
+              <br>
+              <table>
+                <tr>
+                  <% ad[0].images.forEach((image,i)=>{%>
+                  <td class="vis0">
+                    <div style="position:relative">
+                      <img id="blah0" class="Img" src="<%=image%>" alt="image" /><br>
+                      <span class="fileLabel"></span>
+                    </div>
+                  </td>
+                  <%if (i%3==0){%>
+                </tr>
+                <tr>
+                  <%}%>%>
+                  <%})%>
+                </tr>
+              </table>
+            </div>
+        </div>
       <div class="col-md-6">
-        <hr />
+
         <br>
         <label style="padding-left:3%;padding-right:20%;" for="images">Upload images of your device (maximum of 9) </label>
         <br>
         <div style="padding-left:3%">
           <table>
             <tr>
-              <td class="vis0">
+              <td>
                 <div style="position:relative">
                   <input type="file" name="images" onchange="readURL(this);" id="fileInput" hidden='hidden' class="blah0" />
                   <div style="position:absolute">
@@ -227,16 +233,18 @@
         </div>
         <br>
       </div>
-      <div class="col-md-6">
-      </div>
+
     </div>
     <!-- uploading images here  -->
     <div class="row">
-      <div class="col-md-6">
-        <button type="submit">Submit</button>
+      <div class="col-md-12">
+          <br>
+          <center>
+              <button style="width:20%;background-color:#db582d" type="submit">Submit</button>
+          </center>
+
       </div>
-      <div class="col-md-6">
-      </div>
+
     </div>
   </div>
 </form>

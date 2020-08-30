@@ -86,6 +86,7 @@ searchRouter.post('/main', function(req, res, next) {
     query.$and.push({approved: true})
     query.$and.push({isActive: true})
     query.$and.push({'rejected.val': false})
+    console.log(query)
     //Low to high
     let page = 0 || req.body.page;
     if (parseInt(req.body.sorting) === 1) {
@@ -113,14 +114,7 @@ searchRouter.post('/main', function(req, res, next) {
         if (err) {
           console.log(err);
         } else {
-          if (req.body.isAjax === '1') {
-            //Render the page
             res.json(result);
-          } else {
-            res.render('category.ejs', {
-              ads: result
-            })
-          }
         }
       }).sort({price: -1}).limit(5).skip(5 * page)
     }
@@ -130,14 +124,7 @@ searchRouter.post('/main', function(req, res, next) {
         if (err) {
           console.log(err);
         } else {
-          if (req.body.isAjax === '1') {
-            //Render the page
             res.json(result);
-          } else {
-            res.render('category.ejs', {
-              ads: result
-            })
-          }
         }
       }).sort({date_posted: -1}).limit(5).skip(5 * page)
     }

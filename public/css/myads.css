@@ -1,11 +1,13 @@
 .car {
-  width: 80%;
+  width: 270px;
+  height: 350px;
   border-radius: 25px;
+  cursor: pointer;
 }
 
 .Img {
-  width: 200px;
-  height: 200px;
+  max-width: 205px;
+  height: 150px;
 }
 
 .text {
@@ -23,12 +25,12 @@
   padding: 0px 10px;
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .car {
     width: 60%;
     border-radius: 25px;
   }
-}
+} */
 .pagination{
   float:right;
   margin-bottom: 2%;

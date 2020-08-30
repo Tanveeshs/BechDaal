@@ -76,7 +76,6 @@
   width: 400px;
   height: 280px;
   margin: 20px 20px;
-  background-color: #add8e6;
   width: 330px;
   text-align: center;
   line-height: 75px;
@@ -120,6 +119,11 @@
     height: 35px;
     font-family: Arial, Helvetica, sans-serif;
 }
+.colorOrange{
+    color:orangered;
+    font-weight: bold;
+
+}
 k{
     float: right;
     font-size: 13px;
@@ -128,13 +132,21 @@ k{
 }
 
 .featured{
-  color: #ff8400;
-
-    font-size:15px;
+  color: white;
+  font-weight: bold;
+  float:left;
+  background-color: #00aeff;
+  font-size:15px;
+  width:28%;
+  height:6.7vh;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom-right-radius: 10px;
   /*position:relative;*/
   /*top:-60px;*/
   /*left:70px;*/
-  font-weight: bold;
+  text-shadow: 0.5px 0.5px 0.5px gray;
 }
 
 .Img{

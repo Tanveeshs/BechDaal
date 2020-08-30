@@ -5,7 +5,6 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <!--  <title>Bech Daal</title>-->
   <!--Bootstrap CDN-->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -19,8 +18,8 @@
   <!--  Font Awesome CDN-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Piedra">
-  <link rel='stylesheet' href='https://storage.googleapis.com/bechdaal_bucket/assets/css/style.css' />
-  <link href="https://storage.googleapis.com/bechdaal_bucket/assets/css/header.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/headerStyles.css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
@@ -40,10 +39,9 @@
       <ul class="navbar-nav ml-auto" id="ulLinks">
         <div style="width:230px;display:flex;flex-direction: row;justify-content: space-between;">
           <li id="hiddenItem">
-            <input type="text" placeholder="Search" id="menuSearch" />
           </li>
           <li id="toggledown">
-            <i class="fa fa-search searchicon" aria-hidden="true"></i>
+            <i class="fa fa-search searchicon " aria-hidden="true"></i>
           </li>
         </div>
         <%if  (typeof user !='undefined') {%>
@@ -51,7 +49,13 @@
           <a style="font-size:1.05rem;" class="nav-link" href="#" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false" id="hellouser">
             <!-- add navbar-toggle in class if u want that triangle -->
+            <%if(user.LoginType==='Local'){%>
             <span style="font-weight:bold;">Hello</span> <%=user.local.username%>
+            <%}else if(user.LoginType==='Google'){%>
+            <span style="font-weight:bold;">Hello</span> <%=user.google.name%>
+            <%} else if(user.LoginType==='Facebook'){%>
+            <span style="font-weight:bold;">Hello</span> <%=user.facebook.name%>
+            <%}%>
           </a>
           <%if (user.isSeller===true){%>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -133,7 +137,6 @@
           <input type="hidden" value="1" name="sorting">
           <input name="searchInput" id="InputBar" class="input1" style="display: inline"
             onkeyup="showResults(this.value)" type="text" placeholder="Type Here" />
-          <input type="hidden" name="sorting" value="1">
           <p class="b">In?</p>
           <select onchange="print_city('state', this.selectedIndex);" id="sts" name="stt" class="form-control"
             style="margin:0 5px 10px 5px"></select>
@@ -141,10 +144,7 @@
           <button type="submit" class="locationsubmit">GO!</button>
         </form>
       </ul>
-      <div style="position:relative; width:100% ; top:-1px">
-        <div class="border" id="search-results">
-        </div>
-      </div>
+
     </nav>
   </section>
   <script src="https://storage.googleapis.com/bechdaal_bucket/assets/js/header.js"

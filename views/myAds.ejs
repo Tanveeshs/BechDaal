@@ -7,13 +7,13 @@
 </head>
 
 <style>
+.something1 {
+  margin-left: 17%;
+}
   @media (max-width: 640px) {
     .something1 {
-      margin-left: 0px;
+      margin-left: 2%;
     }
-  }
-  .something1 {
-    margin-left: 17%;
   }
 
 </style>
@@ -44,7 +44,7 @@
   <!--    </table>-->
   <!--  </div>-->
 
-  <div class="row" id="main">
+  <div class="row no-gutters" id="main">
     <%if (ads.length===0){%>
       <div style="text-align: center;">
         <div class="jumbotron jumbotron-fluid">
@@ -55,7 +55,7 @@
         </div>
       </div>
     <%} else {%>
-      <div class="mainContent row something1 something2">
+      <div class="mainContent row no-gutters something1 something2">
 
       </div>
     <%}%>
