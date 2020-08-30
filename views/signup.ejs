@@ -72,16 +72,39 @@ No special characters other than - and _">
           <div class="inputContainer" style="width:70%">
             <label class="text-muted">Set a Password</label>
             <br />
-            <input class="input" type="password" name="password" id="password" placeholder="Type Here"
+            <input class="input" type="password" name="password" id="password1" placeholder="Type Here" required pattern='^(?=.*?[A-Z])(?=.*?[a-z]).{6,32}$'
                    data-toggle="tooltip" data-placement="bottom" data-html="true"  title="Password should contain:
 Minimum 6 characters
 One Uppercase Letter
 One Lowercase Letter
-One Digit
-One Special Symbol">
+One Digit">
           </div>
           <div class="checkboxCont">
             <i class="fas fa-eye" id="togglePass" style="margin-left: 30px;"></i>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5 desc" style="padding-left:20px;">
+              <i id="6char" class="fas fa-times" style="color:#FF0004;"></i><span>   6 Characters</span><br>
+              <i id="lcase" class="fas fa-times" style="color:#FF0004;"></i><span>   One Lowercase</span>
+          </div>
+          <div class="col-md-6 desc">
+             <i id="ucase" class="fas fa-times" style="color:#FF0004;"></i><span>  One Uppercase</span><br>
+             <i id="num" class="fas fa-times" style="color:#FF0004;"></i><span>   One Number</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="iconContainer">
+            <p><i class="fa fa-key" aria-hidden="true"></i>
+            </p>
+          </div>
+          <div class="inputContainer" style="width:70%">
+            <label class="text-muted">Re-enter Password</label>
+            <br />
+            <input class="input" type="password" id="password2" placeholder="Type Here">
+          </div>
+          <div class="checkboxCont">
+            <i class="fas fa-check-circle pass-check" style="margin-left: 30px; visibility: hidden"></i>
           </div>
         </div>
         <div class="text-muted text-center" style="text-align: left; font-size:12px" id="MobileNumber">
@@ -93,7 +116,10 @@ One Special Symbol">
             <div class="inputContainer" style="width:70%">
               <label class="text-muted" style="padding-top: 10px;">Mobile Number</label>
               <br />
-              <input type="tel" id="phone" name="phone" required pattern="[6789][0-9]{9}">
+              <input type="tel" id="phone" name="phone" required pattern="^\d{10}$">
+            </div>
+            <div class="checkboxCont">
+              <i class="fas fa-check-circle ph-check" style="margin-left: 30px; visibility: hidden; color:black; font-size:15px;"></i>
             </div>
           </div>
         </div>
@@ -101,7 +127,7 @@ One Special Symbol">
           <a id="haveAccount" href="/login">Already have an account</a>
         </div>
         <div class="card3">
-          <button id="signupBtn" class="signupBtn centerKarde" type="submit">Sign Up</button>
+          <button id="signupBtn" class="signupBtn centerKarde" type="submit" >Sign Up</button>
         </div>
       </form>
     </div>
@@ -133,7 +159,7 @@ One Special Symbol">
     });
   });
 </script>
-<script src="https://storage.googleapis.com/bechdaal_bucket/assets/js/login-signup.js" charset="utf-8">
-</script>
-
+<%# <script src="https://storage.googleapis.com/bechdaal_bucket/assets/js/login-signup.js" charset="utf-8">
+</script> %>
+<script src="/js/login-signup.js" charset="utf-8"></script>
 <%-include("partials/footer")-%>
