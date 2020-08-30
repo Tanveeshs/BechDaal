@@ -179,6 +179,10 @@ nav-item {
     margin-left: 100px;
 }
 
+.desc{
+    text-align:left;
+}
+
 @media (max-width: 640px) {
     .iconbig {
         display: none;
@@ -208,6 +212,9 @@ nav-item {
 
     .card {
         margin: auto;
+    }
+    .desc{
+        text-align:center;
     }
 }
 
