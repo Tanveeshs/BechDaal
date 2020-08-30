@@ -89,7 +89,7 @@ app.use('/contact',contactRouter)
 
 
 app.get('/test',(req,res)=>{
-    res.render('category.ejs')
+    res.render('afterPayment.ejs')
 })
 app.get('/test2',(req,res)=>{
     res.render('contactus.ejs')

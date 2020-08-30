@@ -1,0 +1,25 @@
+<%-include('partials/miniheader')-%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/afterPayment.css">
+</head>
+
+<body >
+<div class="bg smallSizeCard">
+    <div class="card ">
+          <span class="card__success"><i class="fa fa-check" aria-hidden="true"></i>
+          </span>
+        <h2>Payment Successful !</h2>
+        <p>We are delighted to inform you that we received your payment</p>
+        <p>You can now post new ads</p>
+        <a href="/sell/ads/post" class="btn-view-orders">To Post a new ad</a>
+        <a href="/">Go to Home</a>
+    </div>
+</div>
+</body>
+<%- include partials/footer.ejs -%>

@@ -16,7 +16,6 @@ loc.forEach((element) => {
 });
 
 
-const url = "https://bechdaal.tech/category";
 Array.prototype.forEach.call(document.querySelectorAll('.fileButton'), function(button) {
   const hiddenInput = button.parentElement.querySelector('#fileInput');
   let label = button.parentElement.querySelector('.fileLabel');
@@ -86,6 +85,8 @@ $('.fa-times').click(function() {
                     <img id="blah' + currentCross + '" class="Img" src="/images/Imagehere.jpg" alt="" /><br>\
                     <span class="fileLabel"></span></div>')
 });
+
+const URL = "https://bechdaal.tech/category";
 
 $.ajax({
   url: URL,
