@@ -104,6 +104,7 @@
     /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
     #content {
         margin-left: 200px;
+        /* margin-bottom: 90px; */
         padding: 16px;
     }
 
@@ -121,6 +122,12 @@
 
         div.content {
             margin-left: 0;
+        }
+        .Cen{
+            text-align: center;
+        }
+        #content{
+            margin-left:0px;
         }
     }
 
@@ -164,14 +171,14 @@
 <body>
 
     <div class="sidebar">
-        <p style="margin-left: 6%;font-weight: bold;font-size:22px;margin-bottom: 4%;">
+        <p style="margin-left: 6%;font-weight: bold;font-size:22px;margin-bottom: 4%;" class="Cen">
             CATEGORIES
         </p>
-        <hr style="color:gray;width:90%;box-shadow: 0.3px 0.3px 0.3px lightgray;">
+        <hr style="color:gray;width:100%;box-shadow: 0.3px 0.3px 0.3px lightgray;" class="Cen">
         <div id="catInsert">
         </div>
     </div>
-    <div style='right: 10px; position: absolute;'>
+    <div style='right: 10px; position: absolute;margin-top: 8px;'>
         <span>Sort By:</span>
         <select name="sorting" id="sorting1" onchange="onChangeSort()">
             <option value="3">Most Recent</option>
@@ -281,7 +288,7 @@
             })
         } else {
             $('#content').empty()
-            $('#content').append(`<div class='jumbotron'>No Ads Available for the filter</div>`)
+            $('#content').append(`<div style="margin: 8% 0px" class='jumbotron'>No Ads Available for the filter</div>`)
         }
     })
 
@@ -385,7 +392,7 @@
                 })
             } else {
                 $('#content').empty()
-                $('#content').append(`<div class='jumbotron'>No Ads Available for the filter</div>`)
+                $('#content').append(`<div style="margin: 8% 0px" class='jumbotron'>No Ads Available for the filter</div>`)
             }
         })
     }
