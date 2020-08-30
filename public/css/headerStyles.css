@@ -10,7 +10,8 @@
 }
 
 .locationsubmit {
-    background-color: #9FC66A;
+    /* background-color: #9FC66A; */
+    background-color: #db582d;
     font-family: 'PT Sans', sans-serif;
     font-size: 14.78px;
     margin-left: 10px;
@@ -18,7 +19,7 @@
 }
 
 .locationsubmit:hover {
-    background-color: #9FC66A;
+    background-color: #db582d;
     font-family: 'PT Sans', sans-serif;
     font-size: 14.78px;
     cursor: pointer;
@@ -96,13 +97,13 @@
 }
 
 .locationsubmit {
-    background-color: #9FC66A;
+    background-color: #db582d;
     font-family: 'PT Sans', sans-serif;
     font-size: 14.78px;
 }
 
 .locationsubmit:hover {
-    background-color: #9FC66A;
+    background-color: #db582d;
     font-family: 'PT Sans', sans-serif;
     font-size: 14.78px;
     cursor: pointer;
