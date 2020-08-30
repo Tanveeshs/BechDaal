@@ -18,6 +18,7 @@
   .something1 {
     margin-left: 14%;
   }
+
   @media (max-width: 640px) {
     .something1 {
       margin-left: -10px;
@@ -85,9 +86,11 @@
     url: '/wish/test',
     success: function (res) {
       data = [...res];
-      let s = []
-      s = data.slice(0, 3)
-      for (let i = 0; i < 3; i++) {
+      console.log(data)
+      let s;
+      (data.length < 3 ? (s = [...data.slice(0, data.length)]) : (s = [...data.slice(0, 3)]))
+      var len = s.length
+      for (let i = 0; i < len; i++) {
         $(".mainContent").append(
           "<div class='col-md-4 col-sm-12 paddings' onclick='openAd(this)' id='" + s[i]._id + "'>\
                 <form action='/sell/show' method='post' id='form"+ s[i]._id + "'>\
@@ -123,13 +126,16 @@
   next.addEventListener('click', () => {
     first.textContent = ""
     page += 1;
-    if ((data.length / 3) + 1 > (page + 1)) {
+    if ((data.length) > (page * 3)) {
       var ctr = page + 1;
       first.textContent = ctr
-      let s = []
-        ((data.length < 6) ? (s = data.slice(3, 3 * page + (data.length / 3))) : (s = data.slice(3 * page, 3 * page + 3)))
+      let s;
+      (data.length % 3 * (page + 1) > 0 ?
+        (s = data.slice(3 * page, 3 * page + 3)) :
+        (s = data.slice(3 * page, data.length)))
+
       $(".mainContent").empty();
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < s.length; i++) {
         $(".mainContent").append(
           "<div class='col-md-4 col-sm-12 paddings' onclick='openAd(this)' id='" + s[i]._id + "'>\
               <form action='/sell/show' method='post' id='form"+ s[i]._id + "'>\

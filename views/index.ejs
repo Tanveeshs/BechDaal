@@ -105,8 +105,8 @@
       $("#third").addClass('unactiveDot')
       for (var i = 0; i < 3; i++) {
         $("#cont").append("<div id='" + arr[i].id + "' class='one' onclick='editad1(this)'>\
-        <form action='/search/main' method='post' id='form"+arr[i].id+"'>\
-        <input type='hidden' value='"+arr[i].name+"' name='category'>\
+        <form action='/search/main' method='post' id='form"+ arr[i].id + "'>\
+        <input type='hidden' value='"+ arr[i].name + "' name='category'>\
         </form>\
             <img class='Img' src = '" + arr[i].img + "'> <br>\
               " + arr[i].name + "</div>")
@@ -125,8 +125,8 @@
       for (let i = 0; i < 3; i++) {
         $("#cont").append(
           "<div id='" + s[i].id + "' class='one' onclick='editad1(this)'>\
-          <form action='/search/main' method='post' id='form"+s[i].id+"'>\
-        <input type='hidden' value='"+s[i].name+"' name='category'>\
+          <form action='/search/main' method='post' id='form"+ s[i].id + "'>\
+        <input type='hidden' value='"+ s[i].name + "' name='category'>\
         </form>\
             <img class='Img' src = '" + s[i].img + "'> <br>\
               " + s[i].name + "</div>")
@@ -145,8 +145,8 @@
         for (let i = 0; i < s.length; i++) {
           $("#cont").append(
             "<div id='" + s[i].id + "' class='one' onclick='editad1(this)'>\
-            <form action='/search/main' method='post' id='form"+s[i].id+"'>\
-        <input type='hidden' value='"+s[i].name+"' name='category'>\
+            <form action='/search/main' method='post' id='form"+ s[i].id + "'>\
+        <input type='hidden' value='"+ s[i].name + "' name='category'>\
         </form>\
             <img class='Img' src = '" + s[i].img + "'> <br>\
               " + s[i].name + "</div>")
@@ -166,8 +166,8 @@
         for (let i = 0; i < s.length; i++) {
           $("#cont").append(
             "<div id='" + s[i].id + "' class='one' onclick='editad1(this)' >\
-            <form action='/search/main' method='post' id='form"+s[i].id+"'>\
-        <input type='hidden' value='"+s[i].name+"' name='category'>\
+            <form action='/search/main' method='post' id='form"+ s[i].id + "'>\
+        <input type='hidden' value='"+ s[i].name + "' name='category'>\
         </form>\
             <img class='Img' src = '" + s[i].img + "'> <br>\
               " + s[i].name + "</div>")
@@ -200,8 +200,8 @@
             $("#locAds").append("<div class='two2' onclick='editad1(this)' id='" + ad._id + "'>" +
               "<form action='/sell/show' method='post' id='form" + ad._id + "'>" +
               "<input type='hidden' name='adId' value='" + ad._id + "'>" +
-              "<span class='featured' style='float: left' >FEATURED</span>" +
-              "<img class='images2' src='" + ad.cover_photo + "'><span id='icon" + ad._id + "'><i id='black-" + ad._id +
+              "<p class='featured' >FEATURED</p>" +
+              "<img class='images2' src='" + ad.cover_photo + "'><span id='icon" + ad._id + "' style='font-size:10px;'>Add to wishlist<i id='black-" + ad._id +
               "' class='fa fa-heart icondisplay  sharethis-inline-share-buttons' aria-hidden='true' style='z-index: 10' onclick='event.stopPropagation();check(this)'></i></span>" +
               "<p class='para'>₹" + ad.price + "</p>" +
               "<p class='para'>" + ad.title + "</p>" +
