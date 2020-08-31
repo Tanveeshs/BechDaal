@@ -10,9 +10,21 @@
   .something1 {
     margin-left: 17%;
   }
+  .space{
+      margin-left:85%;
+      width:100%
+  }
   @media (max-width: 640px) {
     .something1 {
       margin-left: 2%;
+    }
+    table{
+        margin-top: 20%;
+        margin-bottom: 20%;
+        margin-left:800%;
+    }
+    .space{
+        margin-left:0px;
     }
   }
 
@@ -46,8 +58,8 @@
 
   <div class="row no-gutters" id="main">
     <%if (ads.length===0){%>
-      <div style="text-align: center;">
-        <div class="jumbotron jumbotron-fluid">
+      <div>
+        <div class="jumbotron space">
           <div class="container">
             <h1 class="display-4">You have no Ads!</h1>
             <p class="lead">Visit the PostAd page to create a new one</p>
