@@ -19,7 +19,6 @@ const adSchema = new Schema({
   },
   sub_category: {
     type: String,
-    required:true
   },
   //Changed to Quantity par renamed as model only
   model: {
