@@ -25,10 +25,11 @@ $.ajax({
         (data.length < 3 ? (s = [...data.slice(0, data.length)]) : (s = [...data.slice(0, 3)]))
         var len = s.length
         for (let i = 0; i < len; i++) {
-            $(".mainContent").append(
-                "<div class='col-md-4 col-sm-12 paddings' onclick='openAd(this)' id='" + s[i]._id + "'>\
-                <form action='/sell/show' method='post' id='form"+ s[i]._id + "'>\
-                <input type='hidden' value='"+ s[i]._id + "' name='adId'>\
+            if(s.length==1){
+                $(".mainContent").append(
+                    "<div class='col-sm-12 paddings' onclick='openAd(this)' id='" + s[i]._id + "'>\
+              <form action='/sell/show' method='post' id='form"+ s[i]._id + "'>\
+              <input type='hidden' value='"+ s[i]._id + "' name='adId'>\
                 <div class='card text-white car mx-auto'>\
                   <div class='card-body'>\
                     <center><img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'></center>\
@@ -39,13 +40,57 @@ $.ajax({
                     <label for='title'>Date posted</label>\
                     <label for='' class='label-text'>" + new Date(s[i].date_posted).toDateString() + "</label>\
                   </div>\
+                  </form>\
                 </div>\
-                </form>\
                 <label id='" + s[i]._id + "' onclick='deletewish(this)' class='remove'>Remove <i style='padding:0 5px;' class='fas fa-times'></i></label>\
                 <div class='rem-left'></div>\
               </div>\
               ")
-
+            }
+            if(s.length===2){
+                $(".mainContent").append(
+                    "<div class='col-md-6 col-sm-12 paddings' onclick='openAd(this)' id='" + s[i]._id + "'>\
+              <form action='/sell/show' method='post' id='form"+ s[i]._id + "'>\
+              <input type='hidden' value='"+ s[i]._id + "' name='adId'>\
+                <div class='card text-white car mx-auto'>\
+                  <div class='card-body'>\
+                    <center><img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'></center>\
+                    <br>\
+                    <label for='title' class='text'>Title</label>\
+                    <label for='' class='label-text'>" + s[i].title + "</label>\
+                    <br>\
+                    <label for='title'>Date posted</label>\
+                    <label for='' class='label-text'>" + new Date(s[i].date_posted).toDateString() + "</label>\
+                  </div>\
+                  </form>\
+                </div>\
+                <label id='" + s[i]._id + "' onclick='deletewish(this)' class='remove'>Remove <i style='padding:0 5px;' class='fas fa-times'></i></label>\
+                <div class='rem-left'></div>\
+              </div>\
+              ")
+            }
+            if(s.length===3){
+                $(".mainContent").append(
+                    "<div class='col-md-4 col-sm-12 paddings' onclick='openAd(this)' id='" + s[i]._id + "'>\
+              <form action='/sell/show' method='post' id='form"+ s[i]._id + "'>\
+              <input type='hidden' value='"+ s[i]._id + "' name='adId'>\
+                <div class='card text-white car mx-auto'>\
+                  <div class='card-body'>\
+                    <center><img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'></center>\
+                    <br>\
+                    <label for='title' class='text'>Title</label>\
+                    <label for='' class='label-text'>" + s[i].title + "</label>\
+                    <br>\
+                    <label for='title'>Date posted</label>\
+                    <label for='' class='label-text'>" + new Date(s[i].date_posted).toDateString() + "</label>\
+                  </div>\
+                  </form>\
+                </div>\
+                <label id='" + s[i]._id + "' onclick='deletewish(this)' class='remove'>Remove <i style='padding:0 5px;' class='fas fa-times'></i></label>\
+                <div class='rem-left'></div>\
+              </div>\
+              ")
+            }
         }
     },
     error: function (err) {
