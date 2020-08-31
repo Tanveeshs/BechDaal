@@ -135,9 +135,10 @@ function isNotLoggedIn(req,res,next){
 }
 function isVerified(req, res, next) {
   if(typeof(req.user)!='undefined'){
-  if(req.user.LoginType = 'Local'){
+  if(req.user.LoginType === 'Local'){
     if(!req.user.local.isVerified){
-    return res.redirect('/login');
+      return res.redirect('/login');
+
   }
 }
 }
