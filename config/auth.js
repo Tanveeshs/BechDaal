@@ -7,7 +7,7 @@ module.exports = {
   'facebookAuth': {
     'clientID': process.env.facebook_client_id,
     'clientSecret': process.env.facebook_client_secret,
-    'callbackURL': 'http://localhost:3000/auth/facebook/callback',
+    'callbackURL': 'https://bechdaal.tech/auth/facebook/callback',
     'profileURL': 'https://graph.facebook.com/v2.5/me?fields=first_name,last_name,email',
     'profileFields': ['id','displayName','email']
   },
