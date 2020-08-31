@@ -1,4 +1,31 @@
 steps:
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['app', 'deploy']
-    timeout: '1600s'
+  - name: node:10.15.1
+    entrypoint: npm
+    args: ["install"]
+  - name: node:10.15.1
+    entrypoint: npm
+    args: ["run", "create-env"]
+    env:
+      - 'SECRET=${_SECRET}'
+      - 'project_id=${_PROJECTID}'
+      - 'project_key=${_PROJECTKEY}'
+      - 'private_key=${_PRIVATEKEY}'
+      - 'email=${_EMAIL}'
+      - 'pass=${_PASS}'
+      - 'redis_host=${_REDIS_HOST}'
+      - 'redis_pass=${_REDIS_PASS}'
+      - 'razorpay_key=${_RAZORPAY_KEY}'
+      - 'razorpay_secret=${_RAZORPAY_SECRET}'
+      - 'mongo_url=${_MONGO_URL}'
+      - 'google_client_id=${_GOOGLE_CLIENT_ID}'
+      - 'google_client_secret=${_GOOGLE_CLIENT_SECRET}'
+      - 'facebook_client_id=${_FACEBOOK_CLIENT_ID}'
+      - 'facebook_client_secret=${_FACEBOOK_CLIENT_SECRET}'
+      - 'forgot_password_secret=${_FORGOT_PASSWORD_SECRET}'
+      - 'verify_mail_secret=${_VERIFY_MAIL_SECRET}'
+#  - name: node:10.15.1
+#    entrypoint: npm
+#    args: ["run", "createJSON"]
+  - name: "gcr.io/cloud-builders/gcloud"
+    args: ["app", "deploy"]
+timeout: "1600s"

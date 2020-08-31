@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "serve": "nodemon app.js"
+    "create-env": "printenv > .env",
+    "createJSON": "node utils/writeJSON.js"
   },
   "dependencies": {
     "@google-cloud/storage": "^5.2.0",
