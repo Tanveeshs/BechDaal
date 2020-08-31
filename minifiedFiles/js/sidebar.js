@@ -1,0 +1,1 @@
+$(function(){var a=window.location.href;$(".sidenav a").each(function(){a==this.href&&($(this).closest("a").addClass("activeLink"),$("hr").removeClass("activeLink"))})});
