@@ -72,7 +72,7 @@ No special characters other than - and _">
           <div class="inputContainer" style="width:70%">
             <label class="text-muted">Set a Password</label>
             <br />
-            <input class="input" type="password" name="password" id="password1" placeholder="Type Here" required pattern='^(?=.*?[A-Z])(?=.*?[a-z]).{6,32}$'
+            <input class="input" type="password" name="password" id="password" placeholder="Type Here" required pattern='^(?=.*?[A-Z])(?=.*?[a-z]).{6,32}$'
                    data-toggle="tooltip" data-placement="bottom" data-html="true"  title="Password should contain:
 Minimum 6 characters
 One Uppercase Letter
@@ -101,7 +101,7 @@ One Digit">
           <div class="inputContainer" style="width:70%">
             <label class="text-muted">Re-enter Password</label>
             <br />
-            <input class="input" type="password" id="password2" placeholder="Type Here">
+            <input class="input" type="password" id="password1" placeholder="Type Here">
           </div>
           <div class="checkboxCont">
             <i class="fas fa-check-circle pass-check" style="margin-left: 30px; visibility: hidden"></i>
@@ -138,7 +138,4 @@ One Digit">
 <script src="https://storage.googleapis.com/bechdaal_bucket/assets/js/signup1.js">
 
 </script>
-<%# <script src="https://storage.googleapis.com/bechdaal_bucket/assets/js/login-signup.js" charset="utf-8">
-</script> %>
-<script src="/js/login-signup.js" charset="utf-8"></script>
 <%-include("partials/footer")-%>

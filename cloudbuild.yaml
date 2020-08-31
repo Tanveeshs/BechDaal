@@ -23,6 +23,8 @@ steps:
       - 'facebook_client_secret=${_FACEBOOK_CLIENT_SECRET}'
       - 'forgot_password_secret=${_FORGOT_PASSWORD_SECRET}'
       - 'verify_mail_secret=${_VERIFY_MAIL_SECRET}'
+      - 'admin_user=${_ADMIN_USER}'
+      - 'admin_pass=${_ADMIN_PASS}'
 #  - name: node:10.15.1
 #    entrypoint: npm
 #    args: ["run", "createJSON"]
