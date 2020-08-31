@@ -138,6 +138,9 @@ function getNewAds() {
                 delete wishlist[i]
             }
         })
+        if(ads.length===0){
+            $('#ShowMoreButton').css('display','none')
+        }
     }).fail(function () {
         alert('FAIL!!');
     });
