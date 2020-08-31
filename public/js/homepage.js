@@ -59,9 +59,9 @@ second.addEventListener('click', () => {
 third.addEventListener('click', () => {
     if (arr.length <= 6) {
     } else {
-        $("#first").removeClass('.activeDot').addClass('.unactiveDot')
-        $("#second").removeClass('.activeDot').addClass('.unactiveDot')
-        $("#third").removeClass('.unactiveDot').addClass('.activeDot')
+        $("#first").removeClass().addClass('unactiveDot')
+        $("#second").removeClass().addClass('unactiveDot')
+        $("#third").removeClass().addClass('activeDot')
         let s;
         ((arr.length < 9) ? (s = arr.slice(6, arr.length)) : (s = arr.slice(6, 9)))
         $("#cont").empty();
@@ -87,14 +87,14 @@ function editad1(input) {
     var form = document.getElementById("form" + input.id);
     form.submit()
 }
-function convertTitle(title){
+function convertTitle(title) {
     let newTitle;
-    if(title.length>17){
-        newTitle = title.slice(0,17);
+    if (title.length > 17) {
+        newTitle = title.slice(0, 17);
         newTitle = newTitle.concat('...')
         return newTitle
     }
-    else{
+    else {
         return title
     }
 }
@@ -146,25 +146,25 @@ function getNewAds() {
 
 var state_arr = new Array("Mumbai");
 var s_a = new Array();
-s_a[0]="";
-s_a[1]="Andheri(E)|Andheri(W)|Bandra(E)|Bandra(W)|Bhandup|Borivali(E)|Borivali(W)|Breach Candy|Byculla|Colaba|Cuffe Parade|Chembur|Churchgate|Charni Road|Dadar(E)|Dadar(W)|Dahisar|Dharavi|Deonar|Dongri|Elphinstone Road|Flora Fountain|Fort|Girgaum|Grant Road|Goregaon(E)|Goregaon(W)|Ghatkopar(E)|Ghatkopar(W)|Jogeshwari(E)|Jogeshwari(W)|Juhu|Kalbadevi|Kandivali(E)|Kandivali(W)|Khar(E)|Khar(W)|King's Circle|Kurla(E)|Kurla(W)|Lower Parel|Mazgaon|Mahim|Malabar Hill|Matunga|Marine Lines|Malad(E)|Malad(W)|Mulund(E)|Mulund(W)|Nariman Point|Parel|Prabhadevi|Peddar Road|Saki Naka|Santacruz(E)|Santacruz(W)|Sion|Tardeo|Trombay|Versova|Vile Parle(E)|Vile Parle(W)|Vidya Vihar|Vikhroli|Wadala|Worli";
-function print_state1(state_id){
+s_a[0] = "";
+s_a[1] = "Andheri(E)|Andheri(W)|Bandra(E)|Bandra(W)|Bhandup|Borivali(E)|Borivali(W)|Breach Candy|Byculla|Colaba|Cuffe Parade|Chembur|Churchgate|Charni Road|Dadar(E)|Dadar(W)|Dahisar|Dharavi|Deonar|Dongri|Elphinstone Road|Flora Fountain|Fort|Girgaum|Grant Road|Goregaon(E)|Goregaon(W)|Ghatkopar(E)|Ghatkopar(W)|Jogeshwari(E)|Jogeshwari(W)|Juhu|Kalbadevi|Kandivali(E)|Kandivali(W)|Khar(E)|Khar(W)|King's Circle|Kurla(E)|Kurla(W)|Lower Parel|Mazgaon|Mahim|Malabar Hill|Matunga|Marine Lines|Malad(E)|Malad(W)|Mulund(E)|Mulund(W)|Nariman Point|Parel|Prabhadevi|Peddar Road|Saki Naka|Santacruz(E)|Santacruz(W)|Sion|Tardeo|Trombay|Versova|Vile Parle(E)|Vile Parle(W)|Vidya Vihar|Vikhroli|Wadala|Worli";
+function print_state1(state_id) {
     var option_str = document.getElementById(state_id);
-    option_str.length=0;
-    option_str.options[0] = new Option('Select City','');
+    option_str.length = 0;
+    option_str.options[0] = new Option('Select City', '');
     option_str.selectedIndex = 0;
-    for (var i=0; i<state_arr.length; i++) {
-        option_str.options[option_str.length] = new Option(state_arr[i],state_arr[i]);
+    for (var i = 0; i < state_arr.length; i++) {
+        option_str.options[option_str.length] = new Option(state_arr[i], state_arr[i]);
     }
 }
-function print_city1(city_id, city_index){
+function print_city1(city_id, city_index) {
     var option_str = document.getElementById(city_id);
-    option_str.length=0;
-    option_str.options[0] = new Option('Select Area','');
+    option_str.length = 0;
+    option_str.options[0] = new Option('Select Area', '');
     option_str.selectedIndex = 0;
     var city_arr = s_a[city_index].split("|");
-    for (var i=0; i<city_arr.length; i++) {
-        option_str.options[option_str.length] = new Option(city_arr[i],city_arr[i]);
+    for (var i = 0; i < city_arr.length; i++) {
+        option_str.options[option_str.length] = new Option(city_arr[i], city_arr[i]);
     }
 }
 
@@ -172,30 +172,30 @@ print_state("sts1");
 
 
 
-var showResults1 = debounce(function(arg) {
+var showResults1 = debounce(function (arg) {
     var value = arg.trim();
-    var jqxhr = $.post('/search/search/' + value, function(data) {
-    }).done(function(data) {
+    var jqxhr = $.post('/search/search/' + value, function (data) {
+    }).done(function (data) {
         var ans = data
         console.log(ans)
         abc(ans)
     })
-        .fail(function(err) {
+        .fail(function (err) {
             console.log(err);
         });
 }, 100);
 
-function abc(ans){
-    $( "#menuSearch" ).autocomplete({
+function abc(ans) {
+    $("#menuSearch").autocomplete({
         source: ans
     });
 }
 function debounce(func, wait, immediate) {
     var timeout;
-    return function() {
+    return function () {
         var context = this,
             args = arguments;
-        var later = function() {
+        var later = function () {
             timeout = null;
             if (!immediate) func.apply(context, args);
         };
