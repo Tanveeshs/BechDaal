@@ -1,1 +1,231 @@
-function deletewish(e){event.stopPropagation();var t=e.id;$.ajax({type:"GET",url:"/wish/"+t,success:function(){window.location.href="https://bechdaal.tech/wish/"},error:function(){console.log("fail")}})}let data=[],page=0;$.ajax({type:"GET",url:"/wish/test",success:function(e){let t;data=[...e],console.log(data);var l=(t=data.length<3?[...data.slice(0,data.length)]:[...data.slice(0,3)]).length;for(let e=0;e<l;e++)$(".mainContent").append("<div class='col-md-4 col-sm-12 paddings' onclick='openAd(this)' id='"+t[e]._id+"'>                <form action='/sell/show' method='post' id='form"+t[e]._id+"'>                <input type='hidden' value='"+t[e]._id+"' name='adId'>                <div class='card text-white car mx-auto'>                  <div class='card-body'>                    <center><img class='Img mx-auto' style='text-align: center;' src='"+t[e].cover_photo+"' alt='"+t[e].cover_photo+"'></center>                    <br>                    <label for='title' class='text'>Title</label>                    <label for='' class='label-text'>"+t[e].title+"</label>                    <br>                    <label for='title'>Date posted</label>                    <label for='' class='label-text'>"+new Date(t[e].date_posted).toDateString()+"</label>                  </div>                </div>                </form>                <label id='"+t[e]._id+"' onclick='deletewish(this)' class='remove'>Remove <i style='padding:0 5px;' class='fas fa-times'></i></label>                <div class='rem-left'></div>              </div>              ")},error:function(e){console.log(e)}});const main=document.querySelector("#main"),first=document.querySelector("#first"),previous=document.querySelector("#previous"),next=document.querySelector("#next");function openAd(e){var t=document.getElementById("form"+e.id);console.log("Hit"),t.submit()}next.addEventListener("click",()=>{if(first.textContent="",page+=1,data.length>3*page){var e=page+1;let t;first.textContent=e,t=data.length%(3*(page+1))>=0?data.slice(3*page,3*page+3):data.slice(3*page,data.length),$(".mainContent").empty();for(let e=0;e<t.length;e++)1==t.length&&$(".mainContent").append("<div class='col-sm-12 paddings' onclick='openAd(this)' id='"+t[e]._id+"'>              <form action='/sell/show' method='post' id='form"+t[e]._id+"'>              <input type='hidden' value='"+t[e]._id+"' name='adId'>                <div class='card text-white car mx-auto'>                  <div class='card-body'>                    <center><img class='Img mx-auto' style='text-align: center;' src='"+t[e].cover_photo+"' alt='"+t[e].cover_photo+"'></center>                    <br>                    <label for='title' class='text'>Title</label>                    <label for='' class='label-text'>"+t[e].title+"</label>                    <br>                    <label for='title'>Date posted</label>                    <label for='' class='label-text'>"+new Date(t[e].date_posted).toDateString()+"</label>                  </div>                  </form>                </div>                <label id='"+t[e]._id+"' onclick='deletewish(this)' class='remove'>Remove <i style='padding:0 5px;' class='fas fa-times'></i></label>                <div class='rem-left'></div>              </div>              "),2===t.length&&$(".mainContent").append("<div class='col-md-6 col-sm-12 paddings' onclick='openAd(this)' id='"+t[e]._id+"'>              <form action='/sell/show' method='post' id='form"+t[e]._id+"'>              <input type='hidden' value='"+t[e]._id+"' name='adId'>                <div class='card text-white car mx-auto'>                  <div class='card-body'>                    <center><img class='Img mx-auto' style='text-align: center;' src='"+t[e].cover_photo+"' alt='"+t[e].cover_photo+"'></center>                    <br>                    <label for='title' class='text'>Title</label>                    <label for='' class='label-text'>"+t[e].title+"</label>                    <br>                    <label for='title'>Date posted</label>                    <label for='' class='label-text'>"+new Date(t[e].date_posted).toDateString()+"</label>                  </div>                  </form>                </div>                <label id='"+t[e]._id+"' onclick='deletewish(this)' class='remove'>Remove <i style='padding:0 5px;' class='fas fa-times'></i></label>                <div class='rem-left'></div>              </div>              "),3===t.length&&$(".mainContent").append("<div class='col-md-4 col-sm-12 paddings' onclick='openAd(this)' id='"+t[e]._id+"'>              <form action='/sell/show' method='post' id='form"+t[e]._id+"'>              <input type='hidden' value='"+t[e]._id+"' name='adId'>                <div class='card text-white car mx-auto'>                  <div class='card-body'>                    <center><img class='Img mx-auto' style='text-align: center;' src='"+t[e].cover_photo+"' alt='"+t[e].cover_photo+"'></center>                    <br>                    <label for='title' class='text'>Title</label>                    <label for='' class='label-text'>"+t[e].title+"</label>                    <br>                    <label for='title'>Date posted</label>                    <label for='' class='label-text'>"+new Date(t[e].date_posted).toDateString()+"</label>                  </div>                  </form>                </div>                <label id='"+t[e]._id+"' onclick='deletewish(this)' class='remove'>Remove <i style='padding:0 5px;' class='fas fa-times'></i></label>                <div class='rem-left'></div>              </div>              ")}else page-=1,first.textContent="Last"}),previous.addEventListener("click",()=>{if(first.textContent="",(page-=1)>=0){var e=page+1;first.textContent=e;let t=data.slice(3*page,3*page+3);$(".mainContent").empty();for(let e=0;e<3;e++)$(".mainContent").append("<div class='col-md-4 col-sm-12 paddings' onclick='openAd(this)' id='"+t[e]._id+"'>          <form action='/sell/show' method='post' id='form"+t[e]._id+"'>              <input type='hidden' value='"+t[e]._id+"' name='adId'>                  <div class='card text-white car mx-auto'>                    <div class='card-body'>                      <center><img class='Img mx-auto' style='text-align: center;' src='"+t[e].cover_photo+"' alt='"+t[e].cover_photo+"'></center>                      <br>                      <label for='title' class='text'>Title</label>                      <label for='' class='label-text'>"+t[e].title+"</label>                      <br>                      <label for='title'>Date posted</label>                      <label for='' class='label-text'>"+new Date(t[e].date_posted).toDateString()+"</label>                    </div>                    </form>                  </div>                  <label id='"+t[e]._id+"' onclick='deletewish(this)' class='remove'>Remove <i style='padding:0 5px;' class='fas fa-times'></i></label>                  <div class='rem-left'></div>                </div>              ")}else page+=1,first.textContent="First"});
+function deletewish(input) {
+    event.stopPropagation();
+    var wish = input.id
+    $.ajax({
+        type: 'GET',
+        url: '/wish/' + wish,
+        success: function () {
+            window.location.href = 'https://bechdaal.tech/wish/'
+        },
+        error: function () {
+            console.log('fail')
+        }
+    });
+
+}
+let data = [];
+let page = 0;
+$.ajax({
+    type: 'GET',
+    url: '/wish/test',
+    success: function (res) {
+        data = [...res];
+        console.log(data)
+        let s;
+        (data.length < 3 ? (s = [...data.slice(0, data.length)]) : (s = [...data.slice(0, 3)]))
+        var len = s.length
+        for (let i = 0; i < len; i++) {
+            if(s.length==1){
+                $(".mainContent").append(
+                    "<div class='col-sm-12 paddings' onclick='openAd(this)' id='" + s[i]._id + "'>\
+              <form action='/sell/show' method='post' id='form"+ s[i]._id + "'>\
+              <input type='hidden' value='"+ s[i]._id + "' name='adId'>\
+                <div class='card text-white car mx-auto'>\
+                  <div class='card-body'>\
+                    <center><img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'></center>\
+                    <br>\
+                    <label for='title' class='text'>Title</label>\
+                    <label for='' class='label-text'>" + s[i].title + "</label>\
+                    <br>\
+                    <label for='title'>Date posted</label>\
+                    <label for='' class='label-text'>" + new Date(s[i].date_posted).toDateString() + "</label>\
+                  </div>\
+                  </form>\
+                </div>\
+                <label id='" + s[i]._id + "' onclick='deletewish(this)' class='remove'>Remove <i style='padding:0 5px;' class='fas fa-times'></i></label>\
+                <div class='rem-left'></div>\
+              </div>\
+              ")
+            }
+            if(s.length===2){
+                $(".mainContent").append(
+                    "<div class='col-md-6 col-sm-12 paddings' onclick='openAd(this)' id='" + s[i]._id + "'>\
+              <form action='/sell/show' method='post' id='form"+ s[i]._id + "'>\
+              <input type='hidden' value='"+ s[i]._id + "' name='adId'>\
+                <div class='card text-white car mx-auto'>\
+                  <div class='card-body'>\
+                    <center><img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'></center>\
+                    <br>\
+                    <label for='title' class='text'>Title</label>\
+                    <label for='' class='label-text'>" + s[i].title + "</label>\
+                    <br>\
+                    <label for='title'>Date posted</label>\
+                    <label for='' class='label-text'>" + new Date(s[i].date_posted).toDateString() + "</label>\
+                  </div>\
+                  </form>\
+                </div>\
+                <label id='" + s[i]._id + "' onclick='deletewish(this)' class='remove'>Remove <i style='padding:0 5px;' class='fas fa-times'></i></label>\
+                <div class='rem-left'></div>\
+              </div>\
+              ")
+            }
+            if(s.length===3){
+                $(".mainContent").append(
+                    "<div class='col-md-4 col-sm-12 paddings' onclick='openAd(this)' id='" + s[i]._id + "'>\
+              <form action='/sell/show' method='post' id='form"+ s[i]._id + "'>\
+              <input type='hidden' value='"+ s[i]._id + "' name='adId'>\
+                <div class='card text-white car mx-auto'>\
+                  <div class='card-body'>\
+                    <center><img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'></center>\
+                    <br>\
+                    <label for='title' class='text'>Title</label>\
+                    <label for='' class='label-text'>" + s[i].title + "</label>\
+                    <br>\
+                    <label for='title'>Date posted</label>\
+                    <label for='' class='label-text'>" + new Date(s[i].date_posted).toDateString() + "</label>\
+                  </div>\
+                  </form>\
+                </div>\
+                <label id='" + s[i]._id + "' onclick='deletewish(this)' class='remove'>Remove <i style='padding:0 5px;' class='fas fa-times'></i></label>\
+                <div class='rem-left'></div>\
+              </div>\
+              ")
+            }
+        }
+    },
+    error: function (err) {
+        console.log(err);
+    }
+})
+const main = document.querySelector("#main")
+const first = document.querySelector("#first");
+const previous = document.querySelector("#previous");
+const next = document.querySelector("#next");
+
+
+next.addEventListener('click', () => {
+    first.textContent = ""
+    page += 1;
+    if ((data.length) > (page * 3)) {
+        var ctr = page + 1;
+        first.textContent = ctr
+        let s;
+        (data.length % (3 * (page + 1) )>= 0 ?
+            (s = data.slice(3 * page, 3 * page + 3)) :
+            (s = data.slice(3 * page, data.length)))
+
+        $(".mainContent").empty();
+        for (let i = 0; i < s.length; i++) {
+            if(s.length==1){
+                $(".mainContent").append(
+                    "<div class='col-sm-12 paddings' onclick='openAd(this)' id='" + s[i]._id + "'>\
+              <form action='/sell/show' method='post' id='form"+ s[i]._id + "'>\
+              <input type='hidden' value='"+ s[i]._id + "' name='adId'>\
+                <div class='card text-white car mx-auto'>\
+                  <div class='card-body'>\
+                    <center><img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'></center>\
+                    <br>\
+                    <label for='title' class='text'>Title</label>\
+                    <label for='' class='label-text'>" + s[i].title + "</label>\
+                    <br>\
+                    <label for='title'>Date posted</label>\
+                    <label for='' class='label-text'>" + new Date(s[i].date_posted).toDateString() + "</label>\
+                  </div>\
+                  </form>\
+                </div>\
+                <label id='" + s[i]._id + "' onclick='deletewish(this)' class='remove'>Remove <i style='padding:0 5px;' class='fas fa-times'></i></label>\
+                <div class='rem-left'></div>\
+              </div>\
+              ")
+            }
+            if(s.length===2){
+                $(".mainContent").append(
+                    "<div class='col-md-6 col-sm-12 paddings' onclick='openAd(this)' id='" + s[i]._id + "'>\
+              <form action='/sell/show' method='post' id='form"+ s[i]._id + "'>\
+              <input type='hidden' value='"+ s[i]._id + "' name='adId'>\
+                <div class='card text-white car mx-auto'>\
+                  <div class='card-body'>\
+                    <center><img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'></center>\
+                    <br>\
+                    <label for='title' class='text'>Title</label>\
+                    <label for='' class='label-text'>" + s[i].title + "</label>\
+                    <br>\
+                    <label for='title'>Date posted</label>\
+                    <label for='' class='label-text'>" + new Date(s[i].date_posted).toDateString() + "</label>\
+                  </div>\
+                  </form>\
+                </div>\
+                <label id='" + s[i]._id + "' onclick='deletewish(this)' class='remove'>Remove <i style='padding:0 5px;' class='fas fa-times'></i></label>\
+                <div class='rem-left'></div>\
+              </div>\
+              ")
+            }
+            if(s.length===3){
+                $(".mainContent").append(
+                    "<div class='col-md-4 col-sm-12 paddings' onclick='openAd(this)' id='" + s[i]._id + "'>\
+              <form action='/sell/show' method='post' id='form"+ s[i]._id + "'>\
+              <input type='hidden' value='"+ s[i]._id + "' name='adId'>\
+                <div class='card text-white car mx-auto'>\
+                  <div class='card-body'>\
+                    <center><img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'></center>\
+                    <br>\
+                    <label for='title' class='text'>Title</label>\
+                    <label for='' class='label-text'>" + s[i].title + "</label>\
+                    <br>\
+                    <label for='title'>Date posted</label>\
+                    <label for='' class='label-text'>" + new Date(s[i].date_posted).toDateString() + "</label>\
+                  </div>\
+                  </form>\
+                </div>\
+                <label id='" + s[i]._id + "' onclick='deletewish(this)' class='remove'>Remove <i style='padding:0 5px;' class='fas fa-times'></i></label>\
+                <div class='rem-left'></div>\
+              </div>\
+              ")
+            }
+        }
+    } else {
+        page -= 1;
+        first.textContent = "Last"
+    }
+})
+previous.addEventListener('click', () => {
+    first.textContent = ""
+    page -= 1;
+    if (page >= 0) {
+        var ctr = page + 1;
+        first.textContent = ctr
+        let s = data.slice(3 * page, 3 * page + 3)
+        $(".mainContent").empty();
+        for (let i = 0; i < 3; i++) {
+            $(".mainContent").append(
+                "<div class='col-md-4 col-sm-12 paddings' onclick='openAd(this)' id='" + s[i]._id + "'>\
+          <form action='/sell/show' method='post' id='form"+ s[i]._id + "'>\
+              <input type='hidden' value='"+ s[i]._id + "' name='adId'>\
+                  <div class='card text-white car mx-auto'>\
+                    <div class='card-body'>\
+                      <center><img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'></center>\
+                      <br>\
+                      <label for='title' class='text'>Title</label>\
+                      <label for='' class='label-text'>" + s[i].title + "</label>\
+                      <br>\
+                      <label for='title'>Date posted</label>\
+                      <label for='' class='label-text'>" + new Date(s[i].date_posted).toDateString() + "</label>\
+                    </div>\
+                    </form>\
+                  </div>\
+                  <label id='" + s[i]._id + "' onclick='deletewish(this)' class='remove'>Remove <i style='padding:0 5px;' class='fas fa-times'></i></label>\
+                  <div class='rem-left'></div>\
+                </div>\
+              ")
+        }
+    } else {
+        page += 1;
+        first.textContent = "First"
+    }
+})
+function openAd(input) {
+    var form = document.getElementById("form" + input.id);
+    console.log("Hit")
+    form.submit()
+
+}
