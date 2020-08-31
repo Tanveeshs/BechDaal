@@ -526,7 +526,7 @@ function editAd(req,res,isPaid,featured){
                         res.send("Error While Updating Ad")
                     }
                     if(docs){
-                        res.render('afterPostAd')
+                        res.render('afterPostAd',{user:req.user})
                     }
                     else {
                         res.send("Not Found")
@@ -581,7 +581,7 @@ function editAd(req,res,isPaid,featured){
                 ad.isActive = isActive
                 ad.price = req.body.price
                 ad.save()
-                res.render("afterPostAd.ejs")
+                res.render('afterPostAd',{user:req.user})
             }
             else {
                 ad.isPaid = isPaid
