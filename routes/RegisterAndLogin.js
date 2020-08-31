@@ -9,7 +9,7 @@ let pageCounter = require('../utils/pageCounter')
 
 
 module.exports = function(app, passport) {
-  app.get('/', function(req, res) {
+  app.get('/',isVerified, function(req, res) {
     pageCounter.incrementPageCount()
     Category.find({},{name:1,image:1},function (err, result) {
       if (err) {
@@ -137,7 +137,7 @@ function isVerified(req, res, next) {
   if(typeof(req.user)!='undefined'){
   if(req.user.LoginType = 'Local'){
     if(!req.user.local.isVerified){
-    res.redirect('/login');
+    return res.redirect('/login');
   }
 }
 }

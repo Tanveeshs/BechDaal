@@ -270,10 +270,10 @@ textarea.input100 {
   width: 300%;
   height: 100%;
   background: #df2351;
-  background: -webkit-linear-gradient(right, #2f91ff, #ffa400, #2f91ff, #ffa400);
-  background: -o-linear-gradient(right, #2f91ff, #ffa400, #2f91ff, #ffa400);
-  background: -moz-linear-gradient(right, #2f91ff, #ffa400, #2f91ff, #ffa400);
-  background: linear-gradient(right, #2f91ff, #ffa400, #2f91ff, #ffa400);
+  background: -webkit-linear-gradient(right, #2f91ff, #69c426, #2f91ff, #2f91ff);
+  background: -o-linear-gradient(right, #2f91ff, #69c426, #2f91ff, #69c426);
+  background: -moz-linear-gradient(right, #2f91ff, #69c426, #2f91ff, #69c426);
+  background: linear-gradient(right, #2f91ff, #69c426, #2f91ff, #69c426);
   top: 0;
   left: -100%;
 
