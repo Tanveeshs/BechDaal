@@ -55,7 +55,7 @@ adRouter.get('/', isLoggedIn,isSeller,(req, res) => {
         'user._id': req.user._id
     }, (err, ads) => {
         console.log(ads.length)
-        res.render('myAds', {
+        return res.render('myAds', {
             ads: ads,
             user: req.user
         });
@@ -67,7 +67,7 @@ adRouter.get('/ad/ad', isLoggedIn, (req, res) => {
     Ads.find({
         'user._id': req.user._id
     }, (err, ads) => {
-        res.send(ads);
+        return res.send(ads);
         // res.json(ads)
     });
 });
@@ -77,14 +77,14 @@ adRouter.get('/ad/ad/:adid', isLoggedIn, (req, res) => {
     Ads.find({
         _id: req.params.adid
     }, (err, ads) => {
-        res.send(ads);
+        return res.send(ads);
         // res.json(ads)
     });
 });
 
 //The get route of PostAd Page
 adRouter.get('/ads/post', isLoggedIn,isSeller,function(req, res) {
-    res.render('postAd.ejs', {
+    return res.render('postAd.ejs', {
         user: req.user
     });
 });
@@ -92,15 +92,15 @@ adRouter.get('/ads/post', isLoggedIn,isSeller,function(req, res) {
 //MAKE AN ERROR PAGE
 adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
     multerMid(req, res,(err) => {
-        console.log(req.files)
-        console.log(req.body)
+        // console.log(req.files)
+        // console.log(req.body)
         if (req.body.featured) {
             if (req.user.noOfFeaturedAds > 0) {
                 if (err) {
-                    console.log('Error: ', err);
+                    // console.log('Error: ', err);
                     res.statusCode = 400;
                     res.setHeader('Content-Type', 'application/json');
-                    res.json({
+                    return res.json({
                         msg: 'error'
                     });
                 }
@@ -137,8 +137,8 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                         },
                         function (err) {
                             if (err) {
-                                console.log(err);
-                                res.send('ERROR');
+                                // console.log(err);
+                                return returnErr(res, "Error", "Our server ran into an error please try again")
                             } else {
                                 console.log('Images Uploaded');
                                 async.parallel({
@@ -180,26 +180,27 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                     }
                                 }, function (err, results) {
                                     if (err) {
-                                        console.log("Error While Posting Ads",err)
+                                      return returnErr(res, "Error", "Error While Posting Ads")
+                                        // console.log("Error While Posting Ads",err)
                                     } else {
                                         console.log(results.userUpdate.user)
                                         req.user = results.userUpdate.user
-                                        res.render("afterPostAd.ejs",{user:req.user})
+                                        return res.render("afterPostAd.ejs",{user:req.user})
                                     }
                                 })
                             }
                         });
                 }
             }else {
-                res.send("You Dont have Featured Ads Buy More")
+                return res.send("You Dont have Featured Ads Buy More")
             }
         } else {
             if(req.user.noOfFreeAds>0){
                 if (err) {
-                    console.log('Error: ', err);
+                    // console.log('Error: ', err);
                     res.statusCode = 400;
                     res.setHeader('Content-Type', 'application/json');
-                    res.json({
+                    return res.json({
                         msg: 'error'
                     });
                 } else {
@@ -234,8 +235,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                         },
                         function (err) {
                             if (err) {
-                                console.log(err);
-                                res.send('ERROR');
+                                return returnErr(res, "Error", "Our server ran into an error please try again")
                             } else {
                                 console.log('Images Uploaded');
                                 async.parallel({
@@ -277,11 +277,12 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                     }
                                 }, function (err, results) {
                                     if (err) {
-                                        console.log("Error While Posting Ads",err)
+                                        // console.log("Error While Posting Ads",err)
+                                        return returnErr(res, "Error", "Error While Posting Ads")
                                     } else {
                                         console.log(results.userUpdate.user)
                                         req.user = results.userUpdate.user
-                                        res.render("afterPostAd.ejs",{user:req.user})
+                                        return res.render("afterPostAd.ejs",{user:req.user})
                                     }
                                 })
                             }
@@ -290,10 +291,10 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
             }
             else if(req.user.noOfPaidAds>0){
                 if (err) {
-                    console.log('Error: ', err);
+                    // console.log('Error: ', err);
                     res.statusCode = 400;
                     res.setHeader('Content-Type', 'application/json');
-                    res.json({
+                    return res.json({
                         msg: 'error'
                     });
                 } else {
@@ -328,8 +329,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                         },
                         function (err) {
                             if (err) {
-                                console.log(err);
-                                res.send('ERROR');
+                                return returnErr(res, "Error", "Our server ran into an error please try again")
                             } else {
                                 console.log('Images Uploaded');
                                 async.parallel({
@@ -371,11 +371,12 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                     }
                                 }, function (err, results) {
                                     if (err) {
-                                        console.log("Error While Posting Ads",err)
+                                      return returnErr(res, "Error", "Error While Posting Ads")
+                                        // console.log("Error While Posting Ads",err)
                                     } else {
                                         console.log(results.userUpdate.user)
                                         req.user = results.userUpdate.user
-                                        res.render("afterPostAd.ejs",{user:req.user})
+                                        return res.render("afterPostAd.ejs",{user:req.user})
                                     }
                                 })
                             }
@@ -383,7 +384,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                 }
             }
             else {
-                res.send("You Dont have Ads Buy More")
+                return res.send("You Dont have Ads Buy More")
             }
         }
     })
@@ -398,12 +399,12 @@ adRouter.post('/editad/view', isLoggedIn,isSeller,(req, res) => {
     }, (err, ad) => {
         console.log(req.body.adid);
         if (ad) {
-            res.render('editad', {
+            return res.render('editad', {
                 ad: ad,
                 user: req.user
             });
         } else {
-            res.send("Error");
+            return returnErr(res, "Error", "Our server ran into an error please try again")
         }
     });
 });
@@ -412,11 +413,10 @@ adRouter.post('/editad/view', isLoggedIn,isSeller,(req, res) => {
 adRouter.post('/editad', (req, res) => {
     multerMid(req, res,(err) => {
         if(err){
-            console.log(err)
-            res.send("Error")
+            return returnErr(res, "Error", "Our server ran into an error please try again")
         }
-        console.log(req.files)
-        console.log(req.body)
+        // console.log(req.files)
+        // console.log(req.body)
         Ads.findOne({_id:sanitize(req.body.adid)},function (err,ad){
             let featured = ad.featured
             if(req.body.featured && !featured){
@@ -435,7 +435,7 @@ adRouter.post('/editad', (req, res) => {
                         editAd(req,res,2,true)
                     }
                     else {
-                        res.send("No Featured Ads Available")
+                        return res.send("No Featured Ads Available")
                     }
                 })
             }
@@ -457,7 +457,7 @@ adRouter.post('/editad', (req, res) => {
                         editAd(req,res,isPaid,false)
                     }
                     else {
-                        res.send("No Free or Paid Ads Available")
+                        return res.send("No Free or Paid Ads Available")
                     }
                 })
             }
@@ -502,7 +502,7 @@ function editAd(req,res,isPaid,featured){
             }).end(buffer);
         },function (err) {
             if(err){
-                res.send("Error While Uploading Images")
+              return returnErr(res, "Error", "Error While Uploading Images")
             }
             else {
                 Ads.findOneAndUpdate({_id:sanitize(req.body.adid)}, {
@@ -523,13 +523,13 @@ function editAd(req,res,isPaid,featured){
                     }
                 },function (err,docs) {
                     if(err){
-                        res.send("Error While Updating Ad")
+                      return returnErr(res, "Error", "Error While Updating Ad")
                     }
                     if(docs){
-                        res.render('afterPostAd',{user:req.user})
+                        return res.render('afterPostAd')
                     }
                     else {
-                        res.send("Not Found")
+                        return res.send("Not Found")
                     }
                 })
             }
@@ -581,14 +581,14 @@ function editAd(req,res,isPaid,featured){
                 ad.isActive = isActive
                 ad.price = req.body.price
                 ad.save()
-                res.render('afterPostAd',{user:req.user})
+                return res.render("afterPostAd.ejs")
             }
             else {
                 ad.isPaid = isPaid
                 ad.featured = featured
                 ad.price = req.body.price
                 ad.isActive = isActive
-                res.redirect("/sell")
+                return res.redirect("/sell")
 
             }
         })
@@ -606,9 +606,9 @@ adRouter.route('/show')
         console.log(adId)
         Ads.findOne({_id:adId},function (err,ad){
             if(err){
-                console.log(err)
+              return returnErr(res, "Error", "Our server ran into an error please try again")
             }
-            res.render('show_ad', {
+            return res.render('show_ad', {
                 ad: ad,
                 user: req.user
             });
@@ -623,7 +623,7 @@ adRouter.get('/grid_ads/c/:page',(req,res)=>{
     console.time("TotalQuery")
     Ads.find({isPaid:2, approved: true, isActive: true, 'rejected.val': false},function (err,docs){
         if(err){
-            returnErr(res, "Error", err)
+            return returnErr(res, "Error", "Our server ran into an error please try again")
         }
         let count = docs.length;
         console.log(count)
@@ -702,8 +702,7 @@ adRouter.get('/grid_ads/c/:page',(req,res)=>{
             }
         },function (err,results){
             if(err){
-                console.log(err)
-                return returnErr(res, "error", "Error")
+                return returnErr(res, "Error", "Our server ran into an error please try again")
             }
             console.log(req.params.page)
             let arr=[]
@@ -720,7 +719,7 @@ adRouter.get('/grid_ads/c/:page',(req,res)=>{
                 arr = [...results.featured,...results.normal]
             }
             console.timeEnd("TotalQuery")
-            res.send(arr)
+            return res.send(arr)
         })
     })
 })
@@ -754,7 +753,7 @@ adRouter.route('/delete')
                     User.findOneAndUpdate({_id:String(req.user._id)},{$inc:{noOfFreeAds:1}},{new: true},
                         function(err,user){
                             if(err){
-                                return res.send(err)
+                                return returnErr(res, "Error", "Our server ran into an error please try again")
                             }
                             req.user = user
                         } )
@@ -763,7 +762,7 @@ adRouter.route('/delete')
                     User.findOneAndUpdate({_id:String(req.user._id)},{$inc:{noOfPaidAds:1}},{new: true},
                         function(err,user){
                             if(err){
-                                return res.send(err)
+                                return returnErr(res, "Error", "Our server ran into an error please try again")
                             }
                             req.user = user
                         } )
@@ -772,7 +771,7 @@ adRouter.route('/delete')
                     User.findOneAndUpdate({_id:String(req.user._id)},{$inc:{noOfFeaturedAds:1}},{new: true},
                         function(err,user){
                             if(err){
-                                return res.send(err)
+                                return returnErr(res, "Error", "Our server ran into an error please try again")
                             }
                             req.user = user
                         } )
@@ -782,7 +781,7 @@ adRouter.route('/delete')
                     .then((ad) => {
                         res.statusCode = 200;
                         res.setHeader('Content-Type', 'application/json');
-                        res.json({msg: 'ad deleted'});
+                        return res.json({msg: 'ad deleted'});
                     })
                     .catch((err) => console.log(err))
             })
@@ -795,7 +794,7 @@ function isLoggedIn(req, res, next) {
         if (req.isAuthenticated()) {
             return next();
         }
-        res.redirect('/login');
+        return res.redirect('/login');
     } catch (e) {
         console.log(e);
     }
@@ -805,7 +804,7 @@ function isSeller(req,res,next){
         if (req.user.isSeller) {
             return next();
         }
-        res.send("Not a seller");
+        return res.send("Not a seller");
     } catch (e) {
         console.log(e);
     }
@@ -813,7 +812,7 @@ function isSeller(req,res,next){
 
 
 function returnErr(res,message,err){
-    res.render('error.ejs',{
+    return res.render('error.ejs',{
         message:message,
         error:err
     })
