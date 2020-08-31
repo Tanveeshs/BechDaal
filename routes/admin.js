@@ -84,7 +84,7 @@ Router.get('/ads',authenticateJWT,(req,res)=>{
 })
 Router.post('/ads/approve/:id', authenticateJWT,(req,res)=>{
     const adId = req.params.id;
-    ad.findOneAndUpdate({_id:adId},{approved:true},{new:true},function (newAd,err) {
+    ad.findOneAndUpdate({_id:adId},{approved:true},{new:true},function (err,newAd) {
         if(err){
             console.log(err)
         }
@@ -122,13 +122,13 @@ Router.post('/ads/reject/:id',authenticateJWT,(req,res)=> {
             }
             let email;
             if(newAd.user.LoginType==='Local'){
-                email = newAd.user.local.email;
+                email = result.user.local.email;
             }
             if(newAd.user.LoginType==='Google'){
-                email = newAd.user.google.email;
+                email = result.user.google.email;
             }
             if(newAd.user.LoginType==='Facebook'){
-                email = newAd.user.facebook.email;
+                email = result.user.facebook.email;
             }
             let content = `<p>Hey there ,</p>
       <p>Sorry to inform you that your ad:${result.title} on BechDaal is rejected.</p>
