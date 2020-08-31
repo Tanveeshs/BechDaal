@@ -151,7 +151,7 @@ body {
 .searchbar-items {
   display: flex;
   list-style: none;
-  margin-left: 20%;
+  margin-left: 15%;
 }
 
 .nav-item {
@@ -233,7 +233,7 @@ textarea {
 .b {
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 18px;
 }
 
 

@@ -160,7 +160,7 @@ function print_state1(state_id) {
 function print_city1(city_id, city_index) {
     var option_str = document.getElementById(city_id);
     option_str.length = 0;
-    option_str.options[0] = new Option('Select Area', '');
+    // option_str.options[0] = new Option('Select Area', '');
     option_str.selectedIndex = 0;
     var city_arr = s_a[city_index].split("|");
     for (var i = 0; i < city_arr.length; i++) {
