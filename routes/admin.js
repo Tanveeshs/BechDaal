@@ -17,15 +17,10 @@ const Storage = require('../config/cloudStorage');
 const user = require('../model/user');
 const users = [
     {
-        username:'admin',
-        password:'admin',
+        username:process.env.admin_user,
+        password:process.env.admin_pass,
         role:'admin'
     },
-    {
-        username: 'admin2',
-        password: 'admin2',
-        role: 'admin'
-    }
 ]
 const fileFilter = (req, file, cb) => {
     if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {

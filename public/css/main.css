@@ -7,17 +7,17 @@
 
 @font-face {
   font-family: Raleway-Black;
-  src: url('../fonts/raleway/Raleway-Black.ttf'); 
+  src: url('https://storage.googleapis.com/bechdaal_bucket/assets/fonts/Raleway-Black.ttf');
 }
 
 @font-face {
   font-family: Raleway-SemiBold;
-  src: url('../fonts/raleway/Raleway-SemiBold.ttf'); 
+  src: url('https://storage.googleapis.com/bechdaal_bucket/assets/fonts/Raleway-SemiBold.ttf');
 }
 
 @font-face {
   font-family: Raleway-Bold;
-  src: url('../fonts/raleway/Raleway-Bold.ttf'); 
+  src: url('https://storage.googleapis.com/bechdaal_bucket/assets/fonts/Raleway-Bold.ttf');
 }
 
 /*//////////////////////////////////////////////////////////////////

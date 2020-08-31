@@ -2,7 +2,7 @@
 <%-include('partials/sidebar')%>
 
 <head>
-    <link rel="stylesheet" href="/css/buyAds.css">
+    <link rel="stylesheet" href="https://storage.googleapis.com/bechdaal_bucket/assets/css/buyAds.css">
     <title>Buy Ads</title>
 </head>
 <form class="col-md-6" method="post" action="/payment/ad">
@@ -32,19 +32,8 @@
         </button>
     </div>
 </form>
-<script type="text/javascript">
-    function calculate(e) {
-        e.preventDefault();
-        var ft = document.getElementById('f')
-        var uft = document.getElementById('uf')
-        var qty = document.getElementById('qty').value;
-        var priceField = document.getElementById('price');
-        console.log(qty)
-        console.log(ft.checked, uft.checked)
-        var final;
-        (ft.checked ? (final = qty * 20) : (final = qty * 10));
-        priceField.innerText = "Total:- " + final;
-    }
+<script type="text/javascript" src="https://storage.googleapis.com/bechdaal_bucket/assets/js/buyAds.js">
+
 </script>
 
 <%-include('partials/footer')%>

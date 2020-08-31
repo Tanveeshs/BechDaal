@@ -1,0 +1,1 @@
+function calculate(e){e.preventDefault();var t,c=document.getElementById("f"),n=document.getElementById("uf"),l=document.getElementById("qty").value,o=document.getElementById("price");console.log(l),console.log(c.checked,n.checked),t=c.checked?20*l:10*l,o.innerText="Total:- "+t}

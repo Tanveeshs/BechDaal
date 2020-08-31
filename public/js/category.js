@@ -48,9 +48,11 @@ $.ajax({
                 delete wishlist[i]
             }
         })
+
     } else {
         $('#content').empty()
         $('#content').append(`<div style="margin: 8% 0px" class='jumbotron'>No Ads Available for the filter</div>`)
+            $('#ShowMoreButton').css('display','none')
     }
 })
 
@@ -155,6 +157,8 @@ function changeQuery() {
         } else {
             $('#content').empty()
             $('#content').append(`<div style="margin: 8% 0px" class='jumbotron'>No Ads Available for the filter</div>`)
+                $('#ShowMoreButton').css('display','none')
+
         }
     })
 }
@@ -205,6 +209,9 @@ function fireQuery() {
                 delete wishlist[i]
             }
         })
+        if(result.length===0){
+            $('#ShowMoreButton').css('display','none')
+        }
     })
 }
 
