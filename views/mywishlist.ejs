@@ -1,6 +1,13 @@
 <%-include('partials/miniheader')%>
 <%-include('partials/sidebar')%>
+<style>
+  @media (max-width: 640px) {
+    .goCorona{
+      margin-left: 0%;
+    }
 
+  }
+</style>
 
 <head>
   <title>My Wishlist</title>
@@ -12,7 +19,7 @@
     <div class="row" id="main">
       <%if (array.length==0){%>
       <center>
-        <div class="jumbotron jumbotron-fluid" style="margin-bottom:10%;margin-left: 5%;">
+        <div class="jumbotron jumbotron-fluid" style="margin-bottom:10%;margin-left: 15%">
           <div class="container">
             <h1 class="display-4">You have an empty Wishlist!</h1>
             <p class="lead">Browse some ads to add to your wishlist</p>
