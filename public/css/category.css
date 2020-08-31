@@ -128,10 +128,10 @@ body {
 .flex-container {
     display: flex;
     flex-wrap: wrap;
-  
-  }
-  
-  .one {
+
+}
+
+.one {
     background-color: #f1f1f1;
     width: 200px;
     margin: 20px 40px;
@@ -146,14 +146,14 @@ body {
     padding-right: 10px;
     box-shadow: 5px 5px 5px lightgray;
     border-radius: 10px;
-  }
-  
-  .one:hover{
+}
+
+.one:hover{
     cursor: pointer;
     border: 7px inset #76c8ff;
-    
-  }
-  .activeDot{
+
+}
+.activeDot{
     height: 14px;
     width: 14px;
     background-color: lightskyblue;
@@ -163,8 +163,8 @@ body {
     display: inline-block;
     margin-right:4px;
     cursor: pointer;
-  }
-  .unactiveDot{
+}
+.unactiveDot{
     height: 12px;
     width: 12px;
     background-color: darkgray;
@@ -174,13 +174,13 @@ body {
     border-radius: 50%;
     display: inline-block;
     cursor: pointer;
-  }
-  
-  #locAds{
+}
+
+#locAds{
     justify-content: center;
-  }
-  
-  .two {
+}
+
+.two {
     width: 400px;
     height: 280px;
     margin: 20px 20px;
@@ -190,16 +190,16 @@ body {
     line-height: 75px;
     font-size: 30px;
     border: 1px solid black;
-  }
-  .two:hover {
-      border-radius: 10px 10px 10px 10px;
-      -moz-border-radius: 10px 10px 10px 10px;
-      -webkit-border-radius: 10px 10px 10px 10px;
-      border: 4px inset #76c8ff;
-      cursor: pointer;
-  }
-  
-  .two2 {
+}
+.two:hover {
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border: 4px inset #76c8ff;
+    cursor: pointer;
+}
+
+.two2 {
     width: 400px;
     height: 280px;
     margin: 20px 20px;
@@ -208,72 +208,210 @@ body {
     line-height: 75px;
     font-size: 30px;
     border: 1px solid black;
-  }
-  .two2:hover {
-      border-radius: 10px 10px 10px 10px;
-      -moz-border-radius: 10px 10px 10px 10px;
-      -webkit-border-radius: 10px 10px 10px 10px;
-      border: 4px inset #76c8ff;
-      cursor: pointer;
-  }
-  
-  
-  .images{
-      height:120px;
-      width: 130px;
-      /* background-color: black; */
-      margin-top: 25px;
-      margin-left: 30px;
-  }
-  
-  .images2{
+}
+.two2:hover {
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border: 4px inset #76c8ff;
+    cursor: pointer;
+}
+
+
+.images{
+    height:120px;
+    width: 130px;
+    /* background-color: black; */
+    margin-top: 25px;
+    margin-left: 30px;
+}
+
+.images2{
     height:120px;
     width: 130px;
     /* background-color: black; */
     margin-top: 30px;
     margin-left:-30px;
-    
-  }
-  .icondisplay{
-      float:right;
-      padding:5px;
-  }
-  .para{
-      text-align: left;
-      padding-left: 20px;
-      font-size: 22px;
-      margin: 0px;
-      height: 35px;
-      font-family: Arial, Helvetica, sans-serif;
-  }
-  k{
-      float: right;
-      font-size: 13px;
-      padding: 5px;
-  
-  }
-  
-  .featured{
+
+}
+.icondisplay{
+    float:right;
+    padding:5px;
+}
+.para{
+    text-align: left;
+    padding-left: 20px;
+    font-size: 22px;
+    margin: 0px;
+    height: 35px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+k{
+    float: right;
+    font-size: 13px;
+    padding: 5px;
+
+}
+
+.featured{
     color: white;
-  font-weight: bold;
-  float:left;
-  background-color: #00aeff;
-  font-size:15px;
-  width:28%;
-  height:6.7vh;
-  display:flex;
-  align-items: center;
-  justify-content: center;
-  border-bottom-right-radius: 10px;
-  /*position:relative;*/
-  /*top:-60px;*/
-  /*left:70px;*/
-  text-shadow: 0.5px 0.5px 0.5px gray;
-  }
-  
-  .Img{
-      width:75px;
-      height: 75px;
-      border-radius: 35px;
-  }
-  
+    font-weight: bold;
+    float:left;
+    background-color: #00aeff;
+    font-size:15px;
+    width:28%;
+    height:6.7vh;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom-right-radius: 10px;
+    /*position:relative;*/
+    /*top:-60px;*/
+    /*left:70px;*/
+    text-shadow: 0.5px 0.5px 0.5px gray;
+}
+
+.Img{
+    width:75px;
+    height: 75px;
+    border-radius: 35px;
+}
+
+
+body {
+    font-family: 'Nunito', sans-serif;
+    margin: 0px;
+    padding: 0px;
+    height: 600px;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/*.two {*/
+/*    background-color: #ffffff;*/
+/*    width: 330px;*/
+/*    height: 250px;*/
+/*    margin: 20px 20px;*/
+/*    text-align: center;*/
+/*    line-height: 75px;*/
+/*    font-size: 30px;*/
+/*    border: 1px solid black;*/
+/*    border-radius: 5px;*/
+/*    box-shadow: 4px 4px 4px lightgray;*/
+/*}*/
+
+.wimg {
+    height: 90px;
+    width: 90px;
+    background-color: black;
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
+.icondisplay {
+    float: right;
+    padding: 5px;
+}
+
+/* side navigation menu */
+.sidebar {
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #f1f1f1;
+    position: absolute;
+    height: 70%;
+    overflow: auto;
+    box-shadow: 4px 4px 4px lightgray;
+    padding-top: 2%;
+}
+
+/* Sidebar links */
+.sidebar a {
+    display: block;
+    color: black;
+    padding: 16px;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.dropdown-btn {
+    border-style: none;
+    padding: 16px;
+    font-size: 20px;
+    font-family: 'Nunito', sans-serif;
+    outline: none;
+}
+
+.active1 {
+    background: lightblue;
+
+}
+
+/* Active/current link */
+.sidebar a.active {
+    background-color: #08c6f5;
+    color: white;
+}
+
+/* Links on mouse-over */
+.sidebar a:hover:not(.active) {
+    background-color: rgba(138, 138, 138, 0.993);
+    color: white;
+}
+
+/* Page content. The value of the margin-left property should match the value of the sidebar's width property */
+#content {
+    margin-left: 200px;
+    /* margin-bottom: 90px; */
+    padding: 16px;
+}
+
+/* On screens that are less than 700px wide, make the sidebar into a topbar */
+@media screen and (max-width: 700px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .sidebar a {
+        float: left;
+    }
+
+    div.content {
+        margin-left: 0;
+    }
+    .Cen{
+        text-align: center;
+    }
+    #content{
+        margin-left:0px;
+    }
+}
+
+/* On screens that are less than 400px, display the bar vertically, instead of horizontally */
+@media screen and (max-width: 400px) {
+    .sidebar a {
+        text-align: center;
+        float: none;
+    }
+}
+
+.dropdown-container {
+    padding: 10px;
+    font-size: 17px;
+    display: none;
+    background-color: #b4b2b2;
+    padding-left: 8px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+    float: right;
+    padding-right: 8px;
+}
