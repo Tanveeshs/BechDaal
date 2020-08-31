@@ -68,7 +68,9 @@ searchRouter.post('/main', function(req, res, next) {
       query.$and.push({$or: orArray})
     }
     if (typeof (req.body.locality) !== 'undefined') {
-      query.$and.push({deliverableAreas: req.body.locality})
+      if(req.body.locality.length>1){
+        query.$and.push({deliverableAreas: req.body.locality})
+      }
     }
     if (typeof (req.body.category) !== 'undefined') {
       query.$and.push({category: req.body.category})
@@ -114,7 +116,7 @@ searchRouter.post('/main', function(req, res, next) {
         if (err) {
           console.log(err);
         } else {
-            res.json(result);
+          res.json(result);
         }
       }).sort({price: -1}).limit(5).skip(5 * page)
     }
@@ -124,7 +126,7 @@ searchRouter.post('/main', function(req, res, next) {
         if (err) {
           console.log(err);
         } else {
-            res.json(result);
+          res.json(result);
         }
       }).sort({date_posted: -1}).limit(5).skip(5 * page)
     }
