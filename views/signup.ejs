@@ -27,9 +27,9 @@
             <label class="text-muted">You are a ?</label>
             <br />
             <div style="padding-left: 20px; ">
-              <input  type="radio" id="Seller" name="Person" value="Seller" checked>
+              <input  type="radio" id="Seller" name="Person" value="Seller" checked onchange="onSellerClick()">
               <label for="Seller" >Seller</label><br>
-              <input type="radio" id="User" name="Person" value="User" >
+              <input type="radio" id="User" name="Person" value="User" onchange="onUserClick()">
               <label for="User">User</label><br>
             </div>
           </div>
@@ -136,10 +136,8 @@ One Digit">
 
 
 <script>
-
-  $(document).ready(function(){
-    $("#Seller").click(function(){
-      $("#MobileNumber").append(`<div id='mobile' class="card mobile" >
+  function onSellerClick() {
+    $("#MobileNumber").append(`<div id='mobile' class="card" >
                                        <div class="iconContainer">
                                          <p> <i class="fa fa-2x fa-mobile" style="color: black;" aria-hidden="true"></i>
                                          </p>
@@ -151,13 +149,10 @@ One Digit">
                                        </div>
                                      </div>
 `);
-
-    });
-    $("#User").click(function(){
+  }
+    function onUserClick(){
       $("#MobileNumber").empty();
-
-    });
-  });
+    }
 </script>
 <%# <script src="https://storage.googleapis.com/bechdaal_bucket/assets/js/login-signup.js" charset="utf-8">
 </script> %>
