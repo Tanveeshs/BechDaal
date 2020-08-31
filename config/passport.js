@@ -45,6 +45,7 @@ module.exports = function(passport) {
               newUser.local.password = newUser.generateHash(password);
               if(req.body.Person==="Seller"){
                 newUser.isSeller = true
+                newUser.ContactNumber = req.body.phone
               }
               else {
                 newUser.isSeller = false;
