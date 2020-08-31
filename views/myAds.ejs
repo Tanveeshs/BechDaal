@@ -20,29 +20,29 @@
 <body>
 <div style="z-index: 5;">
 
-  <!--  <div class="spacing">-->
-  <!--    <table class="table-striped" >-->
-  <!--      <thead>-->
-  <!--      <tr>-->
-  <!--        <th scope="col" style="text-align: right">Ads left</th>-->
-  <!--      </tr>-->
-  <!--      </thead>-->
-  <!--      <tbody>-->
-  <!--      <tr>-->
-  <!--        <td>Free</td>-->
-  <!--        <td><%= user.noOfFreeAds %></td>-->
-  <!--      </tr>-->
-  <!--      <tr>-->
-  <!--        <td>Paid</td>-->
-  <!--        <td><%= user.noOfPaidAds %></td>-->
-  <!--      </tr>-->
-  <!--      <tr>-->
-  <!--        <td>Featured</td>-->
-  <!--        <td><%= user.noOfFeaturedAds %></td>-->
-  <!--      </tr>-->
-  <!--      </tbody>-->
-  <!--    </table>-->
-  <!--  </div>-->
+    <div class="spacing">
+      <table class="table-striped" >
+        <thead>
+        <tr>
+          <th scope="col" style="text-align: right">Ads left</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Free</td>
+          <td><%= user.noOfFreeAds %></td>
+        </tr>
+        <tr>
+          <td>Paid</td>
+          <td><%= user.noOfPaidAds %></td>
+        </tr>
+        <tr>
+          <td>Featured</td>
+          <td><%= user.noOfFeaturedAds %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
 
   <div class="row no-gutters" id="main">
     <%if (ads.length===0){%>
