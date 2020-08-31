@@ -24,7 +24,13 @@
             <br>
             <p class="email">
                 <span style="color:#994d00;font-weight: bold;font-size: 20px;"> Email-id:</span>
-                <span><%= user.local.email %></span>
+                <%if(user.LoginType==='Local'){%>
+                <span><%=user.local.email%></span>
+                <%}else if(user.LoginType==='Google'){%>
+                <span><%=user.google.email%></span>
+                <%} else if(user.LoginType==='Facebook'){%>
+                <span><%=user.facebook.email%></span>
+                <%}%>
             </p>
             <p class="contact">
                 <span style="color:#994d00; font-size: 20px;font-weight: bold; "> Contact No:</span>
