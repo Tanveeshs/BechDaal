@@ -10,7 +10,7 @@
   margin:50px auto;
   border:1px solid black;
   padding:10px;
-  box-shadow:3px 3px 3px gray;
+  box-shadow:3px 3px 3px lightgray;
   border-radius: 10px;
 }
 
@@ -134,6 +134,9 @@
     font-weight: bold;
 
 }
+.goCorona{
+  display:none;
+}
 k{
     float: right;
     font-size: 13px;
@@ -158,11 +161,7 @@ k{
   /*left:70px;*/
   text-shadow: 0.5px 0.5px 0.5px gray;
 }
-#upperForm{
-  width:90%;
-  padding:5%;
-  border:1px solid gray;
-}
+
 
 .Img{
     width:75px;
@@ -194,4 +193,23 @@ k{
   color:black;
   font-size: 18px;
 }
+@media (max-width:650px){
+  .goCorona{
+    display:block;
+  }
 
+    .upperForm{
+      width:90%;
+      display:flex;
+      align-items: center;
+      margin:50px auto;
+      border:1px solid gray;
+      padding:5px;
+      box-shadow:3px 3px 3px lightgray;
+      border-radius: 10px;
+      background-image: linear-gradient(rgb(18, 184, 235), lightblue); 
+  }
+  #goCoronaForm{
+    width:90%;
+  }
+}
