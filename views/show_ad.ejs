@@ -29,12 +29,12 @@
       <p>
         <span class="betterfont">
         <% if (typeof user !== "undefined") { %>
-        Seller Name:<%if(user.LoginType==='Local'){%>
-        <%=user.local.username%>
-        <%}else if(user.LoginType==='Google'){%>
-         <%=user.google.name%>
-        <%} else if(user.LoginType==='Facebook'){%>
-         <%=user.facebook.name%>
+        Seller Name:<%if(ad.user.LoginType==='Local'){%>
+        <%=ad.user.local.username%>
+        <%}else if(ad.user.LoginType==='Google'){%>
+         <%=ad.user.google.name%>
+        <%} else if(ad.user.LoginType==='Facebook'){%>
+         <%=ad.user.facebook.name%>
         <%}%>
         </span>
         <br>
