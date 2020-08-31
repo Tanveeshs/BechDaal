@@ -77,13 +77,13 @@ $('.fa-times').click(function() {
   }
   $('#cross' + currentCross).css('display', 'none');
   $('#plus' + currentCross).css('display', 'inline-block');
-  $('#blah' + currentCross).attr('src', '/images/Imagehere.jpg');
+  $('#blah' + currentCross).attr('src', 'https://storage.googleapis.com/bechdaal_bucket/assets/images/Imagehere.jpg');
   $('.vis' + currentCross).empty();
   $('.vis' + currentCross).append('<div style="position:relative"><input type="file" name="images" onchange="readURL(this);" id="fileInput"\
   hidden="hidden" class="blah' + currentCross + '"/><div style="position:absolute"><i id="cross' + currentCross + '" class="fas0 fa-times"></i>\
                     </div>\
                     <i id="plus' + currentCross + '" class="far fa-plus-square fileButton"></i><br>\
-                    <img id="blah' + currentCross + '" class="Img" src="/images/Imagehere.jpg" alt="" /><br>\
+                    <img id="blah' + currentCross + '" class="Img" src="https://storage.googleapis.com/bechdaal_bucket/assets/images/Imagehere.jpg" alt="" /><br>\
                     <span class="fileLabel"></span></div>');
 });
 
