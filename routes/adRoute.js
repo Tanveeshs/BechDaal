@@ -329,6 +329,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                         },
                         function (err) {
                             if (err) {
+                                console.log(err)
                                 return returnErr(res, "Error", "Our server ran into an error please try again")
                             } else {
                                 console.log('Images Uploaded');
@@ -371,8 +372,8 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                     }
                                 }, function (err, results) {
                                     if (err) {
-                                      return returnErr(res, "Error", "Error While Posting Ads")
-                                         console.log("Error While Posting Ads",err)
+                                        console.log("Error While Posting Ads",err)
+                                        return returnErr(res, "Error", "Error While Posting Ads")
                                     } else {
                                         console.log(results.userUpdate.user)
                                         req.user = results.userUpdate.user
