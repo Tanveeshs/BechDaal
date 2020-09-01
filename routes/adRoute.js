@@ -97,7 +97,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
         if (req.body.featured) {
             if (req.user.noOfFeaturedAds > 0) {
                 if (err) {
-                    // console.log('Error: ', err);
+                    console.log('Error: ', err);
                     res.statusCode = 400;
                     res.setHeader('Content-Type', 'application/json');
                     return res.json({
@@ -137,7 +137,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                         },
                         function (err) {
                             if (err) {
-                                // console.log(err);
+                                console.log(err);
                                 return returnErr(res, "Error", "Our server ran into an error please try again")
                             } else {
                                 console.log('Images Uploaded');
@@ -181,7 +181,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                 }, function (err, results) {
                                     if (err) {
                                       return returnErr(res, "Error", "Error While Posting Ads")
-                                        // console.log("Error While Posting Ads",err)
+                                         console.log("Error While Posting Ads",err)
                                     } else {
                                         console.log(results.userUpdate.user)
                                         req.user = results.userUpdate.user
@@ -197,7 +197,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
         } else {
             if(req.user.noOfFreeAds>0){
                 if (err) {
-                    // console.log('Error: ', err);
+                     console.log('Error: ', err);
                     res.statusCode = 400;
                     res.setHeader('Content-Type', 'application/json');
                     return res.json({
@@ -277,7 +277,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                     }
                                 }, function (err, results) {
                                     if (err) {
-                                        // console.log("Error While Posting Ads",err)
+                                         console.log("Error While Posting Ads",err)
                                         return returnErr(res, "Error", "Error While Posting Ads")
                                     } else {
                                         console.log(results.userUpdate.user)
@@ -291,7 +291,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
             }
             else if(req.user.noOfPaidAds>0){
                 if (err) {
-                    // console.log('Error: ', err);
+                     console.log('Error: ', err);
                     res.statusCode = 400;
                     res.setHeader('Content-Type', 'application/json');
                     return res.json({
@@ -329,6 +329,7 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                         },
                         function (err) {
                             if (err) {
+                                console.log(err)
                                 return returnErr(res, "Error", "Our server ran into an error please try again")
                             } else {
                                 console.log('Images Uploaded');
@@ -371,8 +372,8 @@ adRouter.post('/',isLoggedIn,isSeller,(req, res) => {
                                     }
                                 }, function (err, results) {
                                     if (err) {
-                                      return returnErr(res, "Error", "Error While Posting Ads")
-                                        // console.log("Error While Posting Ads",err)
+                                        console.log("Error While Posting Ads",err)
+                                        return returnErr(res, "Error", "Error While Posting Ads")
                                     } else {
                                         console.log(results.userUpdate.user)
                                         req.user = results.userUpdate.user
