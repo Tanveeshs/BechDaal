@@ -52,7 +52,9 @@ adRouter.use(bodyParser.json());
 adRouter.get('/', isLoggedIn,isSeller,(req, res) => {
 
     Ads.find({
-        'user._id': req.user._id
+        'user._id': req.user._id,
+        approved:true,
+        'rejected.val':false
     }, (err, ads) => {
         console.log(ads.length)
         return res.render('myAds', {
