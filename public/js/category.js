@@ -1,7 +1,7 @@
 let page = 0;
 let sorting = 3;
 $.ajax({
-    url: 'http://localhost:3000/search/main',
+    url: 'https://bechdaal.tech/search/main',
     method: 'POST',
     data: {
         isAjax: '1',
