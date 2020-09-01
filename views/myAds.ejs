@@ -10,9 +10,21 @@
   .something1 {
     margin-left: 17%;
   }
+  .space{
+      margin-left:85%;
+      width:100%
+  }
   @media (max-width: 640px) {
     .something1 {
       margin-left: 2%;
+    }
+    table{
+        margin-top: 20%;
+        margin-bottom: 20%;
+        margin-left:800%;
+    }
+    .space{
+        margin-left:0px;
     }
   }
 
@@ -20,34 +32,34 @@
 <body>
 <div style="z-index: 5;">
 
-  <!--  <div class="spacing">-->
-  <!--    <table class="table-striped" >-->
-  <!--      <thead>-->
-  <!--      <tr>-->
-  <!--        <th scope="col" style="text-align: right">Ads left</th>-->
-  <!--      </tr>-->
-  <!--      </thead>-->
-  <!--      <tbody>-->
-  <!--      <tr>-->
-  <!--        <td>Free</td>-->
-  <!--        <td><%= user.noOfFreeAds %></td>-->
-  <!--      </tr>-->
-  <!--      <tr>-->
-  <!--        <td>Paid</td>-->
-  <!--        <td><%= user.noOfPaidAds %></td>-->
-  <!--      </tr>-->
-  <!--      <tr>-->
-  <!--        <td>Featured</td>-->
-  <!--        <td><%= user.noOfFeaturedAds %></td>-->
-  <!--      </tr>-->
-  <!--      </tbody>-->
-  <!--    </table>-->
-  <!--  </div>-->
+    <div class="spacing">
+      <table class="table-striped" >
+        <thead>
+        <tr>
+          <th scope="col" style="text-align: right">Ads left</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Free</td>
+          <td><%= user.noOfFreeAds %></td>
+        </tr>
+        <tr>
+          <td>Paid</td>
+          <td><%= user.noOfPaidAds %></td>
+        </tr>
+        <tr>
+          <td>Featured</td>
+          <td><%= user.noOfFeaturedAds %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
 
   <div class="row no-gutters" id="main">
     <%if (ads.length===0){%>
-      <div style="text-align: center;">
-        <div class="jumbotron jumbotron-fluid">
+      <div>
+        <div class="jumbotron space">
           <div class="container">
             <h1 class="display-4">You have no Ads!</h1>
             <p class="lead">Visit the PostAd page to create a new one</p>
