@@ -42,6 +42,11 @@
         <span class="betterfont">
         Contact Number : <a href="tel:+91<%=ad.user.ContactNumber%>"><%= ad.user.ContactNumber %></a>
         </span>
+        <br>
+        <br>
+        <span class="betterfont">
+        Deliverable Areas</span> : <%ad.deliverableAreas.forEach((area)=>{%><%=area%>, <%})%>
+
           <% }  else {  %>
           <a href="/login">You need to login to view seller contact details</a>
         <% } %>
