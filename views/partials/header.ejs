@@ -51,21 +51,24 @@
             <!-- add navbar-toggle in class if u want that triangle -->
             <%if(user.LoginType==='Local'){%>
             <span style="font-weight:bold;">Hello</span> <%=user.local.username%>
+            <span><i class="fa fa-caret-down"></i></span>
             <%}else if(user.LoginType==='Google'){%>
             <span style="font-weight:bold;">Hello</span> <%=user.google.name%>
+            <span><i class="fa fa-caret-down"></i></span>
             <%} else if(user.LoginType==='Facebook'){%>
             <span style="font-weight:bold;">Hello</span> <%=user.facebook.name%>
+            <span><i class="fa fa-caret-down"></i></span>
             <%}%>
           </a>
           <%if (user.isSeller===true){%>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/sell" style="font-weight: bold;">Manage my Ads</a>
-            <a href="/payment/buyad" class="dropdown-item" style="font-weight: bold;">Buy Ads</a>
-            <a class="dropdown-item" href="/wish">My Wishlist</a>
-            <a class="dropdown-item" href="/myprofile">My Details</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item text-muted" href="/logout"><strong>Log Out</strong></a>
-          </div>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/sell" style="font-weight: bold;">Manage my Ads</a>
+              <a href="/payment/buyad" class="dropdown-item" style="font-weight: bold;">Buy Ads</a>
+              <a class="dropdown-item" href="/wish">My Wishlist</a>
+              <a class="dropdown-item" href="/myprofile">My Details</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item text-muted" href="/logout"><strong>Log Out</strong></a>
+            </div>
         </div>
         <li class="nav-item active" style="display: flex; cursor:pointer;" id="sellOption">
           <a href="/sell/ads/post" style='color: #ffffff'><i class="fas sellicon fa-hand-holding-usd"></i></a>
@@ -81,7 +84,8 @@
         </div>
     </div>
     <li class="nav-item active" style="display: flex; cursor:pointer;" id="sellOption">
-      <a data-toggle="modal" role="button" data-target="#exampleModalCenter" style="color: white"><i class="fas sellicon fa-hand-holding-usd"></i></a>
+      <a data-toggle="modal" role="button" data-target="#exampleModalCenter" style="color: white"><i
+          class="fas sellicon fa-hand-holding-usd"></i></a>
       <a data-toggle="modal" role="button" data-target="#exampleModalCenter" class="nav-link look"
         style="color:black; font-weight: bold;">Sell</a>
     </li>
@@ -102,10 +106,10 @@
                 Number.</p>
             </div>
             <form action="/usertoseller" method="post">
-            <div class="inputContainer" style="width:70%">
-              <label class="text-muted" style="padding-top: 10px;">Mobile Number</label>
-              <input type="tel" id="phone" name="phone" required pattern="[6789][0-9]{9}">
-            </div>
+              <div class="inputContainer" style="width:70%">
+                <label class="text-muted" style="padding-top: 10px;">Mobile Number</label>
+                <input type="tel" id="phone" name="phone" required pattern="[6789][0-9]{9}">
+              </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -140,8 +144,9 @@
           <p class="b">In</p>
           <select onchange="print_city('state', this.selectedIndex);" id="sts" name="stt" class="form-control"
             style="margin:0 5px 10px 5px"></select>
-          <select id="state" name='locality' class="form-control" style="width:210px; margin:0 5px 10px 5px" placeholder="Type Here">
-              <option value="">Select Area</option>
+          <select id="state" name='locality' class="form-control" style="width:210px; margin:0 5px 10px 5px"
+            placeholder="Type Here">
+            <option value="">Select Area</option>
           </select>
           <button type="submit" class="locationsubmit">GO!</button>
         </form>
