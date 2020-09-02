@@ -2,6 +2,9 @@
 
 <body>
     <div style="padding:10px">
+        <%if(typeof user !== 'undefined'){%>
+        <input type="hidden" value="<%=user.LoginType%>">
+        <%}%>
         <pre>
             
 Refund Policy

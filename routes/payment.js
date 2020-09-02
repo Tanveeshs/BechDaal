@@ -86,7 +86,7 @@ Router.post('/callback',function (req,res){
                         function (err,user){
                             if(err){
                                 console.log(err);
-                                return returnErr(res, "Error", "Our server ran into an error please try again")
+                                return returnErr(res, "Error", "Our server ran into an error please try again",req)
                             }
                             req.user = user;
                             res.render('afterPayment.ejs');
@@ -110,14 +110,15 @@ Router.post('/callback',function (req,res){
     }
     else {
         return returnErr(res, "Invalid Payment",
-            "Your payment hasnt been confirmed by the payment provider,Please contact support")
+            "Your payment hasnt been confirmed by the payment provider,Please contact support",req)
     }
 })
 
-function returnErr(res,message,err){
+function returnErr(res,message,err,req){
     res.render('error.ejs',{
         message:message,
-        error:err
+        error:err,
+        user:req.user
     })
 }
 

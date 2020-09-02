@@ -20,6 +20,9 @@
         <a href="/sell/ads/post" class="btn-view-orders">To Post a new ad</a>
         <a href="/">Go to Home</a>
     </div>
+    <%if(typeof user !== 'undefined'){%>
+    <input type="hidden" value="<%=user.LoginType%>">
+    <%}%>
 </div>
 </body>
 <%- include partials/footer.ejs -%>
