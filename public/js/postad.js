@@ -76,6 +76,7 @@ $.ajax({
 }).done(function(catagories) {
   console.log(catagories)
   window.categoryarray = catagories;
+  $('#category').empty();
   catagories.forEach(category => {
     $('#category').append('<option value="' + category.name + '">' + category.name + '</option>');
   });

@@ -97,7 +97,7 @@ module.exports = function(app, passport) {
             return returnErr(err, "Error", "Our server ran into an error please try again")
           } else {
             req.user = user;
-            return res.redirect('/')
+            return res.redirect('/sell/ads/post')
           }
         })
   });
