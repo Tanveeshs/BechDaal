@@ -45,10 +45,13 @@
             <!-- add navbar-toggle in class if u want that triangle -->
             <%if(user.LoginType==='Local'){%>
             <span style="font-weight:bold;">Hello</span> <%=user.local.username%>
+            <span><i class="fa fa-caret-down"></i></span>
             <%}else if(user.LoginType==='Google'){%>
             <span style="font-weight:bold;">Hello</span> <%=user.google.name%>
+            <span><i class="fa fa-caret-down"></i></span>
             <%} else if(user.LoginType==='Facebook'){%>
             <span style="font-weight:bold;">Hello</span> <%=user.facebook.name%>
+            <span><i class="fa fa-caret-down"></i></span>
             <%}%>
           </a>
           <%if (user.isSeller===true){%>
