@@ -24,7 +24,6 @@ wishlistRouter.get('/', isLoggedIn, (req, res, next) => {
                 return returnErr(res, "Error", "Our server ran into an error please try again")
             }
             console.log(err)
-            console.log(wishlist.wishlist)
             res.render('mywishlist.ejs', {
                 user: req.user,
                 array:wishlist.wishlist
