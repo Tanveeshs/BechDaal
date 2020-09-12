@@ -18,7 +18,7 @@ Router.post('/add',(req,res)=>{
                 reviews: {
                     Comment:comment,
                     by:userN,
-                }}},function (err,docs){
+                }}},function (err){
             if(err){
                 res.send('err')
             }
@@ -55,8 +55,7 @@ Router.post('/addRating',isLoggedIn,(req, res) => {
                         if(err){
                             callback(err)
                         }
-                        let newRating = (currentAd.AvgRating*currentAd.NumRated + rating)/(currentAd.NumRated+1)
-                        currentAd.AvgRating = newRating;
+                        currentAd.AvgRating = (currentAd.AvgRating * currentAd.NumRated + rating) / (currentAd.NumRated + 1);
                         currentAd.NumRated = currentAd.NumRated+1;
                         currentAd.save()
                     })
@@ -69,7 +68,6 @@ Router.post('/addRating',isLoggedIn,(req, res) => {
             })
         }
         if(a.length===1){
-            let oldRating;
             async.parallel([
                 function (callback){
                     resu.Ratings = resu.Ratings.filter(Rating=>String(Rating.adId) !== adId)
@@ -86,9 +84,7 @@ Router.post('/addRating',isLoggedIn,(req, res) => {
                         if(err){
                             callback(err)
                         }
-                        let newRating = (Number(currentAd.AvgRating)*Number(currentAd.NumRated) -Number(a[0].rating)+ Number(rating))/Number(currentAd.NumRated)
-                        console.log(newRating)
-                        currentAd.AvgRating = newRating;
+                        currentAd.AvgRating = (Number(currentAd.AvgRating) * Number(currentAd.NumRated) - Number(a[0].rating) + Number(rating)) / Number(currentAd.NumRated);
                         currentAd.save(function (err){
                             if(err){
                                 callback(err)
