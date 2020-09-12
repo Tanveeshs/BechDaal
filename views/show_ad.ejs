@@ -4,7 +4,134 @@
   <link rel="stylesheet" href="https://storage.googleapis.com/bechdaal_bucket/assets/css/showAd.css">
   <title><%=ad.title%></title>
 </head>
+<style>
 
+  .content-item {
+    padding:30px 0;
+    background-color:#FFFFFF;
+  }
+
+  .content-item.grey {
+    background-color:#F0F0F0;
+    padding:50px 0;
+    height:100%;
+  }
+
+  .content-item h2 {
+    font-weight:700;
+    font-size:35px;
+    line-height:45px;
+    text-transform:uppercase;
+    margin:20px 0;
+  }
+
+  .content-item h3 {
+    font-weight:400;
+    font-size:20px;
+    color:#555555;
+    margin:10px 0 15px;
+    padding:0;
+  }
+
+  .content-headline {
+    height:1px;
+    text-align:center;
+    margin:20px 0 70px;
+  }
+
+  .content-headline h2 {
+    background-color:#FFFFFF;
+    display:inline-block;
+    margin:-20px auto 0;
+    padding:0 20px;
+  }
+
+  .grey .content-headline h2 {
+    background-color:#F0F0F0;
+  }
+
+  .content-headline h3 {
+    font-size:14px;
+    color:#AAAAAA;
+    display:block;
+  }
+
+
+  #comments {
+    box-shadow: 0 -1px 6px 1px rgba(0,0,0,0.1);
+    background-color:#FFFFFF;
+  }
+
+  #comments form {
+    margin-bottom:30px;
+  }
+
+  #comments .btn {
+    margin-top:7px;
+  }
+
+  #comments form fieldset {
+    clear:both;
+  }
+
+  #comments form textarea {
+    height:100px;
+  }
+
+  #comments .media {
+    border-top:1px dashed #DDDDDD;
+    padding:20px 0;
+    margin:0;
+  }
+
+  #comments .media > .pull-left {
+    margin-right:20px;
+  }
+
+  #comments .media img {
+    max-width:100px;
+  }
+
+  #comments .media h4 {
+    margin:0 0 10px;
+  }
+
+  #comments .media h4 span {
+    font-size:14px;
+    float:right;
+    color:#999999;
+  }
+
+  #comments .media p {
+    margin-bottom:15px;
+    text-align:justify;
+  }
+
+  #comments .media-detail {
+    margin:0;
+  }
+
+  #comments .media-detail li {
+    color:#AAAAAA;
+    font-size:12px;
+    padding-right: 10px;
+    font-weight:600;
+  }
+
+  #comments .media-detail a:hover {
+    text-decoration:underline;
+  }
+
+  #comments .media-detail li:last-child {
+    padding-right:0;
+  }
+
+  #comments .media-detail li i {
+    color:#666666;
+    font-size:15px;
+    margin-right:10px;
+  }
+</style>
 <br>
 <br>
 <div class="container">
@@ -28,21 +155,21 @@
       <p style="font-size: 1.2rem"><pre style="font-size: large; font-family: 'Montserrat', sans-serif"><%=ad.description%></pre></p>
       <p>
         <span class="betterfont">
-        <% if (typeof user !== "undefined") { %>
-        Seller Name:<%if(ad.user.LoginType==='Local'){%>
-        <%=ad.user.local.username%>
-        <%}else if(ad.user.LoginType==='Google'){%>
-         <%=ad.user.google.name%>
-        <%} else if(ad.user.LoginType==='Facebook'){%>
-         <%=ad.user.facebook.name%>
-        <%}%>
+          <% if (typeof user !== "undefined") { %>
+          Seller Name:<%if(ad.user.LoginType==='Local'){%>
+          <%=ad.user.local.username%>
+          <%}else if(ad.user.LoginType==='Google'){%>
+          <%=ad.user.google.name%>
+          <%} else if(ad.user.LoginType==='Facebook'){%>
+          <%=ad.user.facebook.name%>
+          <%}%>
         </span>
         <br>
         <br>
         <span class="betterfont">
         Contact Number : <a href="tel:+91<%=ad.user.ContactNumber%>"><%= ad.user.ContactNumber %></a>
         </span>
-          <% }  else {  %>
+        <% }  else {  %>
           <a href="/login">You need to login to view seller contact details</a>
         <% } %>
       </p>
@@ -72,6 +199,50 @@
 
     </div>
   </div>
+  <section class="content-item" id="comments">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8">
+          <form method="post" action="/reviews/add">
+            <input type="hidden" name="adId" value="<%=ad._id%>">
+            <% if (typeof user !== "undefined") { %>
+            <%if(user.LoginType==='Local'){%>
+            <input type="hidden" name="userN" value="<%=user.local.username%>">
+            <%}else if(user.LoginType==='Google'){%>
+            <input type="hidden" name="userN" value="<%=user.google.name%>">
+            <%} else if(user.LoginType==='Facebook'){%>
+            <input type="hidden" name="userN" value="<%=user.facebook.name%>">
+            <%}%>
+            <%}%>
+            <h3 class="pull-left">Add your Review</h3>
+            <button type="submit" class="btn btn-normal pull-right">Submit</button>
+            <fieldset>
+              <div class="row">
+                <div class="form-group col-xs-12 col-sm-9 col-lg-10">
+                  <textarea class="form-control" id="message" placeholder="Your message" required="" name="comment"></textarea>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+          <h3> Comments</h3>
+          <%ad.reviews.forEach(rev=>{%>
+          <div class="media">
+            <div class="media-body">
+              <h4 class="media-heading"><%=rev.by%></h4>
+              <p><%=rev.Comment%></p>
+              <ul class="list-unstyled list-inline media-detail pull-left">
+                <li><i class="fa fa-calendar"></i><%=rev.time.toDateString()%></li>
+              </ul>
+            </div>
+          </div>
+          <%})%>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
 </div>
 <% include partials/footer.ejs%>
 <script src="https://storage.googleapis.com/bechdaal_bucket/assets/js/showad2.js"></script>

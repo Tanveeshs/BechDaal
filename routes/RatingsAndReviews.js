@@ -10,18 +10,20 @@ const mongoose = require('mongoose')
 //name ka location final karne ke baad by parameter final hoga
 Router.post('/add',(req,res)=>{
     const adId = req.body.adId;
+    const userN = req.body.userN || "Anonymous";
     const comment = req.body.comment;
     ad.findOneAndUpdate({_id:sanitize(adId)},
         {
             $push: {
                 reviews: {
                     Comment:comment,
-                    by:'Anonymous'
+                    by:userN,
                 }}},function (err,docs){
             if(err){
                 res.send('err')
             }
             else {
+                //Decide yahan kya karna hai
                 res.send('Success')
             }
         })
