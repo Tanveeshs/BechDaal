@@ -25,7 +25,7 @@ router.post('/passwordreset', function(req, res) {
   var secret = process.env.forgot_password_secret;
   if (req.body.email !== '') {
     User.findOne({
-      'local.email': sanitize(req.body.email)
+      'local.email': sanitize(req.body.email.toLowerCase())
     },{_id:1},function(err, result) {
       if (err) {
         return returnErr(res, "Error", "Our server ran into an error please try again")

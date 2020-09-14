@@ -4,10 +4,12 @@
     <div class="card spacing mx-auto">
         <h5 class="card-header">Forgot Password</h5>
         <div class="card-body">
-            <p class="card-text">Enter the email you used to create the account, and we'll send you a link.</p>
-            <input type="email" class="form-control" name="email" placeholder="Email">
-            <br>
-            <button class="btn btn-info btn-block" type="submit" value="Reset Password">Submit</button>
+            <form action="/forgot/passwordreset" method="post">
+                <p class="card-text">Enter the email you used to create the account, and we'll send you a link.</p>
+                <input type="email" class="form-control" name="email" placeholder="Email">
+                <br>
+                <button class="btn btn-info btn-block" type="submit" value="Reset Password">Submit</button>
+            </form>
         </div>
     </div>
 </div>
