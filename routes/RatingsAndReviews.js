@@ -10,18 +10,20 @@ const mongoose = require('mongoose')
 //name ka location final karne ke baad by parameter final hoga
 Router.post('/add',(req,res)=>{
     const adId = req.body.adId;
+    const userN = req.body.userN || "Anonymous";
     const comment = req.body.comment;
     ad.findOneAndUpdate({_id:sanitize(adId)},
         {
             $push: {
                 reviews: {
                     Comment:comment,
-                    by:'Anonymous'
-                }}},function (err,docs){
+                    by:userN,
+                }}},function (err){
             if(err){
                 res.send('err')
             }
             else {
+                //Decide yahan kya karna hai
                 res.send('Success')
             }
         })
@@ -53,8 +55,7 @@ Router.post('/addRating',isLoggedIn,(req, res) => {
                         if(err){
                             callback(err)
                         }
-                        let newRating = (currentAd.AvgRating*currentAd.NumRated + rating)/(currentAd.NumRated+1)
-                        currentAd.AvgRating = newRating;
+                        currentAd.AvgRating = (currentAd.AvgRating * currentAd.NumRated + rating) / (currentAd.NumRated + 1);
                         currentAd.NumRated = currentAd.NumRated+1;
                         currentAd.save()
                     })
@@ -67,7 +68,6 @@ Router.post('/addRating',isLoggedIn,(req, res) => {
             })
         }
         if(a.length===1){
-            let oldRating;
             async.parallel([
                 function (callback){
                     resu.Ratings = resu.Ratings.filter(Rating=>String(Rating.adId) !== adId)
@@ -84,9 +84,7 @@ Router.post('/addRating',isLoggedIn,(req, res) => {
                         if(err){
                             callback(err)
                         }
-                        let newRating = (Number(currentAd.AvgRating)*Number(currentAd.NumRated) -Number(a[0].rating)+ Number(rating))/Number(currentAd.NumRated)
-                        console.log(newRating)
-                        currentAd.AvgRating = newRating;
+                        currentAd.AvgRating = (Number(currentAd.AvgRating) * Number(currentAd.NumRated) - Number(a[0].rating) + Number(rating)) / Number(currentAd.NumRated);
                         currentAd.save(function (err){
                             if(err){
                                 callback(err)
