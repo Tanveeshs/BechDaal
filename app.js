@@ -19,7 +19,6 @@ mongoose.connect(configDB.url, {
     useUnifiedTopology: true,
     useFindAndModify:false
 });
-mongoose.set('debug',true)
 
 const PORT = process.env.PORT || 8080;
 require('./config/passport')(passport);
