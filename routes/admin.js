@@ -116,13 +116,13 @@ Router.post('/ads/reject/:id',authenticateJWT,(req,res)=> {
                 console.log("Error Occurred")
             }
             let email;
-            if(newAd.user.LoginType==='Local'){
+            if(result.user.LoginType==='Local'){
                 email = result.user.local.email;
             }
-            if(newAd.user.LoginType==='Google'){
+            if(result.user.LoginType==='Google'){
                 email = result.user.google.email;
             }
-            if(newAd.user.LoginType==='Facebook'){
+            if(result.user.LoginType==='Facebook'){
                 email = result.user.facebook.email;
             }
             let content = `<p>Hey there ,</p>
