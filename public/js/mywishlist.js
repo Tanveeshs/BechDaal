@@ -34,8 +34,7 @@ $.ajax({
                   <div class='card-body'>\
                     <center><img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'></center>\
                     <br>\
-                    <label for='title' class='text'>Title</label>\
-                    <label for='' class='label-text'>" + s[i].title + "</label>\
+                    <label for='' class='label-text'>" + convertTitle(s[i].title) + "</label>\
                     <br>\
                     <label for='title'>Date posted</label>\
                     <label for='' class='label-text'>" + new Date(s[i].date_posted).toDateString() + "</label>\
@@ -56,8 +55,7 @@ $.ajax({
                   <div class='card-body'>\
                     <center><img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'></center>\
                     <br>\
-                    <label for='title' class='text'>Title</label>\
-                    <label for='' class='label-text'>" + s[i].title + "</label>\
+                    <label for='' class='label-text'>" + convertTitle(s[i].title) + "</label>\
                     <br>\
                     <label for='title'>Date posted</label>\
                     <label for='' class='label-text'>" + new Date(s[i].date_posted).toDateString() + "</label>\
@@ -78,8 +76,7 @@ $.ajax({
                   <div class='card-body'>\
                     <center><img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'></center>\
                     <br>\
-                    <label for='title' class='text'>Title</label>\
-                    <label for='' class='label-text'>" + s[i].title + "</label>\
+                    <label for='' class='label-text'>" + convertTitle(s[i].title) + "</label>\
                     <br>\
                     <label for='title'>Date posted</label>\
                     <label for='' class='label-text'>" + new Date(s[i].date_posted).toDateString() + "</label>\
@@ -125,8 +122,7 @@ next.addEventListener('click', () => {
                   <div class='card-body'>\
                     <center><img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'></center>\
                     <br>\
-                    <label for='title' class='text'>Title</label>\
-                    <label for='' class='label-text'>" + s[i].title + "</label>\
+                    <label for='' class='label-text'>" + convertTitle(s[i].title) + "</label>\
                     <br>\
                     <label for='title'>Date posted</label>\
                     <label for='' class='label-text'>" + new Date(s[i].date_posted).toDateString() + "</label>\
@@ -147,8 +143,7 @@ next.addEventListener('click', () => {
                   <div class='card-body'>\
                     <center><img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'></center>\
                     <br>\
-                    <label for='title' class='text'>Title</label>\
-                    <label for='' class='label-text'>" + s[i].title + "</label>\
+                    <label for='' class='label-text'>" + convertTitle(s[i].title) + "</label>\
                     <br>\
                     <label for='title'>Date posted</label>\
                     <label for='' class='label-text'>" + new Date(s[i].date_posted).toDateString() + "</label>\
@@ -169,8 +164,7 @@ next.addEventListener('click', () => {
                   <div class='card-body'>\
                     <center><img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'></center>\
                     <br>\
-                    <label for='title' class='text'>Title</label>\
-                    <label for='' class='label-text'>" + s[i].title + "</label>\
+                    <label for='' class='label-text'>" + convertTitle(s[i].title) + "</label>\
                     <br>\
                     <label for='title'>Date posted</label>\
                     <label for='' class='label-text'>" + new Date(s[i].date_posted).toDateString() + "</label>\
@@ -205,8 +199,7 @@ previous.addEventListener('click', () => {
                     <div class='card-body'>\
                       <center><img class='Img mx-auto' style='text-align: center;' src='" + s[i].cover_photo + "' alt='" + s[i].cover_photo + "'></center>\
                       <br>\
-                      <label for='title' class='text'>Title</label>\
-                      <label for='' class='label-text'>" + s[i].title + "</label>\
+                      <label for='' class='label-text'>" + convertTitle(s[i].title) + "</label>\
                       <br>\
                       <label for='title'>Date posted</label>\
                       <label for='' class='label-text'>" + new Date(s[i].date_posted).toDateString() + "</label>\
@@ -228,4 +221,16 @@ function openAd(input) {
     console.log("Hit")
     form.submit()
 
+}
+
+function convertTitle(title) {
+    let newTitle;
+    if (title.length > 15) {
+        newTitle = title.slice(0, 15);
+        newTitle = newTitle.concat('...')
+        return newTitle
+    }
+    else {
+        return title
+    }
 }

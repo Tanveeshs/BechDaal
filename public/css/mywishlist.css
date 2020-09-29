@@ -1,8 +1,11 @@
 .car {
     width: 80%;
     border-radius: 25px 25px 0px 25px;
-    border: none;
-    background-color: #db582d;
+    border: orange solid 4px;
+    background-color: #ffffff;
+}
+.car:hover{
+    transform: scale(1.05);
 }
 
 .Img {
@@ -12,6 +15,7 @@
 
 .text {
     margin: 12px 0px;
+    color:blue;
 }
 
 .paddings {
@@ -20,10 +24,10 @@
 }
 
 .label-text {
-    margin: 10px 0px 10px 30px;
-    background-color: #ff6666;
+    margin: 00px 0px 00px 0px;
+    color: orangered;
     border-radius: 25px;
-    padding: 0px 10px;
+    padding: 0px 20px;
 }
 
 .remove {
