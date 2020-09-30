@@ -24,7 +24,7 @@ body {
     padding: 10px;
     display: flex;
     flex-direction: row;
-    margin-top: 2px;
+    margin-top: 3%;
 }
 
 label {
@@ -39,8 +39,9 @@ label {
 }
 
 .card3 {
-    margin-top: 40px;
-    width:70%;
+    width:75%;
+    margin-top:6%;
+    float:left;
 }
 
 .card4 {
@@ -55,15 +56,18 @@ label {
 }
 
 .signupBtn {
-    background-color: rgb(50, 156, 226);
+    background-color: rgb(62, 170, 241);
     font-weight: bold;
     text-transform: uppercase;
     font-size: larger;
     color: #fffafa;
     letter-spacing: 1px;
     cursor: pointer;
-    margin-left:100px;
     border:none;
+    padding-top: 4%;
+    padding-bottom: 4%;
+    width:85%;
+    border-radius: 10px;
 }
 
 .signupBtn:hover {
