@@ -30,14 +30,12 @@ $.ajax({
             let date = new Date(s[i].date_posted).toDateString()
             if(s.length===1){
                 $(".mainContent").append(
-                    "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-sm-12 paddings' style='width:500px;height:500px;' >\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> " +
+                    "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-sm-12 paddings' style='width:500px;height:500px;' >\<div class='card text-white car mx-auto'> <div class='card-body'> " +
                     "<center><img class='Img mx-auto' style='' src='"+s[i].cover_photo+"' /> </center>\
                     <br />\
-                    <label for='title' class='text'>Title</label>\
                     <label for='' class='label-text'>"+convertTitle(s[i].title)+"\
                     </label>\
                     <br />\
-                    <label for='title'>Date posted</label>\
                     <label for='' class='label-text'>"+date+"</label>\
                     <form method='POST' id='form"+s[i]._id+"' action='/sell/editad/view'>\
                     <input type='hidden' name='adid' value='"+s[i]._id+"'>\
@@ -49,14 +47,12 @@ $.ajax({
             }
             if(s.length===2){
                 $(".mainContent").append(
-                    "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-md-6 col-sm-12 paddings' style='width:500px;height:500px;' >\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> " +
+                    "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-md-6 col-sm-12 paddings' style='width:500px;height:500px;' >\<div class='card text-white car mx-auto'> <div class='card-body'> " +
                     "<center><img class='Img mx-auto' style='' src='"+s[i].cover_photo+"' /> </center>\
                     <br />\
-                    <label for='title' class='text'>Title</label>\
                     <label for='' class='label-text'>"+convertTitle(s[i].title)+"\
                     </label>\
                     <br />\
-                    <label for='title'>Date posted</label>\
                     <label for='' class='label-text'>"+date+"</label>\
                     <form method='POST' id='form"+s[i]._id+"' action='/sell/editad/view'>\
                     <input type='hidden' name='adid' value='"+s[i]._id+"'>\
@@ -68,14 +64,12 @@ $.ajax({
             }
             if(s.length===3){
                 $(".mainContent").append(
-                    "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-md-4 col-sm-12 paddings' style='width:500px;height:500px;' >\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> " +
+                    "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-md-4 col-sm-12 paddings' style='width:500px;height:500px;' >\<div class='card text-white car mx-auto'> <div class='card-body'> " +
                     "<center><img class='Img mx-auto' style='' src='"+s[i].cover_photo+"' /> </center>\
                     <br />\
-                    <label for='title' class='text'>Title</label>\
                     <label for='' class='label-text'>"+convertTitle(s[i].title)+"\
                     </label>\
                     <br />\
-                    <label for='title'>Date posted</label>\
                     <label for='' class='label-text'>"+date+"</label>\
                     <form method='POST' id='form"+s[i]._id+"' action='/sell/editad/view'>\
                     <input type='hidden' name='adid' value='"+s[i]._id+"'>\
@@ -110,14 +104,12 @@ next.addEventListener('click', () => {
             let date = new Date(s[i].date_posted).toDateString()
             if(s.length===1){
                 $(".mainContent").append(
-                    "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-sm-12 paddings' style='width:500px;height:500px;' >\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> " +
+                    "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-sm-12 paddings' style='width:500px;height:500px;' >\<div class='card text-white car mx-auto'> <div class='card-body'> " +
                     "<center><img class='Img mx-auto' style='' src='"+s[i].cover_photo+"' /> </center>\
                     <br />\
-                    <label for='title' class='text'>Title</label>\
                     <label for='' class='label-text'>"+convertTitle(s[i].title)+"\
                     </label>\
                     <br />\
-                    <label for='title'>Date posted</label>\
                     <label for='' class='label-text'>"+date+"</label>\
                     <form method='POST' id='form"+s[i]._id+"' action='/sell/editad/view'>\
                     <input type='hidden' name='adid' value='"+s[i]._id+"'>\
@@ -129,14 +121,12 @@ next.addEventListener('click', () => {
             }
             if(s.length===2){
                 $(".mainContent").append(
-                    "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-md-6 col-sm-12 paddings' style='width:500px;height:500px;' >\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> " +
+                    "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-md-6 col-sm-12 paddings' style='width:500px;height:500px;' >\<div class='card  text-white car mx-auto'> <div class='card-body'> " +
                     "<center><img class='Img mx-auto' style='' src='"+s[i].cover_photo+"' /> </center>\
                     <br />\
-                    <label for='title' class='text'>Title</label>\
                     <label for='' class='label-text'>"+convertTitle(s[i].title)+"\
                     </label>\
                     <br />\
-                    <label for='title'>Date posted</label>\
                     <label for='' class='label-text'>"+date+"</label>\
                     <form method='POST' id='form"+s[i]._id+"' action='/sell/editad/view'>\
                     <input type='hidden' name='adid' value='"+s[i]._id+"'>\
@@ -148,14 +138,12 @@ next.addEventListener('click', () => {
             }
             if(s.length===3){
                 $(".mainContent").append(
-                    "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-md-4 col-sm-12 paddings' style='width:500px;height:500px;' >\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> " +
+                    "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-md-4 col-sm-12 paddings' style='width:500px;height:500px;' >\<div class='card text-white car mx-auto'> <div class='card-body'> " +
                     "<center><img class='Img mx-auto' style='' src='"+s[i].cover_photo+"' /> </center>\
                     <br />\
-                    <label for='title' class='text'>Title</label>\
                     <label for='' class='label-text'>"+convertTitle(s[i].title)+"\
                     </label>\
                     <br />\
-                    <label for='title'>Date posted</label>\
                     <label for='' class='label-text'>"+date+"</label>\
                     <form method='POST' id='form"+s[i]._id+"' action='/sell/editad/view'>\
                     <input type='hidden' name='adid' value='"+s[i]._id+"'>\
@@ -182,14 +170,12 @@ previous.addEventListener('click', () => {
         for (let i = 0; i < 3; i++) {
             let date = new Date(s[i].date_posted).toDateString()
             $(".mainContent").append(
-                "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-md-4 col-sm-12 paddings' style='width:500px;height:500px;' >\<div class='card bg-danger text-white car mx-auto'> <div class='card-body'> " +
+                "<div id='"+s[i]._id+"' onclick='editad1(this)' class='col-md-4 col-sm-12 paddings' style='width:500px;height:500px;' >\<div class='card text-white car mx-auto'> <div class='card-body'> " +
                 "<center><img class='Img mx-auto' style='' src='"+s[i].cover_photo+"' /> </center>\
                     <br />\
-                    <label for='title' class='text'>Title</label>\
                     <label for='' class='label-text'>"+convertTitle(s[i].title)+"\
                     </label>\
                     <br />\
-                    <label for='title'>Date posted</label>\
                     <label for='' class='label-text'>"+date+"</label>\
                     <form method='POST' id='form"+s[i]._id+"' action='/sell/editad/view'>\
                     <input type='hidden' name='adid' value='"+s[i]._id+"'>\

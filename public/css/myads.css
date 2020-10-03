@@ -1,9 +1,16 @@
 .car {
   width: 270px;
-  height: 350px;
-  border-radius: 25px;
-  cursor: pointer;
+  height: 300px;
+  border-radius: 20px;
+  /* cursor: pointer; */
+  border: orange solid 4px;	   
+  background-color: #ffffff;
 }
+
+
+.car:hover{
+  transform: scale(1.05);
+}	
 
 .Img {
   max-width: 205px;
@@ -12,6 +19,7 @@
 
 .text {
   margin: 10px 0px;
+  /* color:#77caea; */
 }
 
 .paddings {
@@ -19,7 +27,7 @@
 }
 
 .label-text {
-  margin: 10px 0px 10px 30px;
+  margin-top: 10px;
   background-color: #ff6666;
   border-radius: 25px;
   padding: 0px 10px;
