@@ -32,7 +32,7 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 // noinspection JSCheckFunctionSignatures
 app.use(session({
-    secret: 'BechDaal'
+    secret: 'BechDaa1l'
 }));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
